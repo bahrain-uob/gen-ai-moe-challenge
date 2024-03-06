@@ -1,5 +1,5 @@
 Name: DeployToProd
-SchemaVersion: '1.0'
+SchemaVersion: "1.0"
 
 # Optional - Set automatic triggers.
 Triggers:
@@ -37,5 +37,5 @@ Actions:
     Environment:
       Connections:
         - Role: CodeCatalystWorkflowDevelopmentRole-AWS-CIC-23-24-Test
-          Name: '888641773886'
+          Name: "888641773886"
       Name: Prod
