@@ -1,4 +1,3 @@
-
 ## DB Schema / Model
 
 The system main DB schema was designed using [DBML](https://dbml.dbdiagram.io/home/) ([docs](https://dbml.dbdiagram.io/docs/)) either on [dbdiagram.io](http://dbdiagram.io) or locally on [vscode](https://marketplace.visualstudio.com/items?itemName=duynvu.dbml-language), the resulting documentation is embedded below and can be accessed [here](https://dbdocs.io/hamadsuniverse/Ecommerce).

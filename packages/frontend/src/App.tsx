@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState("")
+  const [count, setCount] = useState('');
 
   function onClick() {
     console.log(import.meta.env.VITE_API_URL);
     fetch(import.meta.env.VITE_API_URL, {
-      method: "POST",
+      method: 'POST',
     })
-      .then((response) => response.text())
+      .then(response => response.text())
       .then(setCount);
   }
 
@@ -27,9 +27,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={onClick}>
-          count is {count ? count : "unknown"}
-        </button>
+        <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -38,7 +36,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

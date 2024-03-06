@@ -1,5 +1,5 @@
-import { DynamoDB } from "aws-sdk";
-import { Table } from "sst/node/table";
+import { DynamoDB } from 'aws-sdk';
+import { Table } from 'sst/node/table';
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
@@ -9,7 +9,7 @@ export async function main() {
     TableName: Table.Counter.tableName,
     // Get the row where the counter is called "clicks"
     Key: {
-      counter: "clicks",
+      counter: 'clicks',
     },
   };
   const results = await dynamoDb.get(getParams).promise();
@@ -21,13 +21,13 @@ export async function main() {
   const putParams = {
     TableName: Table.Counter.tableName,
     Key: {
-      counter: "clicks",
+      counter: 'clicks',
     },
     // Update the "tally" column
-    UpdateExpression: "SET tally = :count",
+    UpdateExpression: 'SET tally = :count',
     ExpressionAttributeValues: {
       // Increase the count
-      ":count": ++count,
+      ':count': ++count,
     },
   };
   await dynamoDb.update(putParams).promise();
