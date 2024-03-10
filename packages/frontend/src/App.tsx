@@ -33,7 +33,13 @@ function App() {
           <code>src/App.tsx</code> and save to test HMR
           Farha Alsada <code>src/App.tsx</code> and save to test HMR
         </p>
+ 7-ali-feature-index-page
+        <p>
+          Ali Edit
+        </p>
+
         <p> Sayed Ahmed was here </p>
+      main
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
