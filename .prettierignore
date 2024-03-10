@@ -1,2 +1,3 @@
 **/*.yaml
 **/*.md
+packages/frontend/src/sst-env.d.ts
