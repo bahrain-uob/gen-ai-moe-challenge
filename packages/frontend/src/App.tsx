@@ -29,6 +29,8 @@ function App() {
       <div className="card">
         <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
+          <p>Dana was here</p>
+          <code>src/App.tsx</code> and save to test HMR
           Farha Alsada <code>src/App.tsx</code> and save to test HMR
         </p>
         <p> Sayed Ahmed was here </p>
