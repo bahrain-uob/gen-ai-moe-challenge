@@ -20,5 +20,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.540.0"
+  }
 }
