@@ -3,7 +3,8 @@ import { Table, StackContext, RDS } from 'sst/constructs';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
-import { Fn } from 'aws-cdk-lib';
+import { Fn, listMapper } from 'aws-cdk-lib';
+import AWS from 'aws-sdk';
 
 export function DBStack({ stack, app }: StackContext) {
   // Create a DynamoDB table
@@ -13,6 +14,46 @@ export function DBStack({ stack, app }: StackContext) {
     },
     primaryIndex: { partitionKey: 'counter' },
   });
+
+
+  const MyReadingExamsTable = new Table(stack, 'MyReadingExamsTable', {
+    fields: {
+      examID: 'number',
+      uploadDate:'string',
+      examPublishDate: 'string',
+      review: 'number',
+      numberOfTestsTaken:'number',
+      passages:'string',
+    },
+    primaryIndex: { partitionKey: 'examID' },
+  });
+
+
+  const MyReadingQuestionsTable = new Table(stack, 'MyReadingQuestionsTable', {
+    fields: {
+      questionID: 'number',
+      examID: 'number',
+      questionText: 'string',
+      correctAnswer: 'string',
+      choices:'string',
+    },
+    primaryIndex: { partitionKey: 'questionID', sortKey:'examID' },
+  });
+
+  
+  const MyReadingResponsesTable = new Table(stack, 'MyReadingResponsesTable', {
+    fields: {
+      responseID: 'number',
+      questionID: 'number',
+      examID: 'number',
+      studentAnswer:'string',
+      score: 'number',
+    },
+    primaryIndex: { partitionKey: 'responseID' },
+  });
+
+
+
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
@@ -67,5 +108,5 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
-  return { table };
+  return { table, MyReadingExamsTable, MyReadingQuestionsTable, MyReadingResponsesTable };
 }
