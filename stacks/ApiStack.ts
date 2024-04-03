@@ -19,9 +19,10 @@ export function ApiStack({ stack }: StackContext) {
       'POST /': 'packages/functions/src/lambda.main',
       'POST /writing': {
         function: {
-          handler: "packages/functions/src/writing.handler",
-          permissions: ["bedrock:InvokeModel"],
-        }}, //testing bedrock api for writing
+          handler: 'packages/functions/src/writing.main',
+          permissions: ['bedrock:InvokeModel'],
+        },
+      }, //testing bedrock api for writing
       // Sample Pyhton lambda function
       'GET /': {
         function: {
