@@ -2,7 +2,6 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import { Link } from 'react-router-dom';
 
 function App() {
   const [count, setCount] = useState('');
@@ -30,7 +29,9 @@ function App() {
       <div className="card">
         <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
-          <Link to="/writing"> Writing grading demo </Link>
+          <p>Dana was here</p>
+          <code>src/App.tsx</code> and save to test HMR
+          Farha Alsada <code>src/App.tsx</code> and save to test HMR
         </p>
         <p> Sayed Ahmed was here </p>
       </div>
