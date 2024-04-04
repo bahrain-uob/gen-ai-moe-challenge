@@ -29,72 +29,12 @@ export function DBStack({ stack, app }: StackContext) {
       correctAnswer: 'string',
       choices:'string'
     },
-    primaryIndex: { partitionKey: 'questionID', sortKey:'examID' },
+    primaryIndex: { partitionKey: 'examID', sortKey:'questionID' },
   });
 
   
   const dynamodb = new AWS.DynamoDB.DocumentClient();
   
-  // Function to add an exam to the readingExamsTable
-const addExam = async (exam: { examID: string; uploadDate: string; examPublishDate: string; review: string; numberOfTestsTaken: string; }) => {
-  try {
-    const params = {
-      TableName: 'MyReadingExamsTable',
-      Item: exam,
-    };
-
-    await dynamodb.put(params).promise();
-    console.log('Exam added successfully');
-  } catch (error) {
-    console.error('Failed to add exam:', error);
-  }
-};
-
-// Function to add a question to the readingQuestionsTable
-const addQuestion = async (question: { questionID: string; examID: string; questionText: string; correctAnswer: string; }) => {
-  try {
-    const params = {
-      TableName: 'MyReadingQuestionsTable',
-      Item: question,
-    };
-
-    await dynamodb.put(params).promise();
-    console.log('Question added successfully');
-  } catch (error) {
-    console.error('Failed to add question:', error);
-  }
-};
-
-// Add random exams to the readingExamsTable
-for (let i = 1; i <= 10; i++) {
-  const exam = {
-    examID: i.toString(),
-    uploadDate: '2022-01-01',
-    examPublishDate: '2022-01-02',
-    review: (Math.floor(Math.random() * 5) + 1).toString(),
-    numberOfTestsTaken: (Math.floor(Math.random() * 100) + 1).toString(),
-  };
-
-  addExam(exam);
-}
-
-// Add random questions related to the exams in the readingQuestionsTable
-for (let i = 1; i <= 10; i++) {
-  for (let j = 1; j <= 5; j++) {
-    const question = {
-      questionID: j.toString(),
-      examID: i.toString(),
-      questionText: `Question ${j} for Exam ${i}`,
-      correctAnswer: 'Option A',
-    };
-
-    addQuestion(question);
-  }
-}
-
-
-
-
 
   const readingResponsesTable = new Table(stack, 'MyReadingResponsesTable', {
     fields: {
