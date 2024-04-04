@@ -7,41 +7,96 @@ import { Fn, listMapper } from 'aws-cdk-lib';
 import AWS from 'aws-sdk';
 
 export function DBStack({ stack, app }: StackContext) {
-  // Create a DynamoDB table
-  const table = new Table(stack, 'Counter', {
-    fields: {
-      counter: 'string',
-    },
-    primaryIndex: { partitionKey: 'counter' },
-  });
 
-
-  const MyReadingExamsTable = new Table(stack, 'MyReadingExamsTable', {
+  const readingExamsTable = new Table(stack, 'MyReadingExamsTable', {
     fields: {
       examID: 'number',
       uploadDate:'string',
       examPublishDate: 'string',
       review: 'number',
       numberOfTestsTaken:'number',
-      passages:'string',
     },
     primaryIndex: { partitionKey: 'examID' },
   });
 
+  
 
-  const MyReadingQuestionsTable = new Table(stack, 'MyReadingQuestionsTable', {
+  const readingQuestionsTable = new Table(stack, 'MyReadingQuestionsTable', {
     fields: {
       questionID: 'number',
       examID: 'number',
       questionText: 'string',
       correctAnswer: 'string',
-      choices:'string',
+      choices:'string'
     },
     primaryIndex: { partitionKey: 'questionID', sortKey:'examID' },
   });
 
   
-  const MyReadingResponsesTable = new Table(stack, 'MyReadingResponsesTable', {
+  const dynamodb = new AWS.DynamoDB.DocumentClient();
+  
+  // Function to add an exam to the readingExamsTable
+const addExam = async (exam: { examID: string; uploadDate: string; examPublishDate: string; review: string; numberOfTestsTaken: string; }) => {
+  try {
+    const params = {
+      TableName: 'MyReadingExamsTable',
+      Item: exam,
+    };
+
+    await dynamodb.put(params).promise();
+    console.log('Exam added successfully');
+  } catch (error) {
+    console.error('Failed to add exam:', error);
+  }
+};
+
+// Function to add a question to the readingQuestionsTable
+const addQuestion = async (question: { questionID: string; examID: string; questionText: string; correctAnswer: string; }) => {
+  try {
+    const params = {
+      TableName: 'MyReadingQuestionsTable',
+      Item: question,
+    };
+
+    await dynamodb.put(params).promise();
+    console.log('Question added successfully');
+  } catch (error) {
+    console.error('Failed to add question:', error);
+  }
+};
+
+// Add random exams to the readingExamsTable
+for (let i = 1; i <= 10; i++) {
+  const exam = {
+    examID: i.toString(),
+    uploadDate: '2022-01-01',
+    examPublishDate: '2022-01-02',
+    review: (Math.floor(Math.random() * 5) + 1).toString(),
+    numberOfTestsTaken: (Math.floor(Math.random() * 100) + 1).toString(),
+  };
+
+  addExam(exam);
+}
+
+// Add random questions related to the exams in the readingQuestionsTable
+for (let i = 1; i <= 10; i++) {
+  for (let j = 1; j <= 5; j++) {
+    const question = {
+      questionID: j.toString(),
+      examID: i.toString(),
+      questionText: `Question ${j} for Exam ${i}`,
+      correctAnswer: 'Option A',
+    };
+
+    addQuestion(question);
+  }
+}
+
+
+
+
+
+  const readingResponsesTable = new Table(stack, 'MyReadingResponsesTable', {
     fields: {
       responseID: 'number',
       questionID: 'number',
@@ -108,5 +163,5 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
-  return { table, MyReadingExamsTable, MyReadingQuestionsTable, MyReadingResponsesTable };
+  return { readingExamsTable, readingQuestionsTable, readingResponsesTable };
 }

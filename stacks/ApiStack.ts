@@ -4,8 +4,7 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table } = use(DBStack);
-
+  const { readingExamsTable } = use(DBStack);
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
@@ -18,53 +17,13 @@ export function ApiStack({ stack }: StackContext) {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
       // Sample Pyhton lambda function
-
-      'GET /': 'packages/functions/src/readingQuestionRetrieverLambda.main',
-
-      //'GET /reading/questions/{examID}': 'packages/functions/src/readingQuestionRetrieverLambda.lambda_handler',
-
-      /*
-      'POST /reading/answers': {
+      'GET /': {
         function: {
-          handler: 'packages/functions/src/readingGradingLambda.lambda_handler',
+          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
           runtime: 'python3.11',
           timeout: '60 seconds',
         },
-        request: {
-          contentType: 'application/json',
-          body: {
-            examID: "$input.path('$.examID')",
-            questionID: "$input.path('$.questionID')",
-            studentAnswer: "$input.path('$.studentAnswer')",
-            score: "$input.path('$.score')"
-          },
-        },
-        response: {
-          contentType: 'application/json',
-          template: `
-            {
-              "message": "Success",
-              "examID": "$input.path('$.examID')",
-              "questionID": "$input.path('$.questionID')",
-              "studentAnswer": "$input.path('$.studentAnswer')",
-              "score": "$input.path('$.score')"
-            }
-          `,
-        },
       },
-      */
-
-      //'POST /reading/answers': 'packages/functions/src/gradingLambda.functionName',
-      /*
-      'POST /reading/answers': {
-      Content-Type: application/json
-      {
-        "answer": ["Option A"],
-        "correct_answers": ["Option A", "Option C"],
-        "exam_id": "exam123"
-      }
-    }
-*/
     },
   });
 
