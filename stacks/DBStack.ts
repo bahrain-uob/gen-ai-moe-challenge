@@ -10,7 +10,7 @@ export function DBStack({ stack, app }: StackContext) {
 
   const readingExamsTable = new Table(stack, 'MyReadingExamsTable', {
     fields: {
-      examID: 'number',
+      examID: 'string',
       uploadDate:'string',
       examPublishDate: 'string',
       review: 'number',

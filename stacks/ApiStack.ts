@@ -6,27 +6,24 @@ import { Duration } from 'aws-cdk-lib/core';
 export function ApiStack({ stack }: StackContext) {
   const { readingExamsTable } = use(DBStack);
   // Create the HTTP API
-  const api = new Api(stack, 'Api', {
-    defaults: {
-      function: {
-        // Bind the table name to our API
-        bind: [table],
-      },
-    },
-    routes: {
-      // Sample TypeScript lambda function
-      'POST /': 'packages/functions/src/lambda.main',
-      // Sample Pyhton lambda function
-      'GET /': {
-        function: {
-          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
-          runtime: 'python3.11',
-          timeout: '60 seconds',
-        },
-      },
-    },
-  });
-
+  const api = new Api(stack, "readingApi", {
+      defaults: {
+        function: {
+          environment: {
+            TABLE_NAME: readingExamsTable.tableName,
+          },
+        },
+      },
+     
+      routes: {
+        "GET /reading/questions": "./packages/functions/src/readingfromdb.handler",
+        "POST /reading/questions": "./packages/functions/src/creatingtest.handler",
+      },
+    });
+     
+    api.attachPermissions([readingExamsTable]);
+     
+   
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj
   const apiCachePolicy = new CachePolicy(stack, 'CachePolicy', {
