@@ -81,7 +81,7 @@ const requestLangTool = async (r: Request) => {
         `Unable to Fetch Data // Response Code: ` + response.status,
       );
     }
-    var data: any = await response.json();
+    let data: response = JSON.parse(await response.text());
     return data;
   } catch (error) {
     console.error('Some Error Occured:', error);
@@ -94,8 +94,7 @@ export async function main() {
     text: 'This is an test.',
   } as Request;
 
-  const result: response = await requestLangTool(myRequest);
-  console.log("🚀 ~ main ~ result:", result.matches)
+  const result: response = (await requestLangTool(myRequest))!;
 
   return {
     statusCode: 200,
