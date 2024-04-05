@@ -36,7 +36,14 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
-
+      'GET /languageTool': {
+        function: {
+          handler: 'packages/functions/src/languageTool.main',
+          environment:{
+            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
+          }
+        },
+      }, //example for using the language tool service
       // Sample Pyhton lambda function
       'GET /': {
         function: {
