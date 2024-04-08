@@ -1,12 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
+// import { Link } from 'react-router-dom';
+
+interface Response {
+  'Coherence & Cohesion': string;
+  'Grammatical Range & Accuracy': string;
+  'Lexical Resource': string;
+  'Task Responce': string;
+}
 
 function Writing() {
   const [inputs, setInputs] = useState({
     answer: '',
     question: '',
   });
-  const [grading, setGrading] = useState('Grading comes here');
+  const [grading, setGrading] = useState(undefined as undefined | Response);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     console.log(e.target.value);
@@ -24,7 +31,10 @@ function Writing() {
       },
       body: JSON.stringify(inputs),
     }).then(response => {
-      response.json().then(body => setGrading(body.feedback));
+      response.json().then(body => {
+        console.log(body);
+        setGrading(body);
+      });
     });
     alert('Sending Message to ' + url);
   };
@@ -33,6 +43,23 @@ function Writing() {
     rows: 10,
     cols: 80,
   };
+
+  const pStyling: CSSProperties = { whiteSpace: 'pre-line' };
+
+  const gradingElement = grading ? (
+    <>
+      <h5>Coherence & Cohesion</h5>
+      <p style={pStyling}> {grading['Coherence & Cohesion']} </p>
+      <h5>Grammatical Range & Accuracy</h5>
+      <p style={pStyling}> {grading['Grammatical Range & Accuracy']} </p>
+      <h5>Lexical Resource</h5>
+      <p style={pStyling}> {grading['Lexical Resource']} </p>
+      <h5>Task Responce</h5>
+      <p style={pStyling}> {grading['Task Responce']} </p>
+    </>
+  ) : (
+    <p style={{ whiteSpace: 'pre-line' }}> {grading} </p>
+  );
 
   return (
     <>
@@ -55,13 +82,15 @@ function Writing() {
         />
         <br />
 
-        <textarea value={grading} readOnly {...size} />
+        <h4>Feedback</h4>
+
+        {gradingElement}
         <br />
 
         <button type="submit"> Submit </button>
       </form>
 
-      <Link to="/"> Link back to root </Link>
+      {/* <Link to="/"> Link back to root </Link> */}
     </>
   );
 }

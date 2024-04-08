@@ -12,19 +12,34 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   }
 
   const requestBody = JSON.parse(event.body);
-  // TOOD: assert answer and question were sent
+  // TOOD: assert answer and question exist in body
   const { answer, question } = requestBody;
-  const prompt = createPrompt(
+
+  const criterias = [
+    'Coherence & Cohesion',
+    'Grammatical Range & Accuracy',
+    'Lexical Resource',
     'Task Responce',
-    rubric['Task Responce'],
-    question,
-    answer,
-  );
-  const text = await runModel(prompt);
+  ];
+
+  const _feedbacks = criterias.map(async criteria => {
+    const prompt = createPrompt(criteria, rubric[criteria], question, answer);
+    const feedback = await runModel(prompt);
+    return feedback;
+  });
+
+  const feedbacks = await Promise.all(_feedbacks);
+
+  const out = {
+    'Coherence & Cohesion': feedbacks[0],
+    'Grammatical Range & Accuracy': feedbacks[1],
+    'Lexical Resource': feedbacks[2],
+    'Task Responce': feedbacks[3],
+  };
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ feedback: text }),
+    body: JSON.stringify(out),
   };
 };
 
