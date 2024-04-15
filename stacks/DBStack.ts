@@ -7,11 +7,30 @@ import { Fn } from 'aws-cdk-lib';
 
 export function DBStack({ stack, app }: StackContext) {
   // Create a DynamoDB table
-  const table = new Table(stack, 'Counter', {
+  const table = new Table(stack, 'Records', {
     fields: {
-      counter: 'string',
+      PK: 'string',
+      SK: 'string',
+      Question: 'string',
+      Answer: 'string',
+      SubQuestions: 'string',
+      PreviousWritingP1Qs: 'string',
+      PreviousWritingP2Qs: 'string',
+      PreviousReadingQs: 'string',
+      PreviousListeningQs: 'string',
+      PreviousSpeakingP1Qs: 'string',
+      PreviousSpeakingP2Qs: 'string',
+      PreviousSpeakingP3Qs: 'string',
+      WritingScore: 'string',
+      ListeningScore: 'string',
+      SpeakingScore: 'string',
+      ReadingScore: 'string',
+      GrammerScore: 'string',
+      VocabularyScore: 'string',
+      GeneralLevel: 'string',
+      Institutions: 'string',
     },
-    primaryIndex: { partitionKey: 'counter' },
+    primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
 
   // Create an RDS database
