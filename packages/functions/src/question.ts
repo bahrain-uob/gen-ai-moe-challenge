@@ -8,6 +8,17 @@ export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
   const PK = event.pathParameters?.questionType;
+  const possibleQuestionTypes = ["WritingP1", "WritingP2", "Reading", "Listening", "SpeakingP1", "SpeakingP2", "SpeakingP3"];
+
+  //validate the question type
+    if (!PK || !possibleQuestionTypes.includes(PK)) {
+        return {
+        statusCode: 400,
+        body: JSON.stringify({
+            message: 'Invalid question type',
+        }),
+        };
+    }
 
   const queryParams = {
     // Get the table name from the environment variable
