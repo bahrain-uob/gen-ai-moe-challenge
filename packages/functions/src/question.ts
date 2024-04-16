@@ -48,12 +48,13 @@ export const main = async (
     getParams.Key.SK = results.Items![randomItemNumber].SK;
 
     const response = await dynamoDb.get(getParams).promise();
+    const SubQuestions = response.Item?.SubQuestions ? JSON.parse(response.Item?.SubQuestions).SubQuestions.map((obj: any) => ({Q: obj["Q"]})) : '';
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         Question: await response.Item?.Question,
-        SubQuestions: await response.Item?.SubQuestions ? response.Item?.SubQuestions : '',
+        SubQuestions: await SubQuestions,
       }),
     };
   } catch (err) {
