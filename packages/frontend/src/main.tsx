@@ -4,6 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
+import Writing from './pages/writing.tsx';
 
 // Place pages here
 const router = createBrowserRouter([
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/test',
     Component: TestPage,
+  },
+  {
+    path: '/writing',
+    Component: Writing,
   },
 ]);
 // TODO: handle not found pages

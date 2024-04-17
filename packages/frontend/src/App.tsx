@@ -31,6 +31,9 @@ function App() {
         <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
           <Link to="/test"> Test page </Link>
+          <br />
+          <br />
+          <Link to="/writing"> Writing </Link>
         </p>
         <p> Sayed Ahmed was here </p>
       </div>
