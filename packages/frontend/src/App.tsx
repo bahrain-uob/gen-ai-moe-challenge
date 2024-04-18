@@ -34,6 +34,9 @@ function App() {
           <br />
           <br />
           <Link to="/writing"> Writing </Link>
+          <br />
+          <br />
+          <Link to="/speaking"> Speaking </Link>
         </p>
         <p> Sayed Ahmed was here </p>
       </div>
