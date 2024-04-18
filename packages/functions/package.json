@@ -7,9 +7,13 @@
     "typecheck": "tsc -noEmit"
   },
   "devDependencies": {
-    "@types/node": "^20.6.0",
     "@types/aws-lambda": "^8.10.120",
-    "vitest": "^0.34.4",
-    "sst": "2.40.3"
+    "@types/node": "^20.6.0",
+    "sst": "2.40.3",
+    "vitest": "^0.34.4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.556.0",
+    "@aws-sdk/client-transcribe": "^3.556.0"
   }
 }
