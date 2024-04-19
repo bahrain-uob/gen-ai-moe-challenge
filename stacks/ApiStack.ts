@@ -5,6 +5,7 @@ import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
   const { table } = use(DBStack);
+  const { myTable } = use(DBStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -12,6 +13,9 @@ export function ApiStack({ stack }: StackContext) {
       function: {
         // Bind the table name to our API
         bind: [table],
+        environment: {
+          TABLE1_NAME: myTable.tableName,
+        },
       },
     },
     routes: {
@@ -23,6 +27,8 @@ export function ApiStack({ stack }: StackContext) {
           permissions: ['bedrock:InvokeModel'],
         },
       }, //testing bedrock api for writing
+      //api endpoint for retrieving reading questions
+      'GET /reading/questions': 'packages/functions/src/readingfromdb.handler',
       // Sample Pyhton lambda function
       'GET /': {
         function: {
@@ -33,6 +39,9 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
   });
+  api.attachPermissions([myTable]);
+  
+
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj

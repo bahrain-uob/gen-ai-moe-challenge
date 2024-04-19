@@ -1,11 +1,13 @@
 import { Table, StackContext, RDS } from 'sst/constructs';
-
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
-import { Fn } from 'aws-cdk-lib';
+import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
+import AWS from 'aws-sdk';
 
-export function DBStack({ stack, app }: StackContext) {
+
+export function DBStack(this: any, { stack, app }: StackContext) {
   // Create a DynamoDB table
   const table = new Table(stack, 'Counter', {
     fields: {
@@ -13,6 +15,22 @@ export function DBStack({ stack, app }: StackContext) {
     },
     primaryIndex: { partitionKey: 'counter' },
   });
+
+  const myTable = new dynamodb.Table(this, 'Table', {
+    partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
+    sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
+    removalPolicy: RemovalPolicy.DESTROY,
+  });
+  
+  myTable.addGlobalSecondaryIndex({
+    indexName: 'MyGlobalSecondaryIndex',
+    partitionKey: { name: 'GSIPartitionKey', type: dynamodb.AttributeType.STRING },
+    sortKey: { name: 'GSISortKey', type: dynamodb.AttributeType.STRING },
+  });
+
+
+  const dynamodbClient = new AWS.DynamoDB.DocumentClient();
+
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
@@ -67,5 +85,5 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
-  return { table };
+  return { table , myTable };
 }
