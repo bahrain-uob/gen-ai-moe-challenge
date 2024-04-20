@@ -9,11 +9,9 @@ import { HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins';
 
 import { StaticSite, StackContext, use } from 'sst/constructs';
 import { ApiStack } from './ApiStack';
-import { DBStack } from './DBStack';
 
 export function FrontendStack({ stack }: StackContext) {
   const { api, apiCachePolicy } = use(ApiStack);
-  const { uploads_bucket } = use(DBStack);
 
   // Deploy our React app
   const site = new StaticSite(stack, 'ReactSite', {
@@ -22,7 +20,6 @@ export function FrontendStack({ stack }: StackContext) {
     buildOutput: 'dist',
     environment: {
       VITE_API_URL: api.url,
-      VITE_BUCKET: uploads_bucket.bucketName,
     },
     cdk: {
       distribution: {
