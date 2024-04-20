@@ -13,7 +13,6 @@ const YourComponent: React.FC = () => {
   const ApiEndPoint = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    // Narrate the question when it is retrieved
     if (question) {
       narrateQuestion(question);
     }
@@ -32,11 +31,10 @@ const YourComponent: React.FC = () => {
     try {
       const numQuestions = 4;
       const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
-      const response = await axios.get<{ questionText: string }>(
-        ApiEndPoint + '/questions/' + randomNumber,
-      );
-      setQuestion(response.data.questionText);
-      setShowGetQuestion(false); // Hide Get Question button
+      const response = await fetch(`${ApiEndPoint}/questions/${randomNumber}`);
+      const questionText = await response.json();
+      setQuestion(questionText);
+      setShowGetQuestion(false);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
