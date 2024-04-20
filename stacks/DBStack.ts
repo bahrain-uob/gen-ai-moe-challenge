@@ -27,8 +27,6 @@ export function DBStack({ stack, app }: StackContext) {
   const feedback_table = new Table(stack, 'ResponseFeedback', {
     fields: {
       feedbackId: 'string',
-      feedbackScore: 'string',
-      feedbackText: 'string',
     },
     primaryIndex: { partitionKey: 'feedbackId' },
   });
@@ -43,7 +41,11 @@ export function DBStack({ stack, app }: StackContext) {
       filters: [{ suffix: '.mp3' }],
     },
   });
-  uploads_bucket.attachPermissions(['s3', 'transcribe']);
+  uploads_bucket.attachPermissions([
+    's3:PutObject',
+    's3:GetObject',
+    'transcribe:StartTranscriptionJob',
+  ]);
 
   transcription_bucket.addNotifications(stack, {
     fileUpload: {
@@ -58,7 +60,11 @@ export function DBStack({ stack, app }: StackContext) {
       filters: [{ suffix: '.json' }],
     },
   });
-  transcription_bucket.attachPermissions(['s3', 'bedrock', feedback_table]);
+  transcription_bucket.attachPermissions([
+    's3:GetObject',
+    'bedrock:InvokeModel',
+    'dynamodb:PutItem',
+  ]);
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
