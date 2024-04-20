@@ -2,7 +2,7 @@ import '../speaking.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
-import agentImage from '../assets/agent.jpeg'; // Import agent image
+import agentImage from '../assets/agent.jpeg';
 
 const YourComponent: React.FC = () => {
   const [question, setQuestion] = useState<string>('');
@@ -48,7 +48,7 @@ const YourComponent: React.FC = () => {
       });
       newRecorder.startRecording();
       setRecorder(newRecorder);
-      setRecording(true); // Start recording
+      setRecording(true);
     } catch (error) {
       console.error('Error accessing user media:', error);
     }
@@ -63,8 +63,8 @@ const YourComponent: React.FC = () => {
 
   const stopRecording = () => {
     if (recorder) {
-      setRecording(false); // Stop recording
-      setShowGetQuestion(true); // Show Get Question button after stopping recording
+      setRecording(false);
+      setShowGetQuestion(true);
 
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
@@ -74,7 +74,7 @@ const YourComponent: React.FC = () => {
         axios
           .get(ApiEndPoint + '/generate-presigned-url', {
             params: {
-              fileName: audioFileName, // Use the dynamically generated file name
+              fileName: audioFileName,
               fileType: blob.type,
               questionText: question,
             },

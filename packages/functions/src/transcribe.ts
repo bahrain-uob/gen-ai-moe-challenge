@@ -13,7 +13,6 @@ export const main: Handler = async (event: S3Event) => {
   const key = s3Record.object.key;
 
   try {
-    // Start the transcription job
     const transcriptionJob = await transcribeClient.send(
       new StartTranscriptionJobCommand({
         TranscriptionJobName: `${key.slice(0, -4)}`,
