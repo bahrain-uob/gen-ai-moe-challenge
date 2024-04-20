@@ -1,5 +1,5 @@
 import {
-  BedrockRuntimeClient,
+  BedrockRuntime,
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import {
@@ -10,13 +10,14 @@ import {
 import { S3Event, S3Handler } from 'aws-lambda';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 
-const client = new BedrockRuntimeClient();
+const client = new BedrockRuntime();
 const s3 = new S3Client();
-const uploadBucketName = process.env.bucketName;
-const tableName = process.env.tableName;
 const dynamoClient = new DynamoDBClient();
 
-type ABCType = {
+const uploadBucketName = process.env.bucketName;
+const tableName = process.env.tableName;
+
+type rubricType = {
   [key: string]: string;
 };
 
@@ -49,8 +50,7 @@ export const main: S3Handler = async (event: S3Event) => {
     if (content.length === 0) {
       console.log(`file ${key} is empty`);
     } else {
-      const result = JSON.parse(content);
-      const answer = result.results.transcripts[0].transcript;
+      const answer = JSON.parse(content).results.transcripts[0].transcript;
       const prompt = createPrompt(rubric, question, answer);
       const input = {
         inputText: prompt,
@@ -71,11 +71,12 @@ export const main: S3Handler = async (event: S3Event) => {
 
       const response = await client.send(command);
       const response_byte = response.body;
+
       const textDecoder = new TextDecoder('utf-8');
       const decodedString = textDecoder.decode(response_byte);
-      const response_string = JSON.parse(decodedString);
 
-      const feedbackResult = response_string.results[0].outputText;
+      const feedbackResult = JSON.parse(decodedString).results[0].outputText;
+
       const score_index = feedbackResult.indexOf('Score:');
       const feedback_index = feedbackResult.indexOf('Feedback:');
       const score = feedbackResult
@@ -101,7 +102,7 @@ export const main: S3Handler = async (event: S3Event) => {
         console.log('Successfully stored result in DynamoDB');
         return;
       } catch (error) {
-        console.log('Erro storing result');
+        console.log('Error storing result');
         return;
       }
     }
@@ -121,7 +122,7 @@ const rubric = {
 };
 
 function createPrompt(
-  grading_rubric: ABCType,
+  grading_rubric: rubricType,
   speaking_question: string,
   speaking_answer: string,
 ) {

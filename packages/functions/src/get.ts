@@ -1,18 +1,23 @@
 import { Table } from 'sst/node/table';
-import handler from '@codecatalyst-sst-app/core/handler';
-import dynamoDb from '@codecatalyst-sst-app/core/dynamodb';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 
-export const main = handler(async event => {
+const client = new DynamoDBClient();
+
+export async function main(event: APIGatewayProxyEvent) {
+  const questionId = `${event?.pathParameters?.id}`;
   const params = {
     TableName: Table.Questions.tableName,
     Key: {
-      questionId: event?.pathParameters?.id,
+      questionId: { S: questionId },
     },
   };
-  const result = await dynamoDb.get(params);
+  const command = new GetItemCommand(params);
+  const result = await client.send(command);
   if (!result.Item) {
     throw new Error('Item not found.');
+  } else {
+    const questionText = result.Item.questionText.S;
+    return JSON.stringify(questionText);
   }
-  // Return the retrieved item
-  return JSON.stringify(result.Item);
-});
+}
