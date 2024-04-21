@@ -24,12 +24,14 @@ export function ApiStack({ stack }: StackContext) {
       'GET /questions/{id}': 'packages/functions/src/get.main',
       'GET /generate-presigned-url':
         'packages/functions/src/generatePresignedUrl.main',
+      // Writing grading lambda function
       'POST /writing': {
         function: {
           handler: 'packages/functions/src/writing.main',
           permissions: ['bedrock:InvokeModel'],
+          timeout: '60 seconds',
         },
-      }, //testing bedrock api for writing
+      },
       // Sample Pyhton lambda function
       'GET /': {
         function: {
