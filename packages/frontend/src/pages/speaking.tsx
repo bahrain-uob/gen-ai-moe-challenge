@@ -1,8 +1,27 @@
 import '../speaking.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
+
+// TODO: Change this approach later
+const numQuestions = 4;
+
+const narrateQuestion = (text: string) => {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+  } else {
+    console.error('Speech synthesis not supported in this browser');
+  }
+};
+
+const generateFileName = (originalFileName: string) => {
+  const fileExtension = originalFileName.split('.').pop();
+  const timestamp = new Date().toISOString().replace(/[^0-9]/g, '');
+  const randomString = Math.random().toString(36).substring(2, 7);
+  return `audio_${timestamp}_${randomString}.${fileExtension}`;
+};
 
 const YourComponent: React.FC = () => {
   const [question, setQuestion] = useState<string>('');
@@ -12,29 +31,14 @@ const YourComponent: React.FC = () => {
   const [showGetQuestion, setShowGetQuestion] = useState<boolean>(true);
   const ApiEndPoint = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    if (question) {
-      narrateQuestion(question);
-    }
-  }, [question]);
-
-  const narrateQuestion = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(utterance);
-    } else {
-      console.error('Speech synthesis not supported in this browser');
-    }
-  };
-
   const fetchQuestion = async () => {
     try {
-      const numQuestions = 4;
       const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
       const response = await fetch(`${ApiEndPoint}/questions/${randomNumber}`);
       const questionText = await response.json();
       setQuestion(questionText);
       setShowGetQuestion(false);
+      narrateQuestion(questionText);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
@@ -52,13 +56,6 @@ const YourComponent: React.FC = () => {
     } catch (error) {
       console.error('Error accessing user media:', error);
     }
-  };
-
-  const generateFileName = (originalFileName: string) => {
-    const fileExtension = originalFileName.split('.').pop();
-    const timestamp = new Date().toISOString().replace(/[^0-9]/g, '');
-    const randomString = Math.random().toString(36).substring(2, 7);
-    return `audio_${timestamp}_${randomString}.${fileExtension}`;
   };
 
   const stopRecording = () => {
