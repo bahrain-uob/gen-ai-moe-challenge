@@ -10,36 +10,41 @@ import {
 import { S3Event, S3Handler } from 'aws-lambda';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 
-const client = new BedrockRuntime();
-const s3 = new S3Client();
+const bedrockClient = new BedrockRuntime();
+const s3Client = new S3Client();
 const dynamoClient = new DynamoDBClient();
 
-const uploadBucketName = process.env.bucketName;
-const tableName = process.env.tableName;
+const uploadBucketName = process.env.uploadBucketName;
+const FeedbackTableName = process.env.FeedbackTableName;
 
 type rubricType = {
   [key: string]: string;
 };
 
+/*
+  Extracts the question from the metadata of the user's response.
+  Retrieves the transcribed user response, then invokes bedrock.
+  The response is then parsed and the score and feedback are stored.
+*/
 export const main: S3Handler = async (event: S3Event) => {
   const s3Record = event.Records[0].s3;
-  const bucketName = s3Record.bucket.name;
+  const transcribeBucketName = s3Record.bucket.name;
   const key = s3Record.object.key;
 
   const command = new HeadObjectCommand({
     Bucket: uploadBucketName,
     Key: `${key.slice(0, -5)}.mp3`,
   });
-  const response = await s3.send(command);
+  const response = await s3Client.send(command);
   let question = 'Open Question';
   if (response.Metadata) {
     question = response.Metadata.question;
   }
 
   try {
-    const commandOutput = await s3.send(
+    const commandOutput = await s3Client.send(
       new GetObjectCommand({
-        Bucket: bucketName,
+        Bucket: transcribeBucketName,
         Key: key,
       }),
     );
@@ -69,7 +74,7 @@ export const main: S3Handler = async (event: S3Event) => {
         modelId: 'amazon.titan-text-express-v1',
       });
 
-      const response = await client.send(command);
+      const response = await bedrockClient.send(command);
       const response_byte = response.body;
 
       const textDecoder = new TextDecoder('utf-8');
@@ -95,11 +100,10 @@ export const main: S3Handler = async (event: S3Event) => {
       };
       try {
         const command = new PutItemCommand({
-          TableName: tableName,
+          TableName: FeedbackTableName,
           Item: item,
         });
         await dynamoClient.send(command);
-        console.log('Successfully stored result in DynamoDB');
         return;
       } catch (error) {
         console.log('Error storing result');

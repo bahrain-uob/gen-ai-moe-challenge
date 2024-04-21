@@ -5,23 +5,27 @@ import {
 } from '@aws-sdk/client-transcribe';
 
 const transcribeClient = new TranscribeClient();
-const outBucket = process.env.outBucket;
+const transcribeOutputBucket = process.env.outBucket;
 
+/*
+  Starts a transcription job for the given mp3 file and
+  stores the transcription in the transcription_bucket.
+*/
 export const main: Handler = async (event: S3Event) => {
   const s3Record = event.Records[0].s3;
-  const bucketName = s3Record.bucket.name;
+  const transcribeInputBucket = s3Record.bucket.name;
   const key = s3Record.object.key;
 
   try {
-    const transcriptionJob = await transcribeClient.send(
+    await transcribeClient.send(
       new StartTranscriptionJobCommand({
         TranscriptionJobName: `${key.slice(0, -4)}`,
         LanguageCode: 'en-US',
         MediaFormat: 'mp3',
         Media: {
-          MediaFileUri: `s3://${bucketName}/${key}`,
+          MediaFileUri: `s3://${transcribeInputBucket}/${key}`,
         },
-        OutputBucketName: outBucket,
+        OutputBucketName: transcribeOutputBucket,
       }),
     );
   } catch (err) {

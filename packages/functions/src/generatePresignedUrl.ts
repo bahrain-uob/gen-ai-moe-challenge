@@ -2,8 +2,12 @@ import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
-const BUCKET_NAME = process.env.BUCKET_NAME;
+const audioResponseBucket = process.env.audioResponseBucket;
 
+/*
+  Lambda function to generate a pre-signed URL for uploading an
+  audio response to S3. The response is stored in the 'uploads_bucket'.
+*/
 export const main: APIGatewayProxyHandlerV2 = async event => {
   try {
     const fileName = event.queryStringParameters?.fileName;
@@ -19,7 +23,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
     const client = new S3Client();
     const command = new PutObjectCommand({
-      Bucket: BUCKET_NAME,
+      Bucket: audioResponseBucket,
       Key: fileName,
       ContentType: fileType,
       Metadata: {
