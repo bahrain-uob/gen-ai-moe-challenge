@@ -52,8 +52,8 @@ export function DBStack({ stack, app }: StackContext) {
       function: {
         handler: 'packages/functions/src/feedback.main',
         environment: {
-          bucketName: uploads_bucket.bucketName,
-          tableName: feedback_table.tableName,
+          uploadBucketName: uploads_bucket.bucketName,
+          FeedbackTableName: feedback_table.tableName,
         },
       },
       events: ['object_created'],
