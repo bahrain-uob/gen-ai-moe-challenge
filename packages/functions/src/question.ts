@@ -20,17 +20,14 @@ export const main = async (
         };
     }
 
-  const queryParams = {
+  const getIndexParams = {
     // Get the table name from the environment variable
     TableName: Table.Records.tableName,
-    // Get the row where the "PK" column is equal to the questionType
-    ExpressionAttributeValues: {
-      ':PK': PK,
+    // Get the row where the counter is called "clicks"
+    Key: {
+      PK: PK,
+      SK: 'index',
     },
-    KeyConditionExpression: 'PK = :PK',
-
-    // Retrieve only the "SK" column
-    ProjectionExpression: 'SK',
   };
 
   const getParams = {
@@ -43,11 +40,18 @@ export const main = async (
     },
   };
   try {
-    const results = (await dynamoDb.query(queryParams).promise())!;
-    let randomItemNumber = getRandomInt(0, results.Count! - 1);
-    getParams.Key.SK = results.Items![randomItemNumber].SK;
+    // Retrieve the index item which contains the list of the sort keys of the available questions from the table
+    const results = (await dynamoDb.get(getIndexParams).promise())!;
+    const index = results.Item?.index ? results.Item?.index : (() => { throw new Error('Index not found'); })();
 
+    // Select a random sort key from the index list
+    let randomItemSortKey = index[(Math.floor(Math.random() * index.length))]
+
+    // Get the question with the selected sort key
+    getParams.Key.SK = randomItemSortKey;
     const response = await dynamoDb.get(getParams).promise();
+
+    // Get only the "Question" column from the subquestions attribute if it exists
     const SubQuestions = response.Item?.SubQuestions ? JSON.parse(response.Item?.SubQuestions).SubQuestions.map((obj: any) => ({Q: obj["Q"]})) : '';
 
     return {
@@ -67,9 +71,3 @@ export const main = async (
     };
   }
 };
-
-function getRandomInt(min: number, max: number): number {
-  //Will return a number inside the given range, inclusive of both minimum and maximum
-  //i.e. if min=0, max=20, returns a number from 0-20
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
