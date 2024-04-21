@@ -12,7 +12,7 @@ export function ApiStack({ stack }: StackContext) {
       function: {
         permissions: [uploads_bucket],
         environment: {
-          BUCKET_NAME: uploads_bucket.bucketName,
+          audioResponseBucket: uploads_bucket.bucketName,
         },
         // Bind the table name to our API
         bind: [table, questions_table],
@@ -21,7 +21,7 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
-      'GET /questions/{id}': 'packages/functions/src/get.main',
+      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       'GET /generate-presigned-url':
         'packages/functions/src/generatePresignedUrl.main',
       // Writing grading lambda function
