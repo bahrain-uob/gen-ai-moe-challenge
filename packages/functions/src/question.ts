@@ -1,8 +1,10 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
-const dynamoDb = new DynamoDB.DocumentClient();
+const client = new DynamoDBClient();
+const dynamoDb = DynamoDBDocumentClient.from(client);
 
 export const main = async (
   event: APIGatewayProxyEvent,
@@ -20,36 +22,35 @@ export const main = async (
         };
     }
 
-  const getIndexParams = {
+  const getIndexCommand = new GetCommand({
     // Get the table name from the environment variable
     TableName: Table.Records.tableName,
-    // Get the row where the counter is called "clicks"
+    // Get the item which stores the sort keys of the available questions
     Key: {
       PK: PK,
       SK: 'index',
     },
-  };
+  });
 
-  const getParams = {
-    // Get the table name from the environment variable
-    TableName: Table.Records.tableName,
-    // Get the row where the counter is called "clicks"
-    Key: {
-      PK: PK,
-      SK: '',
-    },
-  };
   try {
     // Retrieve the index item which contains the list of the sort keys of the available questions from the table
-    const results = (await dynamoDb.get(getIndexParams).promise())!;
+    const results = (await dynamoDb.send(getIndexCommand))!;
     const index = results.Item?.index ? results.Item?.index : (() => { throw new Error('Index not found'); })();
 
     // Select a random sort key from the index list
     let randomItemSortKey = index[(Math.floor(Math.random() * index.length))]
 
     // Get the question with the selected sort key
-    getParams.Key.SK = randomItemSortKey;
-    const response = await dynamoDb.get(getParams).promise();
+    const getQuestionCommand = new GetCommand({
+      // Get the table name from the environment variable
+      TableName: Table.Records.tableName,
+      // Get the question with the selected sort key
+      Key: {
+        PK: PK,
+        SK: randomItemSortKey,
+      },
+    });
+    const response = await dynamoDb.send(getQuestionCommand);
 
     // Get only the "Question" column from the subquestions attribute if it exists
     const SubQuestions = response.Item?.SubQuestions ? JSON.parse(response.Item?.SubQuestions).SubQuestions.map((obj: any) => ({Q: obj["Q"]})) : '';
