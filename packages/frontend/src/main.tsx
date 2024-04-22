@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     Component: Writing,
   },
   {
-    path: '/reading/:pk/:sk', // Updated route with path parameters
+    path: '/reading/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
   },
 ]);

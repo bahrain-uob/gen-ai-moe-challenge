@@ -4,28 +4,32 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-  const { pk, sk } = event.pathParameters || {};
-  
-  const params = {
-    TableName: process.env.TABLE1_NAME,
-    KeyConditionExpression: "MyPartitionKey = :pkValue AND MySortKey = :skValue",
-    ExpressionAttributeValues: {
-      ":pkValue": pk,
-      ":skValue": sk,
-    },
-  };
+  const outputs=[];
+  const { sk } = event.pathParameters || {};
+  const pks=["ReadingP1","ReadingP2","ReadingP3"]
 
-  try {
-    const results = await dynamoDb.query(params).promise();
+  for(let i=0;i<pks.length;i++){
+    const params = {
+      TableName: process.env.TABLE1_NAME,
+      KeyConditionExpression: "MyPartitionKey = :pkValue AND MySortKey = :skValue",
+      ExpressionAttributeValues: {
+        ":pkValue": pks[i],
+        ":skValue": sk,
+      },
+    };
+    try {
+      const results = await dynamoDb.query(params).promise();
+      outputs.push(results.Items);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(results.Items),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "An error occurred while querying the database." }),
-    };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "An error occurred while querying the database." }),
+      };
+    }
   }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(outputs),
+  };  
 };
