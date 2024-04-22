@@ -4,14 +4,18 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table } = use(DBStack);
+  const { table, questions_table, uploads_bucket } = use(DBStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
       function: {
+        permissions: [uploads_bucket],
+        environment: {
+          audioResponseBucket: uploads_bucket.bucketName,
+        },
         // Bind the table name to our API
-        bind: [table],
+        bind: [table, questions_table],
       },
     },
     routes: {
@@ -19,6 +23,17 @@ export function ApiStack({ stack }: StackContext) {
       'POST /': 'packages/functions/src/lambda.main',
       // Function that returns a random question
       "GET    /question/{questionType}": "packages/functions/src/question.main",
+      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
+      'GET /generate-presigned-url':
+        'packages/functions/src/generatePresignedUrl.main',
+      // Writing grading lambda function
+      'POST /writing': {
+        function: {
+          handler: 'packages/functions/src/writing.main',
+          permissions: ['bedrock:InvokeModel'],
+          timeout: '60 seconds',
+        },
+      },
       // Sample Pyhton lambda function
       'GET /': {
         function: {

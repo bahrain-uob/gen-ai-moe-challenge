@@ -1,4 +1,4 @@
-import { Table, StackContext, RDS } from 'sst/constructs';
+import { Bucket, Table, StackContext, RDS } from 'sst/constructs';
 
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
@@ -14,6 +14,58 @@ export function DBStack({ stack, app }: StackContext) {
     },
     primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
+
+  const uploads_bucket = new Bucket(stack, 'Uploads');
+  const transcription_bucket = new Bucket(stack, 'Transcripts');
+
+  const questions_table = new Table(stack, 'Questions', {
+    fields: {
+      questionId: 'string',
+    },
+    primaryIndex: { partitionKey: 'questionId' },
+  });
+
+  const feedback_table = new Table(stack, 'ResponseFeedback', {
+    fields: {
+      feedbackId: 'string',
+    },
+    primaryIndex: { partitionKey: 'feedbackId' },
+  });
+
+  uploads_bucket.addNotifications(stack, {
+    fileUpload: {
+      function: {
+        handler: 'packages/functions/src/transcribe.main',
+        environment: { outBucket: transcription_bucket.bucketName },
+      },
+      events: ['object_created'],
+      filters: [{ suffix: '.mp3' }],
+    },
+  });
+  uploads_bucket.attachPermissions([
+    's3:PutObject',
+    's3:GetObject',
+    'transcribe:StartTranscriptionJob',
+  ]);
+
+  transcription_bucket.addNotifications(stack, {
+    fileUpload: {
+      function: {
+        handler: 'packages/functions/src/feedback.main',
+        environment: {
+          uploadBucketName: uploads_bucket.bucketName,
+          FeedbackTableName: feedback_table.tableName,
+        },
+      },
+      events: ['object_created'],
+      filters: [{ suffix: '.json' }],
+    },
+  });
+  transcription_bucket.attachPermissions([
+    's3:GetObject',
+    'bedrock:InvokeModel',
+    'dynamodb:PutItem',
+  ]);
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
@@ -68,5 +120,11 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
-  return { table };
+  return {
+    table,
+    uploads_bucket,
+    transcription_bucket,
+    questions_table,
+    feedback_table,
+  };
 }
