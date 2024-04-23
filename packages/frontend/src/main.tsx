@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
 import Writing from './pages/writing.tsx';
 import Speaking from './pages/speaking.tsx';
+import SignUp from './pages/SignUp.tsx';
 
 Amplify.configure({
   Auth: {
