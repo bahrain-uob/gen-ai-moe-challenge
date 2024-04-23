@@ -15,11 +15,20 @@ export function ApiStack({ stack }: StackContext) {
         },
       },
      
+    
       routes: {
         "GET /reading/questions": "./packages/functions/src/readingfromdb.handler",
         "POST /reading/questions": "./packages/functions/src/creatingtest.handler",
+        "POST /listening/polly": "./packages/functions/src/polly.handler",
+        'GET /': {
+          function: {
+            handler: 'packages/functions/src/polly.main',
+            runtime: 'python3.11',
+            timeout: '60 seconds',
+          },
       },
-    });
+    },
+  });
      
     api.attachPermissions([readingExamsTable]);
      
