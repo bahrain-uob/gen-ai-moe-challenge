@@ -2,13 +2,16 @@ import { Api, StackContext, use } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
+import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
   const { table, questions_table, uploads_bucket } = use(DBStack);
+  const { auth } = use(AuthStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
+      authorizer: 'jwt',
       function: {
         permissions: [uploads_bucket],
         environment: {
@@ -16,6 +19,15 @@ export function ApiStack({ stack }: StackContext) {
         },
         // Bind the table name to our API
         bind: [table, questions_table],
+      },
+    },
+    authorizers: {
+      jwt: {
+        type: 'user_pool',
+        userPool: {
+          id: auth.userPoolId,
+          clientIds: [auth.userPoolClientId],
+        },
       },
     },
     routes: {
@@ -39,6 +51,7 @@ export function ApiStack({ stack }: StackContext) {
           runtime: 'python3.11',
           timeout: '60 seconds',
         },
+        authorizer: 'none',
       },
     },
   });
@@ -55,6 +68,9 @@ export function ApiStack({ stack }: StackContext) {
       'Referer',
     ),
   });
+
+  // Allowing authenticated users to access API
+  auth.attachPermissionsForAuthUsers(stack, [api]);
 
   return { api, apiCachePolicy };
 }
