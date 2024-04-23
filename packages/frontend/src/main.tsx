@@ -43,6 +43,10 @@ const router = createBrowserRouter([
     path: '/speaking',
     Component: Speaking,
   },
+  {
+    path: '/sign-in',
+    Component: SignUp,
+  },
 ]);
 // TODO: handle not found pages
 
