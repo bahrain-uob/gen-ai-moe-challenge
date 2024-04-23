@@ -28,7 +28,7 @@ export function ApiStack({ stack }: StackContext) {
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
-      'GET /reading/{pk}/{sk}': 'packages/functions/src/readingfromdb.handler',
+      'GET /reading/{sk}': 'packages/functions/src/readingfromdb.handler',
       // Sample Pyhton lambda function
       'GET /': {
         function: {
