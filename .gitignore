@@ -17,3 +17,5 @@ node_modules
 # structurizr since we will use auto-layout
 workspace.json
 .structurizr
+
+__pycache__
