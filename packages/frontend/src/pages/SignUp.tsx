@@ -35,6 +35,9 @@ export default function SignUp() {
         <button onClick={signUpHandler}>Sign up</button>
         <Link to="/login">Already have an account?</Link>
       </div>
+      <div>
+        <Link to="/"> Back </Link>
+      </div>
     </>
   );
 }

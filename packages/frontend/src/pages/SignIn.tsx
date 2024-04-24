@@ -30,6 +30,10 @@ export default function SignIn() {
 
       <button onClick={handleSignIn}>Login</button>
       <Link to="/sign-up">Don't have an account? Sign up</Link>
+
+      <div>
+        <Link to="/"> Back </Link>
+      </div>
     </div>
   );
 }
