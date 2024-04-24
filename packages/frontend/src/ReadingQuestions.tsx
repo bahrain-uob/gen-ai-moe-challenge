@@ -3,7 +3,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const ReadingQuestions = () => {
-  const [parts, setParts] = useState<any[]>([]);
+
+  interface ReadingPart {
+    MyPartitionKey: string;
+    MySortKey: string;
+    NumOfQuestions: Number;
+    PassageTitle:String;
+    Passage:String;
+    Questions: [];
+}
+  const [parts, setParts] = useState<ReadingPart[]>([]);
   const { sk } = useParams();
 
   useEffect(() => {
