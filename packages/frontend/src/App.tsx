@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { Link } from 'react-router-dom';
+import { signOut } from 'aws-amplify/auth';
 
 function App() {
   const [count, setCount] = useState('');
@@ -15,6 +16,16 @@ function App() {
       .then(response => response.text())
       .then(setCount);
   }
+
+  const signOutHandler = () => {
+    signOut()
+      .then(() => {
+        console.log('Signed out successfully');
+      })
+      .catch(error => {
+        console.log('error signing out: ', error);
+      });
+  };
 
   return (
     <>
@@ -43,6 +54,9 @@ function App() {
           <br />
           <br />
           <Link to="/sign-in"> Sign in </Link>
+          <br />
+          <br />
+          <button onClick={signOutHandler}> Sign out </button>
         </p>
         <p> Sayed Ahmed was here </p>
       </div>
