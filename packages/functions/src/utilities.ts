@@ -5,6 +5,14 @@ import {
 
 const client = new BedrockRuntime();
 
+export interface Rubric {
+  'Coherence & Cohesion': string;
+  'Grammatical Range & Accuracy': string;
+  'Lexical Resource': string;
+  'Task Responce': string;
+  [key: string]: string; // This is the index signature
+}
+
 /** Runs Titan Model for the given prompt and returns its output */
 export async function runModel(prompt: string) {
   // Model parameters
