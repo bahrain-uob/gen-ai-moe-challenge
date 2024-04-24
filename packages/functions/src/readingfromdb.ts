@@ -22,10 +22,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     });
 
     const outputs = await Promise.all(queryPromises);
+    const flattenedOutputs = outputs.flat(); // Flatten the array of arrays
 
     return {
       statusCode: 200,
-      body: JSON.stringify(outputs),
+      body: JSON.stringify(flattenedOutputs),
     };
   } catch (error) {
     return {
