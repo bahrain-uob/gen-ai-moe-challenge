@@ -9,6 +9,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { S3Event, S3Handler } from 'aws-lambda';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { runModel } from './utilities';
 
 const bedrockClient = new BedrockRuntime();
 const s3Client = new S3Client();
@@ -57,30 +58,36 @@ export const main: S3Handler = async (event: S3Event) => {
     } else {
       const answer = JSON.parse(content).results.transcripts[0].transcript;
       const prompt = createPrompt(rubric, question, answer);
-      const input = {
-        inputText: prompt,
-        textGenerationConfig: {
-          maxTokenCount: 4096,
-          stopSequences: [],
-          temperature: 0,
-          topP: 0.9,
-        },
-      };
 
-      const command = new InvokeModelCommand({
-        body: JSON.stringify(input),
-        contentType: 'application/json',
-        accept: '*/*',
-        modelId: 'amazon.titan-text-express-v1',
-      });
+      /// runmodel starts here
+      // const input = {
+      //   inputText: prompt,
+      //   textGenerationConfig: {
+      //     maxTokenCount: 4096,
+      //     stopSequences: [],
+      //     temperature: 0,
+      //     topP: 0.9,
+      //   },
+      // };
 
-      const response = await bedrockClient.send(command);
-      const response_byte = response.body;
+      // const command = new InvokeModelCommand({
+      //   body: JSON.stringify(input),
+      //   contentType: 'application/json',
+      //   accept: '*/*',
+      //   modelId: 'amazon.titan-text-express-v1',
+      // });
 
-      const textDecoder = new TextDecoder('utf-8');
-      const decodedString = textDecoder.decode(response_byte);
+      // const response = await bedrockClient.send(command);
+      // const response_byte = response.body;
 
-      const feedbackResult = JSON.parse(decodedString).results[0].outputText;
+      // const textDecoder = new TextDecoder('utf-8');
+      // const decodedString = textDecoder.decode(response_byte);
+
+      // const feedbackResult = JSON.parse(decodedString).results[0].outputText;
+      /// runmodel ends here
+      //new runmodel
+      const feedbackResult = await runModel(prompt);
+      //new runmodel ends here
 
       const score_index = feedbackResult.indexOf('Score:');
       const feedback_index = feedbackResult.indexOf('Feedback:');
