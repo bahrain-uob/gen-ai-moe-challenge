@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn, fetchAuthSession } from 'aws-amplify/auth';
+import { signIn } from 'aws-amplify/auth';
 import { Link } from 'react-router-dom';
 
 export default function SignIn() {
