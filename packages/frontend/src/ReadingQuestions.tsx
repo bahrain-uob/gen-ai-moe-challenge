@@ -2,16 +2,31 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+interface ReadingPart {
+  MyPartitionKey: string;
+  MySortKey: string;
+  NumOfQuestions: Number;
+  PassageTitle:String;
+  Passage:String;
+  Questions: Question[];
+}
+
+interface Question {
+  NumOfSubQuestions: number;
+  Question: string;
+  QuestionType: string;
+  SubQuestions: SubQuestions[];
+}
+
+interface SubQuestions {
+  Choices: string[];
+  CorrectAnswer: string;
+  QuestionText: string;
+}
+
 const ReadingQuestions = () => {
 
-  interface ReadingPart {
-    MyPartitionKey: string;
-    MySortKey: string;
-    NumOfQuestions: Number;
-    PassageTitle:String;
-    Passage:String;
-    Questions: [];
-}
+ 
   const [parts, setParts] = useState<ReadingPart[]>([]);
   const { sk } = useParams();
 
@@ -47,7 +62,7 @@ const ReadingQuestions = () => {
                 <h2>{part[0].PassageTitle}</h2>
                 <p>{part[0].Passage}</p>
 
-                {part[0].Questions.map((question: any, questionIndex: number) => (
+                {part[0].Questions.map((question: Question, questionIndex: number) => (
                   <div key={questionIndex}>
                     <h2>Question {questionIndex + 1}</h2>
                     <h3>{question.Question}</h3>
