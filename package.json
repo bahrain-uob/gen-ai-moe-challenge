@@ -13,15 +13,17 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.1",
-    "aws-cdk-lib": "^2.124.0",
+    "aws-cdk-lib": "^2.137.0",
     "constructs": "10.3.0",
-    "sst": "2.40.3",
+    "sst": "^2.40.3",
     "typescript": "^5.2.2"
   },
   "workspaces": [
     "packages/*"
   ],
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "@aws-sdk/client-bedrock-runtime": "^3.540.0",
+    "recordrtc": "^5.6.2"
   }
 }

@@ -4,7 +4,7 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table } = use(DBStack);
+  const { table, questions_table, uploads_bucket } = use(DBStack);
 
   //Create the GrammerCheckerTool Service
   const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
@@ -29,13 +29,18 @@ export function ApiStack({ stack }: StackContext) {
   const api = new Api(stack, 'Api', {
     defaults: {
       function: {
+        permissions: [uploads_bucket],
+        environment: {
+          audioResponseBucket: uploads_bucket.bucketName,
+        },
         // Bind the table name to our API
-        bind: [table],
+        bind: [table, questions_table],
       },
     },
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
+      //example for using the language tool service
       'GET /languageTool': {
         function: {
           handler: 'packages/functions/src/languageTool.main',
@@ -43,7 +48,18 @@ export function ApiStack({ stack }: StackContext) {
             grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
           }
         },
-      }, //example for using the language tool service
+      },
+      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
+      'GET /generate-presigned-url':
+        'packages/functions/src/generatePresignedUrl.main',
+      // Writing grading lambda function
+      'POST /writing': {
+        function: {
+          handler: 'packages/functions/src/writing.main',
+          permissions: ['bedrock:InvokeModel'],
+          timeout: '60 seconds',
+        },
+      },
       // Sample Pyhton lambda function
       'GET /': {
         function: {
