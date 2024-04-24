@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn } from 'aws-amplify/auth';
+import { signIn, fetchAuthSession } from 'aws-amplify/auth';
 import { Link } from 'react-router-dom';
 
 export default function SignIn() {
@@ -9,7 +9,16 @@ export default function SignIn() {
   const handleSignIn = () => {
     signIn({ username: email, password })
       .then(user => {
-        console.log(user);
+        /* For potential values of `signInStep`, see
+         * https://docs.amplify.aws/react/build-a-backend/auth/enable-sign-up/#sign-in
+         */
+        if (user.nextStep.signInStep === 'DONE') {
+          console.log('Logged in succesfully');
+        } else {
+          console.log(
+            `Not logged in.  Next step is ${user.nextStep.signInStep}`,
+          );
+        }
       })
       .catch(e => alert(e));
   };
