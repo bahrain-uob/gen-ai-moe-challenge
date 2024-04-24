@@ -10,22 +10,38 @@ import Speaking from './pages/speaking.tsx';
 import SignUp from './pages/SignUp.tsx';
 import SignIn from './pages/SignIn.tsx';
 
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: import.meta.env.VITE_APP_USER_POOL_ID,
-      userPoolClientId: import.meta.env.VITE_APP_USER_POOL_CLIENT_ID,
+import { fetchAuthSession } from 'aws-amplify/auth';
+
+Amplify.configure(
+  {
+    Auth: {
+      Cognito: {
+        userPoolId: import.meta.env.VITE_APP_USER_POOL_ID,
+        userPoolClientId: import.meta.env.VITE_APP_USER_POOL_CLIENT_ID,
+      },
     },
-  },
-  API: {
-    REST: {
-      myAPI: {
-        endpoint: import.meta.env.VITE_API_URL,
-        region: import.meta.env.VITE_APP_REGION,
+    API: {
+      REST: {
+        myAPI: {
+          endpoint: import.meta.env.VITE_API_URL,
+          region: import.meta.env.VITE_APP_REGION,
+        },
       },
     },
   },
-});
+  {
+    API: {
+      REST: {
+        headers: async () => {
+          const authToken = (
+            await fetchAuthSession()
+          ).tokens?.idToken?.toString();
+          return { Authorization: authToken ? authToken : '' };
+        },
+      },
+    },
+  },
+);
 
 // Place pages here
 const router = createBrowserRouter([
