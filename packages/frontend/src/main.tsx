@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     Component: Speaking,
   },
   {
-    path: '/sign-in',
+    path: '/sign-up',
     Component: SignUp,
   },
 ]);
