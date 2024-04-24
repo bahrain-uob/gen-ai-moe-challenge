@@ -8,7 +8,7 @@ export function ApiStack({ stack }: StackContext) {
 
   //Create the GrammerCheckerTool Service
   const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
-    path: 'packages/functions/src/docker-languagetool2',
+    path: 'packages/functions/src/docker-languagetool',
     port: 8010,
     // dev: {
     //   deploy: true   //Uncomment to deploy the service while in dev mode
