@@ -1,50 +1,16 @@
 ---
-version: "3.8"
+
+version: "3"
 
 services:
   languagetool:
-    image: meyay/languagetool:latest
+    image: erikvl87/languagetool
     container_name: languagetool
-    restart: always
-    cap_drop:
-      - ALL
-    cap_add:
-      - CAP_SETUID
-      - CAP_SETGID
-      - CAP_CHOWN
-    security_opt:
-      - no-new-privileges
     ports:
-      # Using default port from the image
-      - 8010:8010
+      - 8010:8010                        # Using default port from the image
     environment:
-      # OVERRIDE: comma seperated list of ngram language models to download (if not existing)
-      #           Valid languages are "en", "de", "es", "fr" and "nl". Image default: none
-      #           example: download_ngrams_for_langs: en,de,es
-      # download_ngrams_for_langs: en,de
-      # OPTIONAL: container path for the ngrams data. Image default: /ngrams
-      # langtool_languageModel: /ngrams
-      # OVERRIDE: container path to the fasttext binary. Image default: /usr/local/bin/fasttext
-      # langtool_fasttextBinary: /usr/local/bin/fasttext
-      # OPTIONAL: path to the fasttext model. Will be downloaded if not existing
-      # langtool_fasttextModel:  /fasttext/lid.176.bin
-      # OVERRIDE: minimal Java heap size. Image default: 256m
-      # JAVA_XMS: 512m
-      # OVERRIDE: Maximum Java heap size. Image default: 1g
-      # JAVA_XMX: 1g
-      # OVERRIDE: Optional: Configure the garbage collector the JVM will use.
-      #           Valid options are: SerialGC, ParallelGC, ParNewGC, G1GC, ZGC
-      #           Note: ZGC might not work
-      # JAVA_GC: SerialGC
-      # OVERRIDE: Optional: Set you own custom Java options for the JVM.
-      #           Note: This will render the other JAVA_* options useless.
-      # JAVA_OPTS: 
-      # OVERRIDE: Set UID for user languagetool. Image default: 783
-      # MAP_UID: 1026
-      # OVERRIDE: Set GID for group languagetool. Image default: 783
-      # MAP_GID: 100
+      - langtool_languageModel=/ngrams   # OPTIONAL: Using ngrams data
+      - Java_Xms=512m                    # OPTIONAL: Setting a minimal Java heap size of 512 mib
+      - Java_Xmx=1g                      # OPTIONAL: Setting a maximum Java heap size of 1 Gib
     volumes:
-      # OPTIONAL: The location of ngrams data on the local machine
-      - ./ngrams:/ngrams
-      # OPTIONAL: The location of the fasttext model on the local machine
-      - ./fasttext:/fasttext
+      - /path/to/ngrams/data:/ngrams     # OPTIONAL: The location of ngrams data on the local machine

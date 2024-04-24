@@ -1,145 +1,126 @@
-# LanguageTool
+[![Build Status](https://github.com/Erikvl87/docker-languagetool/workflows/Build/badge.svg)](https://github.com/Erikvl87/docker-languagetool) [![Tests Status](https://github.com/Erikvl87/docker-languagetool/workflows/Tests/badge.svg)](https://github.com/Erikvl87/docker-languagetool) [![Docker Pulls](https://img.shields.io/docker/pulls/erikvl87/languagetool)](https://hub.docker.com/r/erikvl87/languagetool) [![Latest GitHub tag](https://img.shields.io/github/v/tag/Erikvl87/docker-languagetool?label=GitHub%20tag)](https://github.com/Erikvl87/docker-languagetool/releases)
+
+# Dockerfile for LanguageTool
+This repository contains a Dockerfile to create a Docker image for [LanguageTool](https://github.com/languagetool-org/languagetool).
 
 > [LanguageTool](https://www.languagetool.org/) is an Open Source proofreading software for English, French, German, Polish, Russian, and [more than 20 other languages](https://languagetool.org/languages/). It finds many errors that a simple spell checker cannot detect.
 
-The source repository can be found [here](https://github.com/meyayl/docker-languagetool).
+# Setup
 
-About this image:
-
-- Uses official [release zip](https://languagetool.org/download/)
-- Uses the latest Alpine 3.19 base image
-- Uses custom Eclipse Temurin 21 JRE limited to modules required by the current LanguageTool release
-- includes `fasttext`
-- includes `su-exec`
-  - container starts as root and executes languagetool as restricted user using `exec su-exec`
-  - container fixes folder ownership for ngrams and fasttext folders
-- Entrypoint uses `tini` to suppress the container exiting with status code 143 (LanguageTool does not handle SIGTERM as it should)
-- optional: downloads ngram language modules if configured (if they don't already exist)
-- optional: downloads fasttext module (if it doesn't already exist)
-- optional: user mapping (make sure to check MAP_UID and MAP_GID below)
-- optional: set log level
-
-## Setup
-
-### Docker CLI Usage
+## Setup using Docker Hub
 
 ```sh
-docker run -d \
-  --name languagetool \
-  --restart always \
-  --cap-drop ALL \
-  --cap-add CAP_SETUID \
-  --cap-add CAP_SETGID \
-  --cap-add CAP_CHOWN \
-  --security-opt no-new-privileges \
-  --publish 8010:8010 \
-  --env download_ngrams_for_langs=en \
-  --env langtool_languageModel=/ngrams \
-  --env langtool_fasttextModel=/fasttext/lid.176.bin \
-  --volume $PWD/ngrams:/ngrams \
-  --volume $PWD/fasttext:/fasttext \
-  meyay/languagetool:latest
+docker pull erikvl87/languagetool
+docker run --rm -p 8010:8010 erikvl87/languagetool
 ```
 
-## Docker Compose Usage
+This will pull the `latest` tag from Docker Hub. Optionally, specify a [tag](https://hub.docker.com/r/erikvl87/languagetool/tags) to pin onto a fixed version. These versions are derived from the official LanguageTool releases. Updates to the Dockerfile for already published versions are released with a `-dockerupdate-{X}` postfix in the tag (where `{X}` is an incremental number).
 
-```yaml
----
-version: "3.8"
+## Setup using the Dockerfile
+This approach could be used when you plan to make changes to the `Dockerfile`.
 
-services:
-  languagetool:
-    image: meyay/languagetool:latest
-    container_name: languagetool
-    restart: always
-    cap_drop:
-      - ALL
-    cap_add:
-      - CAP_SETUID
-      - CAP_SETGID
-      - CAP_CHOWN
-    security_opt:
-      - no-new-privileges
-    ports:
-      - 8010:8010
-    environment:
-      download_ngrams_for_langs: en
-      langtool_languageModel: /ngrams
-      langtool_fasttextModel: /fasttext/lid.176.bin
-    volumes:
-      - ./ngrams:/ngrams
-      - ./fasttext:/fasttext
+```sh
+git clone https://github.com/Erikvl87/docker-languagetool.git --config core.autocrlf=input
+docker build -t languagetool .
+docker run --rm -it -p 8010:8010 languagetool
 ```
 
-An example compose file can be downloaded from [here](https://raw.githubusercontent.com/meyayl/docker-languagetool/main/docker-compose.yml).
+# Configuration
 
-## Parameters
+## Java heap size
+LanguageTool will be started with a minimal heap size (`-Xms`) of `256m` and a maximum (`-Xmx`) of `512m`. You can overwrite these defaults by setting the [environment variables](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file) `Java_Xms` and `Java_Xmx`.
 
-The environment parameters are split into two halves, separated by an equal, the left-hand side represents the variable names (use them as is) the right-hand side the value (change if necessary).
+An example startup configuration:
 
-| ENV| DEFAULT | DESCRIPTION |
-| ------ | ------ | ------ |
-| download_ngrams_for_langs | none | Optional: Comma separated list of languages to download ngrams for. Skips download if the ngrams for that language already exist. Valid languages: `en`, `de`, `es`, `fr` and `nl`. Example value: `en,de` |
-| langtool_languageModel | /ngrams | Optional: The base path to the ngrams models. |
-| langtool_fasttextBinary | /usr/local/bin/fasttext | Optional: Path to the fasttext binary. Change only if you want to test your own compiled binary. Don't forget to map it into the container as volume. |
-| langtool_fasttextModel |  | Optional: The container path to the fasttext model binary. If the variable is set, the fasttext model will be downloaded if doesn't exist yet. |
-| langtool_*|  |  Optional: An arbitrary languagetool configuration, consisting of the prefix `langtool_` and the key name as written in the config file. Execute `docker run -ti --rm meyay/languagetool help` to see the list of config options |
-| JAVA_XMS | 256m | Optional: Minimum size of the Java heap space. Valid suffixes are `m` for megabytes and `g` for gigabytes.|
-| JAVA_XMX | 1024m | Optional: Maximum size of the Java heap space. Valid suffixes are `m` for megabytes and `g` for gigabytes. Set a higher value if you experience OOM kills, but do not use more than 1/4 of the host memory! |
-| JAVA_GC | SerialGC | Optional: Configure the garbage collector the JVM will use. Valid options are: `SerialGC`, `ParallelGC`, `ParNewGC`, `G1GC`, `ZGC` |
-| JAVA_OPTS | | Optional: Set you own custom Java options for the JVM. This will render the other JAVA_* options useless. |
-| MAP_UID | 783 | Optional: UID of the user inside the container that runs LanguageTool. If you encounter permission problems with your volumes, make sure to set the parameter to the UID of the host folder owner. |
-| MAP_GID | 783 | Optional: GID of the user inside the container that runs LanguageTool. If you encounter permission problems with your volumes, make sure to set the parameter to the GID of the host folder owner. |
-| LOG_LEVEL| INFO | Optional: set log level for LanguageTool. Valid options are: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`. |
-
-## Fasttext support
-
-Now that fasttext is available on Alpine 3.19, the image switched to using the Alpine package, instead of compiling the binaries from the sources. This hopefully fixes the compatibility issue users with older cpus experienced with my previous images, that were build on a amd64v3 architecture cpu, which compiled the `fasttext` binary with cpu optimizations older cpus do not support.
-
-If the Alpine `fasttext` package does not work for you, you can build a custom image to compile the `fasttext` binary using cpu optimizations your cpu (as long as it's x86_64 based) actually understands:
-
-```
-git clone  https://github.com/meyayl/docker-languagetool.git
-cd docker-languagetool
-sudo docker build -t meyay/docker-languagetool:latest -f Dockerfile.fasttext .
+```sh
+docker run --rm -it -p 8010:8010 -e Java_Xms=512m -e Java_Xmx=2g erikvl87/languagetool
 ```
 
-Once the image is build, you can `docke compose up -d` like you would do with the images hosted on Docker Hub.
+## LanguageTool HTTPServerConfig
+You are able to use the [HTTPServerConfig](https://languagetool.org/development/api/org/languagetool/server/HTTPServerConfig.html) configuration options by prefixing the fields with `langtool_` and setting them as [environment variables](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file).
 
->NOTE1: Alpine 3.19 commes with gcc13, and does not provide older versions which are required to compile the fasttext sources. As a result Alpine 3.18.6 is used to compile fasttext with gcc12.
+An example startup configuration:
 
->NOTE2: Synology users can find a git package in the [SynoCommunity](https://synocommunity.com) repository.
+```sh
+docker run --rm -it -p 8010:8010 -e langtool_pipelinePrewarming=true -e Java_Xms=1g -e Java_Xmx=2g erikvl87/languagetool
+```
 
-## Changelog
+## Using n-gram datasets
+> LanguageTool can make use of large n-gram data sets to detect errors with words that are often confused, like __their__ and __there__.
 
-| Date | Tag | Change |
-|---|---|---|
-| 2024-03-26 | 6.3a-5 | - Update Java to 21.0.2+13<br/> - Add capability CAP_CHOWN to README.md and compose file. | 
-| 2024-02-26 | 6.3a-4 | - Fix entrypoint script bug that affected new users when downloading the ngram models. |
-| 2024-02-17 | 6.3a-3 | - Update base image to Alpine 3.19.1<br/> - Migrate from compiling fasttext to using the Alpine fasttext package.|
-| 2024-02-17 | 6.3a-2 | - Modify Dockerfile to create the languagetool user without home directory<br/> - Modify entrypoint script to modify uid:gid of languagetool user and group if actually changed. |
-| 2024-02-12 | 6.3a-1 | - Update base image to Alpine 3.18.6<br/> - Update Java to 17.0.10+7 |
-| 2023-12-20 | 6.3a-0 | - Update to LanguageTool 6.3a |
-| 2023-12-03 | 6.3-1 | - Update base image to Alpine 3.18.5<br/> - Update Java to 17.0.9+9 |
-| 2023-10-10 | 6.3-0 | - Update to LanguageTool 6.3<br/> - Update base image to Alpine 3.18.4<br/> - Update Java to 17.0.8.1+1 |
-| 2023-08-10 | 6.2-1 | - Update base image to Alpine 3.18.3<br/> - Update Java to 17.0.8+7 |
-| 2023-07-09 | 6.2-0 | - Update to languagetool 6.2 |
-| 2023-06-30 | 6.1-4 | - Update base image to Alpine 3.18.2 |
-| 2023-05-19 | 6.1-3 | - Update base image to Alpine 3.18.0<br/> - Update Java to 17.0.7+7 |
-| 2023-04-01 | 6.1-2 | - Update base image to Alpine 3.17.3. |
-| 2023-03-28 | 6.1-1 | - Add logic to set log level |
-| 2023-03-28 | 6.1-0 | - Upgrade to languagetool 6.1 |  
-| 2023-02-23 | 6.0-5 | - Update base image to Alpine 3.17.2. |
-| 2023-01-23 | 6.0-4 | - Update Java to Eclipse Temurin 17.0.6+10. |
-| 2023-01-15 | 6.0-3 | - Update base image to Alpine 3.17.1.|
-| 2023-01-01 | 6.0-2 | - Add alpine package `gcompat` to satisfy `ld-linux-x86-64.so.2` dependency.<br/>(this fixes the issue of the 6.0-1 image)|
-| ~~2022-12-29~~<br/>2023-01-01| ~~6.0-1~~ | ~~- Upgrade to languagetool 6.0~~<br/> - Removed tag due to ClassPath exception.|
-| 2022-12-07 | 5.9-7 | - Fix health check command |
-| 2022-12-04 | 5.9-6 | - Add `help` command to display languagetool configuration items to be used with `languagetool_*`|
-| 2022-12-04 | 5.9-5 | - Switch to stripped down Eclipse Temurin 17 JRE <br/> - Remove JVM argument `-XX:+UseStringDeduplication` except for G1GC <br/> - Add `tini` to suppress exit code 143 <br/> - Removed `curl` and switch to `wget` <br/> - Print version info about Alpine and Eclipse Temurin during start |
-| 2022-11-29 | 5.9-4 | - Update base image to Alpine 3.17.0 |
-| 2022-11-24 | 5.9-3 | - Add support to configure garbage collector <br/> - Add JVM argument `-XX:+UseStringDeduplication` <br/> - Add support to pass custom JAVA_OPTS <br/> - Change Java_Xm? variables to JAVA_XM? |
-| 2022-11-12 | 5.9-2 | - Update base image to Alpine 3.16.3 |
-| 2022-09-28 | 5.9-1 | - Update LanguageTool to 5.9 |
-| 2022-09-10 | 5.8-2 | - Add user mapping support |
-| 2022-09-10 | 5.8-1 | - Initial release with Alpine 3.16.2, LanguageTool 5.8 |
+*Source: [https://dev.languagetool.org/finding-errors-using-n-gram-data](https://dev.languagetool.org/finding-errors-using-n-gram-data)*
+
+[Download](http://languagetool.org/download/ngram-data/) the n-gram dataset(s) onto your local machine and unzip them into a local ngrams directory:
+
+```
+home/
+├─ john/
+│  ├─ ngrams/
+│  │  ├─ en/
+│  │  │  ├─ 1grams/
+│  │  │  ├─ 2grams/
+│  │  │  ├─ 3grams/
+│  │  ├─ nl/
+│  │  │  ├─ 1grams/
+│  │  │  ├─ 2grams/
+│  │  │  ├─ 3grams/
+```
+
+Mount the local ngrams directory to the `/ngrams` directory in the Docker container [using the `-v` configuration](https://docs.docker.com/engine/reference/commandline/container_run/#read-only) and set the `languageModel` configuration to the `/ngrams` folder.
+
+An example startup configuration:
+
+```sh
+docker run --rm -it -p 8010:8010 -e langtool_languageModel=/ngrams -v /home/john/ngrams:/ngrams:ro erikvl87/languagetool
+```
+
+## Improving the spell checker
+
+> You can improve the spell checker without touching the dictionary. For single words (no spaces), you can add your words to one of these files:
+> * `spelling.txt`: words that the spell checker will ignore and use to generate corrections if someone types a similar word
+> * `ignore.txt`: words that the spell checker will ignore but not use to generate corrections
+> * `prohibited.txt`: words that should be considered incorrect even though the spell checker would accept them
+
+*Source: [https://dev.languagetool.org/hunspell-support](https://dev.languagetool.org/hunspell-support)*
+
+The following `Dockerfile` contains an example on how to add words to `spelling.txt`. It assumes you have your own list of words in `en_spelling_additions.txt` next to the `Dockerfile`.
+
+```dockerfile
+FROM erikvl87/languagetool
+
+# Improving the spell checker
+# http://wiki.languagetool.org/hunspell-support
+USER root
+COPY en_spelling_additions.txt en_spelling_additions.txt
+RUN  (echo; cat en_spelling_additions.txt) >> org/languagetool/resource/en/hunspell/spelling.txt
+USER languagetool
+```
+
+You can build & run the custom Dockerfile with the following two commands:
+
+```sh
+docker build -t languagetool-custom .
+docker run --rm -it -p 8010:8010 languagetool-custom
+```
+
+You can add words to other languages by changing the `en` language tag in the target path. Note that for some languages, e.g. for `nl` the `spelling.txt` file is not in the `hunspell` folder: `org/languagetool/resource/nl/spelling/spelling.txt`.
+
+# Docker Compose
+
+This image can also be used with [Docker Compose](https://docs.docker.com/compose/). An example [`docker-compose.yml`](docker-compose.yml) is located at the root of this project.
+
+# Usage
+By default this image is configured to listen on port 8010 which deviates from the default port of LanguageTool 8081.
+
+An example cURL request:
+
+```sh
+curl --data "language=en-US&text=a simple test" http://localhost:8010/v2/check
+```
+
+Please refer to the official LanguageTool documentation for further usage instructions.
+
+# Known issues & workarounds
+
+If you experience problems when connecting local server to the official Firefox extension, see [cors-workaround](cors-workaround/).
+
