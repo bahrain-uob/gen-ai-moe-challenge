@@ -8,11 +8,11 @@ export function ApiStack({ stack }: StackContext) {
 
   //Create the GrammerCheckerTool Service
   const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
-    path: 'packages/functions/src/docker-languagetool',
+    path: 'packages/functions/src/docker-languagetool2',
     port: 8010,
-    // dev: {
-    //   deploy: true   //Uncomment to deploy the service while in dev mode
-    // },
+    dev: {
+      deploy: true   //Uncomment to deploy the service while in dev mode
+    },
     cdk: {
       cloudfrontDistribution: false,
       applicationLoadBalancerTargetGroup: {
