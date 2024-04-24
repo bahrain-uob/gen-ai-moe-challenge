@@ -1,11 +1,25 @@
 import { Link } from 'react-router-dom';
 import { post } from 'aws-amplify/api';
-import { getCurrentUser, AuthUser } from 'aws-amplify/auth';
-import { useEffect } from 'react';
+import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
+import { useEffect, useState } from 'react';
 
-let currentUser: AuthUser;
+async function _getCurrentUser() {
+  try {
+    await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
+    const user = await getCurrentUser();
+    return user;
+  } catch (error: any) {
+    if (error.name == 'UserUnAuthenticatedException') {
+      console.log('Not logged in');
+    } else {
+      throw error;
+    }
+  }
+}
 
 function TestPage() {
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
+
   const testAPIAccess = async () => {
     const request = post({
       apiName: 'myAPI',
@@ -18,15 +32,15 @@ function TestPage() {
 
   // Get current user
   useEffect(() => {
-    getCurrentUser().then(user => {
-      currentUser = user;
+    _getCurrentUser().then(user => {
+      setUser(user);
     });
   }, []);
 
   return (
     <>
       <h2> This is a test page</h2>
-      <p>{currentUser ? JSON.stringify(currentUser) : 'No current User'}</p>
+      <p>{user ? JSON.stringify(user) : 'No current User'}</p>
 
       <br />
       <button onClick={testAPIAccess}>POST /</button>
