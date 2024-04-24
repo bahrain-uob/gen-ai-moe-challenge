@@ -3,8 +3,7 @@ import {
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-
-const client = new BedrockRuntime();
+import { runModel } from './utilities';
 
 export const main: APIGatewayProxyHandlerV2 = async event => {
   if (event.body == undefined) {
@@ -43,41 +42,6 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   };
 };
 
-/** Runs Titan Model for the given prompt and returns its output */
-async function runModel(prompt: string) {
-  // Model parameters
-  const modelParams = {
-    inputText: prompt,
-    textGenerationConfig: {
-      maxTokenCount: 4096,
-      stopSequences: [],
-      temperature: 0,
-      topP: 0.9,
-    },
-  };
-
-  // Invoke model
-  const response = await client.send(
-    new InvokeModelCommand({
-      body: JSON.stringify(modelParams),
-      contentType: 'application/json',
-      accept: '*/*',
-      modelId: 'amazon.titan-text-express-v1',
-    }),
-  );
-
-  // Parse model output
-  const output = Buffer.from(response.body).toString('utf8');
-  const body = JSON.parse(output);
-  const text = body.results[0].outputText;
-
-  if (typeof text !== 'string') {
-    throw new Error('Unexpected variable type');
-  }
-
-  return text;
-}
-
 /**
  * IELTS grading rubric for writing task 1 grading.
  *
@@ -91,7 +55,7 @@ const rubric = {
   'Lexical Resource':
     'Score: 9\nFull flexibility and precise use are widely evident.\n\nA wide range of vocabulary is used accurately and appropriately with very natural and sophisticated control of lexical features.\n\nMinor errors in spelling and word formation are extremely rare and have minimal impact on communication.\n--------------------\n\nScore: 8\nA wide resource is fluently and flexibly used to convey precise meanings.\n\nThere is skilful use of uncommon and/or idiomatic items when appropriate, despite occasional inaccuracies in word choice and collocation.\n\nOccasional errors in spelling and/or word formation may occur, but have minimal impact on communication.\n--------------------\n\nScore: 7\nThe resource is sufficient to allow some flexibility and precision.\n\nThere is some ability to use less common and/or idiomatic items.\n\nAn awareness of style and collocation is evident, though inappropriacies occur.\n\nThere are only a few errors in spelling and/or word formation and they do not detract from overall clarity.\n--------------------\n\nScore: 6\nThe resource is generally adequate and appropriate for the task.\n\nThe meaning is generally clear in spite of a rather restricted range or a lack of precision in word choice.\n\nIf the writer is a risk-taker, there will be a wider range of vocabulary used but higher degrees of inaccuracy or inappropriacy.\n\nThere are some errors in spelling and/or word formation, but these do not impede communication.\n--------------------\n\nScore: 5\nThe resource is limited but minimally adequate for the task.\n\nSimple vocabulary may be used accurately but the range does not permit much variation in expression.\n\nThere may be frequent lapses in the appropriacy of word choice and a lack of flexibility is apparent in frequent simplifications and/or repetitions.\n\nErrors in spelling and/or word formation may be noticeable and may cause some difficulty for the reader.\n--------------------\n\nScore: 4\nThe resource is limited and inadequate for or **unrelated to the task**. Vocabulary is basic and may be used repetitively.\n\nThere may be inappropriate use of lexical chunks (e.g. memorised phrases, formulaic language and/or language from the input material).\n\nInappropriate word choice and/or errors in word formation and/or in spelling may impede meaning.\n--------------------\n\nScore: 3\nThe resource is inadequate (which may be due to the response being significantly underlength). Possible over-dependence on input material or memorised language.\n\nControl of word choice and/or spelling is very limited, and errors predominate. These errors may severely impede meaning.\n--------------------\n\nScore: 2\nThe resource is extremely limited with few recognisable strings, apart from memorised phrases.\n\nThere is no apparent control of word formation and/or spelling.\n--------------------\n\nScore: 1\n**Responses of 20 words or fewer are rated at Band 1**.\n\nNo resource is apparent, except for a few isolated words.\n--------------------\n\nScore: 0\nShould only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate\xe2\x80\x99s answer has been totally memorised.\n--------------------\n\n',
   'Task Responce':
-    'Score: 9\nAll the requirements of the task are fully and appropriately satisfied.\n\nThere may be extremely rare lapses in content.\n--------------------\n\nScore: 8\nThe response covers all the requirements of the task appropriately, relevantly and sufficiently.\n\nKey features are skilfully selected, and clearly presented, highlighted and illustrated.\n\nThere may be occasional omissions or lapses in content.\n--------------------\n\nScore: 7\nThe response covers the requirements of the task.\n\nThe content is relevant and accurate –there may be a few omissions or lapses. The format is appropriate.\n\nKey features which are selected are covered and clearly highlighted but could be more fully or more appropriately illustrated or extended.\n\nIt presents a clear overview, the data are appropriately categorised, and main trends or differences are identified.\n--------------------\n\nScore: 6\nThe response focuses on the requirements of the task and an appropriate format is used.\n\nKey features which are selected are covered and adequately highlighted. A relevant overview is attempted. Information is appropriately selected and supported using figures/data.\n\nSome irrelevant, inappropriate or inaccurate information may occur in areas of detail or when illustrating or extending the main points.\n\nSome details may be missing (or excessive) and further extension or illustration may be needed.\n\nScore: 5\n\nThe response generally addresses the requirements of the task. The format may be inappropriate in places.\nKey features which are selected are not adequately covered. The recounting of detail is mainly mechanical.There may be no data to support the description.\nThere may be a tendency to focus on details (without referring to the bigger picture).\nThe inclusion of irrelevant, inappropriate or inaccurate material in key areas detracts from the task achievement.\nThere is limited detail when extending and illustrating the main points.\n--------------------\n\nScore: 4\nThe response is an attempt to address the task.\n\nFew key features have been selected.\n\nThe format may be inappropriate.\n\nKey features/bullet points which are presented may be irrelevant, repetitive, inaccurate or inappropriate.\n--------------------\n\nScore: 3\nThe response does not address the requirements of the task (possibly because of misunderstanding of the data/diagram/situation).\n\nKey features/bullet points which are presented may be largely irrelevant.\n\nLimited information is presented, and this may be used repetitively.\n--------------------\n\nScore: 2\nThe content is barely related to the task.\n--------------------\n\nScore: 1\nResponses of 20 words or fewer are rated at Band 1.\n\nThe content is wholly unrelated to the task.\n\nAny copied rubric must be discounted.\n--------------------\n\nScore: 0\nShould only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate\xe2\x80\x99s answer has been totally memorised.\n--------------------\n\n',
+    'Score: 9\nAll the requirements of the task are fully and appropriately satisfied.\n\nThere may be extremely rare lapses in content.\n--------------------\n\nScore: 8\nThe response covers all the requirements of the task appropriately, relevantly and sufficiently.\n\nKey features are skilfully selected, and clearly presented, highlighted and illustrated.\n\nThere may be occasional omissions or lapses in content.\n--------------------\n\nScore: 7\nThe response covers the requirements of the task.\n\nThe content is relevant and accurate –there may be a few omissions or lapses. The format is appropriate.\n\nKey features which are selected are covered and clearly highlighted but could be more fully or more appropriately illustrated or extended.\n\nIt presents a clear overview, the data are appropriately categorised, and main trends or differences are identified.\n--------------------\n\nScore: 6\nThe response focuses on the requirements of the task and an appropriate format is used.\n\nKey features which are selected are covered and adequately highlighted. A relevant overview is attempted. Information is appropriately selected and supported using figures/data.\n\nSome irrelevant, inappropriate or inaccurate information may occur in areas of detail or when illustrating or extending the main points.\n\nSome details may be missing (or excessive) and further extension or illustration may be needed.\n\nScore: 5\nThe response generally addresses the requirements of the task. The format may be inappropriate in places.\nKey features which are selected are not adequately covered. The recounting of detail is mainly mechanical.There may be no data to support the description.\nThere may be a tendency to focus on details (without referring to the bigger picture).\nThe inclusion of irrelevant, inappropriate or inaccurate material in key areas detracts from the task achievement.\nThere is limited detail when extending and illustrating the main points.\n--------------------\n\nScore: 4\nThe response is an attempt to address the task.\n\nFew key features have been selected.\n\nThe format may be inappropriate.\n\nKey features/bullet points which are presented may be irrelevant, repetitive, inaccurate or inappropriate.\n--------------------\n\nScore: 3\nThe response does not address the requirements of the task (possibly because of misunderstanding of the data/diagram/situation).\n\nKey features/bullet points which are presented may be largely irrelevant.\n\nLimited information is presented, and this may be used repetitively.\n--------------------\n\nScore: 2\nThe content is barely related to the task.\n--------------------\n\nScore: 1\nResponses of 20 words or fewer are rated at Band 1.\n\nThe content is wholly unrelated to the task.\n\nAny copied rubric must be discounted.\n--------------------\n\nScore: 0\nShould only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate\xe2\x80\x99s answer has been totally memorised.\n--------------------\n\n',
 };
 
 function createPrompt(
