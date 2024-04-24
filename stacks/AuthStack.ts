@@ -4,6 +4,9 @@ export function AuthStack({ stack, app }: StackContext) {
   // Create User Pool
   const auth = new Cognito(stack, 'Auth', {
     login: ['email'],
+    triggers: {
+      preSignUp: 'packages/functions/src/preSignUp.handler',
+    },
   });
 
   // Show user pool info in the output
