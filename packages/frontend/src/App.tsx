@@ -40,6 +40,9 @@ function App() {
           <br />
           <br />
           <Link to="/sign-up"> Sign up </Link>
+          <br />
+          <br />
+          <Link to="/sign-in"> Sign in </Link>
         </p>
         <p> Sayed Ahmed was here </p>
       </div>

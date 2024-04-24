@@ -8,6 +8,7 @@ import TestPage from './pages/TestPage.tsx';
 import Writing from './pages/writing.tsx';
 import Speaking from './pages/speaking.tsx';
 import SignUp from './pages/SignUp.tsx';
+import SignIn from './pages/SignIn.tsx';
 
 Amplify.configure({
   Auth: {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-up',
     Component: SignUp,
+  },
+  {
+    path: '/sign-in',
+    Component: SignIn,
   },
 ]);
 // TODO: handle not found pages
