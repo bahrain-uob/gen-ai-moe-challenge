@@ -3,6 +3,7 @@ import {
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { runLangTool } from './utilities';
 
 const client = new BedrockRuntime();
 
@@ -28,6 +29,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     return feedback;
   });
 
+  const grammerToolFeedback = await runLangTool(answer);
   const feedbacks = await Promise.all(_feedbacks);
 
   const out = {
@@ -35,6 +37,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     'Grammatical Range & Accuracy': feedbacks[1],
     'Lexical Resource': feedbacks[2],
     'Task Responce': feedbacks[3],
+    'Grammer Tool Feedback': grammerToolFeedback,
   };
 
   return {

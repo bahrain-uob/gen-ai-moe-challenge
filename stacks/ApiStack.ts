@@ -58,6 +58,9 @@ export function ApiStack({ stack }: StackContext) {
           handler: 'packages/functions/src/writing.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
+          environment:{
+            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
+          }
         },
       },
       // Sample Pyhton lambda function
