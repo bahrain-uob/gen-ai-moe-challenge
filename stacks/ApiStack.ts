@@ -35,8 +35,9 @@ export function ApiStack({ stack }: StackContext) {
       // Sample Pyhton lambda function
       'GET /': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
+          handler: 'packages/functions/src/sample-python-lambda/Polly.main',
           runtime: 'python3.11',
+          permissions: ['polly:SynthesizeSpeech'],
           timeout: '60 seconds',
         },
       },

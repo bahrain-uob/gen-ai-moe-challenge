@@ -1,0 +1,5 @@
+boto3
+os
+AudioSegment
+pydub==0.25.1
+uuid
