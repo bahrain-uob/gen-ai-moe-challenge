@@ -13,12 +13,10 @@ export function ApiStack({ stack }: StackContext) {
         permissions: [uploads_bucket],
         environment: {
           audioResponseBucket: uploads_bucket.bucketName,
+          TABLE1_NAME: myTable.tableName,
         },
         // Bind the table name to our API
         bind: [table,questions_table],
-        environment: {
-          TABLE1_NAME: myTable.tableName,
-        },
       },
     },
     routes: {
@@ -37,6 +35,7 @@ export function ApiStack({ stack }: StackContext) {
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
       'GET /reading/{sk}': 'packages/functions/src/readingfromdb.handler',
+      'POST /reading/answers': 'packages/functions/src/answertest.handler',
 
       // Sample Pyhton lambda function
       'GET /': {
