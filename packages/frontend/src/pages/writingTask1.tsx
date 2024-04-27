@@ -1,12 +1,6 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-
-interface Response {
-  'Coherence & Cohesion': string;
-  'Grammatical Range & Accuracy': string;
-  'Lexical Resource': string;
-  'Task Responce': string;
-}
+import { WritingGrading } from './writingTask2';
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
@@ -14,10 +8,11 @@ function WritingTask1Page() {
     graphDescription: '',
     question: '',
   });
-  const [grading, setGrading] = useState(undefined as undefined | Response);
+  const [grading, setGrading] = useState(
+    undefined as undefined | WritingGrading,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
@@ -70,6 +65,7 @@ function WritingTask1Page() {
         <textarea
           name="question"
           value={inputs.question}
+          placeholder="Question"
           onChange={handleChange}
           {...size}
         />
@@ -77,7 +73,8 @@ function WritingTask1Page() {
 
         <textarea
           name="graphDescription"
-          value={inputs.question}
+          placeholder="Graph Description"
+          value={inputs.graphDescription}
           onChange={handleChange}
           {...size}
         />
@@ -85,6 +82,7 @@ function WritingTask1Page() {
 
         <textarea
           name="answer"
+          placeholder="Answer"
           value={inputs.answer}
           onChange={handleChange}
           {...size}
