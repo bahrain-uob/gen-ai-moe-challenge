@@ -24,6 +24,9 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
   });
+  const grammerToolDNS =
+    GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ??
+    'undefined DNS';
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -44,9 +47,9 @@ export function ApiStack({ stack }: StackContext) {
       'GET /languageTool': {
         function: {
           handler: 'packages/functions/src/languageTool.main',
-          environment:{
-            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
-          }
+          environment: {
+            grammerToolDNS: grammerToolDNS,
+          },
         },
       },
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
@@ -58,9 +61,9 @@ export function ApiStack({ stack }: StackContext) {
           handler: 'packages/functions/src/writing.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
-          environment:{
-            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
-          }
+          environment: {
+            grammerToolDNS: grammerToolDNS,
+          },
         },
       },
       // Sample Pyhton lambda function
