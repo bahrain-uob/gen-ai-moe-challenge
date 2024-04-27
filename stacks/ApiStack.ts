@@ -4,8 +4,8 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, questions_table, uploads_bucket,myTable } = use(DBStack);
-
+  const { table, questions_table, uploads_bucket, myTable } = use(DBStack);
+  
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
@@ -16,7 +16,7 @@ export function ApiStack({ stack }: StackContext) {
           TABLE1_NAME: myTable.tableName,
         },
         // Bind the table name to our API
-        bind: [table,questions_table],
+        bind: [table, questions_table],
       },
     },
     routes: {
@@ -34,8 +34,8 @@ export function ApiStack({ stack }: StackContext) {
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
-      'GET /reading/{sk}': 'packages/functions/src/readingfromdb.handler',
-      'POST /reading/answers': 'packages/functions/src/answertest.handler',
+      'GET /{section}/{sk}': 'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}': 'packages/functions/src/GradingReadingListening.handler',
 
       // Sample Pyhton lambda function
       'GET /': {
@@ -48,8 +48,6 @@ export function ApiStack({ stack }: StackContext) {
     },
   });
   api.attachPermissions([myTable]);
-  
-
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj

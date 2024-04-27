@@ -26,12 +26,12 @@ interface SubQuestion {
 
 const ReadingQuestions = () => {
   const [parts, setParts] = useState<ReadingPart[]>([]);
-  const { sk } = useParams();
+  const { section,sk } = useParams();
 
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const url = `${import.meta.env.VITE_API_URL}/reading/${sk}`;
+        const url = `${import.meta.env.VITE_API_URL}/${section}/${sk}`;
         const response = await fetch(url);
         const data = await response.json();
 

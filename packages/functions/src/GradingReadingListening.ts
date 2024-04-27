@@ -8,18 +8,36 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   // const studentAnswers = testData.studentAnswers
   //const partitionKeys = testData.partitionKeys
   //const sortKey = testData.sortKey
+  // const section=testData.section
+  const { section,  sk } = event.pathParameters || {};
+  let pks: string[];
+
+  if(section==='reading'){
+    pks = ["ReadingP1", "ReadingP2", "ReadingP3"];// Correction is done for each of these parts
+  }
+  else{
+    pks = ["ListeningP1", "ListeningP2", "ListeningP3","ListeningP4"];// Correction is done for each of these parts
+  }
+
   try {
-    const pks = ["ReadingP1", "ReadingP2", "ReadingP3"]; // Correction is done for each of these parts
     const studentAnswers = [
       [['C', 'B', 'F', 'G', 'A','A','A', 'B', 'A'], ['Yes', 'Yes', 'No', 'No', 'No']],//part1
       [['A', 'E', 'A', 'G', 'A','A'], ['H','F','C'], ['True', 'True', 'True', 'False']],//part2
       [['A controversial range of prices', 'ok', 'Manual woodworking techniques', 'A', 'E', 'ok', 'c','ok', 'c'], ['True', 'True', 'True', 'False', 'False']]//part3
-    ];
+    ];// for reading and sort key=1 
     /*const studentAnswers = [
       [['obscure', 'ok', 'Northwest Africa', 'ok', 'religious'], ['F', 'D', 'ok', 'ok', 'G', 'B', 'ok', 'ok'], ['Interpretations of Viking history']],//part1
       [['Yes', 'Yes', 'No', 'No', 'No','yes'], ['temperature', 'rock', 'ok', 'G', 'ice age', 'F'], ['Viking history and nationalism']],//part2
       [['ok', 'ok', 'F', 'A', 'E', 'ok', 'c'], ['True', 'True', 'True', 'False', 'False', 'False']]//part3
-    ];// for sort key=2 */
+    ];// for reading and sort key=2 */
+    /*const studentAnswers = [
+      [['hostel', 'ok', 'PE9 7QT', 'ok', 'politics','ok','cinema','ok', '4.30 (pm)', '07788 136711']],//part1
+      [['A', 'B', 'C', 'D', 'A','A'], ['G','B','D','N']],//part2
+      [['A', 'A', 'C', 'B', 'A', 'A'], ['A', 'D', 'E', 'A']],//part3
+      [['ok', 'factory', 'ok', 'ok', 'box','ok','rubber','curtains', 'ok', 'international']]//part4
+    ];// for listening and sort key=2*/
+    console.log(studentAnswers)
+    
 
     let allQuestions = [];
     let allScores = [];
@@ -32,14 +50,14 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         TableName: process.env.TABLE1_NAME,
         Key: {
           MyPartitionKey: pk,
-          MySortKey: '1', //sortKey 
+          MySortKey: sk, //sortKey 
         },
       };
 
       const partResponse = await dynamoDb.get(getItemParams).promise();
       const partResponseItem = partResponse.Item;
       if (partResponseItem && partResponseItem.NumOfQuestions) {
-        const numOfQuestions = parseInt(partResponseItem.NumOfQuestions, 10);
+        const numOfQuestions = partResponseItem.NumOfQuestions
         const questions = [];
         const scores = [];
 
@@ -73,7 +91,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
             }
             scores.push(subQuestionScores);
           }
-          else{
+          else{//for questionType=== 'Short Answers', 'Table Completion', 'Summary Completion', 'Diagram Completion', 'Multiple Answers', 
             const correctAnswers=[];
             
             console.log(`part ${index} Question ${i} subQ: `, questions[i].SubQuestions);
@@ -112,7 +130,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       TableName: process.env.TABLE1_NAME,
       Item: {
         MyPartitionKey: 'student7',
-        MySortKey: "1", //sortKey
+        MySortKey: sk, //sortKey
         questions: allQuestions,
         studentAnswers: studentAnswers,
         scores: allScores,
@@ -124,7 +142,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     // Return the student response as the POST body
     const responseBody = {
       MyPartitionKey: 'student7',
-      MySortKey: "1",  //sortKey
+      MySortKey: sk,  //sortKey
       questions: allQuestions,
       studentAnswers: studentAnswers,
       scores: allScores,

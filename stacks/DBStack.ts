@@ -7,7 +7,7 @@ import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
 import AWS from 'aws-sdk';
 
 
-export function DBStack(this: any, { stack, app }: StackContext) {
+export function DBStack(this: any, { stack }: StackContext) {
   // Create a DynamoDB table
   const table = new Table(stack, 'Counter', {
     fields: {
@@ -19,7 +19,7 @@ export function DBStack(this: any, { stack, app }: StackContext) {
   const myTable = new dynamodb.Table(this, 'Table', {
     partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
     sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
-    removalPolicy: RemovalPolicy.DESTROY,
+   // removalPolicy: RemovalPolicy.DESTROY,
   });
   
   myTable.addGlobalSecondaryIndex({

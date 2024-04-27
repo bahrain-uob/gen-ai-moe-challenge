@@ -4,8 +4,16 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-  const { sk } = event.pathParameters || {};
-  const pks = ["ReadingP1", "ReadingP2", "ReadingP3"];
+  const { section,  sk } = event.pathParameters || {};
+
+  let pks: string[];
+  if(section==='reading'){
+    pks = ["ReadingP1", "ReadingP2", "ReadingP3"];
+  }
+  else{
+    pks = ["ListeningP1", "ListeningP2", "ListeningP3","ListeningP4"];
+  }
+
 
   try {
     const queryPromises = pks.map(async (pk) => {
