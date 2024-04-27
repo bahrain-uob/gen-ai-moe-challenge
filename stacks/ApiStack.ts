@@ -29,7 +29,7 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/gradingWritingTask1.main',
           permissions: ['bedrock:InvokeModel'],
-          timeout: '60 seconds',
+          timeout: '120 seconds',
         },
       },
       // Writing Task 2 grading lambda function

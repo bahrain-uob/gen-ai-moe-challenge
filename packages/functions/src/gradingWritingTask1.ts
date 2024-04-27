@@ -34,8 +34,12 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     'Grammatical Range & Accuracy': feedbacks[1],
     'Lexical Resource': feedbacks[2],
     'Task Responce': feedbacks[3],
+    'Combined Feedback': '',
   };
 
+  const unifyPrompt = promptToUnifyFeedbacks(out);
+  out['Combined Feedback'] = await runModel(unifyPrompt);
+  console.log(unifyPrompt); // TODO: remove
   return {
     statusCode: 200,
     body: JSON.stringify(out),
@@ -88,5 +92,35 @@ ${writing_answer}
 Grade the student's answer based on the provided rubric and give it a score
 accordingly based on ${criteria_name} criteria.  And provide feedback referencing repecific
 parts of the student's answer relevant to your grading.
+`;
+}
+
+/** Create a prompt to unify the feedbacks into one.  Takes as input a Record
+ * with the criteria as the key, and the feedback text as the value.
+ */
+function promptToUnifyFeedbacks(feedbacks: Record<string, string>) {
+  const feedbacksSection = Object.entries(feedbacks)
+    // Convert to XML-like format
+    .map(([criteria, feedback]) =>
+      criteria === 'Combined Feedback' // Exclude combined feedback from Object
+        ? ''
+        : `<${criteria}>\n${feedback}\n</${criteria}>`,
+    )
+    .reduce((prev, curr) => prev + '\n' + curr);
+
+  return `
+
+You are tasked with combining the given detailed feedbacks given to a student's
+essay, each feedback related to different grading criteria and contines the
+assigned band score ('Coherence & Cohesion', 'Grammatical Range & Accuracy',
+'Lexical Resource', 'Task Responce').  Combine those feedbacks into one
+comprehensive combined feedback.  The combined feedback should have a
+constructive tone, and be approachable and easily understood by a high school
+student.
+
+Make sure your response reatains some of the feedback that references sepecific
+parts of the student's answer, if you find it relevant and useful.
+
+${feedbacksSection}
 `;
 }

@@ -6,6 +6,7 @@ export interface WritingGrading {
   'Grammatical Range & Accuracy': string;
   'Lexical Resource': string;
   'Task Responce': string;
+  'Combined Feedback': string;
 }
 
 function WritingTask2Page() {

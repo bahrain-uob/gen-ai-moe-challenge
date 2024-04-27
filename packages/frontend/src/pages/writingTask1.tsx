@@ -55,6 +55,10 @@ function WritingTask1Page() {
       <p style={pStyling}> {grading['Lexical Resource']} </p>
       <h5>Task Responce</h5>
       <p style={pStyling}> {grading['Task Responce']} </p>
+      <br />
+      <br />
+      <h5>Combined Feedback</h5>
+      <p style={pStyling}> {grading['Combined Feedback']} </p>
     </>
   ) : (
     <p style={{ whiteSpace: 'pre-line' }}> {grading} </p>
