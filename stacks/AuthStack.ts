@@ -1,4 +1,5 @@
 import { Cognito, StackContext } from 'sst/constructs';
+import { StringAttribute } from 'aws-cdk-lib/aws-cognito';
 
 export function AuthStack({ stack, app }: StackContext) {
   // Create User Pool
@@ -7,6 +8,13 @@ export function AuthStack({ stack, app }: StackContext) {
     triggers: {
       preSignUp: 'packages/functions/src/preSignUp.handler',
     },
+    cdk:{
+      userPool: {
+        customAttributes: {
+          'Institution': new StringAttribute({ mutable: true }),
+        }
+      }
+    }
   });
 
   // Show user pool info in the output
