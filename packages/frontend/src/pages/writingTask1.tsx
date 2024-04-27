@@ -4,9 +4,12 @@ import { WritingGrading } from './writingTask2';
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
-    answer: '',
-    graphDescription: '',
-    question: '',
+    answer:
+      'This is a bar chart of the number of men and women in further education in Britain in three periods.  In 1970, Most of Men were studying part-time but from 1980, studying part-time was decreased and studying full-time was increased and in 1990, it was twice as many students as in 1970.  On the other hand, women studying Full-time were increased and not only Full-time, part-time also were increased, in 1990, Studying full-time was three times as many students as in 1970.  If compare Men and Women, as you see, in 1970, Men were Studying more than women full-time or part-time but it changed from 1980 and then, in 1990, Women were studying part-time more than Men and Studying full-time was same number.  It shows you Women has a high education now.',
+    graphDescription:
+      'Period: 1970/71\n- Number of men: 1000 as part-time and 100 as full-time\n- Number of women: 700 as part-time and 50 as full-time\n\nPeriod: 1980/81\n- Number of men: 850 as part-time and 150 as full-time\n- Number of women: 800 as part-time and 200 as full-time\n\nPeriod: 1990/91\n- Number of men: 900 as part-time and 225 as full-time\n- Number of women: 1100 as part-time and 225 as full-time',
+    question:
+      'The chart below shows the number of men and women in further education in Britain in three periods and whether they were studying fulltime or part-time.\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.',
   });
   const [grading, setGrading] = useState(
     undefined as undefined | WritingGrading,
