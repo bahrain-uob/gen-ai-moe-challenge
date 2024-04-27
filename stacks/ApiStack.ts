@@ -4,16 +4,13 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, questions_table, uploads_bucket } = use(DBStack);
+  const { table, questions_table, uploads_bucket, feedback_table } =
+    use(DBStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
       function: {
-        permissions: [uploads_bucket],
-        environment: {
-          audioResponseBucket: uploads_bucket.bucketName,
-        },
         // Bind the table name to our API
         bind: [table, questions_table],
       },
@@ -21,9 +18,37 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
+      // Speaking retrieving a question lambda function
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
-      'GET /generate-presigned-url':
-        'packages/functions/src/generatePresignedUrl.main',
+      // Speaking getting a presigned URL to upload the response
+      'GET /generate-presigned-url': {
+        function: {
+          handler: 'packages/functions/src/generatePresignedUrl.main',
+          permissions: ['s3:PutObject'],
+          environment: {
+            audioResponseBucket: uploads_bucket.bucketName,
+          },
+        },
+      },
+      // Speaking grading lambda function
+      'POST /speaking': {
+        function: {
+          handler: 'packages/functions/src/speaking.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'bedrock:InvokeModel',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '60 seconds',
+        },
+      },
       // Writing grading lambda function
       'POST /writing': {
         function: {
