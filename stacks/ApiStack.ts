@@ -24,18 +24,18 @@ export function ApiStack({ stack }: StackContext) {
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       'GET /generate-presigned-url':
         'packages/functions/src/generatePresignedUrl.main',
-      // Writing Task 2 grading lambda function
-      'POST /writing': {
+      // Writing Task 1 grading lambda function
+      'POST /grade-writing-task1': {
         function: {
-          handler: 'packages/functions/src/writing.main',
+          handler: 'packages/functions/src/gradingWritingTask1.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
         },
       },
       // Writing Task 2 grading lambda function
-      'POST /writingP1Grading': {
+      'POST /grade-writing-task2': {
         function: {
-          handler: 'packages/functions/src/writingP1Grading.main',
+          handler: 'packages/functions/src/gradingWritingTask2.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
         },

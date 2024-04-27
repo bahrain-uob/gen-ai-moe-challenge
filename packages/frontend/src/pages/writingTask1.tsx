@@ -8,7 +8,7 @@ interface Response {
   'Task Responce': string;
 }
 
-function WritingP1() {
+function WritingTask1Page() {
   const [inputs, setInputs] = useState({
     answer: '',
     graphDescription: '',
@@ -23,7 +23,7 @@ function WritingP1() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_API_URL}/writingP1`;
+    const url = `${import.meta.env.VITE_API_URL}/grade-writing-task1`;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -104,4 +104,4 @@ function WritingP1() {
   );
 }
 
-export default WritingP1;
+export default WritingTask1Page;
