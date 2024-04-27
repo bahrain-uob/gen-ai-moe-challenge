@@ -3,7 +3,7 @@ import {
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import { runLangTool } from './utilities';
+import { runLangTool } from './utilities/writingUtilities';
 
 const client = new BedrockRuntime();
 
