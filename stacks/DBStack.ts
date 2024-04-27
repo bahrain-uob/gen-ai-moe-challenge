@@ -19,13 +19,6 @@ export function DBStack(this: any, { stack }: StackContext) {
   const myTable = new dynamodb.Table(this, 'Table', {
     partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
     sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
-   // removalPolicy: RemovalPolicy.DESTROY,
-  });
-  
-  myTable.addGlobalSecondaryIndex({
-    indexName: 'MyGlobalSecondaryIndex',
-    partitionKey: { name: 'GSIPartitionKey', type: dynamodb.AttributeType.STRING },
-    sortKey: { name: 'GSISortKey', type: dynamodb.AttributeType.STRING },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
