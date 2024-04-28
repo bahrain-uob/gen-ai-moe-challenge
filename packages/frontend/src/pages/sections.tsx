@@ -5,10 +5,10 @@ const sections = () => (
   <main className="bg-[#FBF9F1] h-full">
     <Nav/>
     <div className='py-32 flex'>
-      <Button label='Listening'/>
-      <Button label='Reading'/>
-      <Button label='Speaking'/>
-      <Button label='Writing'/>
+      <Link to=""><Button label='Listening'/></Link>
+      <Link to=""><Button label='Reading'/></Link>
+      <Link to="/speaking"><Button label='Speaking'/></Link>
+      <Link to="/writing"><Button label='Writing'/></Link>
     </div>
   </main>
 );
