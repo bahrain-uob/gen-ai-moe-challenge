@@ -1,10 +1,29 @@
-import { Api, StackContext, use } from 'sst/constructs';
+import { Api, StackContext, use, Service } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
   const { table, questions_table, uploads_bucket } = use(DBStack);
+
+  //Create the GrammerCheckerTool Service
+  const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
+    path: 'packages/functions/src/docker-languagetool',
+    port: 8010,
+    // dev: {
+    //   deploy: true   //Uncomment to deploy the service while in dev mode
+    // },
+    cdk: {
+      cloudfrontDistribution: false,
+      applicationLoadBalancerTargetGroup: {
+        healthCheck: {
+          path: "/v2/languages",
+
+        },
+
+      },
+    },
+  });
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -23,6 +42,15 @@ export function ApiStack({ stack }: StackContext) {
       'POST /': 'packages/functions/src/lambda.main',
       // Function that returns a random question
       "GET    /question/{questionType}": "packages/functions/src/question.main",
+      //example for using the language tool service
+      'GET /languageTool': {
+        function: {
+          handler: 'packages/functions/src/languageTool.main',
+          environment:{
+            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
+          }
+        },
+      },
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       'GET /generate-presigned-url':
         'packages/functions/src/generatePresignedUrl.main',
