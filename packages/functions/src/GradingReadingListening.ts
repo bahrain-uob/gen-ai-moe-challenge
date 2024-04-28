@@ -20,16 +20,16 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const studentAnswers = [
+    /*const studentAnswers = [
       [['C', 'B', 'F', 'G', 'A','A','A', 'B', 'A'], ['Yes', 'Yes', 'No', 'No', 'No']],//part1
       [['A', 'E', 'A', 'G', 'A','A'], ['H','F','C'], ['True', 'True', 'True', 'False']],//part2
       [['A controversial range of prices', 'ok', 'Manual woodworking techniques', 'A', 'E', 'ok', 'c','ok', 'c'], ['True', 'True', 'True', 'False', 'False']]//part3
-    ];// for reading and sort key=1 
-    /*const studentAnswers = [
+    ];// for reading and sort key=1 */
+    const studentAnswers = [
       [['obscure', 'ok', 'Northwest Africa', 'ok', 'religious'], ['F', 'D', 'ok', 'ok', 'G', 'B', 'ok', 'ok'], ['Interpretations of Viking history']],//part1
       [['Yes', 'Yes', 'No', 'No', 'No','yes'], ['temperature', 'rock', 'ok', 'G', 'ice age', 'F'], ['Viking history and nationalism']],//part2
       [['ok', 'ok', 'F', 'A', 'E', 'ok', 'c'], ['True', 'True', 'True', 'False', 'False', 'False']]//part3
-    ];// for reading and sort key=2 */
+    ];// for reading and sort key=2 
     /*const studentAnswers = [
       [['hostel', 'ok', 'PE9 7QT', 'ok', 'politics','ok','cinema','ok', '4.30 (pm)', '07788 136711']],//part1
       [['A', 'B', 'C', 'D', 'A','A'], ['G','B','D','N']],//part2
@@ -87,7 +87,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
               const isCorrect = answersForPart[i][j] === correctAnswer;
               const score = isCorrect ? 1 : 0;
               subQuestionScores.push(score);
+              console.log(`Question ${i}- ${j} - Student Answer:`, answersForPart[i][j]);
+              console.log(`part ${index} Question ${i} subQ ${j} correctAnswer: `, correctAnswer);
               console.log(`part ${index} Question ${i} subQ${j} score: `, score);
+              console.log(`part ${index} Question ${i} subQ${j} subQuestionScores: `, subQuestionScores);
             }
             scores.push(subQuestionScores);
           }
@@ -95,21 +98,25 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
             const correctAnswers=[];
             
             console.log(`part ${index} Question ${i} subQ: `, questions[i].SubQuestions);
+            let qIndex=0;
             for (let j=0;j<NumOfSubQuestions;j++){
               console.log(`part ${index} Question ${i} subQ ${j}: `, questions[i].SubQuestions[j]);
               const questionWeight=questions[i].SubQuestions[j].QuestionWeight;
               console.log(`Question ${i} - ${j}- questionWeight:`, questionWeight);
               for(let k=0;k<questionWeight;k++){
+                
                 correctAnswers.push( questions[i].SubQuestions[j].CorrectAnswers[k]);
-                const studentAnswer = studentAnswers[index][i][j+k];
-                console.log(`Question ${i} - Student Answer:`, studentAnswer);
-                console.log(`Question ${i} -${j}- ${k}- Correct Answers at ${j+k}:`, correctAnswers[j+k]);
-            
-                const isCorrect = correctAnswers[j+k].includes(studentAnswer);
+                //const studentAnswer = studentAnswers[index][i][j+k];
+                const studentAnswer = answersForPart[i][qIndex];
+                console.log(`Question ${i}- ${j}- ${k}- - Student Answer:`, studentAnswer);
+                console.log(`Question ${i} -${j}- ${k}- Correct Answers at ${qIndex}:`, correctAnswers[qIndex]);
+                
+                const isCorrect = correctAnswers[qIndex].includes(studentAnswer);
                 const score = isCorrect ? 1 : 0;
                 console.log(`part ${index} Question ${i} - ${j}- ${k}- score:`, score);
                 subQuestionScores.push(score);
                 console.log(`part ${index} Question ${i} - ${j}- ${k}- subQuestionScores:`, subQuestionScores);
+                qIndex++;
               }
             }
             scores.push(subQuestionScores);
