@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import Button from "../components/FButton";
+
 const SignIn = () => (
   <main className="bg-[#FBF9F1]">
     <section className="py-36 h-screen">
@@ -14,12 +17,7 @@ const SignIn = () => (
             </p>
           </div>
 
-          <button
-            className="flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none rounded-full  
-                        bg-[#AFA8A0] text-white border-[#AFA8A0]"
-          >
-            SignIn
-          </button>
+          <Link to="/Home"><Button label="Sign In"/></Link>
 
           <p className="text-white text-l text-decoration-line: underline">
             Forget Password?
