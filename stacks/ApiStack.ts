@@ -39,6 +39,8 @@ export function ApiStack({ stack }: StackContext) {
       'POST /': 'packages/functions/src/lambda.main',
       // Speaking retrieving a question lambda function
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
+      // Function that returns a random question
+      "GET    /question/{questionType}": "packages/functions/src/question.main",
       //example for using the language tool service
       'GET /languageTool': {
         function: {
