@@ -86,7 +86,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   };
 };
 
-/*
+/**
   This function starts a transcription job and returns only when that
   job is 'COMPLETE', the while loop is necessary because without it the 
   function will return when the transcription job is submitted successfully.
@@ -119,7 +119,7 @@ async function startTranscription(audioFileName: string) {
   }
 }
 
-/*
+/**
   This function retrieves the transcript from the S3 bucket and returns it.
 */
 async function retrieveTranscript(audioFileName: string) {
@@ -142,11 +142,11 @@ async function retrieveTranscript(audioFileName: string) {
       body: JSON.stringify('file is empty'),
     };
   } else {
-    return JSON.parse(content).results.transcripts[0].transcript;
+    return JSON.parse(content).results.transcripts[0].transcript as string;
   }
 }
 
-/*
+/**
   This function stores the feedback from bedrock to DynamoDB
 */
 async function storeFeedback(
