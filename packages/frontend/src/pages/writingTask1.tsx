@@ -21,14 +21,17 @@ function WritingTask1Page() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_API_URL}/grade-writing-task1`;
+    const url = `${import.meta.env.VITE_API_URL}/grade-writing`;
     fetch(url, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(inputs),
+      body: JSON.stringify({
+        writingTask: 'Task 1',
+        ...inputs,
+      }),
     }).then(response => {
       response.json().then(body => {
         console.log(body);

@@ -24,20 +24,12 @@ export function ApiStack({ stack }: StackContext) {
       'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       'GET /generate-presigned-url':
         'packages/functions/src/generatePresignedUrl.main',
-      // Writing Task 1 grading lambda function
-      'POST /grade-writing-task1': {
+      // Grade both writing tasks
+      'POST /grade-writing': {
         function: {
-          handler: 'packages/functions/src/gradingWritingTask1.main',
+          handler: 'packages/functions/src/gradingWriting.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '120 seconds',
-        },
-      },
-      // Writing Task 2 grading lambda function
-      'POST /grade-writing-task2': {
-        function: {
-          handler: 'packages/functions/src/gradingWritingTask2.main',
-          permissions: ['bedrock:InvokeModel'],
-          timeout: '60 seconds',
         },
       },
       // Sample Pyhton lambda function
