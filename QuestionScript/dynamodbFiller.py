@@ -7,7 +7,8 @@ client = boto3.client('dynamodb', region_name='us-east-1')
 TransactItemss = []
 indexes = {}
 TableName = 'ma.hawaj'   # Channge the table name
-QuestionTypes = ["WritingP1", "WritingP2", "ReadingP1", "ReadingP2", "ReadingP3", "Listening", "SpeakingP1", "SpeakingP2", "SpeakingP3"]
+QuestionTypes = ["WritingP1", "WritingP2", "ReadingP1", "ReadingP2", "ReadingP3", "ListeningP1",
+                 "ListeningP2", "ListeningP3", "ListeningP4", "SpeakingP1", "SpeakingP2", "SpeakingP3"]
 
 questions = json.loads(open("./questions.json", "r", encoding="utf8").read())
 
