@@ -40,6 +40,8 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
+      // Function that returns a random question
+      "GET    /question/{questionType}": "packages/functions/src/question.main",
       //example for using the language tool service
       'GET /languageTool': {
         function: {

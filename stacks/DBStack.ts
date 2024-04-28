@@ -7,11 +7,12 @@ import { Fn } from 'aws-cdk-lib';
 
 export function DBStack({ stack, app }: StackContext) {
   // Create a DynamoDB table
-  const table = new Table(stack, 'Counter', {
+  const table = new Table(stack, 'Records', {
     fields: {
-      counter: 'string',
+      PK: 'string',
+      SK: 'string',
     },
-    primaryIndex: { partitionKey: 'counter' },
+    primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
