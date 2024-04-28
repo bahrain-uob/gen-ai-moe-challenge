@@ -10,7 +10,7 @@ export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
   const PK = event.pathParameters?.questionType;
-  const possibleQuestionTypes = ["WritingP1", "WritingP2", "Reading", "Listening", "SpeakingP1", "SpeakingP2", "SpeakingP3"];
+  const possibleQuestionTypes = ["WritingP1", "WritingP2", "ReadingP1", "ReadingP2", "ReadingP3", "Listening", "SpeakingP1", "SpeakingP2", "SpeakingP3"];
 
   //validate the question type
     if (!PK || !possibleQuestionTypes.includes(PK)) {
@@ -37,6 +37,15 @@ export const main = async (
     const results = (await dynamoDb.send(getIndexCommand))!;
     const index = results.Item?.index ? results.Item?.index : (() => { throw new Error('Index not found'); })();
 
+    if(index.length === 0) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({
+          message: 'No questions found',
+        }),
+      };
+    }
+
     // Select a random sort key from the index list
     let randomItemSortKey = index[(Math.floor(Math.random() * index.length))]
 
@@ -52,15 +61,9 @@ export const main = async (
     });
     const response = await dynamoDb.send(getQuestionCommand);
 
-    // Get only the "Question" column from the subquestions attribute if it exists
-    const SubQuestions = response.Item?.SubQuestions ? JSON.parse(response.Item?.SubQuestions).SubQuestions.map((obj: any) => ({Q: obj["Q"]})) : '';
-
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        Question: await response.Item?.Question,
-        SubQuestions: await SubQuestions,
-      }),
+      body: JSON.stringify(response.Item),
     };
   } catch (err) {
     console.log(err);
