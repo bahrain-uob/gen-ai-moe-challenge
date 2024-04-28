@@ -9,7 +9,7 @@ indexes = {}
 TableName = 'ma.hawaj'   # Channge the table name
 QuestionTypes = ["WritingP1", "WritingP2", "ReadingP1", "ReadingP2", "ReadingP3", "Listening", "SpeakingP1", "SpeakingP2", "SpeakingP3"]
 
-questions = json.loads(open("./questions.json", "r").read())
+questions = json.loads(open("./questions.json", "r", encoding="utf8").read())
 
 for type in QuestionTypes:
     indexes[type] = []
