@@ -1,14 +1,25 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
 
+const badRequest = {
+  statusCode: 400,
+};
+
 export const main: APIGatewayProxyHandlerV2 = async event => {
   if (event.body == undefined) {
     return { statusCode: 400, body: 'No valid input' };
   }
 
   const requestBody = JSON.parse(event.body);
-  // TOOD: assert answer and question exist in body
   const { answer, graphDescription, question, writingTask } = requestBody;
+
+  // Assert answer and question exist in body
+  if (!answer || !question || !writingTask) {
+    return badRequest;
+  }
+  if (writingTask === 'Task 1' && !graphDescription) {
+    return badRequest;
+  }
 
   const criterias = [
     'Coherence & Cohesion',
