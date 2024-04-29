@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './App.css';
 import ExamsHeader from './components/examsHeader';
- 
  
 interface ReadingPart {
   MyPartitionKey: string;
@@ -21,22 +21,23 @@ interface Question {
 }
  
 interface SubQuestion {
+  RowTitle: any;
   Choices: string[];
   CorrectAnswer: string;
   QuestionText: string;
-  selectedAnswer: string; // New property to store the selected answer
+  selectedAnswer: string;
 }
  
 const ReadingQuestions = () => {
   const [parts, setParts] = useState<ReadingPart[]>([]);
   const [activePart, setActivePart] = useState<string>('part1');
   const { section, sk } = useParams();
- console.log("get request : ");
+ 
   useEffect(() => {
     const fetchParts = async () => {
       try {
         const url = `${import.meta.env.VITE_API_URL}/${section}/${sk}`;
-        console.log('Fetching URL:', url);
+ 
         const response = await fetch(url);
         const data = await response.json();
  
@@ -54,69 +55,101 @@ const ReadingQuestions = () => {
     setActivePart(part);
   };
  
+  const handleRadioChange = (
+    partIndex: number,
+    questionIndex: number,
+    subQuestionIndex: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const selectedValue = event.target.value;
+    setParts(prevParts => {
+      const updatedParts = [...prevParts];
+      updatedParts[partIndex].Questions[questionIndex].SubQuestions[
+        subQuestionIndex
+      ].selectedAnswer = selectedValue;
+      return updatedParts;
+    });
+  };
+ 
   const handleSelectChange = (
     partIndex: number,
     questionIndex: number,
     subQuestionIndex: number,
-    event: React.ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const selectedValue = event.target.value;
-    setParts((prevParts) => {
+    setParts(prevParts => {
       const updatedParts = [...prevParts];
-      updatedParts[partIndex].Questions[questionIndex].SubQuestions[subQuestionIndex].selectedAnswer = selectedValue;
+      updatedParts[partIndex].Questions[questionIndex].SubQuestions[
+        subQuestionIndex
+      ].selectedAnswer = selectedValue;
       return updatedParts;
     });
   };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submit action
  
-    // Log the user's answers and calculate the total score
-    let totalScore = 0;
-    let totalQuestions = 0;
- 
-    parts.forEach((part, partIndex) => {
-      console.log(`Part ${partIndex + 1}:`);
-      part.Questions.forEach((question, questionIndex) => {
-        console.log(`Question ${questionIndex + 1}: ${question.Question}`);
-        question.SubQuestions.forEach((subQuestion, subQuestionIndex) => {
-          console.log(`SubQuestion ${subQuestionIndex + 1}: ${subQuestion.QuestionText}`);
-          console.log(`Chosen Answer: ${subQuestion.selectedAnswer}`);
- 
-          const isCorrect = subQuestion.selectedAnswer === subQuestion.CorrectAnswer;
-          const score = isCorrect ? 1 : 0;
-          totalScore += score;
-          totalQuestions++;
-        });
-      });
+  const handleInputChange = (
+    partIndex: number,
+    questionIndex: number,
+    subQuestionIndex: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const selectedValue = event.target.value;
+    setParts(prevParts => {
+      const updatedParts = [...prevParts];
+      updatedParts[partIndex].Questions[questionIndex].SubQuestions[
+        subQuestionIndex
+      ].selectedAnswer = selectedValue;
+      return updatedParts;
     });
+  };
  
-    console.log(`Total Score: ${totalScore}/${totalQuestions}`);
-    console.log("get request : ");
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
     try {
-      const url = `${import.meta.env.VITE_API_URL}/answers/${section}/${sk}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sk,
-        parts,
-      }),
-    });
+      const studentAnswers = parts.map(part => {
+        const partAnswers = part.Questions.map(question => {
+          const subQuestionAnswers = question.SubQuestions.map(subQuestion => {
+            return subQuestion.selectedAnswer;
+          });
+          return subQuestionAnswers;
+        });
+        return partAnswers;
+      });
  
-    const result = await response.json();
-    if (response.ok && result.scores) {
-      console.log('Scores:', result.scores);
-      // Handle the score display or any other actions here
-    } else {
-      console.error('Error submitting answers or scores not returned:', result);
-    }
+      console.log(studentAnswers);
+ 
+      const url = `${import.meta.env.VITE_API_URL}/answers/reading/1`; // Replace with the actual URL and parameters
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          studentAnswers: studentAnswers,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+ 
+      if (response.ok) {
+        console.log('Scores:', result.scores);
+        console.log(result.europeanFrameworkGrade); // Adjust this part based on your API response
+        // Handle the score display or any other actions here
+ 
+       
+      } else {
+        console.error(
+          'Error submitting answers or scores not returned:',
+          result,
+        );
+      }
     } catch (error) {
       console.error('Error submitting answers:', error);
     }
   };
-  // Check if parts array is populated and activePart is valid before rendering
+ 
   const isValidPartSelected =
     activePart &&
     parts.length > 0 &&
@@ -124,100 +157,259 @@ const ReadingQuestions = () => {
  
   return (
     <>
-    <ExamsHeader duration={60}/>
+      <ExamsHeader duration={60} />
       <div className="reading-part-container">
         {isValidPartSelected && (
           <div className="Reading-Part">
-            <h1 className="part-number">{`Part ${parseInt(activePart.charAt(4))}`}</h1>
-            <h1 className="passage-title">{parts[parseInt(activePart.charAt(4)) - 1].PassageTitle}</h1>
-            <p className="passage">{parts[parseInt(activePart.charAt(4)) - 1].Passage}</p>
+            <h1 className="part-number">{`Part ${parseInt(
+              activePart.charAt(4),
+            )}`}</h1>
+            <h1 className="passage-title">
+              {parts[parseInt(activePart.charAt(4)) - 1].PassageTitle}
+            </h1>
+            <p className="passage">
+              {parts[parseInt(activePart.charAt(4)) - 1].Passage}
+            </p>
           </div>
         )}
-          <form onSubmit={handleSubmit}>
-  <div className="Reading-Questions-Part">
-    {isValidPartSelected &&
-      parts[parseInt(activePart.charAt(4)) - 1].Questions.map((question: Question, questionIndex: number) => (
-        <div key={questionIndex} className="question-container">
-          <h2 className="question-num">{`Question ${questionIndex + 1}`}</h2>
-          <p className="question">{question.Question}</p>
-          <ul className="choices">
-            {question.SubQuestions.map((subQuestion: SubQuestion, subQuestionIndex: number) => (
-              <li key={subQuestionIndex} className="choice-container">
-                {`${subQuestionIndex + 1}-`}
-                {subQuestion.QuestionText.split('-answer-').map((part: string, index: number) => {
-                  if (index % 2 === 0) {
-                    return <span key={index}>{part}</span>;
-                  } else {
-                    // Check if the question type requires a dropdown menu
-                    const isDropdown = ['Matching Paragraph Information', 'True False Not Given', 'List Selection', 'Matching Headings', 'Yes No Not Given', 'Choosing a Title', 'Classification', 'Matching Sentence Endings'].includes(question.QuestionType);
-                    // Render dropdown menu or radio buttons based on question type
-                    return isDropdown ? (
-                      <select
-                        key={index}
-                        value={subQuestion.selectedAnswer || ''}
-                        onChange={(event) =>
-                          handleSelectChange(
-                            parseInt(activePart.charAt(4)) - 1,
-                            questionIndex,
-                            subQuestionIndex,
-                            event
-                          )
-                        }
-                      >
-                        <option value="">-- Select Answer --</option>
-                        {subQuestion.Choices.map((choice: any, choiceIndex: number) => (
-                          <option key={choiceIndex} value={choice}>
-                            {choice}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      // Render radio buttons for 'Multiple Choice'
-                      subQuestion.Choices.map((choice: any, choiceIndex: number) => (
-                        <label key={choiceIndex}>
-                          <input
-                            type="radio"
-                            name={`question-${questionIndex}-choice`}
-                            value={choice}
-                            checked={subQuestion.selectedAnswer === choice}
-                            onChange={(event) =>
-                              handleSelectChange(
-                                parseInt(activePart.charAt(4)) - 1,
-                                questionIndex,
-                                subQuestionIndex,
-                                event
-                              )
-                            }
-                          />
-                          {choice}
-                        </label>
-                      ))
-                    );
-                  }
-                })}
-              </li>
-            ))}
-          </ul>
+        <div className="Reading-Questions-Part">
+          {isValidPartSelected &&
+            parts[parseInt(activePart.charAt(4)) - 1].Questions.map(
+              (question: Question, questionIndex: number) => (
+                <div key={questionIndex} className="question-container">
+                  <h2 className="question-num">{`Question ${
+                    questionIndex + 1
+                  }`}</h2>
+                  <p className="question">{question.Question}</p>
+                  {question.QuestionType === 'Summary Completion' ? (
+                    // Render Summary Completion UI
+ 
+                    <ul className="summary-completion">
+                      {question.SubQuestions.map(
+                        (
+                          subQuestion: SubQuestion,
+                          subQuestionIndex: number,
+                        ) => (
+                          <li
+                            key={subQuestionIndex}
+                            className="choice-container"
+                          >
+                            {`${subQuestionIndex + 1}-`}
+                            {subQuestion.QuestionText.split('-answer-').map(
+                              (part: string, index: number) => {
+                                if (index % 2 === 0) {
+                                  return <span key={index}>{part}</span>;
+                                } else {
+                                  return (
+                                    <input
+                                      key={index}
+                                      type="text"
+                                      className="placeholder"
+                                      placeholder={`${subQuestionIndex + 1}`}
+                                      value={subQuestion.selectedAnswer || ''}
+                                      onChange={event =>
+                                        handleInputChange(
+                                          parseInt(activePart.charAt(4)) - 1,
+                                          questionIndex,
+                                          subQuestionIndex,
+                                          event,
+                                        )
+                                      }
+                                    />
+                                  );
+                                }
+                              },
+                            )}
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : question.QuestionType === 'Multiple Choice' ? (
+                    <ul className="choices">
+                      {question.SubQuestions.map(
+                        (
+                          subQuestion: SubQuestion,
+                          subQuestionIndex: number,
+                        ) => (
+                          <li key={subQuestionIndex} className="MCQ-container">
+                            <span>{`${subQuestionIndex + 1}-`}</span>
+                            <span> {`${subQuestion.QuestionText}`}</span>
+                            <ul className="MCQ-list">
+                              {subQuestion.Choices.map(
+                                (choice: any, choiceIndex: number) => (
+                                  <li key={choiceIndex}>
+                                    <label
+                                      className={
+                                        subQuestion.selectedAnswer === choice
+                                          ? 'selected'
+                                          : ''
+                                      }
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`question-${questionIndex}-subquestion-${subQuestionIndex}`}
+                                        value={choice}
+                                        checked={
+                                          subQuestion.selectedAnswer === choice
+                                        }
+                                        onChange={event =>
+                                          handleRadioChange(
+                                            parseInt(activePart.charAt(4)) - 1,
+                                            questionIndex,
+                                            subQuestionIndex,
+                                            event,
+                                          )
+                                        }
+                                      />
+                                      {choice}
+                                    </label>
+                                  </li>
+                                ),
+                              )}
+                            </ul>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : question.QuestionType === 'True False Not Given' ||
+                    question.QuestionType ===
+                      'Matching Paragraph Information' ||
+                    question.QuestionType === 'List Selection' ||
+                    question.QuestionType === 'Matching Headings' ||
+                    question.QuestionType === 'Yes No Not Given' ||
+                    question.QuestionType === 'Choosing a Title' ||
+                    question.QuestionType === 'Classification' ||
+                    question.QuestionType === 'Matching Sentence Endings' ? (
+                    // Render Yes No Not Given Choice UI
+                    <ul className="choices">
+                      {question.SubQuestions.map(
+                        (
+                          subQuestion: SubQuestion,
+                          subQuestionIndex: number,
+                        ) => (
+                          <li
+                            key={subQuestionIndex}
+                            className="choice-container"
+                          >
+                            {`${subQuestionIndex + 1}-`}
+                            {subQuestion.QuestionText.split('-answer-').map(
+                              (part: string, index: number) => {
+                                if (index % 2 === 0) {
+                                  return <span key={index}>{part}</span>;
+                                } else {
+                                  return (
+                                    <select
+                                      key={index}
+                                      value={subQuestion.selectedAnswer || ''}
+                                      onChange={event =>
+                                        handleSelectChange(
+                                          parseInt(activePart.charAt(4)) - 1,
+                                          questionIndex,
+                                          subQuestionIndex,
+                                          event,
+                                        )
+                                      }
+                                    >
+                                      <option value="">
+                                        {`${subQuestionIndex + 1}`}
+                                      </option>
+                                      {subQuestion.Choices.map(
+                                        (choice: any, choiceIndex: number) => (
+                                          <option
+                                            key={choiceIndex}
+                                            value={choice}
+                                          >
+                                            {choice}
+                                          </option>
+                                        ),
+                                      )}
+                                    </select>
+                                  );
+                                }
+                              },
+                            )}
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : question.QuestionType === 'Table Completion' ? (
+                    // Render Yes No Not Given Choice UI
+ 
+                    <div className="table-container">
+                      <table>
+                        <tbody>
+                          {question.SubQuestions.map(
+                            (
+                              subQuestion: SubQuestion,
+                              subQuestionIndex: number,
+                            ) => (
+                              <tr key={subQuestionIndex} className="custom-row">
+                                <td>{subQuestion.RowTitle}</td>
+                                <td>
+                                  {subQuestion.QuestionText.split(
+                                    '-answer-',
+                                  ).map((part: string, index: number) => {
+                                    if (index % 2 === 0) {
+                                      return <span key={index}>{part}</span>;
+                                    } else {
+                                      return (
+                                        <input
+                                          className="placeholder"
+                                          key={index}
+                                          type="text"
+                                          placeholder={`${
+                                            subQuestionIndex + 1
+                                          }`}
+                                          value={
+                                            subQuestion.selectedAnswer || ''
+                                          }
+                                          onChange={event =>
+                                            handleInputChange(
+                                              parseInt(activePart.charAt(4)) -
+                                                1,
+                                              questionIndex,
+                                              subQuestionIndex,
+                                              event,
+                                            )
+                                          }
+                                        />
+                                      );
+                                    }
+                                  })}
+                                </td>
+                              </tr>
+                            ),
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    // Handle other question types here
+                    <p>Unsupported question type</p>
+                  )}
+                </div>
+              ),
+            )}
         </div>
-      ))}
-  </div>
-  <button type="submit">Submit Answers</button>
-</form>
       </div>
  
       <div className="reading-part-buttons">
         {parts.map((_part: ReadingPart, partIndex: number) => (
           <button
             key={partIndex}
-            className={`part-button ${activePart === `part${partIndex + 1}` ? 'active' : ''}`}
+            className={`part-button ${
+              activePart === `part${partIndex + 1}` ? 'active' : ''
+            }`}
             onClick={() => handlePartClick(`part${partIndex + 1}`)}
           >
             Part {partIndex + 1}
           </button>
         ))}
-</div>
-  </>
- );
+ 
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+    </>
+  );
 };
  
 export default ReadingQuestions;
