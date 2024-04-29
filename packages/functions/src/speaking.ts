@@ -37,6 +37,12 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   // Retreive from S3 the transcript
   const answer = await retrieveTranscript(fileName);
+  if (typeof answer !== 'string') {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('Failed to retreive the transcript.'),
+    };
+  }
 
   // Prompt Bedrock
   const prompt = createPrompt(rubric, question, answer);
