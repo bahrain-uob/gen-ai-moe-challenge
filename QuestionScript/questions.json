@@ -2847,9 +2847,26 @@
       },
       "Questions": {
         "L": [
-          { "S": "How do you spend your free time?" },
-          { "S": "Do you enjoy hanging out with friends?" },
-          { "S": "Do you think friends are important in our life? Why?" }
+          {
+            "M": {
+              "text": { "S": "How do you spend your free time?" },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": { "S": "Do you enjoy hanging out with friends?" },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "Do you think friends are important in our life? Why?"
+              },
+              "S3key": { "S": "" }
+            }
+          }
         ]
       }
     },
@@ -2859,21 +2876,28 @@
       },
       "Questions": {
         "L": [
-          { "S": "What kind of school is it?" },
-          { "S": "What's the most interesting thing about your school?" },
-          { "S": "Would you say it's a good place to study? Why?" }
-        ]
-      }
-    },
-    {
-      "Prompt": {
-        "S": "Let's talk about your city."
-      },
-      "Questions": {
-        "L": [
-          { "S": "What kind of city is it?" },
-          { "S": "What are the most interesting things about your city?" },
-          { "S": "Would you say it is a good city to live in? Why?" }
+          {
+            "M": {
+              "text": { "S": "What kind of school is it?" },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "What's the most interesting thing about your school?"
+              },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "Would you say it's a good place to study? Why?"
+              },
+              "S3key": { "S": "" }
+            }
+          }
         ]
       }
     }
@@ -2893,17 +2917,39 @@
         ]
       },
       "Task3": {
-        "S": "Describe your favorite shopping center."
+        "S": "We've been talking about your shopping habits. Now, I'd like to discuss with you a few more questions related to this topic. "
       },
       "QuestionsP3": {
         "L": [
-          { "S": "Why do tourists choose to go to these attractions?" },
-          { "S": "What makes a good tourist attraction?" },
           {
-            "S": "What's the difference between these attractions in your city and those in other cities or countries?"
+            "M": {
+              "text": { "S": "Do you think money is important in our life?" },
+              "S3key": { "S": "" }
+            }
           },
           {
-            "S": "What kind of tourist attractions do you think your city will need in the future?"
+            "M": {
+              "text": {
+                "S": "How can people manage their money wisely?"
+              },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "Do you think too much shopping is one of the main reasons some people are wasting their money nowadays?"
+              },
+              "S3key": { "S": "" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "How do you think shopping can help the economy grow and flourish?"
+              },
+              "S3key": { "S": "" }
+            }
           }
         ]
       }
