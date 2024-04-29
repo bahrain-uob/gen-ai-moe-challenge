@@ -3,9 +3,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
+import { get, post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
 // TODO: Change this approach later
 const numQuestions = 4;
+
+interface Response {
+  Score: string;
+  Feedback: string;
+}
 
 const narrateQuestion = (text: string) => {
   if ('speechSynthesis' in window) {
@@ -16,11 +23,10 @@ const narrateQuestion = (text: string) => {
   }
 };
 
-const generateFileName = (originalFileName: string) => {
-  const fileExtension = originalFileName.split('.').pop();
+const generateFileName = () => {
   const timestamp = new Date().toISOString().replace(/[^0-9]/g, '');
   const randomString = Math.random().toString(36).substring(2, 7);
-  return `audio_${timestamp}_${randomString}.${fileExtension}`;
+  return `audio_${timestamp}_${randomString}.webm`;
 };
 
 const YourComponent: React.FC = () => {
@@ -29,13 +35,18 @@ const YourComponent: React.FC = () => {
   const [audioURL, setAudioURL] = useState<string>('');
   const [recording, setRecording] = useState<boolean>(false);
   const [showGetQuestion, setShowGetQuestion] = useState<boolean>(true);
-  const ApiEndPoint = import.meta.env.VITE_API_URL;
+  const [feedback, setFeedback] = useState(undefined as undefined | Response);
 
   const fetchQuestion = async () => {
     try {
       const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
-      const response = await fetch(`${ApiEndPoint}/questions/${randomNumber}`);
-      const questionText = await response.json();
+      const questionText = await toJSON(
+        get({
+          apiName: 'myAPI',
+          path: `/questions/${randomNumber}`,
+        }),
+      );
+
       setQuestion(questionText);
       setShowGetQuestion(false);
       narrateQuestion(questionText);
@@ -63,39 +74,52 @@ const YourComponent: React.FC = () => {
       setRecording(false);
       setShowGetQuestion(true);
 
-      recorder.stopRecording(() => {
+      recorder.stopRecording(async () => {
         const blob = recorder.getBlob();
-        const audioFileName = generateFileName('recording.mp3');
+        const audioFileName = generateFileName();
         setAudioURL(URL.createObjectURL(blob));
 
-        axios
-          .get(ApiEndPoint + '/generate-presigned-url', {
-            params: {
-              fileName: audioFileName,
-              fileType: blob.type,
-              questionText: question,
+        const response = await toJSON(
+          get({
+            apiName: 'myAPI',
+            path: '/generate-presigned-url',
+            options: {
+              body: {
+                fileName: audioFileName,
+                fileType: blob.type,
+              },
             },
-          })
-          .then(response => {
-            const presignedUrl = response.data.url;
+          }),
+        );
+        const presignedUrl = response.data.url;
 
-            axios
-              .put(presignedUrl, blob, {
-                headers: {
-                  'Content-Type': blob.type,
-                },
-              })
-              .then(() => {
-                console.log('Upload successful');
-              })
-              .catch(error => {
-                console.error('Upload error:', error);
-              });
-          })
-          .catch(error => {
-            console.error('Error generating presigned URL:', error);
+        await axios.put(presignedUrl, blob, {
+          headers: {
+            'Content-Type': blob.type,
+          },
+        });
+
+        toJSON(
+          post({
+            apiName: 'myAPI',
+            path: '/speaking',
+            options: {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                audioFileName,
+                question,
+              }),
+            },
+          }),
+        ).then(response => {
+          response.json().then((body: any) => {
+            console.log(body);
+            setFeedback(body);
           });
-      });
+        });
+      }); // end `stopRecording`
     }
   };
 
@@ -117,6 +141,12 @@ const YourComponent: React.FC = () => {
         </div>
       )}
       {audioURL && <audio controls src={audioURL} />}
+      {feedback && (
+        <div className="feedback">
+          <p>Score: {feedback.Score}</p>
+          <p>Feedback: {feedback.Feedback}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { get } from 'aws-amplify/api';
+import { toJSON } from './utilities';
 
 interface ReadingPart {
   MyPartitionKey: string;
@@ -26,14 +28,17 @@ interface SubQuestion {
 
 const ReadingQuestions = () => {
   const [parts, setParts] = useState<ReadingPart[]>([]);
-  const { section,sk } = useParams();
+  const { section, sk } = useParams();
 
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const url = `${import.meta.env.VITE_API_URL}/${section}/${sk}`;
-        const response = await fetch(url);
-        const data = await response.json();
+        const data = await toJSON(
+          get({
+            apiName: 'myAPI',
+            path: `/${section}/${sk}`,
+          }),
+        );
 
         console.log('Response data:', data);
         setParts(data);
@@ -49,12 +54,14 @@ const ReadingQuestions = () => {
     partIndex: number,
     questionIndex: number,
     subQuestionIndex: number,
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const selectedValue = event.target.value;
-    setParts((prevParts) => {
+    setParts(prevParts => {
       const updatedParts = [...prevParts];
-      updatedParts[partIndex].Questions[questionIndex].SubQuestions[subQuestionIndex].selectedAnswer = selectedValue;
+      updatedParts[partIndex].Questions[questionIndex].SubQuestions[
+        subQuestionIndex
+      ].selectedAnswer = selectedValue;
       return updatedParts;
     });
   };
@@ -73,40 +80,64 @@ const ReadingQuestions = () => {
                 <h2>{part.PassageTitle}</h2>
                 <p>{part.Passage}</p>
 
-                {part.Questions.map((question: Question, questionIndex: number) => (
-                  <div key={questionIndex}>
-                    <h2>Question {questionIndex + 1}</h2>
-                    <h3>{question.Question}</h3>
-                    <ul>
-                      {question.SubQuestions.map((subQuestion: SubQuestion, subQuestionIndex: number) => (
-                        <li key={subQuestionIndex}>
-                          {subQuestion.QuestionText.split('-answer-').map((part: string, index: number) => {
-                            if (index % 2 === 0) {
-                              return <span key={index}>{part}</span>;
-                            } else {
-                              return (
-                                <select
-                                  key={index}
-                                  value={subQuestion.selectedAnswer || ''}
-                                  onChange={(event) =>
-                                    handleSelectChange(partIndex, questionIndex, subQuestionIndex, event)
+                {part.Questions.map(
+                  (question: Question, questionIndex: number) => (
+                    <div key={questionIndex}>
+                      <h2>Question {questionIndex + 1}</h2>
+                      <h3>{question.Question}</h3>
+                      <ul>
+                        {question.SubQuestions.map(
+                          (
+                            subQuestion: SubQuestion,
+                            subQuestionIndex: number,
+                          ) => (
+                            <li key={subQuestionIndex}>
+                              {subQuestion.QuestionText.split('-answer-').map(
+                                (part: string, index: number) => {
+                                  if (index % 2 === 0) {
+                                    return <span key={index}>{part}</span>;
+                                  } else {
+                                    return (
+                                      <select
+                                        key={index}
+                                        value={subQuestion.selectedAnswer || ''}
+                                        onChange={event =>
+                                          handleSelectChange(
+                                            partIndex,
+                                            questionIndex,
+                                            subQuestionIndex,
+                                            event,
+                                          )
+                                        }
+                                      >
+                                        <option value="">
+                                          -- Select Answer --
+                                        </option>
+                                        {subQuestion.Choices.map(
+                                          (
+                                            choice: any,
+                                            choiceIndex: number,
+                                          ) => (
+                                            <option
+                                              key={choiceIndex}
+                                              value={choice}
+                                            >
+                                              {choice}
+                                            </option>
+                                          ),
+                                        )}
+                                      </select>
+                                    );
                                   }
-                                >
-                                  <option value="">-- Select Answer --</option>
-                                  {subQuestion.Choices.map((choice: any, choiceIndex: number) => (
-                                    <option key={choiceIndex} value={choice}>
-                                      {choice}
-                                    </option>
-                                  ))}
-                                </select>
-                              );
-                            }
-                          })}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                                },
+                              )}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+                  ),
+                )}
               </div>
             </React.Fragment>
           ))}
