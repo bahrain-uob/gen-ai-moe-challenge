@@ -132,12 +132,14 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     console.log("all scores: ", allScores);
     console.log("all questions: ", allQuestions);
 
+    const studentSk=  section+sk;
+
     // Store the student response in the table
     const putParams = {
       TableName: process.env.TABLE1_NAME,
       Item: {
-        MyPartitionKey: 'student7',
-        MySortKey: sk, //sortKey
+        MyPartitionKey: 'student9',
+        MySortKey: studentSk, //sortKey
         questions: allQuestions,
         studentAnswers: studentAnswers,
         scores: allScores,
@@ -147,17 +149,18 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     await dynamoDb.put(putParams).promise();
 
     // Return the student response as the POST body
-    const responseBody = {
+   /* const responseBody = {
       MyPartitionKey: 'student7',
       MySortKey: sk,  //sortKey
       questions: allQuestions,
       studentAnswers: studentAnswers,
       scores: allScores,
-    };
+    };*/
 
     return {
       statusCode: 200,
-      body: JSON.stringify(responseBody),
+      body: JSON.stringify({  message: 'Student response stored successfully' }),
+      //body: JSON.stringify(responseBody),
     };
 
   } catch (error) {
