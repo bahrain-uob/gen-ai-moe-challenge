@@ -4,9 +4,6 @@ import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
 
-// TODO: Change this approach later
-const numQuestions = 4;
-
 interface Response {
   Score: string;
   Feedback: string;
@@ -38,12 +35,11 @@ const YourComponent: React.FC = () => {
 
   const fetchQuestion = async () => {
     try {
-      const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
-      const response = await fetch(`${ApiEndPoint}/questions/${randomNumber}`);
+      const response = await fetch(`${ApiEndPoint}/question/SpeakingP1`);
       const questionText = await response.json();
-      setQuestion(questionText);
+      setQuestion(questionText.Question);
       setShowGetQuestion(false);
-      narrateQuestion(questionText);
+      narrateQuestion(questionText.Question);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
