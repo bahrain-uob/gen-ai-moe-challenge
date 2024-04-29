@@ -2,10 +2,12 @@ import { Api, StackContext, use, Service } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
+import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
   const { table, questions_table, uploads_bucket, feedback_table } =
     use(DBStack);
+  const { auth } = use(AuthStack);
 
   //Create the GrammerCheckerTool Service
   const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
@@ -29,9 +31,19 @@ export function ApiStack({ stack }: StackContext) {
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
+      authorizer: 'jwt',
       function: {
         // Bind the table name to our API
         bind: [table, questions_table],
+      },
+    },
+    authorizers: {
+      jwt: {
+        type: 'user_pool',
+        userPool: {
+          id: auth.userPoolId,
+          clientIds: [auth.userPoolClientId],
+        },
       },
     },
     routes: {
@@ -94,6 +106,7 @@ export function ApiStack({ stack }: StackContext) {
           runtime: 'python3.11',
           timeout: '60 seconds',
         },
+        authorizer: 'none',
       },
     },
   });
@@ -110,6 +123,9 @@ export function ApiStack({ stack }: StackContext) {
       'Referer',
     ),
   });
+
+  // Allowing authenticated users to access API
+  auth.attachPermissionsForAuthUsers(stack, [api]);
 
   return { api, apiCachePolicy };
 }
