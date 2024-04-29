@@ -3,119 +3,186 @@ import {
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import {
-  S3Client,
-  GetObjectCommand,
-  HeadObjectCommand,
-} from '@aws-sdk/client-s3';
-import { S3Event, S3Handler } from 'aws-lambda';
+  StartTranscriptionJobCommand,
+  TranscribeClient,
+  GetTranscriptionJobCommand,
+} from '@aws-sdk/client-transcribe';
+import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 
 const bedrockClient = new BedrockRuntime();
+const transcribeClient = new TranscribeClient();
 const s3Client = new S3Client();
 const dynamoClient = new DynamoDBClient();
 
-const uploadBucketName = process.env.uploadBucketName;
-const FeedbackTableName = process.env.FeedbackTableName;
+const uploadResponseBucket = process.env.speakingUploadBucketName;
+const feedbackTableName = process.env.feedbackTableName;
 
 type rubricType = {
   [key: string]: string;
 };
 
-/*
-  Extracts the question from the metadata of the user's response.
-  Retrieves the transcribed user response, then invokes bedrock.
-  The response is then parsed and the score and feedback are stored.
-*/
-export const main: S3Handler = async (event: S3Event) => {
-  const s3Record = event.Records[0].s3;
-  const transcribeBucketName = s3Record.bucket.name;
-  const key = s3Record.object.key;
+export const main: APIGatewayProxyHandlerV2 = async event => {
+  if (event.body == undefined) {
+    return { statusCode: 400, body: JSON.stringify('No valid input') };
+  }
 
-  const command = new HeadObjectCommand({
-    Bucket: uploadBucketName,
-    Key: `${key.slice(0, -5)}.mp3`,
+  const requestBody = JSON.parse(event.body);
+  const { audioFileName, question } = requestBody;
+  const fileName = audioFileName.slice(0, -5);
+
+  // Transcription Function
+  const transcriptionStatus = await startTranscription(fileName);
+  if (transcriptionStatus === 'FAILED') {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('Failed to start transcription.'),
+    };
+  }
+
+  // Retreive from S3 the transcript
+  const answer = await retrieveTranscript(fileName);
+  if (typeof answer !== 'string') {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('Failed to retreive the transcript.'),
+    };
+  }
+
+  // Prompt Bedrock
+  const prompt = createPrompt(rubric, question, answer);
+  const input = {
+    inputText: prompt,
+    textGenerationConfig: {
+      maxTokenCount: 4096,
+      stopSequences: [],
+      temperature: 0,
+      topP: 0.9,
+    },
+  };
+  const command = new InvokeModelCommand({
+    body: JSON.stringify(input),
+    contentType: 'application/json',
+    accept: '*/*',
+    modelId: 'amazon.titan-text-express-v1',
   });
-  const response = await s3Client.send(command);
-  let question = 'Open Question';
-  if (response.Metadata) {
-    question = response.Metadata.question;
-  }
 
-  try {
-    const commandOutput = await s3Client.send(
-      new GetObjectCommand({
-        Bucket: transcribeBucketName,
-        Key: key,
-      }),
-    );
-    if (!commandOutput.Body) {
-      return;
-    }
-    const content = await commandOutput.Body.transformToString('utf-8');
-    if (content.length === 0) {
-      console.log(`file ${key} is empty`);
-    } else {
-      const answer = JSON.parse(content).results.transcripts[0].transcript;
-      const prompt = createPrompt(rubric, question, answer);
-      const input = {
-        inputText: prompt,
-        textGenerationConfig: {
-          maxTokenCount: 4096,
-          stopSequences: [],
-          temperature: 0,
-          topP: 0.9,
-        },
-      };
+  const response = (await bedrockClient.send(command)).body;
 
-      const command = new InvokeModelCommand({
-        body: JSON.stringify(input),
-        contentType: 'application/json',
-        accept: '*/*',
-        modelId: 'amazon.titan-text-express-v1',
-      });
+  const textDecoder = new TextDecoder('utf-8');
+  const decodedString = textDecoder.decode(response);
 
-      const response = await bedrockClient.send(command);
-      const response_byte = response.body;
+  const feedbackResult = JSON.parse(decodedString).results[0].outputText;
 
-      const textDecoder = new TextDecoder('utf-8');
-      const decodedString = textDecoder.decode(response_byte);
+  const score_index = feedbackResult.indexOf('Score:');
+  const feedback_index = feedbackResult.indexOf('Feedback:');
+  const score = feedbackResult
+    .substring(score_index + 'Score: '.length, feedback_index)
+    .trim();
+  const feedback = feedbackResult
+    .substring(feedback_index + 'Feedback: '.length)
+    .trim();
 
-      const feedbackResult = JSON.parse(decodedString).results[0].outputText;
+  const output = {
+    Score: score,
+    Feedback: feedback,
+  };
 
-      const score_index = feedbackResult.indexOf('Score:');
-      const feedback_index = feedbackResult.indexOf('Feedback:');
-      const score = feedbackResult
-        .substring(score_index + 'Score: '.length, feedback_index)
-        .trim();
-      const feedback = feedbackResult
-        .substring(feedback_index + 'Feedback: '.length)
-        .trim();
-      console.log(score);
-      console.log(feedback);
+  // Store the result in dynamodb
+  await storeFeedback(fileName, score, feedback);
 
-      const item = {
-        feedbackId: { S: `${Math.random()}` },
-        feedbackScore: { S: score },
-        feedbackText: { S: feedback },
-      };
-      try {
-        const command = new PutItemCommand({
-          TableName: FeedbackTableName,
-          Item: item,
-        });
-        await dynamoClient.send(command);
-        return;
-      } catch (error) {
-        console.log('Error storing result');
-        return;
-      }
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(output),
+  };
 };
 
-// We can have the Transcribe confidence level as a metric for pronunciation
+/**
+  This function starts a transcription job and returns only when that
+  job is 'COMPLETE', the while loop is necessary because without it the 
+  function will return when the transcription job is submitted successfully.
+*/
+async function startTranscription(audioFileName: string) {
+  try {
+    const transcript = await transcribeClient.send(
+      new StartTranscriptionJobCommand({
+        TranscriptionJobName: audioFileName,
+        LanguageCode: 'en-US',
+        MediaFormat: 'webm',
+        Media: {
+          MediaFileUri: `s3://${uploadResponseBucket}/${audioFileName}.webm`,
+        },
+        OutputBucketName: uploadResponseBucket,
+      }),
+    );
+    let status = transcript.TranscriptionJob?.TranscriptionJobStatus;
+    while (status != 'COMPLETED' && status != 'FAILED') {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const result = await transcribeClient.send(
+        new GetTranscriptionJobCommand({
+          TranscriptionJobName: audioFileName,
+        }),
+      );
+      status = result.TranscriptionJob?.TranscriptionJobStatus;
+    }
+    return status;
+  } catch (err) {
+    return 'FAILED';
+  }
+}
+
+/**
+  This function retrieves the transcript from the S3 bucket and returns it.
+*/
+async function retrieveTranscript(audioFileName: string) {
+  const input = {
+    Bucket: uploadResponseBucket,
+    Key: `${audioFileName}.json`,
+  };
+  const command = new GetObjectCommand(input);
+  const response = await s3Client.send(command);
+  if (!response.Body) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('file is empty'),
+    };
+  }
+  const content = await response.Body.transformToString('utf-8');
+  if (content.length === 0) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('file is empty'),
+    };
+  } else {
+    return JSON.parse(content).results.transcripts[0].transcript as string;
+  }
+}
+
+/**
+  This function stores the feedback from bedrock to DynamoDB
+*/
+async function storeFeedback(
+  audioFileName: string,
+  score: string,
+  feedback: string,
+) {
+  const item = {
+    feedbackId: { S: audioFileName },
+    feedbackScore: { S: score },
+    feedbackText: { S: feedback },
+  };
+  try {
+    const command = new PutItemCommand({
+      TableName: feedbackTableName,
+      Item: item,
+    });
+    await dynamoClient.send(command);
+  } catch (error) {
+    console.log('Error storing result');
+  }
+}
+
 const rubric = {
   'Fluency and Coherence':
     'Score: 9\nFluent with only very occasional repetition or self-correction.\n\nAny hesitation that occurs is used only to prepare the content of the next utterance and not to find words or grammar.\n\nSpeech is situationally appropriate and cohesive features are fully acceptable.\n\nTopic development is fully coherent and appropriately extended. \n--------------------\n\nScore: 8\nFluent with only very occasional repetition or self-correction.\n\nHesitation may occasionally be used to find words or grammar, but most will be content related.\n\nTopic development is coherent, appropriate and relevant.\n--------------------\n\nScore: 7\nAble to keep going and readily produce long turns without noticeable effort.\n\nSome hesitation, repetition and/or selfcorrection may occur, often mid-sentence and indicate problems with accessing appropriate language. However, these will not affect coherence\n\nFlexible use of spoken discourse markers, connectives and cohesive features.\n--------------------\n\nScore: 6\nAble to keep going and demonstrates a willingness to produce long turns.\n\nCoherence may be lost at times as a result of hesitation, repetition and/or self-correction.\n\nUses a range of spoken discourse markers, connectives and cohesive features though not always appropriately.\n--------------------\n\nScore: 5\nUsually able to keep going, but relies on repetition and self-correction to do so and/or on slow speech.\n\nHesitations are often associated with mid-sentence searches for fairly basic lexis and grammar\n\nOveruse of certain discourse markers, connectives and other cohesive features.\n\nMore complex speech usually causes disfluency but simpler language may be produced fluently\n--------------------\n\nScore: 4\nUnable to keep going without noticeable pauses.\n\nSpeech may be slow with frequent repetition.\n\nOften self-corrects.\n\nCan link simple sentences but often with repetitious use of connectives.\n\nSome breakdowns in coherence.\n--------------------\n\nScore: 3\nFrequent, sometimes long, pauses occur while candidate searches for words.\n\nLimited ability to link simple sentences and go beyond simple responses to questions.\n\nFrequently unable to convey basic message.\n--------------------\n\nScore: 2\nLengthy pauses before nearly every word.\n\nIsolated words may be recognisable but speech is of virtually no communicative significance.\n--------------------\n\nScore: 1\nEssentially none.\n\nSpeech is totally incoherent.\n--------------------\n\nScore: 0\nDoes not attend\n--------------------\n\n',
