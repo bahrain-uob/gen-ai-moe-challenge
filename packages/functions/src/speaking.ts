@@ -33,7 +33,13 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   const fileName = audioFileName.slice(0, -5);
 
   // Transcription Function
-  await startTranscription(fileName);
+  const transcriptionStatus = await startTranscription(fileName);
+  if (transcriptionStatus === 'FAILED') {
+    return {
+      statusCode: 400,
+      body: JSON.stringify('Failed to start transcription.'),
+    };
+  }
 
   // Retreive from S3 the transcript
   const answer = await retrieveTranscript(fileName);
@@ -111,7 +117,7 @@ async function startTranscription(audioFileName: string) {
       }),
     );
     let status = transcript.TranscriptionJob?.TranscriptionJobStatus;
-    while (status != 'COMPLETED') {
+    while (status != 'COMPLETED' && status != 'FAILED') {
       await new Promise(resolve => setTimeout(resolve, 1000));
       const result = await transcribeClient.send(
         new GetTranscriptionJobCommand({
@@ -120,8 +126,9 @@ async function startTranscription(audioFileName: string) {
       );
       status = result.TranscriptionJob?.TranscriptionJobStatus;
     }
+    return status;
   } catch (err) {
-    console.error('Error:', err);
+    return 'FAILED';
   }
 }
 
