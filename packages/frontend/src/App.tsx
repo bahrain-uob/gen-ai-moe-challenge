@@ -1,11 +1,7 @@
 import Nav from "./components/landingNav";
 import Describe from './sections/toolDescribe';
 import Features from './sections/features';
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './index.css';
-import { Link } from 'react-router-dom';
 import { signOut } from 'aws-amplify/auth';
 
 const App = () => {
@@ -37,6 +33,8 @@ const App = () => {
     </section>
 
 
+
+    <button onClick={signOutHandler}> Sign out </button>
 
   </main>
   
