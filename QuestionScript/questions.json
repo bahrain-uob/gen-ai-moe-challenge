@@ -2842,26 +2842,71 @@
   "ListeningP4": [],
   "SpeakingP1": [
     {
-      "Question": {
-        "S": "Is it good to have a lot of free time in our life"
+      "Prompt": {
+        "S": "Let's talk about your free time."
+      },
+      "Questions": {
+        "L": [
+          { "S": "How do you spend your free time?" },
+          { "S": "Do you enjoy hanging out with friends?" },
+          { "S": "Do you think friends are important in our life? Why?" }
+        ]
       }
     },
     {
-      "Question": {
-        "S": "How can people avoid wasting time?"
+      "Prompt": {
+        "S": "Let's talk about your school."
+      },
+      "Questions": {
+        "L": [
+          { "S": "What kind of school is it?" },
+          { "S": "What's the most interesting thing about your school?" },
+          { "S": "Would you say it's a good place to study? Why?" }
+        ]
       }
     },
     {
-      "Question": {
-        "S": "Do you think the widespread use of technology is one of the main reasons we are wasting a lot of time nowadays"
-      }
-    },
-    {
-      "Question": {
-        "S": "How do you think technology would develop in the future, How would that affect our life"
+      "Prompt": {
+        "S": "Let's talk about your city."
+      },
+      "Questions": {
+        "L": [
+          { "S": "What kind of city is it?" },
+          { "S": "What are the most interesting things about your city?" },
+          { "S": "Would you say it is a good city to live in? Why?" }
+        ]
       }
     }
   ],
-  "SpeakingP2": [],
-  "SpeakingP3": []
+  "SpeakingP2P3": [
+    {
+      "Task2": {
+        "S": "Describe your favorite shopping center."
+      },
+      "QuestionsP2": {
+        "L": [
+          { "S": "Where is this center?" },
+          { "S": "What is special about it?" },
+          { "S": "What do you do when you go there?" },
+          { "S": "What do people say about it?" },
+          { "S": "Explain why you think it is a good choice." }
+        ]
+      },
+      "Task3": {
+        "S": "Describe your favorite shopping center."
+      },
+      "QuestionsP3": {
+        "L": [
+          { "S": "Why do tourists choose to go to these attractions?" },
+          { "S": "What makes a good tourist attraction?" },
+          {
+            "S": "What's the difference between these attractions in your city and those in other cities or countries?"
+          },
+          {
+            "S": "What kind of tourist attractions do you think your city will need in the future?"
+          }
+        ]
+      }
+    }
+  ]
 }
