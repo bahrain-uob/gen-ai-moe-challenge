@@ -9,8 +9,8 @@ import Writing from './pages/writing.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
-import SignUp from './pages/SignUp.tsx';
-import SignIn from './pages/signin.tsx';
+import SignUp from './pages/signUp.tsx';
+import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
