@@ -29,7 +29,7 @@ const handler = async (event: any, context: any) => {
         ":init": [],
         ":ID": [event.userName],
       },
-      ReturnValues: 'ALL_NEW',
+      ReturnValues: 'NONE',
     });
 
     const response = await dynamoDb.send(command);
