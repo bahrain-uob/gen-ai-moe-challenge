@@ -4,7 +4,7 @@ import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, questions_table, uploads_bucket } = use(DBStack);
+  const { table, questions_table, uploads_bucket, Polly_bucket } = use(DBStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -37,8 +37,13 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/sample-python-lambda/Polly.main',
           runtime: 'python3.11',
-          permissions: ['polly:SynthesizeSpeech'],
+          permissions: [
+            's3:PutObject',
+            'polly:SynthesizeSpeech',
+            'dynamodb:PutItem',
+          ],
           timeout: '60 seconds',
+          environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
     },

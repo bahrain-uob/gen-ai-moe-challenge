@@ -69,7 +69,7 @@ export function DBStack({ stack, app }: StackContext) {
   ]);
   Polly_bucket.attachPermissions([
     's3:GetObject',
-    'bedrock:InvokeModel',
+    'polly:SynthesizeSpeech',
     'dynamodb:PutItem',
   ]);
 

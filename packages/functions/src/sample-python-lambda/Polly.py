@@ -7,6 +7,7 @@ AudioSegment.converter = "ffmpeg"
 polly = boto3.client('polly', region_name='us-east-1') 
 s3 = boto3.client('s3')
 PollyBucket = os.environ.get('Polly_Bucket')
+
 def text_to_speech(conversation):
     voices = ['Joanna', 'Matthew', 'Joey', 'Lupe']  
     output_files = []
@@ -18,7 +19,6 @@ def text_to_speech(conversation):
         output_file = f"{uuid.uuid4()}.mp3" 
         output_files.append(output_file)
 
-        # Save audio stream to file
         if "AudioStream" in response:
             with open(output_file, "wb") as f:
                 f.write(response["AudioStream"].read())
@@ -40,7 +40,7 @@ def merge_audio_files(output_files):
     return merged_file_name
 
 def upload_to_s3(file_name):
-    bucket_name = 'pollytestt'  
+    bucket_name = PollyBucket
     
    
     with open(file_name, 'rb') as f:
@@ -49,7 +49,7 @@ def upload_to_s3(file_name):
    
     
 
-  
+    
     return f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
 
 def main(context, event):
