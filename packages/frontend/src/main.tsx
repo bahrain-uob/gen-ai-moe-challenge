@@ -10,7 +10,7 @@ import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/SignUp.tsx';
-import SignIn from './pages/SignIn.tsx';
+import SignIn from './pages/signin.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
