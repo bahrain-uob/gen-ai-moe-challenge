@@ -114,7 +114,7 @@ const YourComponent: React.FC = () => {
             },
           }),
         ).then(response => {
-          response.json().then(body => {
+          response.json().then((body: any) => {
             console.log(body);
             setFeedback(body);
           });
