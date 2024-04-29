@@ -24,7 +24,7 @@ export default {
     } else if (app.stage == 'devops-gh') {
       app.stack(OIDCForGitHubCI);
     } else {
-      app.stack(AuthStack).stack(DBStack).stack(ApiStack).stack(FrontendStack);
+      app.stack(DBStack).stack(AuthStack).stack(ApiStack).stack(FrontendStack);
     }
   },
 } satisfies SSTConfig;
