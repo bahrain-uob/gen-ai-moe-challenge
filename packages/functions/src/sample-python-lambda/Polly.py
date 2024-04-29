@@ -72,4 +72,4 @@ def main(context, event):
 
     return {"s3_url": s3_url}
 
- 
+ #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/polly/client/synthesize_speech.html
