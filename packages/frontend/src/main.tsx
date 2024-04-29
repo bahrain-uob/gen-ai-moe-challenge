@@ -71,6 +71,7 @@ const router = createBrowserRouter([
     path: '/sections',
     Component: Sections,
   },
+  {
     path: '/sign-up',
     Component: SignUp,
   },

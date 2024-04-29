@@ -13,7 +13,7 @@ const landingNav = () => {
             <Link to=""><li>How to use</li></Link>
             </ul>
             
-            <Link to="/SignIn"><p className="max-lg:hidden font-montserrat leading-normal text-2xl font-bold text-white">Sign In</p></Link>
+            <Link to="/sign-in"><p className="max-lg:hidden font-montserrat leading-normal text-2xl font-bold text-white">Sign In</p></Link>
           <div className="hidden max-lg:block">
             <img src="assets/hamburger.svg" width={25} height={25}/>
           </div>
