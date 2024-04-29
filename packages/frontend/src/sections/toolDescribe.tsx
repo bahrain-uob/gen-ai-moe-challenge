@@ -11,7 +11,7 @@ const toolDescribe = () => {
       
       <div className="relative xl:w-2/4 flex flex-col justify-center items-center w-full max-xl:padding-x pt-27 ">
         <h1 className="text-2xl font-bold text-center font-montserrat pb-10 lg:text-4xl">Get your <span className="text-[#908C87] font-extrabold">English</span> level up by practicing set of<br/>Exams and Exercises</h1>
-        <Link to="/SignIn"><Button label="Get Started"/></Link>
+        <Link to="/Home"><Button label="Get Started"/></Link>
       </div>
     </section>
   )
