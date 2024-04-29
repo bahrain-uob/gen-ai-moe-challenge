@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -6,17 +5,6 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'aws-amplify/auth';
 
 function App() {
-  const [count, setCount] = useState('');
-
-  function onClick() {
-    console.log(import.meta.env.VITE_API_URL);
-    fetch(import.meta.env.VITE_API_URL, {
-      method: 'POST',
-    })
-      .then(response => response.text())
-      .then(setCount);
-  }
-
   const signOutHandler = () => {
     signOut()
       .then(() => {
@@ -39,7 +27,6 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
           <Link to="/test"> Test page </Link>
           <br />
@@ -58,7 +45,6 @@ function App() {
           <br />
           <button onClick={signOutHandler}> Sign out </button>
         </p>
-        <p> Sayed Ahmed was here </p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
