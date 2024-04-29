@@ -6,7 +6,7 @@ const Nav = () => {
   return (
     <header className="absolute z-10 w-full">
         <nav className="flex justify-between items-center bg-[#3B828E] px-7 py-3">
-            <Link to="/"><img className="w-[100px]" src="assets/Logo.png"/></Link>
+            <Link to="/home"><img className="w-[100px]" src="assets/Logo.png"/></Link>
 
             <ul className="flex-1 flex px-12 gap-16 max-lg:hidden font-montserrat leading-normal text-2xl font-bold text-white">
             <Link to=""><li>Full Exams</li></Link>
