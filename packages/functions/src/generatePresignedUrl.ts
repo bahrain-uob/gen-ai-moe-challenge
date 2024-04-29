@@ -12,9 +12,8 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   try {
     const fileName = event.queryStringParameters?.fileName;
     const fileType = event.queryStringParameters?.fileType;
-    const questionText = event.queryStringParameters?.questionText;
 
-    if (!fileName || !fileType || !questionText) {
+    if (!fileName || !fileType) {
       return {
         statusCode: 400,
         body: 'Missing fileName or fileType query parameter',
@@ -26,13 +25,10 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
       Bucket: audioResponseBucket,
       Key: fileName,
       ContentType: fileType,
-      Metadata: {
-        question: questionText,
-      },
     });
 
     const presignedPostData = await getSignedUrl(client, command, {
-      expiresIn: 3600,
+      expiresIn: 300,
     });
 
     return {

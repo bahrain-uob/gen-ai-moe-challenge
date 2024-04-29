@@ -1,8 +1,27 @@
 import Nav from "./components/landingNav";
 import Describe from './sections/toolDescribe';
 import Features from './sections/features';
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import { Link } from 'react-router-dom';
+import { signOut } from 'aws-amplify/auth';
 
-const Landing = () => (
+const App = () => {
+
+  
+  const signOutHandler = () => {
+    signOut()
+      .then(() => {
+        console.log('Signed out successfully');
+      })
+      .catch(error => {
+        console.log('error signing out: ', error);
+      });
+  };
+  
+  return (
   <main>
     <Nav/>
     <section className="xl:padding-1 wide:padding-r">
@@ -16,9 +35,13 @@ const Landing = () => (
     <section className="py-12">
       <Features/>
     </section>
+
+
+
   </main>
   
-);
+)};
 
 
-export default Landing
+
+export default App;
