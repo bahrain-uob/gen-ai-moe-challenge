@@ -14,7 +14,7 @@ def text_to_speech(conversation):
 
     for line in conversation:
         text = f"<speak>{line['speech']}<break time='1s'/></speak>"
-        response = polly.synthesize_speech(Text=text, VoiceId=line["speaker"], OutputFormat='mp3', TextType='ssml')
+        response = polly.synthesize_speech(Text=text, VoiceId=line["speaker"], OutputFormat='mp3', TextType='ssml',Engine = 'neural')
         
         output_file = f"{uuid.uuid4()}.mp3" 
         output_files.append(output_file)
@@ -22,9 +22,9 @@ def text_to_speech(conversation):
         if "AudioStream" in response:
             with open(output_file, "wb") as f:
                 f.write(response["AudioStream"].read())
-            print(line["speaker"], f"'s text converted ")
-        else:
-            print(line["speaker"], "'s text to speech")
+           
+        
+          
 
     return output_files
 
