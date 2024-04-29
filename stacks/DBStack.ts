@@ -15,6 +15,7 @@ export function DBStack({ stack, app }: StackContext) {
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
+  const Polly_bucket = new Bucket(stack, 'Polly');
   const transcription_bucket = new Bucket(stack, 'Transcripts');
 
   const questions_table = new Table(stack, 'Questions', {
@@ -60,7 +61,13 @@ export function DBStack({ stack, app }: StackContext) {
       filters: [{ suffix: '.json' }],
     },
   });
+
   transcription_bucket.attachPermissions([
+    's3:GetObject',
+    'bedrock:InvokeModel',
+    'dynamodb:PutItem',
+  ]);
+  Polly_bucket.attachPermissions([
     's3:GetObject',
     'bedrock:InvokeModel',
     'dynamodb:PutItem',
@@ -125,5 +132,6 @@ export function DBStack({ stack, app }: StackContext) {
     transcription_bucket,
     questions_table,
     feedback_table,
+    Polly_bucket,
   };
 }
