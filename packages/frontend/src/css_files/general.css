@@ -1,0 +1,118 @@
+body {
+    background-color: #fbf9f1;
+  }
+  
+  /*EXAM BOX */
+  .examBox {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    width: 10rem;
+    height: 12rem;
+  }
+  
+  .BoxContent {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  /* Button Styles */
+  .button {
+    padding: 10px;
+    width: 70%;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 30px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Hover Effect */
+  .button:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+    color: #fff; /* Text color on hover */
+  }
+  
+  .ExamTypeButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+  }
+  
+  .ExamTypeButton:hover {
+    background-color: rgb(165, 166, 179); /* Darker navy on hover */
+    color: white;
+  }
+  
+  .ExamTypeButton:focus {
+    outline: none;
+  }
+  
+  .ExamTypeButton.active {
+    background-color: white;
+    color: rgb(48, 48, 75); /* Navy button color */
+    border: 1px solid #3b828e;
+  }
+  
+  .ExamType {
+    margin-bottom: 30px;
+  }
+  
+  /*MODAL CSS */
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-main {
+    border: 1px solid rgb(65, 65, 100); /* Navy blue border */
+    border-radius: 5px;
+    width: 50%;
+  
+    border-radius: 20px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close-btn {
+    cursor: pointer;
+  }
+  
+  .modal-footer {
+    display: flex;
+  
+    justify-content: center; /* Center button horizontally */
+    align-items: flex-end; /* Align button to the bottom of the footer */
+    margin-top: auto; /* Push footer to the bottom */
+  }
+  
+  /*EXAM HEADER CSS */
+  

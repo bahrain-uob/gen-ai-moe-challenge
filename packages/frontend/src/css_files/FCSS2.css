@@ -1,0 +1,188 @@
+/* Define custom font families */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Styles for the container */
+.container {
+  padding: 20px;
+  border-radius: 5px;
+  height: 60%;
+  background-color: rgb(250, 242, 242); /* Light blue background */
+  text-align: center;
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font to the container */
+  color: #3b828e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center items */
+  align-items: center;
+}
+
+.parts {
+  font-weight: bold;
+}
+
+.select-time {
+  color: #3b828e;
+  font-weight: bold;
+}
+.choose-tasks h1 {
+  margin-bottom: 20px;
+}
+
+.choose-tasks div {
+  margin-bottom: 10px;
+}
+.choose-tasks input {
+  margin-right: 10px;
+}
+
+.choose-time {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.simulate-exam input {
+  margin-right: 10px;
+}
+.simulate-exam {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.choose-time select {
+  margin-right: 10px;
+}
+
+/* Styles for the start test button */
+.start-test-button {
+  margin-top: 20px;
+  padding: 10px 70px;
+  background-color: #3b828e; /* Navy button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+.start-test-button:hover {
+  background-color: rgb(165, 166, 179); /* Darker navy on hover */
+}
+
+.select-time {
+  appearance: none;
+  padding: 8px 12px;
+  width: 10rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: grey;
+}
+
+/* Style the dropdown arrow */
+.select-time::after {
+  content: '\25BC'; /* Unicode character for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+/* Style when select is focused */
+.select-time:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 3px #007bff; /* Add box shadow when focused */
+}
+
+/* Style options */
+.select-time option {
+  background-color: #fff; /* Set background color */
+  color: #333; /* Set text color */
+}
+
+/* Style when select is disabled */
+.select-time:disabled {
+  opacity: 0.5; /* Reduce opacity */
+  cursor: not-allowed; /* Change cursor to not-allowed */
+}
+
+/* Reading exercise container styles */
+.reading-exercise-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Adjust padding as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px auto; /* Center horizontally */
+  margin-top: 90px;
+  background-color: #cccccc78;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(48, 48, 75);
+  /*max-width: 800px; /* Add a maximum width */
+  /*width: 90%; /* Allow the container to expand up to 90% of the available width */
+  width: 90vw; /* Take up full width of the viewport */
+  height: 60vh; /* Take up full height of the viewport */
+}
+
+.passage {
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center; /* Center-align the passage */
+}
+
+.question {
+  margin-bottom: 20px;
+  text-align: left; /* Left-align the question and answers */
+}
+
+.question p {
+  font-weight: bold;
+}
+
+.question ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.question li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.buttons button {
+  padding: 10px 70px;
+  background-color: #3b828e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  margin-right: 10px; /* Add margin between buttons */
+}
+
+.buttons button:disabled {
+  opacity: 0.5; /* Dim disabled button */
+  cursor: not-allowed; /* Change cursor for disabled button */
+}
+
+.cancel-button {
+  cursor: pointer;
+  text-align: end;
+  height: 10%;
+  width: 100%;
+}
+
+.cancel-button:hover {
+  text-decoration: underline;
+}
