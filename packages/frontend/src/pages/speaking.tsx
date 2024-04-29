@@ -7,6 +7,11 @@ import agentImage from '../assets/agent.jpeg';
 // TODO: Change this approach later
 const numQuestions = 4;
 
+interface Response {
+  Score: string;
+  Feedback: string;
+}
+
 const narrateQuestion = (text: string) => {
   if ('speechSynthesis' in window) {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -16,11 +21,10 @@ const narrateQuestion = (text: string) => {
   }
 };
 
-const generateFileName = (originalFileName: string) => {
-  const fileExtension = originalFileName.split('.').pop();
+const generateFileName = () => {
   const timestamp = new Date().toISOString().replace(/[^0-9]/g, '');
   const randomString = Math.random().toString(36).substring(2, 7);
-  return `audio_${timestamp}_${randomString}.${fileExtension}`;
+  return `audio_${timestamp}_${randomString}.webm`;
 };
 
 const YourComponent: React.FC = () => {
@@ -29,6 +33,7 @@ const YourComponent: React.FC = () => {
   const [audioURL, setAudioURL] = useState<string>('');
   const [recording, setRecording] = useState<boolean>(false);
   const [showGetQuestion, setShowGetQuestion] = useState<boolean>(true);
+  const [feedback, setFeedback] = useState(undefined as undefined | Response);
   const ApiEndPoint = import.meta.env.VITE_API_URL;
 
   const fetchQuestion = async () => {
@@ -65,7 +70,7 @@ const YourComponent: React.FC = () => {
 
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
-        const audioFileName = generateFileName('recording.mp3');
+        const audioFileName = generateFileName();
         setAudioURL(URL.createObjectURL(blob));
 
         axios
@@ -73,7 +78,6 @@ const YourComponent: React.FC = () => {
             params: {
               fileName: audioFileName,
               fileType: blob.type,
-              questionText: question,
             },
           })
           .then(response => {
@@ -86,7 +90,21 @@ const YourComponent: React.FC = () => {
                 },
               })
               .then(() => {
-                console.log('Upload successful');
+                fetch(ApiEndPoint + '/speaking', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    audioFileName,
+                    question,
+                  }),
+                }).then(response => {
+                  response.json().then(body => {
+                    console.log(body);
+                    setFeedback(body);
+                  });
+                });
               })
               .catch(error => {
                 console.error('Upload error:', error);
@@ -117,6 +135,12 @@ const YourComponent: React.FC = () => {
         </div>
       )}
       {audioURL && <audio controls src={audioURL} />}
+      {feedback && (
+        <div className="feedback">
+          <p>Score: {feedback.Score}</p>
+          <p>Feedback: {feedback.Feedback}</p>
+        </div>
+      )}
     </div>
   );
 };
