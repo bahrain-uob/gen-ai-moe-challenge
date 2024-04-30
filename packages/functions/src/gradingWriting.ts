@@ -55,6 +55,14 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   // Get all feedbacks in parallel
   const feedbacks = await Promise.all(_feedbacks);
 
+  const scores: Array<number> = feedbacks.map(feedback => {
+    const score = feedback.match(/(\d|\.)+/gm)![0];
+    const number = parseFloat(score);
+    return number>=0 && number<=9 ? number : 0;
+  });
+  const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+  console.log('Scores', scores, 'Average Score:', avgScore);
+  
   const out = {
     'Coherence & Cohesion': feedbacks[0],
     'Grammatical Range & Accuracy': feedbacks[1],
