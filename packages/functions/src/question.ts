@@ -11,7 +11,7 @@ export const main = async (
 ): Promise<APIGatewayProxyResult> => {
   const PK = event.pathParameters?.questionType;
   const possibleQuestionTypes = ["WritingP1", "WritingP2", "ReadingP1", "ReadingP2", "ReadingP3", "ListeningP1",
-                                 "ListeningP2", "ListeningP3", "ListeningP4", "SpeakingP1", "SpeakingP2", "SpeakingP3"];
+                                 "ListeningP2", "ListeningP3", "ListeningP4", "SpeakingP1", "SpeakingP2P3"];
 
   //validate the question type
     if (!PK || !possibleQuestionTypes.includes(PK)) {
