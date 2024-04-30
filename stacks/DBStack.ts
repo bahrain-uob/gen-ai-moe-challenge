@@ -1,21 +1,28 @@
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Bucket, Table, StackContext, RDS } from 'sst/constructs';
-
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
-import { Fn } from 'aws-cdk-lib';
+import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
+import AWS from 'aws-sdk';
 
-export function DBStack({ stack, app }: StackContext) {
+
+export function DBStack(this: any, { stack }: StackContext) {
   // Create a DynamoDB table
-  const table = new Table(stack, 'Counter', {
+  const table = new Table(stack, 'Records', {
     fields: {
-      counter: 'string',
+      PK: 'string',
+      SK: 'string',
     },
-    primaryIndex: { partitionKey: 'counter' },
+    primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
+  });
+
+  const myTable = new dynamodb.Table(this, 'Table', {
+    partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
+    sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
-  const transcription_bucket = new Bucket(stack, 'Transcripts');
 
   const questions_table = new Table(stack, 'Questions', {
     fields: {
@@ -30,41 +37,6 @@ export function DBStack({ stack, app }: StackContext) {
     },
     primaryIndex: { partitionKey: 'feedbackId' },
   });
-
-  uploads_bucket.addNotifications(stack, {
-    fileUpload: {
-      function: {
-        handler: 'packages/functions/src/transcribe.main',
-        environment: { outBucket: transcription_bucket.bucketName },
-      },
-      events: ['object_created'],
-      filters: [{ suffix: '.mp3' }],
-    },
-  });
-  uploads_bucket.attachPermissions([
-    's3:PutObject',
-    's3:GetObject',
-    'transcribe:StartTranscriptionJob',
-  ]);
-
-  transcription_bucket.addNotifications(stack, {
-    fileUpload: {
-      function: {
-        handler: 'packages/functions/src/feedback.main',
-        environment: {
-          uploadBucketName: uploads_bucket.bucketName,
-          FeedbackTableName: feedback_table.tableName,
-        },
-      },
-      events: ['object_created'],
-      filters: [{ suffix: '.json' }],
-    },
-  });
-  transcription_bucket.attachPermissions([
-    's3:GetObject',
-    'bedrock:InvokeModel',
-    'dynamodb:PutItem',
-  ]);
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
@@ -119,11 +91,16 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
+  // Output database name
+  stack.addOutputs({
+    DatabaseName: table.tableName,
+  });
+
   return {
     table,
     uploads_bucket,
-    transcription_bucket,
     questions_table,
     feedback_table,
+    myTable,
   };
 }
