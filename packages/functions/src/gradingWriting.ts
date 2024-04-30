@@ -55,10 +55,11 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   // Get all feedbacks in parallel
   const feedbacks = await Promise.all(_feedbacks);
 
+  // Calculate average score
   const scores: Array<number> = feedbacks.map(feedback => {
     const score = feedback.match(/(\d|\.)+/gm)![0];
     const number = parseFloat(score);
-    return number>=0 && number<=9 ? number : 0;
+    return number>=0 && number<=9 ? number : 0; // Ensure score is between 0 and 9
   });
   const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
   console.log('Scores', scores, 'Average Score:', avgScore);
