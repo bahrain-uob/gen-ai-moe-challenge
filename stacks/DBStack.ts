@@ -91,11 +91,16 @@ export function DBStack(this: any, { stack }: StackContext) {
   //   });
   // }
 
+  // Output database name
+  stack.addOutputs({
+    DatabaseName: table.tableName,
+  });
+
   return {
     table,
     uploads_bucket,
     questions_table,
     feedback_table,
-    myTable
+    myTable,
   };
 }
