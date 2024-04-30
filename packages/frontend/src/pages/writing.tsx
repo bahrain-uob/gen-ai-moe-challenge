@@ -1,6 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import CollapsableCard from '../components/collapsableCard';
+import { toJSON } from '../utilities';
+import { post } from 'aws-amplify/api';
 
 interface Response {
   'Coherence & Cohesion': string;
@@ -22,23 +24,27 @@ function Writing() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_API_URL}/writing`;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(inputs),
-    }).then(response => {
-      response.json().then(body => {
-        console.log(body);
-        setGrading(body);
-      });
-    });
-    alert('Sending Message to ' + url);
+
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/writing',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: {
+            inputs,
+          },
+        },
+      }),
+    );
+
+    console.log(response);
+    setGrading(response);
   };
 
   const size = {
