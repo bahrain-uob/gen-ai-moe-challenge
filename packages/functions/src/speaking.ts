@@ -32,7 +32,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   const { audioFileName, question } = requestBody;
   const fileName = audioFileName.slice(0, -5);
 
-  // Transcription Function
+  /* Transcription Function */
   const transcriptionStatus = await startTranscription(fileName);
   if (transcriptionStatus === 'FAILED') {
     return {
@@ -41,7 +41,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     };
   }
 
-  // Retreive from S3 the transcript
+  /* Retreive from S3 the transcript */
   const answer = await retrieveTranscript(fileName);
   if (typeof answer !== 'string') {
     return {
@@ -50,7 +50,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     };
   }
 
-  // Prompt Bedrock
+  /* Prompt Bedrock */
   const criterias = [
     'Fluency and Coherence',
     'Lexical Resource',
@@ -63,7 +63,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     ),
   );
 
-  // Extract scores from feedback results and calculate the average
+  /* Extract scores from feedback results and calculate the average */
   const scores = feedbackResults.map(feedback => {
     // Find the line containing 'Score:' and extract the number
     const scoreLine = feedback
@@ -97,7 +97,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     Feedback: feedback,
   };
 
-  // Store the result in dynamodb
+  /* Store the result in dynamodb */
   await storeFeedback(fileName, score, feedback);
 
   return {
@@ -231,6 +231,7 @@ Always Begin your feedback with the score as an example 'Score: [applicable numb
 `;
 }
 
+// TODO: use shared `runModel`
 async function runModel(prompt: string) {
   const modelParams = {
     inputText: prompt,
