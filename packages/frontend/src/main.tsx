@@ -6,6 +6,7 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
 import Writing from './pages/writing.tsx';
+import ReadingQuestions from './ReadingQuestions.tsx';
 import Speaking from './pages/speaking.tsx';
 import SignUp from './pages/SignUp.tsx';
 import SignIn from './pages/SignIn.tsx';
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
     Component: Writing,
   },
   {
+    path: '/:section/:sk', // Updated route with path parameters
+    Component: ReadingQuestions,
+  },
+  {    
     path: '/speaking',
     Component: Speaking,
   },

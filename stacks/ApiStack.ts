@@ -5,12 +5,13 @@ import { Duration } from 'aws-cdk-lib/core';
 import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, questions_table, uploads_bucket, feedback_table } =
+  
+  const { table, questions_table, uploads_bucket, feedback_table, myTable } =
     use(DBStack);
   const { auth } = use(AuthStack);
 
   //Create the GrammerCheckerTool Service
-  const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
+    const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
     path: 'packages/functions/src/docker-languagetool',
     port: 8010,
     // dev: {
@@ -33,6 +34,9 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       authorizer: 'jwt',
       function: {
+        environment: {
+          TABLE1_NAME: myTable.tableName,
+        },
         // Bind the table name to our API
         bind: [table, questions_table],
       },
@@ -98,7 +102,12 @@ export function ApiStack({ stack }: StackContext) {
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
         },
-      },
+      }, //testing bedrock api for writing
+      //api endpoint for retrieving reading questions
+      'GET /{section}/{sk}': 'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}': 'packages/functions/src/GradingReadingListening.handler',
+      'GET /scores/{section}/{sk}': 'packages/functions/src/getScoresReadingListening.handler',
+
       // Sample Pyhton lambda function
       'GET /': {
         function: {
@@ -110,6 +119,7 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
   });
+  api.attachPermissions([myTable]);
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj

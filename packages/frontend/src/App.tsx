@@ -34,6 +34,9 @@ function App() {
           <Link to="/writing"> Writing </Link>
           <br />
           <br />
+          <Link to="/reading/1"> Reading </Link>
+          <br />
+          <br />
           <Link to="/speaking"> Speaking </Link>
           <br />
           <br />
