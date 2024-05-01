@@ -1,6 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { WritingGrading } from './writingTask2';
+import { post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
@@ -19,26 +21,26 @@ function WritingTask1Page() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_API_URL}/grade-writing`;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        writingTask: 'Task 1',
-        ...inputs,
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/grade-writing',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            writingTask: 'Task 1',
+            ...inputs,
+          }),
+        },
       }),
-    }).then(response => {
-      response.json().then(body => {
-        console.log(body);
-        setGrading(body);
-      });
-    });
-    alert('Sending Message to ' + url);
+    );
+    console.log(response);
+    setGrading(response);
   };
 
   const size = {

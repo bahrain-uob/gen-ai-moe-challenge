@@ -26,23 +26,22 @@ function WritingTask2Page() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     const response = await toJSON(
       post({
         apiName: 'myAPI',
-        path: '/writing',
+        path: '/grade-writing',
         options: {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: {
-            inputs,
-          },
+          body: JSON.stringify({
+            writingTask: 'Task 1',
+            ...inputs,
+          }),
         },
       }),
     );
-
     console.log(response);
     setGrading(response);
   };
