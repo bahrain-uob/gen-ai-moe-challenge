@@ -107,7 +107,7 @@ export function ApiStack({ stack }: StackContext) {
         },
       },
       // Sample Pyhton lambda function
-      'GET /': {
+      'GET /Listening/Polly': {
         function: {
           handler: 'packages/functions/src/sample-python-lambda/Polly.main',
           runtime: 'python3.11',
