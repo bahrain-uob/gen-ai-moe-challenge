@@ -9,7 +9,7 @@ const Nav = () => {
         </Link>
 
         <ul className="flex-1 flex px-12 gap-16 max-lg:hidden font-montserrat leading-normal text-2xl font-bold text-white">
-          <Link to="">
+          <Link to="/Full-Exam">
             <li>Full Exams</li>
           </Link>
           <Link to="/Sections">
