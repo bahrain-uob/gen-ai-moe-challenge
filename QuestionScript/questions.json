@@ -2843,20 +2843,23 @@
   "SpeakingP1": [
     {
       "Prompt": {
-        "S": "Let's talk about your free time."
+        "M": {
+          "text": { "S": "Let's talk about your free time." },
+          "S3key": { "S": "061ce8fa-ec1b-4e17-a7d7-13489cf79d8a.mp3" }
+        }
       },
       "Questions": {
         "L": [
           {
             "M": {
               "text": { "S": "How do you spend your free time?" },
-              "S3key": { "S": "" }
+              "S3key": { "S": "48c5456f-9c36-4df3-8e07-1c38ad4b6d7c.mp3" }
             }
           },
           {
             "M": {
               "text": { "S": "Do you enjoy hanging out with friends?" },
-              "S3key": { "S": "" }
+              "S3key": { "S": "40fbff26-da82-4a4c-b004-3ad9d9d2d7f8.mp3" }
             }
           },
           {
@@ -2864,38 +2867,7 @@
               "text": {
                 "S": "Do you think friends are important in our life? Why?"
               },
-              "S3key": { "S": "" }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "Prompt": {
-        "S": "Let's talk about your school."
-      },
-      "Questions": {
-        "L": [
-          {
-            "M": {
-              "text": { "S": "What kind of school is it?" },
-              "S3key": { "S": "" }
-            }
-          },
-          {
-            "M": {
-              "text": {
-                "S": "What's the most interesting thing about your school?"
-              },
-              "S3key": { "S": "" }
-            }
-          },
-          {
-            "M": {
-              "text": {
-                "S": "Would you say it's a good place to study? Why?"
-              },
-              "S3key": { "S": "" }
+              "S3key": { "S": "1d3c3be3-12d9-4dcd-8009-cd5b638f557c.mp3" }
             }
           }
         ]
@@ -2905,7 +2877,10 @@
   "SpeakingP2P3": [
     {
       "Task2": {
-        "S": "Describe your favorite shopping center."
+        "M": {
+          "text": { "S": "Describe your favorite shopping center." },
+          "S3key": { "S": "75e1c447-0124-4572-a80f-3ce7c9a356db.mp3" }
+        }
       },
       "QuestionsP2": {
         "L": [
@@ -2917,14 +2892,21 @@
         ]
       },
       "Task3": {
-        "S": "We've been talking about your shopping habits. Now, I'd like to discuss with you a few more questions related to this topic. "
+        "M": {
+          "text": {
+            "S": "We've been talking about your shopping habits. Now, I'd like to discuss with you a few more questions related to this topic."
+          },
+          "S3key": { "S": "282732bb-5267-4692-90c8-c6b5c785856e.mp3" }
+        }
       },
       "QuestionsP3": {
         "L": [
           {
             "M": {
-              "text": { "S": "Do you think money is important in our life?" },
-              "S3key": { "S": "" }
+              "text": {
+                "S": "Do you think money is important in our life?"
+              },
+              "S3key": { "S": "c395bb1a-df38-4bd6-804b-b6b6d086a088.mp3" }
             }
           },
           {
@@ -2932,7 +2914,7 @@
               "text": {
                 "S": "How can people manage their money wisely?"
               },
-              "S3key": { "S": "" }
+              "S3key": { "S": "3275dedf-40b9-455c-8211-21b933ba3ab8.mp3" }
             }
           },
           {
@@ -2940,7 +2922,7 @@
               "text": {
                 "S": "Do you think too much shopping is one of the main reasons some people are wasting their money nowadays?"
               },
-              "S3key": { "S": "" }
+              "S3key": { "S": "e38530a3-811d-4c3d-b08f-ace817ff2b31.mp3" }
             }
           },
           {
@@ -2948,7 +2930,7 @@
               "text": {
                 "S": "How do you think shopping can help the economy grow and flourish?"
               },
-              "S3key": { "S": "" }
+              "S3key": { "S": "0039dc03-00a5-462b-9915-2d1ca8be8b1f.mp3" }
             }
           }
         ]
