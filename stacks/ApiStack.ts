@@ -93,12 +93,12 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '60 seconds',
         },
       },
-      // Writing grading lambda function
-      'POST /writing': {
+      // Grade both writing tasks
+      'POST /grade-writing': {
         function: {
-          handler: 'packages/functions/src/writing.main',
+          handler: 'packages/functions/src/gradingWriting.main',
           permissions: ['bedrock:InvokeModel'],
-          timeout: '60 seconds',
+          timeout: '120 seconds',
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions

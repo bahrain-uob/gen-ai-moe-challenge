@@ -10,6 +10,7 @@ import {
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { runModel } from './utilities';
 
 const bedrockClient = new BedrockRuntime();
 const transcribeClient = new TranscribeClient();
@@ -52,28 +53,10 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   // Prompt Bedrock
   const prompt = createPrompt(rubric, question, answer);
-  const input = {
-    inputText: prompt,
-    textGenerationConfig: {
-      maxTokenCount: 4096,
-      stopSequences: [],
-      temperature: 0,
-      topP: 0.9,
-    },
-  };
-  const command = new InvokeModelCommand({
-    body: JSON.stringify(input),
-    contentType: 'application/json',
-    accept: '*/*',
-    modelId: 'amazon.titan-text-express-v1',
-  });
 
-  const response = (await bedrockClient.send(command)).body;
-
-  const textDecoder = new TextDecoder('utf-8');
-  const decodedString = textDecoder.decode(response);
-
-  const feedbackResult = JSON.parse(decodedString).results[0].outputText;
+  //new runmodel
+  const feedbackResult = await runModel(prompt);
+  
 
   const score_index = feedbackResult.indexOf('Score:');
   const feedback_index = feedbackResult.indexOf('Feedback:');

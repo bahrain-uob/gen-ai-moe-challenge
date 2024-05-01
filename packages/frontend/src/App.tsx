@@ -31,7 +31,10 @@ function App() {
           <Link to="/test"> Test page </Link>
           <br />
           <br />
-          <Link to="/writing"> Writing </Link>
+          <Link to="/writing-task1"> Writing Task 1 </Link>
+          <br />
+          <br />
+          <Link to="/writing-task2"> Writing Task 2 </Link>
           <br />
           <br />
           <Link to="/reading/1"> Reading </Link>
