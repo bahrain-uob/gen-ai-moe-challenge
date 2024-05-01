@@ -57,7 +57,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   // Calculate average score
   const scores: Array<number> = feedbacks.map(feedback => {
-    const score = feedback.match(/\d(\d|\.){0,2}/gm)![0];
+    const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
     const number = parseFloat(score);
     return number>=0 && number<=9 ? number : 0; // Ensure score is between 0 and 9
   });
