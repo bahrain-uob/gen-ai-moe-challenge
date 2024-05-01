@@ -39,7 +39,7 @@ const YourComponent: React.FC = () => {
       const questionText = await response.json();
       setQuestion(questionText.Question);
       setShowGetQuestion(false);
-      narrateQuestion(questionText.Question);
+      narrateQuestion(questionText.Questions[0].text);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
