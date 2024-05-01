@@ -2,9 +2,11 @@ import { Api, StackContext, use, Service } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
+import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, uploads_bucket, feedback_table } = use(DBStack);
+  const { table, uploads_bucket, feedback_table, myTable } = use(DBStack);
+  const { auth } = use(AuthStack);
 
   //Create the GrammerCheckerTool Service
   const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
@@ -26,9 +28,22 @@ export function ApiStack({ stack }: StackContext) {
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
     defaults: {
+      authorizer: 'jwt',
       function: {
+        environment: {
+          TABLE1_NAME: myTable.tableName,
+        },
         // Bind the table name to our API
         bind: [table],
+      },
+    },
+    authorizers: {
+      jwt: {
+        type: 'user_pool',
+        userPool: {
+          id: auth.userPoolId,
+          clientIds: [auth.userPoolClientId],
+        },
       },
     },
     routes: {
@@ -85,7 +100,15 @@ export function ApiStack({ stack }: StackContext) {
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
         },
-      },
+      }, //testing bedrock api for writing
+      //api endpoint for retrieving reading questions
+      'GET /{section}/{sk}':
+        'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}':
+        'packages/functions/src/GradingReadingListening.handler',
+      'GET /scores/{section}/{sk}':
+        'packages/functions/src/getScoresReadingListening.handler',
+
       // Sample Pyhton lambda function
       'GET /': {
         function: {
@@ -93,9 +116,11 @@ export function ApiStack({ stack }: StackContext) {
           runtime: 'python3.11',
           timeout: '60 seconds',
         },
+        authorizer: 'none',
       },
     },
   });
+  api.attachPermissions([myTable]);
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj
@@ -109,6 +134,9 @@ export function ApiStack({ stack }: StackContext) {
       'Referer',
     ),
   });
+
+  // Allowing authenticated users to access API
+  auth.attachPermissionsForAuthUsers(stack, [api]);
 
   return { api, apiCachePolicy };
 }

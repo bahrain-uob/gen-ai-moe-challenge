@@ -1,20 +1,19 @@
-import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { Link } from 'react-router-dom';
+import { signOut } from 'aws-amplify/auth';
 
 function App() {
-  const [count, setCount] = useState('');
-
-  function onClick() {
-    console.log(import.meta.env.VITE_API_URL);
-    fetch(import.meta.env.VITE_API_URL, {
-      method: 'POST',
-    })
-      .then(response => response.text())
-      .then(setCount);
-  }
+  const signOutHandler = () => {
+    signOut()
+      .then(() => {
+        console.log('Signed out successfully');
+      })
+      .catch(error => {
+        console.log('error signing out: ', error);
+      });
+  };
 
   return (
     <>
@@ -28,7 +27,6 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={onClick}>count is {count ? count : 'unknown'}</button>
         <p>
           <Link to="/test"> Test page </Link>
           <br />
@@ -36,9 +34,20 @@ function App() {
           <Link to="/writing"> Writing </Link>
           <br />
           <br />
+          <Link to="/reading/1"> Reading </Link>
+          <br />
+          <br />
           <Link to="/speaking"> Speaking </Link>
+          <br />
+          <br />
+          <Link to="/sign-up"> Sign up </Link>
+          <br />
+          <br />
+          <Link to="/sign-in"> Sign in </Link>
+          <br />
+          <br />
+          <button onClick={signOutHandler}> Sign out </button>
         </p>
-        <p> Sayed Ahmed was here </p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
