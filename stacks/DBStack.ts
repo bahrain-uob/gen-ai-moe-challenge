@@ -7,15 +7,16 @@ import { Fn } from 'aws-cdk-lib';
 
 export function DBStack({ stack, app }: StackContext) {
   // Create a DynamoDB table
-  const table = new Table(stack, 'Counter', {
+  const table = new Table(stack, 'Records', {
     fields: {
-      counter: 'string',
+      PK: 'string',
+      SK: 'string',
     },
-    primaryIndex: { partitionKey: 'counter' },
+    primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
-  const transcription_bucket = new Bucket(stack, 'Transcripts');
+  const Polly_bucket = new Bucket(stack, 'Polly');
 
   const questions_table = new Table(stack, 'Questions', {
     fields: {
@@ -31,38 +32,9 @@ export function DBStack({ stack, app }: StackContext) {
     primaryIndex: { partitionKey: 'feedbackId' },
   });
 
-  uploads_bucket.addNotifications(stack, {
-    fileUpload: {
-      function: {
-        handler: 'packages/functions/src/transcribe.main',
-        environment: { outBucket: transcription_bucket.bucketName },
-      },
-      events: ['object_created'],
-      filters: [{ suffix: '.mp3' }],
-    },
-  });
-  uploads_bucket.attachPermissions([
-    's3:PutObject',
+  Polly_bucket.attachPermissions([
     's3:GetObject',
-    'transcribe:StartTranscriptionJob',
-  ]);
-
-  transcription_bucket.addNotifications(stack, {
-    fileUpload: {
-      function: {
-        handler: 'packages/functions/src/feedback.main',
-        environment: {
-          uploadBucketName: uploads_bucket.bucketName,
-          FeedbackTableName: feedback_table.tableName,
-        },
-      },
-      events: ['object_created'],
-      filters: [{ suffix: '.json' }],
-    },
-  });
-  transcription_bucket.attachPermissions([
-    's3:GetObject',
-    'bedrock:InvokeModel',
+    'polly:SynthesizeSpeech',
     'dynamodb:PutItem',
   ]);
 
@@ -122,8 +94,8 @@ export function DBStack({ stack, app }: StackContext) {
   return {
     table,
     uploads_bucket,
-    transcription_bucket,
     questions_table,
     feedback_table,
+    Polly_bucket,
   };
 }
