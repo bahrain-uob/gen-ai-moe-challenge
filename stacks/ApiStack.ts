@@ -5,7 +5,13 @@ import { Duration } from 'aws-cdk-lib/core';
 import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, uploads_bucket, feedback_table, myTable } = use(DBStack);
+  const {
+    table,
+    uploads_bucket,
+    feedback_table,
+    myTable,
+    speakingPollyBucket,
+  } = use(DBStack);
   const { auth } = use(AuthStack);
 
   //Create the GrammerCheckerTool Service
@@ -71,6 +77,16 @@ export function ApiStack({ stack }: StackContext) {
           permissions: ['s3:PutObject'],
           environment: {
             audioResponseBucket: uploads_bucket.bucketName,
+          },
+        },
+      },
+      // Speaking getting the polly audio
+      'GET /speakingRecording/{key}': {
+        function: {
+          handler: 'packages/functions/src/speakingRecording.main',
+          permissions: ['s3:GetObject'],
+          environment: {
+            speakingPollyBucket: speakingPollyBucket.bucketName,
           },
         },
       },
