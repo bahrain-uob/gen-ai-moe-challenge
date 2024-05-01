@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
+import { get, post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
 // TODO: Change this approach later
 const numQuestions = 4;
@@ -34,13 +36,17 @@ const YourComponent: React.FC = () => {
   const [recording, setRecording] = useState<boolean>(false);
   const [showGetQuestion, setShowGetQuestion] = useState<boolean>(true);
   const [feedback, setFeedback] = useState(undefined as undefined | Response);
-  const ApiEndPoint = import.meta.env.VITE_API_URL;
 
   const fetchQuestion = async () => {
     try {
       const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
-      const response = await fetch(`${ApiEndPoint}/questions/${randomNumber}`);
-      const questionText = await response.json();
+      const questionText = await toJSON(
+        get({
+          apiName: 'myAPI',
+          path: `/questions/${randomNumber}`,
+        }),
+      );
+
       setQuestion(questionText);
       setShowGetQuestion(false);
       narrateQuestion(questionText);
@@ -68,52 +74,52 @@ const YourComponent: React.FC = () => {
       setRecording(false);
       setShowGetQuestion(true);
 
-      recorder.stopRecording(() => {
+      recorder.stopRecording(async () => {
         const blob = recorder.getBlob();
         const audioFileName = generateFileName();
         setAudioURL(URL.createObjectURL(blob));
 
-        axios
-          .get(ApiEndPoint + '/generate-presigned-url', {
-            params: {
-              fileName: audioFileName,
-              fileType: blob.type,
+        const response = await toJSON(
+          get({
+            apiName: 'myAPI',
+            path: '/generate-presigned-url',
+            options: {
+              body: {
+                fileName: audioFileName,
+                fileType: blob.type,
+              },
             },
-          })
-          .then(response => {
-            const presignedUrl = response.data.url;
+          }),
+        );
+        const presignedUrl = response.data.url;
 
-            axios
-              .put(presignedUrl, blob, {
-                headers: {
-                  'Content-Type': blob.type,
-                },
-              })
-              .then(() => {
-                fetch(ApiEndPoint + '/speaking', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    audioFileName,
-                    question,
-                  }),
-                }).then(response => {
-                  response.json().then(body => {
-                    console.log(body);
-                    setFeedback(body);
-                  });
-                });
-              })
-              .catch(error => {
-                console.error('Upload error:', error);
-              });
-          })
-          .catch(error => {
-            console.error('Error generating presigned URL:', error);
+        await axios.put(presignedUrl, blob, {
+          headers: {
+            'Content-Type': blob.type,
+          },
+        });
+
+        toJSON(
+          post({
+            apiName: 'myAPI',
+            path: '/speaking',
+            options: {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                audioFileName,
+                question,
+              }),
+            },
+          }),
+        ).then(response => {
+          response.json().then((body: any) => {
+            console.log(body);
+            setFeedback(body);
           });
-      });
+        });
+      }); // end `stopRecording`
     }
   };
 
