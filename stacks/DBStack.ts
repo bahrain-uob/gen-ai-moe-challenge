@@ -1,11 +1,13 @@
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Bucket, Table, StackContext, RDS } from 'sst/constructs';
-
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
-import { Fn } from 'aws-cdk-lib';
+import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
+import AWS from 'aws-sdk';
 
-export function DBStack({ stack, app }: StackContext) {
+
+export function DBStack(this: any, { stack }: StackContext) {
   // Create a DynamoDB table
   const table = new Table(stack, 'Records', {
     fields: {
@@ -15,14 +17,12 @@ export function DBStack({ stack, app }: StackContext) {
     primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
 
-  const uploads_bucket = new Bucket(stack, 'Uploads');
-
-  const questions_table = new Table(stack, 'Questions', {
-    fields: {
-      questionId: 'string',
-    },
-    primaryIndex: { partitionKey: 'questionId' },
+  const myTable = new dynamodb.Table(this, 'Table', {
+    partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
+    sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
   });
+
+  const uploads_bucket = new Bucket(stack, 'Uploads');
 
   const feedback_table = new Table(stack, 'ResponseFeedback', {
     fields: {
@@ -84,10 +84,15 @@ export function DBStack({ stack, app }: StackContext) {
   //   });
   // }
 
+  // Output database name
+  stack.addOutputs({
+    DatabaseName: table.tableName,
+  });
+
   return {
     table,
     uploads_bucket,
-    questions_table,
     feedback_table,
+    myTable,
   };
 }

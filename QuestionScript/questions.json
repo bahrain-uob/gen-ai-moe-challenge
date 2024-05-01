@@ -1,0 +1,2940 @@
+{
+  "WritingP1": [],
+
+  "WritingP2": [
+    {
+      "Question": {
+        "S": "Space exploration is much too expensive and the money should be spent on more important things. \nWhat is your opinion? "
+      }
+    },
+    {
+      "Question": {
+        "S": "It is sometimes argued that too many students go to university, while others claim that a university education should be a universal right. \nDiscuss both sides of the argument and give your own opinion. "
+      }
+    },
+    {
+      "Question": {
+        "S": "The internet has transformed the way information is shared and consumed, but it has also created problems that did not exist before. \nWhat are the most serious problems associated with the internet and what solutions can you suggest? "
+      }
+    },
+    {
+      "Question": {
+        "S": "Write about the following topic: \n Children who are brought up in families that do not have large amounts of money are better prepared to deal with the problems of adult life than children brought up by wealthy parents. To what extent do you agree or disagree with this opinion?  \nGive reasons for your answer and include any relvant examples from your own knowledge or experience.  \nWrite at least 250 words. "
+      }
+    }
+  ],
+  "ReadingP1": [
+    {
+      "NumOfQuestions": {
+        "N": "2"
+      },
+      "Passage": {
+        "S": "For hundreds of years, historians have relied on written or printed documents to provide the bulk of their source materials, and they have largely communicated with students and the wider public by writing books and journal articles. Today, however, the printed word is being superseded by a diversity of forms of communication, above all moving images on video or film\n\n A. The development of this new form of communication is leading to a growing gap between the practice of professional historians based in academia, and the practice of those aiming to popularise the study of history among the general public, and to encourage people to create their own records for the future. On the one hand, there are mainstream academics who continue to use only the written word as they examine more and more fields with an ever- increasing number of sophisticated methodologies. On the other hand, film and video, especially as broadcast on television, are probably the major influence on the public's consciousness of history, as they see film of events of fifty or a hundred years ago, events they had previously only read about.\n\n B. In a related development, a great many people now document local and family events in the form of videos; many schools, too, produce video yearbooks. All these visual records may well prove to be invaluable sources of information for future historians. The glaring contradiction is that the two approaches-the academic and what we might term the popular - have intersected very little: with a few notable exceptions, professional historians have tended to avoid involvement in television programmes about history, and have even less impact on what is being captured and preserved on video. And the potential of moving images has wielded negligible influence on the academic study of history. \n\n C. This gulf can be seen as resulting from the willingness or otherwise of individual historians to accept the validity of new forms of communication in the study of history. This is not the first time that the question has arisen. The study of history, as conceived of today, began with the transition from oral to literate culture, leading to the earliest written records and the earliest historical studies. The next great shift came with the advent of printing, which transformed everything. Today, as the printed word loses its dominance, historians are faced with a variety of forms of communication, ranging from simple audiotape to the promising complexities of videodiscs linked with computers. As yet, however, the use of moving images to record current events for the benefit of future historians does not even have a commonly agreed name.\n\n D. This does not mean that mainstream historians have totally rejected the use of moving images as sources: the majority seem intrigued by the idea, and valuable research has been carried out into the history and analysis of films with a broad circulation, using them as a source of information on the social and intellectual history of the twentieth century. Journals such as American History Review have played a significant role in this field.\n\n E. Yet the number of historians using moving images in their research or teaching is very small. The barrier seems to be that the profession is structured around the medium of the written word, and is somewhat insulated in its academic setting. The use of moving images presents a substantial challenge to this setting and its assumptions. As a result, historians have rejected the training, the institutions, the motivations and the professional structures that would be needed in order to use moving images effectively. Above all, they have rejected the necessity to learn complicated new skills.\n\n F. So why should historians make this change? clearly, films or videos of events and people can be used as solid evidence of the past, linked to the words of the narrator (whether a television presenter/historian or a university teacher giving a lecture) but carrying information in their own right. Film has reintroduced the oral form as a mode of research and communication for documenting historical events. Now, with moving images, people are reminded that oral communication is not limited to words: it also includes body language, expression and tone, and is embedded in a context. Little of this is evident in a written transcript. A further effect of video and film is that the narrator gives up some control and has less need to give explanations, while the viewer becomes involved in the process of interpreting and understanding history.\n\n G. Film or videotape can also aid historians by simplifying the work of the interviewer. Instead of trying to carry on an interview while simultaneously making notes about setting and other unspoken data, this new kind of historian can concentrate on the interview itself, and study the film later. The many benefits of using moving images as historical evidence easily outweigh worries about cost, technical skills, or the effect of a camera on a person telling his or her story. Moving images enhance the quality of historical research, and suggest new directions for historians to explore."
+      },
+      "PassageTitle": {
+        "S": "A new stage in the study and teaching of history"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "9"
+              },
+              "Question": {
+                "S": "Reading Passage has seven paragraphs, A-G.\nWhich paragraph contains the following information?\nWrite the correct lette, A-G, in boxes 1-9 on your answer sheet.\nNB You may use any letter more than once."
+              },
+              "QuestionType": {
+                "S": "Matching Paragraph Information"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "C"
+                      },
+                      "QuestionText": {
+                        "S": "An overview of the range of methods that have been used over time to document history. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "The main reason why many historians are unwilling to use films in their work -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": "A reference to some differences between oral and written communication -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A"
+                      },
+                      "QuestionText": {
+                        "S": "How most citizens today gain an understanding of history -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "B"
+                      },
+                      "QuestionText": {
+                        "S": "How current student events are sometimes captured for future audiences -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "G"
+                      },
+                      "QuestionText": {
+                        "S": "Mention of the fact that the advantages of film are greater than the disadvantages -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "C"
+                      },
+                      "QuestionText": {
+                        "S": "The claim that there is no official title for film-based historical work -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": "Reference to the active role the audience plays when watching films -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "A list of requirements that historians see as obstacles to their use of film to record history -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "5"
+              },
+              "Question": {
+                "S": "Do the following statements agree with the claims of the writer in Reading Passage?\n\nIn boxes 1-5 on your answer sheet, write:\nYes, if the statement agrees with the views of the writer.\n No, if the statement contradicts the views of the writer.\n Not Given, if it is impossible to say what the writer thinks about this."
+              },
+              "QuestionType": {
+                "S": "Yes No Not Given"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "The needs of students in school have led to improvements in the teaching of history. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Yes"
+                      },
+                      "QuestionText": {
+                        "S": "Academic and popular historians have different attitudes towards the value of innovations in communication. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "No"
+                      },
+                      "QuestionText": {
+                        "S": "It is common for historians to play a major role in creating historical documentaries for television. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Yes"
+                      },
+                      "QuestionText": {
+                        "S": "Articles in American History Review have explored aspects of modern history through popular films. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "Developments in technology are influencing a range of academic subjects. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "NumOfQuestions": {
+        "N": "3"
+      },
+      "Passage": {
+        "S": "In the last century, Vikings have been perceived in numerous diﬀerent ways – vilified as conquerors and romanticised as adventurers. How Vikings have been employed in nation-building is a topic of some interest.\n\nIn English, Vikings are also known as Norse or Norsemen. Their language greatly inﬂuenced English, with the nouns, ‘Hell’, ‘husband’, ‘law’, and ‘window’, and the verbs, ‘blunder’, ‘snub’, ‘take’, and ‘want’, all coming from Old Norse. However, the origins of the word ‘Viking’, itself, are obscure: it may mean ‘a Scandinavian pirate’, or it may refer to ‘an inlet’, or a place called Vik, in modem-day Norway, from where the pirates came. These various names – Vikings, Norse, or Norsemen, and doubts about the very word ‘Viking’ suggest historical confusion.\n\nLoosely speaking, the Viking Age endured from the late eighth to the mid-eleventh centuries. Vikings sailed to England in AD 793 to storm coastal monasteries, and subsequently, large swathes of England fell under Viking rule – indeed several Viking kings sat on the English throne. It is generally agreed that the Battle of Hastings, in 1066, when the Norman French invaded, marks the end of the English Viking Age, but the Irish Viking age ended earlier, while Viking colonies in Iceland and Greenland did not dissolve until around AD 1500.\n\nHow much territory Vikings controlled is also in dispute – Scandinavia and Western Europe certainly, but their reach east and south is uncertain. They plundered and settled down the Volga and Dnieper rivers, and traded with modem-day Istanbul, but the archaeological record has yet to verify that Vikings raided as far away as Northwest Africa, as some writers claim.\n\nThe issue of control and extent is complex because many Vikings did not return to Scandinavia after raiding but assimilated into local populations, often becoming Christian. To some degree, the Viking Age is defined by religion. Initially, Vikings were polytheists, believing in many gods, but by the end of the age, they had permanently accepted a new monotheistic religious system – Christianity.\n\nThis transition from so-called pagan plunderers to civilised Christians is significant and is the view promulgated throughout much of recent history. In the UK, in the 1970s for example, schoolchildren were taught that until the Vikings accepted Christianity they were nasty heathens who rampaged throughout Britain. By contrast, today’s children can visit museums where Vikings are celebrated as merchants, pastoralists, and artists with a unique worldview as well as conquerors.\n\nWhat are some other interpretations of Vikings? In the nineteenth century, historians in Denmark, Norway, and Sweden constructed their own Viking ages for nationalistic reasons. At that time, all three countries were in crisis. Denmark had been beaten in war and ceded territory to what is now Germany. Norway had become independent from Sweden in 1905 but was economically vulnerable, so Norwegians sought to create a separate identity for themselves in the past as well as the present. The Norwegian historian, Gustav Storm, was adamant it was his forebears and not the Swedes’ or Danes’ who had colonised Iceland, Greenland, and Vinland, in what is now Canada. Sweden, meanwhile, had relinquished Norway to the Norwegians and Finland to the Russians; thus, in the late nineteenth century, Sweden was keen to boost its image with rich archaeological finds to show the glory of its Viking past.\n\nIn addition to augmenting nationalism, nineteenth-century thinkers were influenced by an Englishman, Herbert Spencer, who described peoples and cultures in evolutionary terms similar to those of Charles Darwin. Spencer coined the phrase ‘survival of the fittest’, which includes the notion that, over time, there is not only technological but also moral progress. Therefore, Viking heathens’ adoption of Christianity was considered an advantageous move. These days, historians do not compare cultures in the same way, especially since, in this case, the archaeological record seems to show that heathen Vikings and Christian Europeans were equally brutal.\n\nViews of Vikings change according to not only to forces aﬀecting historians at the time of their research but also according to the materials they read. Since much knowledge of Vikings comes from literature composed up to 300 years after the events they chronicle, some Danish historians cal1 these sources ‘mere legends’.\n\nVikings did have a written language carved on large stones, but as few of these survive today, the most reliable contemporary sources on Vikings come from writers from other cultures, like the ninth-century Persian geographer, Ibn Khordadbeh.\n\nIn the last four decades, there have been wildly varying interpretations of the Viking inﬂuence in Russia. Most non-Russian scholars believe the Vikings created a kingdom in western Russia and modern-day Ukraine led by a man called Rurik. After AD 862, Rurik’s descendants continued to rule. There is considerable evidence of this colonisation: in Sweden, carved stones, still standing, describe the conquerors’ journeys; both Russian and Ukrainian have loan words from Old Norse; and, Scandinavian first names, like Igor and Olga, are still popular. However, during the Soviet period, there was an emphasis on the Slavic origins of most Russians. (Appearing in the historical record around the sixth century AD, the Slavs are thought to have originated in Eastern Europe.) This Slavic identity was promoted to contrast with that of the neighbouring Viking Swedes, who were enemies during the Cold War.\n\nThese days, many Russians consider themselves hybrids. Indeed recent genetic studies support a Norse-colonisation theory: western Russian DNA is consistent with that of the inhabitants of a region north of Stockholm in Sweden.\n\nThe tools available to modern historians are many and varied, and their findings may seem less open to debate. There are linguistics, numismatics, dendrochronology, archaeozoology, palaeobotany, ice crystallography, climate and DNA analysis to add to the translation of runes and the raising of mighty warships. Despite these, historians remain children of their times."
+      },
+      "PassageTitle": {
+        "S": "The vikings wayfaring way"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "4"
+              },
+              "Question": {
+                "S": "Complete the notes below.\n\nWrite NO MORE THAN TWO WORDS OR A NUMBER for each answer\n\nWrite your answers in boxes 1-5 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Table Completion"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "CorrectAnswers": {
+                        "L": [
+                          {
+                            "L": [
+                              {
+                                "S": "obscure"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "QuestionText": {
+                        "S": "Word ‘Viking’ is -answer-\n Vikings came from Scandinavia."
+                      },
+                      "QuestionWeight": {
+                        "N": "1"
+                      },
+                      "RowTitle": {
+                        "S": "Origins"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "CorrectAnswers": {
+                        "L": [
+                          {
+                            "L": [
+                              {
+                                "S": "793"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "QuestionText": {
+                        "S": "In Britain: AD -answer- -1066\nLength varies elsewhere"
+                      },
+                      "QuestionWeight": {
+                        "N": "1"
+                      },
+                      "RowTitle": {
+                        "S": "Dates of the Viking Age"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "CorrectAnswers": {
+                        "L": [
+                          {
+                            "L": [
+                              {
+                                "S": "Northwest Africa"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "QuestionText": {
+                        "S": "In doubt – but most of Europe\nPossibly raided as far away as -answer-"
+                      },
+                      "QuestionWeight": {
+                        "N": "1"
+                      },
+                      "RowTitle": {
+                        "S": "Territorial extent"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "CorrectAnswers": {
+                        "L": [
+                          {
+                            "L": [
+                              {
+                                "S": "local populations"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "religious"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "QuestionText": {
+                        "S": "Vikings had assimilated into -answer- , & adopted a new -answer- system."
+                      },
+                      "QuestionWeight": {
+                        "N": "2"
+                      },
+                      "RowTitle": {
+                        "S": "End of the Viking Age"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "List": {
+                "S": "A In the UK today\nB In 19th-century Norway\nC In 19th-century Sweden\nD In 19th-century England\nE In Denmark today\nF In 9th-century Persia\nG In mid-20th century Soviet Union\nH In Russia today"
+              },
+              "ListTitle": {
+                "S": "List of times & places:"
+              },
+              "NumOfSubQuestions": {
+                "N": "8"
+              },
+              "Question": {
+                "S": "Look at the following statements and the list of times and places below.\n\nMatch each statement with the correct place or time: A-H.\n\nWrite the correct letter, A-H, in boxes 1-8 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "List Selection"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": "A geographer documents Viking culture as it happens. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "D"
+                      },
+                      "QuestionText": {
+                        "S": " A philosopher classifies cultures hierarchically. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "Historians assert that Viking history is based more on legends than facts. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A"
+                      },
+                      "QuestionText": {
+                        "S": "Young people learn about Viking cultural and economic activities. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "G"
+                      },
+                      "QuestionText": {
+                        "S": "People see themselves as unrelated to Vikings. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "B"
+                      },
+                      "QuestionText": {
+                        "S": "An historian claims Viking colonists to modem-day Canada came from his land. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "C"
+                      },
+                      "QuestionText": {
+                        "S": "Viking conquests are exaggerated to bolster the country’s ego after a territorial loss. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "H"
+                      },
+                      "QuestionText": {
+                        "S": "DNA tests show locals are closely related to Swedes. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "1"
+              },
+              "Question": {
+                "S": "Choose the correct letter A-E.\n\nWrite the correct letter in box 1 on your answer sheet"
+              },
+              "QuestionType": {
+                "S": "Multiple Choice"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A brief history of Vikings"
+                          },
+                          {
+                            "S": "Recent Viking discoveries"
+                          },
+                          {
+                            "S": "A modem fascination with Vikings"
+                          },
+                          {
+                            "S": "Interpretations of Viking history"
+                          },
+                          {
+                            "S": "Viking history and nationalism"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Interpretations of Viking history"
+                      },
+                      "QuestionText": {
+                        "S": "Which might be a suitable title for passage?"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "ReadingP2": [
+    {
+      "NumOfQuestions": {
+        "N": "3"
+      },
+      "Passage": {
+        "S": "Burying greenhouse gases to slow global warming\nA One way to slow global warming is to take the greenhouse gases that cause it and bury them. That is the idea behind projects now under way to capture emissions from power plants and factories and force them underground or deep into the ocean. There, proponents argue, they could be trapped for thousands of years.\nB This concept, known as carbon sequestration, is already being used by oil companies to improve the efficiency of oil wells, and now engineers have begun exploring ways to capture carbon dioxide emissions from power plants to reduce their impact on the environment. At a recent conference, delegates from fourteen industrialised and developing countries agreed to engage in cooperative research into capturing and storing carbon dioxide.\nC The goal is to stabilise emissions of greenhouse gases that trap heat in the atmosphere. Over the past century, airborne carbon dioxide concentrations have risen by nearly a third, according to Scott Klara, sequestration manager at the US National Energy Technology Laboratory. Unless emissions are slashed by two thirds worldwide, the Intergovernmental Panel on Climate Change predicts that concentrations will rise to double the levels of the early 1700s, before the Industrial Revolution. These increased levels of carbon-based compounds in the atmosphere are believed to be the cause of rising temperatures and sea levels around the world. Ignoring the problem is therefore not an option.\nD Limiting emissions, however, is not an easy undertaking since increased energy consumption is a key to economic growth. Two thirds of the world's power-generating capacity, expected to come into use by 2030, has not been constructed yet, according to the International Energy Agency. The developing world will be particularly important. China and India alone are expected to account for two thirds of the global increase in coal usage over the next fifteen years.\nE Solutions are being sought. Work is being undertaken with alternatives to fossil fuels such as wind and solar energy, but it will be a long time before these alternative sources play a major role in fulfilling the world's energy needs. Geophysicist Klaus Lackner points out that around 85% of the world's energy is derived from fossil fuels, the cheapest and most plentiful energy source available, and the developing world in particular is unlikely to give them up. That is why many scientists support sequestration\nF However, several problems must be resolved before sequestration plays a key role in a low-carbon future. One is the cost of capturing carbon dioxide. A second is storing the gas safely once it's been captured. Today, it costs about $US50 to extract and store a tonne of carbon dioxide from a power plant, which raises the cost of producing electricity by 30-80%. Lackner argues that it is too expensive to adapt existing plants to capture carbon dioxide. Instead, he recommends that carbon- capturing capacity be built into future plants. Economic incentives are needed to encourage companies to identify low-cost carbon-sequestration solutions. A government-supported program in the US has enabled some factories to partially capture carbon emissions, which they then sell for various uses, including carbonating soft drinks. However, there are no power plants ready for full carbon capture.\nG Once the carbon has been captured it must be stored. Natural carbon sinks, such as forests and wetlands, can remove some carbon dioxide from the atmosphere, but not nearly enough. Carbon dioxide could be pumped to the bottom of the ocean, where the pressure would keep it pinned to the seabed in liquid form for decades, but that has serious long-term environmental risks. David Hawkins, from the Natural Resources Defense Council in Washington, warns that the carbon dioxide could radically alter the chemical balance in the ocean, with potentially harmful consequences for marine life. Others worry that the carbon dioxide could escape back into the atmosphere.\nH A few promising attempts at underground carbon sequestration are currently under way. In western Canada, an oil company is pumping liquefied carbon dioxide into oil wells to force more oil to the surface and boost recovery by 10-15%. The company gets the carbon dioxide via a pipeline from North Dakota in the US, where the gas is captured from a synthetic-fuel plant. In another instance in the North Sea, a Norwegian energy firm is injecting carbon dioxide waste from its natural-gas operations into a saline aquifer 1,000 metres beneath the ocean floor.\nI Clearly, storing large amounts of gas underground raises environmental fears. Environmentalists argue that more research is needed on potential storage sites, such as oil and gas reservoirs and coal seams unsuitable for mining, to ensure that they offer long-term solutions. The World Wide Fund for Nature Australia has argued that the primary risk of underground storage is that dangerously large volumes of carbon dioxide might escape and people become asphyxiated.\nJ Little progress in slashing global greenhouse gases can be achieved without involving developing countries, but for now carbon sequestration is not their priority because of the increased costs this would add to energy production. Hawkins argues that, to encourage developing nations to use sequestration, developed nations will have to provide assistance. He suggests a multilateral initiative in which developed nations, perhaps by purchasing carbon credits from poorer countries, finance the difference between the cost of a regular coal-fired power plant and one that captures carbon emissions. That is, the rich - who will remain the world's biggest polluters for years to come - would buy the right to emit carbon from the poor, who would use the proceeds to build better plants."
+      },
+      "PassageTitle": {
+        "S": "Answers Underground"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "6"
+              },
+              "Question": {
+                "S": "Look at the following issues (Questions 1-6) and the list of people and organisations below.\nMatch each issue with the correct person or organization, A-F.\nWrite the correct letter, A-F, in boxes 1-6 on your answer sheet.\nNB You may use any letter more than once.\n\n List of People and organisations:\nA. Scott Klara\nB. Intergovernmental Panel on Climate Change\nC. International Energy Agency\nD. Klaus Lackner\nE. David Hawkins\nF. World Wide Fund for Nature Australia"
+              },
+              "QuestionType": {
+                "S": "List Selection"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "D"
+                      },
+                      "QuestionText": {
+                        "S": "The cost implications of fitting plants with the necessary equipment. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "The effects of sequestration could have on sea creatures. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "D"
+                      },
+                      "QuestionText": {
+                        "S": "The reasons why products such as oil and gas continue to be popular energy sources. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "The need for industrialised countries to give aid to less wealthy countries. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A"
+                      },
+                      "QuestionText": {
+                        "S": "The significant increase in carbon dioxide concentrations in the air over the last 100 years. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": "The potential for sequestration to harm human life. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "3"
+              },
+              "Question": {
+                "S": "Reading Passage has ten paragraphs, A-J.\nWhich paragraph contains the following information?\nWrite the correct letter, A-J, in boxes 1-3 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Matching Paragraph Information"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          },
+                          {
+                            "S": "I"
+                          },
+                          {
+                            "S": "J"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "H"
+                      },
+                      "QuestionText": {
+                        "S": "Examples of sequestration already in use in several parts of the world -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          },
+                          {
+                            "S": "I"
+                          },
+                          {
+                            "S": "J"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": "An example of putting carbon dioxide emissions to use in the food and beverage industry -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          },
+                          {
+                            "S": "H"
+                          },
+                          {
+                            "S": "I"
+                          },
+                          {
+                            "S": "J"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "C"
+                      },
+                      "QuestionText": {
+                        "S": "Current examples of the environmental harm attributed to carbon dioxide in the air -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "4"
+              },
+              "Question": {
+                "S": "Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-4 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse,if the statement contradicts the information\nNot Given, If there is no information on this"
+              },
+              "QuestionType": {
+                "S": "True False Not Given"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "Both developing and developed nations have decided to investigate carbon dioxide sequestration. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "A growing economy will use more power. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "False"
+                      },
+                      "QuestionText": {
+                        "S": "Capturing carbon dioxide has become financially attractive. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "More forests need to be planted to improve the atmosphere. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "NumOfQuestions": {
+        "N": "3"
+      },
+      "Passage": {
+        "S": "The prospects for humanity and for the world as a whole are somewhere between glorious and dire. It is hard to be much more precise.\n\nA\nBy ‘glorious’, I mean that our descendants – all who are born on to this Earth – could live very comfortably and securely, and could continue to do so for as long as the Earth can support life, which should be for a very long time indeed. We should at least be thinking in terms of the next million years. Furthermore, our descendants could continue to enjoy the company of other species – establishing a much better relationship with them than we have now. Other animals need not live in constant fear of us. Many of those fellow species now seem bound to become extinct, but a significant proportion could and should continue to live alongside us. Such a future may seem ideal, and so it is. Yet I do not believe it is fanciful. There is nothing in the physical fabric of the Earth or in our own biology to suggest that this is not possible.\n\nB\n‘Dire’ means that we human beings could be in deep trouble within the next few centuries, living but also dying in large numbers in political terror and from starvation, while huge numbers of our fellow creatures would simply disappear, leaving only the ones that we find convenient – chickens, cattle – or that we can’t shake off, like flies and mice. I’m taking it to be self-evident that glory is preferable.\n\nC\nOur future is not entirely in our own hands because the Earth has its own rules, is part of the solar system and is neither stable nor innately safe. Other planets in the solar system are quite beyond habitation, because their temperature is far too high or too low to be endured, and ours, too, in principle could tip either way. Even relatively unspectacular changes in the atmosphere could do the trick. The core of the Earth is hot, which in many ways is good for living creatures, but every now and again, the molten rock bursts through volcanoes on the surface. Among the biggest volcanic eruptions in recent memory was Mount St Helens, in the USA, which threw out a cubic kilometre of ash – fortunately, in an area where very few people live. In 1815, Tambora (in present-day Indonesia) expelled so much ash into the upper atmosphere that climatic effects seriously harmed food production around the world for the season after season. Entire civilisations have been destroyed by volcanoes.\n\nD\nYet nothing we have so far experienced shows what volcanoes can really do. Yellowstone National Park in the USA occupies the caldera (the crater formed when a volcano collapses) of an exceedingly ancient volcano of extraordinary magnitude. Modem surveys show that its centre is now rising. Sometime in the next 200 million years, Yellowstone could erupt again, and when it does, the whole world will be transformed. Yellowstone could erupt tomorrow. But there’s a very good chance that it will give us another million years, and that surely is enough to be going on with. It seems sensible to assume that this will be the case.\n\nE\nThe universe at large is dangerous, too: in particular, we share the sky with vast numbers of asteroids, and now and again, the come into our planet’s atmosphere. An asteroid the size of a small island, hitting the Earth at 15,000 kilometres an hour (a relatively modest speed by the standards of heavenly bodies), would strike the ocean bed like a rock in a puddle, send a tidal wave around the world as high as a small mountain and as fast as a jumbo jet, and propel us into an ice age that could last for centuries. There are plans to head off such disasters (including rockets to push approaching asteroids into new trajectories), but in truth, it’s down to luck.\n\nF\nOn the other hand, the archaeological and the fossil evidence shows that no truly devastating asteroid has struck since the one that seems to have accounted for the extinction of the dinosaurs 65 million years ago. So again, there seems no immediate reason for despair. The Earth is indeed an uncertain place, in an uncertain universe, but with average luck, it should do us well enough. If the world does become inhospitable in the next few thousand or million years, then it will probably be our own fault. In short, despite the underlying uncertainty, our own future and that of our fellow creatures are very much in our own hands.\n\nG\nGiven average luck on the geological and the cosmic scale, the difference between glory and disaster will be made and is being made, by politics. Certain kinds of political systems and strategies would predispose us to long-term survival (and indeed to comfort and security and pleasure of being alive), while others would take us more and more frenetically towards collapse. The broad point is, though, that we need to look at ourselves – humanity – and at the world in general in a quite new light. Our material problems are fundamentally those of biology. We need to think, and we need our politicians to think, biologically. Do that, and take the ideas seriously, and we are in with a chance. Ignore biology and we and our fellow creatures haven’t a hope."
+      },
+      "PassageTitle": {
+        "S": "The future never dies?"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "6"
+              },
+              "Question": {
+                "S": "Do the following statements agree with the claims of the writer in Reading Passage?\n\nIn boxes 1-6 on your answer sheet, write:\nYes, if the statement agrees with the views of the writer.\n No, if the statement contradicts the views of the writer.\n Not Given, if it is impossible to say what the writer thinks about this."
+              },
+              "QuestionType": {
+                "S": "Yes No Not Given"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Yes"
+                      },
+                      "QuestionText": {
+                        "S": "It seems predictable that some species will disappear. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "No"
+                      },
+                      "QuestionText": {
+                        "S": "The nature of the Earth and human biology make it impossible for human beings to survive another million years. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Yes"
+                      },
+                      "QuestionText": {
+                        "S": " An eruption by Yellowstone is likely to be more destructive than previous volcanic eruptions. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "There is a greater chance of the Earth being hit by small asteroids than large ones. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "No"
+                      },
+                      "QuestionText": {
+                        "S": "If the world becomes uninhabitable, it is most likely to be as a result of a natural disaster. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "Yes"
+                          },
+                          {
+                            "S": "No"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "Politicians currently in power seem unlikely to change their way of thinking. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "1"
+              },
+              "Question": {
+                "S": "Complete the summary below.\n\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\nWrite your answers in boxes 21-26 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Summary Completion"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "CorrectAnswers": {
+                        "L": [
+                          {
+                            "L": [
+                              {
+                                "S": "temperature"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "molten rock"
+                              },
+                              {
+                                "S": "rock"
+                              },
+                              {
+                                "S": "ash"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "food"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "tidal wave"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "ice age"
+                              }
+                            ]
+                          },
+                          {
+                            "L": [
+                              {
+                                "S": "rockets"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "QuestionText": {
+                        "S": "The Earth could become uninhabitable, like other planets, through a major change in the -answer-. Volcanic eruptions of -answer- can lead to shortages of -answer- in a wide area. An asteroid hitting the Earth could create a -answer- that would result in a new -answer-. Plans are being made to use -answer- to deflect asteroids heading for the Earth."
+                      },
+                      "QuestionWeight": {
+                        "N": "6"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "1"
+              },
+              "Question": {
+                "S": "Choose the correct letter A, B, C or D.\n\nWrite your answer in box 1 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Multiple Choice"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "to propose a new theory about the causes of natural disasters"
+                          },
+                          {
+                            "S": "to prove that generally held beliefs about the future are all mistaken"
+                          },
+                          {
+                            "S": "to present a range of opinions currently held by scientists"
+                          },
+                          {
+                            "S": "to argue the need for a general change in behavior"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "to argue the need for a general change in behavior"
+                      },
+                      "QuestionText": {
+                        "S": "What is the writer’s purpose in the passage?"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "ReadingP3": [
+    {
+      "NumOfQuestions": {
+        "N": "2"
+      },
+      "Passage": {
+        "S": "A Violins made by long-dead Italian craftsmen from the Cremona region are beautiful works of art, coveted by collectors as well as players. Particularly outstanding violins have reputedly changed hands for over a million pounds. In contrast, fine modern instruments can be bought for under £100. Do such figures really reflect such large differences in quality? After more than a hundred years of vigorous debate, this question remains highly contentious, provoking strongly held but divergent views among musicians, violin makers and scientists alike.\n\nB Every violin, whether a Stradivarius or the cheapest factory- made copy, has a distinctive 'voice’ of its 0. Just as any musician can immediately recognise the difference between Domingo and Pavarotti singing the same operatic aria, so a skilled violinist can distinguish between different qualities in the sound produced by individual Stradivari or Guarneri violins. Individual notes on a single instrument sound different each time they are played, which suggests that the perceived tone of a violin must be related to the overall design of the instrument, rather than the frequencies of particular resonances on it. But although various attempts have been made to analyse such global properties, it is extremely difficult to distinguish between a fine Stradivarius instrument and an indifferent modern copy on the basis of the measured response alone. The ear is a supreme detection device, and a system has yet to be developed which can match the brain's sophisticated ability to assess complex sounds.\n\nC So how do skilled violinmakers optimise the tone of an instrument during the construction process? They begin by selecting a wood of the highest possible quality for the front and back plates (or parts of the violin), which they test by tapping with a hammer and judging how well it 'rings’. The next important step is to skillfully carve the plates out of the solid wood, taking great care to get the right degree of arching and variations in thickness. Traditional makers optimise the thickness by testing the ‘feel’ of the plates when they are flexed, and by the sounds produced when they are tapped at different positions with the knuckles.\n\nD However, in the last 50 years or so a group of violin makers has emerged who have tried to take a more overtly scientific approach to violin making. One common practice they have adopted is to replace the traditional flexing and tapping of plates by controlled measurements. During the carving process, the thinned plates are sprinkled with flakes of glitter and suspended horizontally above a loudspeaker. The glitter forms a pattern each time the loudspeaker excites a resonance. The aim is to interactively 'tune' these first few free plate resonances to specified patterns.\n\nE Unfortunately, there are very few examples of such measurements for really fine Italian instruments because their owners are naturally reluctant to allow their violins to be taken apart for the sake of science. The few tests that have been performed suggest that the first Italian makers may have tuned the resonant modes of the individual plates - which they could identify as they tapped them - to exact musical intervals. This would be consistent with the prevailing Renaissance view of ’perfection1, which was measured in terms of numbers and exact ratios. However, there is no historical data to support this case.\n\nF Another factor that affects sound quality is the presence of moisture. To achieve the quality of “vibrancy” in a violin requires high-quality wood with low internal damping. By measuring the pattern of growth-rings in the wood of a Stradivarius, we know that the Italian violin makers sometimes used planks of wood that had only been seasoned for five years. However, such wood is now 300 years old, and the intrinsic internal damping will almost certainly have decreased with time. The age of the wood may therefore automatically contribute to the improved quality of older instruments. This may also explain why the quality of a modern instrument appears to improve in its first few years.\n\nG Another factor thought to account for sound quality is the nature of the varnish used to protect the instrument. One of the most popular theories for well over a century to account for the Stradivarius secret has been that the varnish had some sort of 'magic' composition. However, historical research has shown that it was very similar to the varnish used today. So apart from the possibility that the Italian varnish was contaminated with the wings of passing insects and debris from the workshop floor, there is no convincing evidence to support the idea of a secret formula.\n\nH Other researchers, meanwhile, have claimed that Stradivarius's secret was to soak the timber in water, to leach out supposedly harmful chemicals, before it was seasoned. Although this would be consistent with the idea that the masts and cars of recently sunken Venetian war galleys might have been used to make violins, other scientific and historical evidence to support this view is unconvincing.\n\nI In conclusion, science has not provided any convincing evidence to set Cremonese instruments apart from the finest violins made by skilled craftsmen today. Indeed, some leading soloists do occasionally play on modern instruments. However, the foremost soloists - and, not surprisingly, violin dealers, who have a vested interest in maintaining the Cremonese legend of intrinsic superiority - remain utterly unconvinced."
+      },
+      "PassageTitle": {
+        "S": "Science and the Stradivarius:Uncovering the secret of quality"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "9"
+              },
+              "Question": {
+                "S": "Reading Passage has nine paragraphs, A-l\n\nChoose the correct heading for paragraphs A and C-l from the list of headings below.\n\nWrite the correct number, i-xi, in boxes 1-9 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Matching Headings"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A controversial range of prices"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph A -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A re-evaluation of documentary evidence"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph B -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Manual woodworking techniques"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph C -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Applying technology to violin production"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph D -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "The mathematical basis of earlier design"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph E -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "The advantages of older wood"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph F -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "An analysis of protective coatings"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph G -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "The use of saturated wood"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph H -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "An analysis of protective coatings"
+                          },
+                          {
+                            "S": "Applying technology to violin production"
+                          },
+                          {
+                            "S": "Location - a key factor"
+                          },
+                          {
+                            "S": "A controversial range of prices"
+                          },
+                          {
+                            "S": "Techniques of mass production"
+                          },
+                          {
+                            "S": "The advantages of older wood"
+                          },
+                          {
+                            "S": "A re-evaluation of documentary evidence"
+                          },
+                          {
+                            "S": "The mathematical basis of earlier design"
+                          },
+                          {
+                            "S": "Manual woodworking techniques"
+                          },
+                          {
+                            "S": "Preferences of top musicians"
+                          },
+                          {
+                            "S": "The use of saturated wood"
+                          },
+                          {
+                            "S": "The challenge for scientists"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Preferences of top musicians"
+                      },
+                      "QuestionText": {
+                        "S": "Paragraph I -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "5"
+              },
+              "Question": {
+                "S": "Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-5 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse, if the statement contradicts the information\nNot Given, If there is no information on this"
+              },
+              "QuestionType": {
+                "S": "True False not Given"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "The quality of any particular note played on the same violin varies. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "False"
+                      },
+                      "QuestionText": {
+                        "S": "Scientific instruments analyse complex sound more accurately than humans. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "The quality of handmade violins varies according to the musical ability of the craftsman. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "Modern violins seem to improve in their early years. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "False"
+                      },
+                      "QuestionText": {
+                        "S": "Modern violins are gaining in popularity amongst the top violinists. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "NumOfQuestions": {
+        "N": "2"
+      },
+      "Passage": {
+        "S": "A\nSince cosmetics and perfumes are still in wide use today, it is interesting to compare the attitudes, customs and beliefs related to them in ancient times to those of our own day and age. Cosmetics and perfumes have been popular since the dawn of civilization; it is shown by the discovery of a great deal of pertinent archaeological material, dating from the third millennium BC. Mosaics, glass perfume flasks, stone vessels, ovens, cooking-pots, clay jars, etc., some inscribed by the hand of the artisan. Evidence also appears in the Bible and other classical writings, where it is written that spices and perfumes were prestigious products known throughout the ancient world and coveted by kings and princes. The written and pictorial descriptions, as well as archaeological findings, all show how important body care and aesthetic appearance were in the lives of the ancient people. The chain of evidence spans many centuries, detailing the usage of cosmetics in various cultures from the earliest period of recorded history.\n\nB\nIn antiquity, however, at least in the onset, cosmetics served in religious ceremonies and for healing purposes. Cosmetics were also connected with cultic worship and witchcraft: to appease the various gods, fragrant ointments were applied to the statuary images and even to their attendants. From this, in the course of time, developed the custom of personal use, to enhance the beauty of the face and the body, and to conceal defects.\n\nC\nPerfumes and fragrant spices were precious commodities in antiquity, very much in demand, and at times even exceeded silver and gold in value. Therefore they were luxury products, used mainly in the temples and in the homes of the noble and wealthy. The Judean kings kept them in treasure houses (2 Kings 20:13). And the Queen of Sheba brought to Solomon “camels laden with spices, gold in great quantity and precious stones.” (1 Kings 10:2, 10). However, within time, the use of cosmetics became the custom of that period. The use of cosmetics became widespread among the lower classes as well as among the wealthy; in the same way, they washed the body, so they used to care for the body with substances that softened the skin and anoint it with fragrant oils and ointments.\n\nD\nFacial treatment was highly developed and women devoted many hours to it. They used to spread various scented creams on the face and to apply makeup in vivid and contrasting colors. An Egyptian papyrus from the 16th century BC contains detailed recipes to remove blemishes, wrinkles, and other signs of age. Greek and Roman women would cover their faces in the evening with a “beauty mask” to remove blemishes, which consisted mainly of flour mixed with fragrant spices, leaving it on their face all night. The next morning they would wash it off with asses’ milk. The very common creams used by women in the ancient Far East, particularly important in the hot climate and prevalent in that area of the globe, were made up of oils and aromatic scents. Sometimes the oil in these creams was extracted from olives, almonds, gourds, sesame, or from trees and plants; but, for those of limited means, scented animal and fish fats were commonly used.\n\nE\nWomen in the ancient past commonly put colors around their eyes. Besides beautification, its purpose was also medicinal as covering the sensitive skin of the lids with colored ointments that prevented dryness and eye diseases: the eye-paint repelled the little flies that transmitted eye inflammations. Egyptian women colored the upper eyelid black and the lower one green and painted the space between the upper lid and the eyebrow gray and blue. The women of Mesopotamia favored yellows and reds. The use of kohl for painting the eyes is mentioned three times in the Bible, always with disapproval by the sages (2 Kings, 9:30; Jeremiah 4:30; Ezekiel 23:40). In contrast, Job named one of his daughters “Keren Happukh”- “horn of eye paint” (Job 42:14)\n\nF\nGreat importance was attached to the care for hair in ancient times. Long hair was always considered a symbol of beauty, and kings, nobles and dignitaries grew their hair long and kept it well-groomed and cared for. Women devoted much time to the style of the hair; while no cutting, they would apply much care to it by arranging it skillfully in plaits and “building it up” sometimes with the help of wigs. Egyptian women generally wore their hair flowing down to their shoulders or even longer. In Mesopotamia, women cherished long hair as a part of their beauty, and hair flowing down their backs in a thick plait and tied with a ribbon is seen in art. Assyrian women wore their hair shorter, braiding and binding it in a bun at the back. In Ancient Israel, brides would wear their hair long on the wedding day as a sign of their virginity. Ordinary people and slaves, however, usually wore their hair short, mainly for hygienic reasons, since they could not afford to invest in the kind of treatment that long hair required.\n\nG\nFrom the Bible and Egyptian and Assyrian sources, as well as the words of classical authors, it appears that the centers of the trade-in aromatic resins and incense were located in the kingdoms of southern Arabia, and even as far as India, where some of these precious aromatic plants were grown. “Dealers from Sheba and Rammah dealt with you, offering the choicest spices…” (Ezekiel 27:22). The Nabateans functioned as the important middlemen in this trade; Palestine also served as a very important component, as the trade routes crisscrossed the country. It is known that the Egyptian Queen Hatsheput (15th century BC) sent a royal expedition to the Land of Punt (Somalia) in order to bring back myrrh seedlings to plant in her temple. In Assyrian records of tribute and spoils of war, perfumes and resins are mentioned; the text from the time of Tukulti-Ninurta II (890-884 BC) refers to balls of myrrh as a part of the tribute brought to the Assyrian king by the Aramaean kings. The trade-in spices and perfumes are also mentioned in the Bible as written in Genesis (37:25-26), “Camels carrying gum tragacanth and balm and myrrh”."
+      },
+      "PassageTitle": {
+        "S": "Cosmetics in Ancient Past"
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "7"
+              },
+              "Question": {
+                "S": "Reading Passage has 7 paragraphs A-G\n\nWhich paragraph contains the following information?\n\nWrite your answers in boxes 1-7 on your answer sheet."
+              },
+              "QuestionType": {
+                "S": "Matching Paragraph Information"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "D"
+                      },
+                      "QuestionText": {
+                        "S": "recipes to conceal facial defects caused by aging -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "G"
+                      },
+                      "QuestionText": {
+                        "S": "perfumes were presented to conquerors in war -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "F"
+                      },
+                      "QuestionText": {
+                        "S": " long hair of girls had special meanings in marriage -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "A"
+                      },
+                      "QuestionText": {
+                        "S": "evidence exists in abundance showing cosmetics use in ancient times -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "E"
+                      },
+                      "QuestionText": {
+                        "S": "protecting eyes from fly-transmitted diseases -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "B"
+                      },
+                      "QuestionText": {
+                        "S": "from witchcraft to beautification -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "A"
+                          },
+                          {
+                            "S": "B"
+                          },
+                          {
+                            "S": "C"
+                          },
+                          {
+                            "S": "D"
+                          },
+                          {
+                            "S": "E"
+                          },
+                          {
+                            "S": "F"
+                          },
+                          {
+                            "S": "G"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "C"
+                      },
+                      "QuestionText": {
+                        "S": "more expensive than gold -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "M": {
+              "NumOfSubQuestions": {
+                "N": "6"
+              },
+              "Question": {
+                "S": "Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-6 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse,if the statement contradicts the information\nNot Given, If there is no information on this"
+              },
+              "QuestionType": {
+                "S": "True False Not Given"
+              },
+              "SubQuestions": {
+                "L": [
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "The written record for cosmetics and perfumes dates back to the third millennium BC. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "False"
+                      },
+                      "QuestionText": {
+                        "S": "Since perfumes and spices were luxury products, their use was exclusive to the noble and the wealthy. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "In the ancient Far East, fish fats were used as a cream by a woman from poor households. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "True"
+                      },
+                      "QuestionText": {
+                        "S": "The teachings in the Bible were repeatedly against the use of kohl for painting the eyes. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "False"
+                      },
+                      "QuestionText": {
+                        "S": "Long hair as a symbol of beauty was worn solely by women of ancient cultures. -answer-"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Choices": {
+                        "L": [
+                          {
+                            "S": "True"
+                          },
+                          {
+                            "S": "False"
+                          },
+                          {
+                            "S": "Not Given"
+                          }
+                        ]
+                      },
+                      "CorrectAnswer": {
+                        "S": "Not Given"
+                      },
+                      "QuestionText": {
+                        "S": "The Egyptian Queen Hatsheput sent a royal expedition to Punt to establish a trade route for myrrh. -answer-"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "ListeningP1": [],
+  "ListeningP2": [],
+  "ListeningP3": [],
+  "ListeningP4": [],
+  "SpeakingP1": [
+    {
+      "Prompt": {
+        "M": {
+          "text": { "S": "Let's talk about your free time." },
+          "S3key": { "S": "061ce8fa-ec1b-4e17-a7d7-13489cf79d8a.mp3" }
+        }
+      },
+      "Questions": {
+        "L": [
+          {
+            "M": {
+              "text": { "S": "How do you spend your free time?" },
+              "S3key": { "S": "48c5456f-9c36-4df3-8e07-1c38ad4b6d7c.mp3" }
+            }
+          },
+          {
+            "M": {
+              "text": { "S": "Do you enjoy hanging out with friends?" },
+              "S3key": { "S": "40fbff26-da82-4a4c-b004-3ad9d9d2d7f8.mp3" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "Do you think friends are important in our life? Why?"
+              },
+              "S3key": { "S": "1d3c3be3-12d9-4dcd-8009-cd5b638f557c.mp3" }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "SpeakingP2P3": [
+    {
+      "Task2": {
+        "M": {
+          "text": { "S": "Describe your favorite shopping center." },
+          "S3key": { "S": "75e1c447-0124-4572-a80f-3ce7c9a356db.mp3" }
+        }
+      },
+      "QuestionsP2": {
+        "L": [
+          { "S": "Where is this center?" },
+          { "S": "What is special about it?" },
+          { "S": "What do you do when you go there?" },
+          { "S": "What do people say about it?" },
+          { "S": "Explain why you think it is a good choice." }
+        ]
+      },
+      "Task3": {
+        "M": {
+          "text": {
+            "S": "We've been talking about your shopping habits. Now, I'd like to discuss with you a few more questions related to this topic."
+          },
+          "S3key": { "S": "282732bb-5267-4692-90c8-c6b5c785856e.mp3" }
+        }
+      },
+      "QuestionsP3": {
+        "L": [
+          {
+            "M": {
+              "text": {
+                "S": "Do you think money is important in our life?"
+              },
+              "S3key": { "S": "c395bb1a-df38-4bd6-804b-b6b6d086a088.mp3" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "How can people manage their money wisely?"
+              },
+              "S3key": { "S": "3275dedf-40b9-455c-8211-21b933ba3ab8.mp3" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "Do you think too much shopping is one of the main reasons some people are wasting their money nowadays?"
+              },
+              "S3key": { "S": "e38530a3-811d-4c3d-b08f-ace817ff2b31.mp3" }
+            }
+          },
+          {
+            "M": {
+              "text": {
+                "S": "How do you think shopping can help the economy grow and flourish?"
+              },
+              "S3key": { "S": "0039dc03-00a5-462b-9915-2d1ca8be8b1f.mp3" }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

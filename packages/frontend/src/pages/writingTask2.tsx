@@ -1,42 +1,49 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
+import { toJSON } from '../utilities';
+import { post } from 'aws-amplify/api';
 
-interface Response {
+export interface WritingGrading {
   'Coherence & Cohesion': string;
   'Grammatical Range & Accuracy': string;
   'Lexical Resource': string;
   'Task Responce': string;
+  'Combined Feedback': string;
 }
 
-function Writing() {
+function WritingTask2Page() {
   const [inputs, setInputs] = useState({
     answer: '',
     question: '',
   });
-  const [grading, setGrading] = useState(undefined as undefined | Response);
+  const [grading, setGrading] = useState(
+    undefined as undefined | WritingGrading,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_API_URL}/writing`;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(inputs),
-    }).then(response => {
-      response.json().then(body => {
-        console.log(body);
-        setGrading(body);
-      });
-    });
-    alert('Sending Message to ' + url);
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/grade-writing',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            writingTask: 'Task 1',
+            ...inputs,
+          }),
+        },
+      }),
+    );
+    console.log(response);
+    setGrading(response);
   };
 
   const size = {
@@ -68,6 +75,7 @@ function Writing() {
       <form onSubmit={handleSubmit}>
         <textarea
           name="question"
+          placeholder="Question"
           value={inputs.question}
           onChange={handleChange}
           {...size}
@@ -76,6 +84,7 @@ function Writing() {
 
         <textarea
           name="answer"
+          placeholder="Answer"
           value={inputs.answer}
           onChange={handleChange}
           {...size}
@@ -95,4 +104,4 @@ function Writing() {
   );
 }
 
-export default Writing;
+export default WritingTask2Page;

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
+import { toJSON } from '../utilities';
 
 async function _getCurrentUser() {
   try {
@@ -21,13 +22,14 @@ function TestPage() {
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
 
   const testAPIAccess = async () => {
-    const request = post({
-      apiName: 'myAPI',
-      path: '/',
-    });
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/',
+      }),
+    );
 
-    const response = await request.response;
-    console.log('Response', response);
+    console.log(response);
   };
 
   // Get current user
