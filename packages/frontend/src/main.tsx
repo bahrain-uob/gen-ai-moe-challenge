@@ -34,6 +34,7 @@ Amplify.configure(
   {
     API: {
       REST: {
+        // Include authentication token in headers
         headers: async () => {
           const authToken = (
             await fetchAuthSession()

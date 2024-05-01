@@ -22,12 +22,14 @@ function TestPage() {
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
 
   const testAPIAccess = async () => {
-    const request = post({
-      apiName: 'myAPI',
-      path: '/',
-    });
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/',
+      }),
+    );
 
-    toJSON(request).then(console.log);
+    console.log(response);
   };
 
   // Get current user
