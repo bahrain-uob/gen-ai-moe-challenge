@@ -24,13 +24,6 @@ export function DBStack(this: any, { stack }: StackContext) {
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
 
-  const questions_table = new Table(stack, 'Questions', {
-    fields: {
-      questionId: 'string',
-    },
-    primaryIndex: { partitionKey: 'questionId' },
-  });
-
   const feedback_table = new Table(stack, 'ResponseFeedback', {
     fields: {
       feedbackId: 'string',
@@ -99,7 +92,6 @@ export function DBStack(this: any, { stack }: StackContext) {
   return {
     table,
     uploads_bucket,
-    questions_table,
     feedback_table,
     myTable,
   };

@@ -5,13 +5,11 @@ import { Duration } from 'aws-cdk-lib/core';
 import { AuthStack } from './AuthStack';
 
 export function ApiStack({ stack }: StackContext) {
-  
-  const { table, questions_table, uploads_bucket, feedback_table, myTable } =
-    use(DBStack);
+  const { table, uploads_bucket, feedback_table, myTable } = use(DBStack);
   const { auth } = use(AuthStack);
 
   //Create the GrammerCheckerTool Service
-    const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
+  const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
     path: 'packages/functions/src/docker-languagetool',
     port: 8010,
     // dev: {
@@ -21,10 +19,8 @@ export function ApiStack({ stack }: StackContext) {
       cloudfrontDistribution: false,
       applicationLoadBalancerTargetGroup: {
         healthCheck: {
-          path: "/v2/languages",
-
+          path: '/v2/languages',
         },
-
       },
     },
   });
@@ -38,7 +34,7 @@ export function ApiStack({ stack }: StackContext) {
           TABLE1_NAME: myTable.tableName,
         },
         // Bind the table name to our API
-        bind: [table, questions_table],
+        bind: [table],
       },
     },
     authorizers: {
@@ -53,17 +49,19 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
-      // Speaking retrieving a question lambda function
-      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       // Function that returns a random question
-      "GET    /question/{questionType}": "packages/functions/src/question.main",
+      'GET /question/{questionType}': 'packages/functions/src/question.main',
       //example for using the language tool service
       'GET /languageTool': {
         function: {
           handler: 'packages/functions/src/languageTool.main',
-          environment:{
-            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ? GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName :"undefined DNS",
-          }
+          environment: {
+            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer
+              ?.loadBalancerDnsName
+              ? GrammerCheckerTool.cdk?.applicationLoadBalancer
+                  ?.loadBalancerDnsName
+              : 'undefined DNS',
+          },
         },
       },
       // Speaking getting a presigned URL to upload the response
@@ -104,9 +102,12 @@ export function ApiStack({ stack }: StackContext) {
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
-      'GET /{section}/{sk}': 'packages/functions/src/getQuestionsReadingListening.handler',
-      'POST /answers/{section}/{sk}': 'packages/functions/src/GradingReadingListening.handler',
-      'GET /scores/{section}/{sk}': 'packages/functions/src/getScoresReadingListening.handler',
+      'GET /{section}/{sk}':
+        'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}':
+        'packages/functions/src/GradingReadingListening.handler',
+      'GET /scores/{section}/{sk}':
+        'packages/functions/src/getScoresReadingListening.handler',
 
       // Sample Pyhton lambda function
       'GET /': {
