@@ -6,7 +6,6 @@ import * as path from 'path';
 import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
 import AWS from 'aws-sdk';
 
-
 export function DBStack(this: any, { stack }: StackContext) {
   // Create a DynamoDB table
   const table = new Table(stack, 'Records', {
@@ -18,11 +17,15 @@ export function DBStack(this: any, { stack }: StackContext) {
   });
 
   const myTable = new dynamodb.Table(this, 'Table', {
-    partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
+    partitionKey: {
+      name: 'MyPartitionKey',
+      type: dynamodb.AttributeType.STRING,
+    },
     sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
+  const speakingPollyBucket = new Bucket(stack, 'speakingPolly');
 
   const feedback_table = new Table(stack, 'ResponseFeedback', {
     fields: {
@@ -94,5 +97,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     uploads_bucket,
     feedback_table,
     myTable,
+    speakingPollyBucket,
   };
 }
