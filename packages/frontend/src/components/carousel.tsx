@@ -9,7 +9,7 @@ const texts = [
   'Practice on set of Exersices that fits you English level',
 ];
 const labels = ['Take Exam', 'Practice'];
-const buttonPage = ['/fexam', '/exersice'];
+const buttonPage = ['/full-exam', '/home'];
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -54,10 +54,11 @@ const Carousel = () => {
             <p className="text-center font-bold text-4xl max-md:text-2xl">
               {texts[currentIndex]}
             </p>
-            {/* <Link to "{buttonPage[currentIndex]}"> */}
+            <Link to "{buttonPage[currentIndex]}">
             <div className="cursor-pointer w-full flex justify-center items-center">
               <Button label={labels[currentIndex]} />
             </div>
+            </Link>
           </div>
         </div>
         <div className=" w-1/12 rounded-2xl flex justify-center items-center">
