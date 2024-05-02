@@ -9,22 +9,21 @@ AudioSegment.converter = "ffmpeg"
 polly = boto3.client('polly', region_name='us-east-1') 
 s3 = boto3.client('s3')
 PollyBucket = os.environ.get('Polly_Bucket')
-
-def text_to_speech(conversation):
-    output_files = []
+output_files = []
+def text_to_speech(speech, speaker):
     
-    for line in conversation:
-        text = f"<speak>{line['speech']}<break time='1s'/></speak>"
-        response = polly.synthesize_speech(Text=text, VoiceId=line['speaker'], OutputFormat='mp3', TextType='ssml', Engine='neural')
+    text = f"<speak>{speech}<break time='1s'/></speak>"
+    response = polly.synthesize_speech(Text=text, VoiceId=speaker, OutputFormat='mp3', TextType='ssml', Engine='neural')
         
-        output_file = f"{uuid.uuid4()}.mp3" 
-        output_files.append(output_file)
+    output_file = f"{uuid.uuid4()}.mp3" 
+    output_files.append(output_file)
 
-        if "AudioStream" in response:
-            with open(output_file, "wb") as f:
-                f.write(response["AudioStream"].read())
-    conversation+=line['speech']
+    if "AudioStream" in response:
+        with open(output_file, "wb") as f:
+            f.write(response["AudioStream"].read())
+    
     return output_files
+
 
 def merge_audio_files(output_files):
     combined_audio = AudioSegment.empty()
@@ -50,30 +49,40 @@ def upload_to_s3(file_name):
   
 
 def main(event,context):
-    conversation = []  
+
     data = json.loads(event['body'])
-    speaker = data['speaker']
-    speech = data['speech']
-    textt = f"speaker:{line[speaker} , speech:{line[speech]}"
-    print(f"Speaker: {speaker}, Speech: {speech}")
+    print(data)
+    speeches =data['speeches']
 
-    if speaker == 'male' and all(line['speaker'] == 'male' for line in speech):
-        voices = ['Joey', 'Matthew'] 
+    for i,line in enumerate(speeches):
+
+        speaker=line['speaker']
+        speech=line['speech']
         
-    elif speaker == 'female' and all(line['speaker'] == 'female' for line in speech):
-        voices = ['Joanna', 'Kendra'] 
-    else:
-        voices = ['Joanna', 'Joey']
 
-    for i, line in enumerate(speech):
-        line['speaker'] = voices[i % len(voices)]
-    
-    output_files = text_to_speech(line[speech])
-    
+        if speaker == 'male' and all(speaker  == 'male' for line in speech):
+            voices = ['Joey', 'Matthew'] 
+            
+        elif speaker == 'female' and all(speaker == 'female' for line in speech):
+            voices = ['Joanna', 'Kendra'] 
+        else:
+            voices = ['Joanna', 'Joey']
+
+        
+        speaker = voices[i % len(voices)]
+        
+        output_files=text_to_speech(speech,speaker)
+        print(speaker)
+        print(speech)
+
+
     merged_file_name = merge_audio_files(output_files)
+    
+        
     
     s3_url = upload_to_s3(merged_file_name)
 
     return {'statusCode': 200,
-        'body': json.dumps({'s3_url': s3_url})
+        'body': json.dumps({'s3_url': s3_url}),
+        
         }

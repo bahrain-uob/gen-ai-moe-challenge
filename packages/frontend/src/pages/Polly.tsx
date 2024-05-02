@@ -8,7 +8,8 @@ interface Speech {
 }
 
 export default function MyApp() {
-  const [speaker, setSpeaker] = useState<string>('male');
+  const [speakerA, setSpeakerA] = useState<string>('male');
+  const [speakerB, setSpeakerB] = useState<string>('female');
   const [inputValue, setInputValue] = useState<string>('');
   const [speeches, setSpeeches] = useState<Speech[]>([]);
 
@@ -16,44 +17,58 @@ export default function MyApp() {
     setInputValue(event.target.value);
   };
 
-const handleSubmit = async () => {
-   
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: '/Listening/Polly',
-          options: {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ speeches }), // Send the array of speeches
+  const handleSubmit = async () => {
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/Listening/Polly',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
-        })
-      );
-     return console.log(response);
+          body: { speeches },
+        },
+      }),
+    );
+    return console.log(response);
   };
 
   const handleButtonClick = () => {
     if (inputValue.trim() !== '') {
-      setSpeeches(prevSpeeches => [...prevSpeeches, { speaker, speech: inputValue }]);
-      setSpeaker(prevSpeaker => (prevSpeaker === 'male' ? 'female' : 'male'));
+      const speaker = speeches.length % 2 === 0 ? speakerA : speakerB; // Alternate between speaker A and B
+      setSpeeches(prevSpeeches => [
+        ...prevSpeeches,
+        { speaker, speech: inputValue },
+      ]);
       setInputValue('');
     }
   };
 
   return (
     <div>
-      <h1>Welcome to my app</h1>
       <div>
-        <span>Speaker: </span>
-        <select onChange={(event) => setSpeaker(event.target.value)}>
+        <span>Speaker A: </span>
+        <select
+          value={speakerA}
+          onChange={event => setSpeakerA(event.target.value)}
+        >
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
       <div>
-        <span>{speaker}: </span>
+        <span>Speaker B: </span>
+        <select
+          value={speakerB}
+          onChange={event => setSpeakerB(event.target.value)}
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div>
+        <span>{speeches.length % 2 === 0 ? 'A' : 'B'}: </span>
         <input type="text" value={inputValue} onChange={handleInputChange} />
       </div>
       <button onClick={handleButtonClick}>Add speech</button>
