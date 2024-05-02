@@ -30,3 +30,6 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npx sst build --stage prod
+    - name: Typecheck lambda functions
+      run: npm run typecheck
+      working-directory: ./packages/functions
