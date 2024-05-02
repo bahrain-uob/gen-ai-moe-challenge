@@ -15,13 +15,12 @@ const pastTests = () => {
       </div>
 
       <div className="w-full flex flex-row flex-wrap gap-5 justify-between px-32 gap-y-9 max-[972px]:justify-center max-xl:px-7">
-      <Card grade={7.5} time='23 : 41' submitTime={`27-03-24`} />
-      <Card grade={3.5} time='23 : 41' submitTime={`27-03-24`} />
-      <Card grade={6.5} time='23 : 41' submitTime={`27-03-24`} />
-
+        <Card grade={7.5} time="23 : 41" submitTime={`27-03-24`} />
+        <Card grade={3.5} time="23 : 41" submitTime={`27-03-24`} />
+        <Card grade={6.5} time="23 : 41" submitTime={`27-03-24`} />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default pastTests
+export default pastTests;
