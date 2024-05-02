@@ -4,6 +4,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const images = ['assets/ExamIcon.png', 'assets/Personalized.png'];
 const texts = [
   'Take mock exam and get the full experience of a real exam',
