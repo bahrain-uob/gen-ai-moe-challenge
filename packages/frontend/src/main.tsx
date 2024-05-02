@@ -15,6 +15,7 @@ import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 
 Amplify.configure(
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
   {
     path: '/writing-task2',
     Component: WritingTask2Page,
+  },
+  {
+    path: '/_writing-task2',
+    Component: WritingTask2Page_,
   },
   {
     path: '/sign-up',
