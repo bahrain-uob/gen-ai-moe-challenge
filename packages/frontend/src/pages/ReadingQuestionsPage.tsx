@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import ExamsHeader from '../components/examsHeader';
 import { get, post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
+
 
 interface ReadingPart {
   MyPartitionKey: string;
