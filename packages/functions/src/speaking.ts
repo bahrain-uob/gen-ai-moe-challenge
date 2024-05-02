@@ -10,6 +10,7 @@ import {
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { runModel } from './utilities';
 
 const bedrockClient = new BedrockRuntime();
 const transcribeClient = new TranscribeClient();
@@ -93,12 +94,12 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   console.log(`Average Score: ${averageScore.toFixed(2)}`);
 
   const output = {
-    Score: score,
-    Feedback: feedback,
+    Score: averageScore.toFixed(2),
+    Feedback: combinedFeedback,
   };
 
   /* Store the result in dynamodb */
-  await storeFeedback(fileName, score, feedback);
+  await storeFeedback(fileName, `${averageScore.toFixed(2)}`, combinedFeedback);
 
   return {
     statusCode: 200,
@@ -232,25 +233,25 @@ Always Begin your feedback with the score as an example 'Score: [applicable numb
 }
 
 // TODO: use shared `runModel`
-async function runModel(prompt: string) {
-  const modelParams = {
-    inputText: prompt,
-    textGenerationConfig: {
-      maxTokenCount: 4096,
-      stopSequences: [],
-      temperature: 0,
-      topP: 0.9,
-    },
-  };
+// async function runModel(prompt: string) {
+//   const modelParams = {
+//     inputText: prompt,
+//     textGenerationConfig: {
+//       maxTokenCount: 4096,
+//       stopSequences: [],
+//       temperature: 0,
+//       topP: 0.9,
+//     },
+//   };
 
-  const invokeModelCommand = new InvokeModelCommand({
-    body: JSON.stringify(modelParams),
-    contentType: 'application/json',
-    accept: '*/*',
-    modelId: 'amazon.titan-text-express-v1',
-  });
+//   const invokeModelCommand = new InvokeModelCommand({
+//     body: JSON.stringify(modelParams),
+//     contentType: 'application/json',
+//     accept: '*/*',
+//     modelId: 'amazon.titan-text-express-v1',
+//   });
 
-  const response = await bedrockClient.send(invokeModelCommand);
-  return JSON.parse(Buffer.from(response.body).toString('utf8')).results[0]
-    .outputText;
-}
+//   const response = await bedrockClient.send(invokeModelCommand);
+//   return JSON.parse(Buffer.from(response.body).toString('utf8')).results[0]
+//     .outputText;
+// }

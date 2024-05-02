@@ -3,44 +3,45 @@ import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 
-interface Response {
+export interface WritingGrading {
   'Coherence & Cohesion': string;
   'Grammatical Range & Accuracy': string;
   'Lexical Resource': string;
   'Task Responce': string;
+  'Combined Feedback': string;
 }
 
-function Writing() {
+function WritingTask2Page() {
   const [inputs, setInputs] = useState({
     answer: '',
     question: '',
   });
-  const [grading, setGrading] = useState(undefined as undefined | Response);
+  const [grading, setGrading] = useState(
+    undefined as undefined | WritingGrading,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     const response = await toJSON(
       post({
         apiName: 'myAPI',
-        path: '/writing',
+        path: '/grade-writing',
         options: {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: {
-            inputs,
-          },
+          body: JSON.stringify({
+            writingTask: 'Task 1',
+            ...inputs,
+          }),
         },
       }),
     );
-
     console.log(response);
     setGrading(response);
   };
@@ -74,6 +75,7 @@ function Writing() {
       <form onSubmit={handleSubmit}>
         <textarea
           name="question"
+          placeholder="Question"
           value={inputs.question}
           onChange={handleChange}
           {...size}
@@ -82,6 +84,7 @@ function Writing() {
 
         <textarea
           name="answer"
+          placeholder="Answer"
           value={inputs.answer}
           onChange={handleChange}
           {...size}
@@ -101,4 +104,4 @@ function Writing() {
   );
 }
 
-export default Writing;
+export default WritingTask2Page;

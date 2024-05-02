@@ -1,10 +1,10 @@
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import { Link } from 'react-router-dom';
+import Nav from './components/landingNav';
+import Describe from './sections/toolDescribe';
+import Features from './sections/features';
+import './index.css';
 import { signOut } from 'aws-amplify/auth';
 
-function App() {
+const App = () => {
   const signOutHandler = () => {
     signOut()
       .then(() => {
@@ -16,45 +16,25 @@ function App() {
   };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main>
+      <Nav />
+      <section className="xl:padding-1 wide:padding-r">
+        <Describe />
+      </section>
+      <div className="lg:pt-32 flex flex-col justify-start pl-3 max-sm:pt-20">
+        <h3 className="text-[65px] font-extrabold text-[#363534] max-sm:text-[40px]">
+          Features
+        </h3>
+        <div className="w-2/5 h-3 bg-[#74ACB5]"></div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>
-          <Link to="/test"> Test page </Link>
-          <br />
-          <br />
-          <Link to="/writing"> Writing </Link>
-          <br />
-          <br />
-          <Link to="/reading/1"> Reading </Link>
-          <br />
-          <br />
-          <Link to="/speaking"> Speaking </Link>
-          <br />
-          <br />
-          <Link to="/sign-up"> Sign up </Link>
-          <br />
-          <br />
-          <Link to="/sign-in"> Sign in </Link>
-          <br />
-          <br />
-          <button onClick={signOutHandler}> Sign out </button>
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>sara</p>
-    </>
+
+      <section className="py-12">
+        <Features />
+      </section>
+
+      <button onClick={signOutHandler}> Sign out </button>
+    </main>
   );
-}
+};
 
 export default App;

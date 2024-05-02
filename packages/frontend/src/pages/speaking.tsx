@@ -1,13 +1,9 @@
-import '../speaking.css';
 import React, { useState } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
 import { get, post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
-
-// TODO: Change this approach later
-const numQuestions = 4;
 
 interface Response {
   Score: string;
@@ -39,17 +35,16 @@ const YourComponent: React.FC = () => {
 
   const fetchQuestion = async () => {
     try {
-      const randomNumber = Math.floor(Math.random() * numQuestions) + 1;
       const questionText = await toJSON(
         get({
           apiName: 'myAPI',
-          path: `/questions/${randomNumber}`,
+          path: '/question/SpeakingP1',
         }),
       );
 
-      setQuestion(questionText);
+      setQuestion(questionText.Questions[0].text);
       setShowGetQuestion(false);
-      narrateQuestion(questionText);
+      narrateQuestion(questionText.Questions[0].text);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
