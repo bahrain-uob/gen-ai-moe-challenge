@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../stylesheets/exam.css';
 import ExamsHeader from '../components/examsHeader';
- 
+import { get, post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
+
 interface ReadingPart {
   MyPartitionKey: string;
   MySortKey: string;
@@ -35,11 +37,13 @@ const ReadingQuestions = () => {
   useEffect(() => {
     const fetchParts = async () => {
       try {
-        const url = `${import.meta.env.VITE_API_URL}/${section}/${sk}`;
- 
-        const response = await fetch(url);
-        const data = await response.json();
- 
+        const data = await toJSON(
+          get({
+            apiName: 'myAPI',
+            path: `/${section}/${sk}`,
+          }),
+        );
+
         setParts(data);
         setActivePart('part1');
       } catch (error) {
@@ -116,32 +120,33 @@ const ReadingQuestions = () => {
         });
         return partAnswers;
       });
- 
+
       console.log(studentAnswers);
- 
-      const url = `${import.meta.env.VITE_API_URL}/answers/${section}/${sk}`; // Replace with the actual URL and parameters
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          studentAnswers: studentAnswers,
+
+      const result = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: `/answers/${section}/${sk}`,
+          options: {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: {
+              studentAnswers: studentAnswers,
+            },
+          },
         }),
-      });
-      const result = await response.json();
+      );
+
       console.log(result);
- 
-      if (response.ok) {
-        console.log('Scores:', result.scores);
-        console.log(result.europeanFrameworkGrade);  
-       
-      } else {
-        console.error(
-          'Error submitting answers or scores not returned:',
-          result,
-        );
-      }
+
+      console.log('Scores:', result.scores);
+      console.log(result.europeanFrameworkGrade);
+
+      // console.error(
+      //   'Error submitting answers or scores not returned:',
+      //   result,
+      // );
     } catch (error) {
       console.error('Error submitting answers:', error);
     }
