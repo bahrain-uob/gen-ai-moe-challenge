@@ -15,10 +15,13 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   // Assert answer and question exist in body
   if (!answer || !question || !writingTask) {
-    return badRequest;
+    return {
+      statusCode: 400,
+      body: 'Missing answer or question or writingTask',
+    };
   }
   if (writingTask === 'Task 1' && !graphDescription) {
-    return badRequest;
+    return { statusCode: 400, body: 'Missing graph description' };
   }
 
   const criterias = [
