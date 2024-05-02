@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
 import WritingTask1Page from './pages/writingTask1.tsx';
 import WritingTask2Page from './pages/writingTask2.tsx';
-import ReadingQuestions from './ReadingQuestions.tsx';
+import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
