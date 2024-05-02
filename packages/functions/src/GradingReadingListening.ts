@@ -2,10 +2,67 @@ import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
  
 const dynamoDb = new DynamoDB.DocumentClient();
+
+function getEuropeanFrameworkGrade(totalScore: number) {
+  if (totalScore >= 36) {
+    return 'C2';
+  } else if (totalScore >= 32) {
+    return 'C1';
+  } else if (totalScore >= 28) {
+    return 'B2';
+  } else if (totalScore >= 24) {
+    return 'B1';
+  } else if (totalScore >= 20) {
+    return 'A2';
+  } else {
+    return 'A1';
+  } 
+}
+
+function calculateBandScore(score: number): number {
+  if (score >= 39) {
+    return 9;
+  } else if (score >= 37) {
+    return 8.5;
+  } else if (score >= 35) {
+    return 8;
+  } else if (score >= 33) {
+    return 7.5;
+  } else if (score >= 30) {
+    return 7;
+  } else if (score >= 29) {
+    return 6.5;
+  } else if (score >= 23) {
+    return 6;
+  } else if (score >= 19) {
+    return 5.5;
+  } else if (score >= 15) {
+    return 5;
+  } else if (score >= 13) {
+    return 4.5;
+  } else if (score >= 10) {
+    return 4;
+  } else if (score >= 8) {
+    return 3.5;
+  } else if (score >= 6) {
+    return 3;
+  } else if (score >= 4) {
+    return 2.5;
+  } else if (score >= 3) {
+    return 2;
+  } else {
+    return 0;
+  }
+}
  
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const { section, sk } = event.pathParameters || {};
   const { studentAnswers } = JSON.parse(event.body || '');
+  if(!sk||!section)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid request' }),
+    };
 
 
   const flattenedAnswers = studentAnswers.flat();
@@ -22,58 +79,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     pks = ["ReadingP1", "ReadingP2", "ReadingP3"];
   } else {
     pks = ["ListeningP1", "ListeningP2", "ListeningP3", "ListeningP4"];
-  }
- 
-  function getEuropeanFrameworkGrade(totalScore: number) {
-    if (totalScore >= 36) {
-      return 'C2';
-    } else if (totalScore >= 32) {
-      return 'C1';
-    } else if (totalScore >= 28) {
-      return 'B2';
-    } else if (totalScore >= 24) {
-      return 'B1';
-    } else if (totalScore >= 20) {
-      return 'A2';
-    } else {
-      return 'A1';
-    } 
-  }
-
-  function calculateBandScore(score: number): number {
-    if (score >= 39) {
-      return 9;
-    } else if (score >= 37) {
-      return 8.5;
-    } else if (score >= 35) {
-      return 8;
-    } else if (score >= 33) {
-      return 7.5;
-    } else if (score >= 30) {
-      return 7;
-    } else if (score >= 29) {
-      return 6.5;
-    } else if (score >= 23) {
-      return 6;
-    } else if (score >= 19) {
-      return 5.5;
-    } else if (score >= 15) {
-      return 5;
-    } else if (score >= 13) {
-      return 4.5;
-    } else if (score >= 10) {
-      return 4;
-    } else if (score >= 8) {
-      return 3.5;
-    } else if (score >= 6) {
-      return 3;
-    } else if (score >= 4) {
-      return 2.5;
-    } else if (score >= 3) {
-      return 2;
-    } else {
-      return 0;
-    }
   }
  
   try {
@@ -100,13 +105,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       if (partResponseItem && partResponseItem.NumOfQuestions) {
         const numOfQuestions = partResponseItem.NumOfQuestions;
         const questions = [];
-        //const scores = [];
  
         for (let i = 0; i < numOfQuestions; i++) {
           questions.push(partResponseItem.Questions[i]);
           const NumOfSubQuestions = questions[i].NumOfSubQuestions;
           const questionType = questions[i].QuestionType;
-          //const subQuestionScores = [];
  
           if (
             questionType === 'Matching Paragraph Information' ||
@@ -126,8 +129,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
               allScores.push(score);
               allCorrectAnswers.push(correctAnswer);
             }
-            //scores.push(subQuestionScores);
-          } else {
+          } else {//for other question types: summary completion, table completion, graph completion, multiple select...
             const correctAnswers = [];
             let qIndex = 0;
  
@@ -144,24 +146,19 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
                 allCorrectAnswers.push(correctAnswers[qIndex]);
               }
             }
-           // scores.push(subQuestionScores);
           }
         }
  
         allQuestions.push(questions);
-        //allScores.push(scores);
- 
- 
- 
-      }
- 
-         
+      }     
     }
+
     for (let i = 0; i < allScores.length; i++) {
       const score = allScores[i];
       totalScore += score;
     }
  
+   
     const studentSk= section+sk;
  
     console.log("all scores: ", allScores);
@@ -187,21 +184,9 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
  
     await dynamoDb.put(putParams).promise();
  
-    // Return the student response as the POST body
-  /*  const responseBody = {
-      MyPartitionKey: 'student10',
-      MySortKey: sk,
-      questions: allQuestions,
-      studentAnswers: studentAnswers,
-      scores: allScores,
-      totalScore: totalScore,
-      europeanFrameworkGrade: europeanFrameworkGrade,
-    };*/
- 
     return {
       statusCode: 200,
       body: JSON.stringify({  message: 'Student response stored successfully' }),
-      //body: JSON.stringify(responseBody),
     };
  
   } catch (error) {
