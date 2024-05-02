@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Button from '../components/TButton';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,17 +70,6 @@ const Carousel = () => {
             className="hidden group-hover:block bg-[#958F88] rounded-full text-[#EAE7E0] cursor-pointer"
           />
         </div>
-      </div>
-      <div className="w-full h-1/6 flex justify-center items-center">
-        {images.map((images, Index) => (
-          <div
-            key={Index}
-            onClick={() => goToSlide(Index)}
-            className="text-2xl cursor-pointer"
-          >
-            <RxDotFilled />
-          </div>
-        ))}
       </div>
     </div>
   );
