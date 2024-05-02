@@ -10,8 +10,13 @@ const audioResponseBucket = process.env.audioResponseBucket;
 */
 export const main: APIGatewayProxyHandlerV2 = async event => {
   try {
-    const fileName = event.queryStringParameters?.fileName;
-    const fileType = event.queryStringParameters?.fileType;
+    if (event.body == undefined) {
+      return { statusCode: 400, body: 'No valid input' };
+    }
+
+    const requestBody = JSON.parse(event.body);
+    const fileName = requestBody.fileName;
+    const fileType = requestBody.fileType;
 
     if (!fileName || !fileType) {
       return {
