@@ -231,27 +231,3 @@ Provide feedback that is concise, clear, and directly relevant to the student's 
 Always Begin your feedback with the score as an example 'Score: [applicable number]', followed by your remarks'. 
 `;
 }
-
-// TODO: use shared `runModel`
-// async function runModel(prompt: string) {
-//   const modelParams = {
-//     inputText: prompt,
-//     textGenerationConfig: {
-//       maxTokenCount: 4096,
-//       stopSequences: [],
-//       temperature: 0,
-//       topP: 0.9,
-//     },
-//   };
-
-//   const invokeModelCommand = new InvokeModelCommand({
-//     body: JSON.stringify(modelParams),
-//     contentType: 'application/json',
-//     accept: '*/*',
-//     modelId: 'amazon.titan-text-express-v1',
-//   });
-
-//   const response = await bedrockClient.send(invokeModelCommand);
-//   return JSON.parse(Buffer.from(response.body).toString('utf8')).results[0]
-//     .outputText;
-// }
