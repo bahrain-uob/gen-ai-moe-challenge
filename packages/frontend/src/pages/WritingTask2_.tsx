@@ -27,10 +27,10 @@ export function WritingTask2Page_() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            writingTask: 'Task 1',
+          body: {
+            writingTask: 'Task 2',
             ...inputs,
-          }),
+          },
         },
       }),
     );
