@@ -27,10 +27,6 @@ const Carousel = () => {
     setCurrentIndex(newIndex);
   };
 
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
   return (
     <div className="bg-[#EEE9E0] w-full h-full flex flex-col gap-8 group">
       <div className="flex w-full h-5/6">
