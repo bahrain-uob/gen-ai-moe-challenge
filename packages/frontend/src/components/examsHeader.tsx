@@ -1,7 +1,7 @@
 import { useState } from 'react'; // Import useState hook
 import { useNavigate } from 'react-router-dom';
 import CountdownTimer from './CountdownTimer'; // Assuming CountdownTimer is the name of your countdown timer component
-import '../stylesheets/Exam.css';
+import '../stylesheets/exam.css';
 
 interface ExamsHeaderProps {
   duration: number; // Duration of the exam in minutes
