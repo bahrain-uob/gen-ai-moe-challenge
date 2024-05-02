@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../components/TButton';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
+import { Link } from 'react-router-dom';
 
 const images = ['assets/ExamIcon.png', 'assets/Personalized.png'];
 const texts = [
@@ -54,11 +55,12 @@ const Carousel = () => {
             <p className="text-center font-bold text-4xl max-md:text-2xl">
               {texts[currentIndex]}
             </p>
-            <Link to "{buttonPage[currentIndex]}">
+
             <div className="cursor-pointer w-full flex justify-center items-center">
-              <Button label={labels[currentIndex]} />
+              <Link to={buttonPage[currentIndex]}>
+                <Button label={labels[currentIndex]} />
+              </Link>
             </div>
-            </Link>
           </div>
         </div>
         <div className=" w-1/12 rounded-2xl flex justify-center items-center">
