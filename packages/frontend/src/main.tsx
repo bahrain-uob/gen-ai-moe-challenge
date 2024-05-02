@@ -15,6 +15,7 @@ import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
+import FeedbackPage from './pages/FeedbackPage.tsx';
 
 Amplify.configure(
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
+  },
+  {
+    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: FeedbackPage,
   },
   {
     path: '/speaking',

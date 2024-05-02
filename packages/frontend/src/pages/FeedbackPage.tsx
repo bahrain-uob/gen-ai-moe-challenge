@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 //import { FaTimes, FaCheck } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import '../App.css';
+
 
 export default function FeedbackPage() {
   const { section, sk } = useParams<{ section: string | undefined; sk: string | undefined }>();
