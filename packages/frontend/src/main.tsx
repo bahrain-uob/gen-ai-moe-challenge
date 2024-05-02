@@ -9,8 +9,10 @@ import WritingTask1Page from './pages/writingTask1.tsx';
 import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './ReadingQuestions.tsx';
 import Speaking from './pages/speaking.tsx';
-import SignUp from './pages/SignUp.tsx';
-import SignIn from './pages/SignIn.tsx';
+import Home from './pages/home.tsx';
+import Sections from './pages/sections.tsx';
+import SignUp from './pages/signUp.tsx';
+import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
@@ -64,9 +66,17 @@ const router = createBrowserRouter([
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
   },
-  {    
+  {
     path: '/speaking',
     Component: Speaking,
+  },
+  {
+    path: '/home',
+    Component: Home,
+  },
+  {
+    path: '/sections',
+    Component: Sections,
   },
   {
     path: '/writing-task2',
