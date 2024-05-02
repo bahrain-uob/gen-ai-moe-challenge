@@ -4,37 +4,38 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-  const { section,  sk } = event.pathParameters || {};
-
-  let pks: string[];
-  if(section==='reading'){
-    pks = ["ReadingP1", "ReadingP2", "ReadingP3"];
+  const { section, sk } = event.pathParameters || {};
+  if (!section || !sk) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing section or sk" }),
+    };
   }
-  else{
-    pks = ["ListeningP1", "ListeningP2", "ListeningP3","ListeningP4"];
-  }
-
+  const sortKey = section + sk;
 
   try {
-    const queryPromises = pks.map(async (pk) => {
-      const params = {
-        TableName: process.env.TABLE1_NAME,
-        KeyConditionExpression: "MyPartitionKey = :pkValue AND MySortKey = :skValue",
-        ExpressionAttributeValues: {
-          ":pkValue": "student7",
-          ":skValue": sk,
-        },
-      };
-      const results = await dynamoDb.query(params).promise();
-      return results.Items;
-    });
+    const params = {
+      TableName: process.env.TABLE1_NAME,
+      KeyConditionExpression: "MyPartitionKey = :pkValue AND MySortKey = :skValue",
+      ExpressionAttributeValues: {
+        ":pkValue": "student10",
+        ":skValue": sortKey,
+      },
+    };
 
-    const outputs = await Promise.all(queryPromises);
-    const flattenedOutputs = outputs.flat(); // Flatten the array of arrays
+    const results = await dynamoDb.query(params).promise();
+    const items = results.Items;
+    console.log("items: ",items);
+    if(!items) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: "No scores found" }),
+      };
+    }
 
     return {
       statusCode: 200,
-      body: JSON.stringify(flattenedOutputs),
+      body: JSON.stringify(items[0]),
     };
   } catch (error) {
     return {
