@@ -71,7 +71,7 @@ export function ApiStack({ stack }: StackContext) {
         },
       },
       // Speaking getting a presigned URL to upload the response
-      'GET /generate-presigned-url': {
+      'POST /generate-presigned-url': {
         function: {
           handler: 'packages/functions/src/generatePresignedUrl.main',
           permissions: ['s3:PutObject'],

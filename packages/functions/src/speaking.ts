@@ -56,7 +56,6 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   //new runmodel
   const feedbackResult = await runModel(prompt);
-  
 
   const score_index = feedbackResult.indexOf('Score:');
   const feedback_index = feedbackResult.indexOf('Feedback:');
