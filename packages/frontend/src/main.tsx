@@ -9,6 +9,7 @@ import Writing from './pages/writing.tsx';
 import Speaking from './pages/speaking.tsx';
 import SignUp from './pages/SignUp.tsx';
 import SignIn from './pages/SignIn.tsx';
+import Polly from './pages/Polly.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: '/test',
     Component: TestPage,
+  },
+  {
+    path: '/Listening/Polly',
+    Component: Polly,
   },
   {
     path: '/writing',

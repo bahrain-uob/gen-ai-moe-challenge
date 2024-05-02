@@ -107,7 +107,7 @@ export function ApiStack({ stack }: StackContext) {
         },
       },
       // Sample Pyhton lambda function
-      'GET /Listening/Polly': {
+      'POST /Listening/Polly': {
         function: {
           handler: 'packages/functions/src/sample-python-lambda/Polly.main',
           runtime: 'python3.11',
@@ -119,7 +119,6 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '60 seconds',
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
-        authorizer: 'none',
       },
     },
   });
