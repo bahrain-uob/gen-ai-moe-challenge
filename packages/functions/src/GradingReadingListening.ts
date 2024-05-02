@@ -6,9 +6,15 @@ const dynamoDb = new DynamoDB.DocumentClient();
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const { section, sk } = event.pathParameters || {};
   const { studentAnswers } = JSON.parse(event.body || '');
+
+
+  const flattenedAnswers = studentAnswers.flat();
+  const flattenedStudentAnswers = flattenedAnswers.flat();
+
  
   console.log('Endpoint received the request:', event);
   console.log('Received student answers:', studentAnswers);
+  console.log('Flattened student answers:', flattenedStudentAnswers);
  
   let pks: string[];
  
@@ -19,26 +25,54 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   }
  
   function getEuropeanFrameworkGrade(totalScore: number) {
-    if (totalScore >= 39) {
+    if (totalScore >= 36) {
       return 'C2';
-    } else if (totalScore >= 37) {
+    } else if (totalScore >= 32) {
       return 'C1';
-    } else if (totalScore >= 35) {
-      return 'c1';
-    } else if (totalScore >= 33) {
-      return 'B2 ';
-    } else if (totalScore >= 30) {
+    } else if (totalScore >= 28) {
       return 'B2';
-    } else if (totalScore >= 27) {
+    } else if (totalScore >= 24) {
       return 'B1';
-    } else if (totalScore >= 23) {
+    } else if (totalScore >= 20) {
       return 'A2';
-    } else if (totalScore >= 19) {
-      return 'A1';
-    } else if (totalScore >= 15) {
-      return  'A1';
     } else {
       return 'A1';
+    } 
+  }
+
+  function calculateBandScore(score: number): number {
+    if (score >= 39) {
+      return 9;
+    } else if (score >= 37) {
+      return 8.5;
+    } else if (score >= 35) {
+      return 8;
+    } else if (score >= 33) {
+      return 7.5;
+    } else if (score >= 30) {
+      return 7;
+    } else if (score >= 29) {
+      return 6.5;
+    } else if (score >= 23) {
+      return 6;
+    } else if (score >= 19) {
+      return 5.5;
+    } else if (score >= 15) {
+      return 5;
+    } else if (score >= 13) {
+      return 4.5;
+    } else if (score >= 10) {
+      return 4;
+    } else if (score >= 8) {
+      return 3.5;
+    } else if (score >= 6) {
+      return 3;
+    } else if (score >= 4) {
+      return 2.5;
+    } else if (score >= 3) {
+      return 2;
+    } else {
+      return 0;
     }
   }
  
@@ -46,6 +80,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     let allQuestions = [];
     let allScores = [];
     let totalScore = 0;
+    let allCorrectAnswers=[];
  
     for (let index = 0; index < pks.length; index++) {
       const pk = pks[index];
@@ -65,13 +100,13 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       if (partResponseItem && partResponseItem.NumOfQuestions) {
         const numOfQuestions = partResponseItem.NumOfQuestions;
         const questions = [];
-        const scores = [];
+        //const scores = [];
  
         for (let i = 0; i < numOfQuestions; i++) {
           questions.push(partResponseItem.Questions[i]);
           const NumOfSubQuestions = questions[i].NumOfSubQuestions;
           const questionType = questions[i].QuestionType;
-          const subQuestionScores = [];
+          //const subQuestionScores = [];
  
           if (
             questionType === 'Matching Paragraph Information' ||
@@ -88,9 +123,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
               const correctAnswer = questions[i].SubQuestions[j].CorrectAnswer;
               const isCorrect = answersForPart[i][j] === correctAnswer;
               const score = isCorrect ? 1 : 0;
-              subQuestionScores.push(score);
+              allScores.push(score);
+              allCorrectAnswers.push(correctAnswer);
             }
-            scores.push(subQuestionScores);
+            //scores.push(subQuestionScores);
           } else {
             const correctAnswers = [];
             let qIndex = 0;
@@ -103,29 +139,27 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
                 const studentAnswer = answersForPart[i][qIndex];
                 const isCorrect = correctAnswers[qIndex].includes(studentAnswer);
                 const score = isCorrect ? 1 : 0;
-                subQuestionScores.push(score);
+                allScores.push(score);
                 qIndex++;
+                allCorrectAnswers.push(correctAnswers[qIndex]);
               }
             }
-            scores.push(subQuestionScores);
+           // scores.push(subQuestionScores);
           }
         }
  
         allQuestions.push(questions);
-        allScores.push(scores);
- 
-        for (let i = 0; i < scores.length; i++) {
-            const subQuestionScores = scores[i];
-            for (let j = 0; j < subQuestionScores.length; j++) {
-              const subScore = subQuestionScores[j];
-              totalScore += subScore;
-            }
-          }
+        //allScores.push(scores);
  
  
-         }
+ 
+      }
  
          
+    }
+    for (let i = 0; i < allScores.length; i++) {
+      const score = allScores[i];
+      totalScore += score;
     }
  
     const studentSk= section+sk;
@@ -134,6 +168,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     console.log("all questions: ", allQuestions);
    
     const europeanFrameworkGrade = getEuropeanFrameworkGrade(totalScore);
+    const bandScore = calculateBandScore(totalScore);
  
     // Store the student response in the table
     const putParams = {
@@ -141,10 +176,11 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       Item: {
         MyPartitionKey: 'student10',
         MySortKey: studentSk,
-        questions: allQuestions,
-        studentAnswers: studentAnswers,
+        CorrectAnswers: allCorrectAnswers,
+        studentAnswers: flattenedStudentAnswers,
         scores: allScores,
         totalScore: totalScore,
+        BandScore: bandScore,
         europeanFrameworkGrade: europeanFrameworkGrade,
       },
     };

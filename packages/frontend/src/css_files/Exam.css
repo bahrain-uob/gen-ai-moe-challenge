@@ -360,6 +360,13 @@ body {
   justify-content: center;
   text-align: center;
 }
+
+.feedback-info{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom:70px ;
+}
+
 .score-info {
   display: flex;
   align-items: center;

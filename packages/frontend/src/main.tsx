@@ -7,6 +7,7 @@ import TestPage from './pages/TestPage.tsx';
 import Writing from './pages/writing.tsx';
 import ReadingQuestions from './ReadingQuestions.tsx';
 import Speaking from './pages/speaking.tsx';
+import FeedbackPage from './pages/FeedbackPage.tsx';
 
 // Place pages here
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
+  },
+  {
+    path: '/scores/:section/:sk', // Updated route with path parameters
+    Component: FeedbackPage,
   },
   {    
     path: '/speaking',

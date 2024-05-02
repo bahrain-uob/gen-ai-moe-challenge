@@ -120,7 +120,7 @@ const ReadingQuestions = () => {
  
       console.log(studentAnswers);
  
-      const url = `${import.meta.env.VITE_API_URL}/answers/reading/1`; // Replace with the actual URL and parameters
+      const url = `${import.meta.env.VITE_API_URL}/answers/${section}/${sk}`; // Replace with the actual URL and parameters
       const response = await fetch(url, {
         method: 'POST',
         headers: {
