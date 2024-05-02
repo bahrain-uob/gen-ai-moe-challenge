@@ -7,9 +7,10 @@ import { AuthStack } from './AuthStack';
 export function ApiStack({ stack }: StackContext) {
   const {
     table,
-    questions_table,
     uploads_bucket,
     feedback_table,
+    myTable,
+    speakingPollyBucket,
     Polly_bucket,
   } = use(DBStack);
   const { auth } = use(AuthStack);
@@ -36,8 +37,11 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       authorizer: 'jwt',
       function: {
+        environment: {
+          TABLE1_NAME: myTable.tableName,
+        },
         // Bind the table name to our API
-        bind: [table, questions_table],
+        bind: [table],
       },
     },
     authorizers: {
@@ -52,10 +56,8 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
-      // Speaking retrieving a question lambda function
-      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       // Function that returns a random question
-      'GET    /question/{questionType}': 'packages/functions/src/question.main',
+      'GET /question/{questionType}': 'packages/functions/src/question.main',
       //example for using the language tool service
       'GET /languageTool': {
         function: {
@@ -79,6 +81,16 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
+      // Speaking getting the polly audio
+      'GET /speakingRecording/{key}': {
+        function: {
+          handler: 'packages/functions/src/speakingRecording.main',
+          permissions: ['s3:GetObject'],
+          environment: {
+            speakingPollyBucket: speakingPollyBucket.bucketName,
+          },
+        },
+      },
       // Speaking grading lambda function
       'POST /speaking': {
         function: {
@@ -98,14 +110,22 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '60 seconds',
         },
       },
-      // Writing grading lambda function
-      'POST /writing': {
+      // Grade both writing tasks
+      'POST /grade-writing': {
         function: {
-          handler: 'packages/functions/src/writing.main',
+          handler: 'packages/functions/src/gradingWriting.main',
           permissions: ['bedrock:InvokeModel'],
-          timeout: '60 seconds',
+          timeout: '120 seconds',
         },
-      },
+      }, //testing bedrock api for writing
+      //api endpoint for retrieving reading questions
+      'GET /{section}/{sk}':
+        'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}':
+        'packages/functions/src/GradingReadingListening.handler',
+      'GET /scores/{section}/{sk}':
+        'packages/functions/src/getScoresReadingListening.handler',
+
       // Sample Pyhton lambda function
       'POST /Listening/Polly': {
         function: {
@@ -122,6 +142,7 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
   });
+  api.attachPermissions([myTable]);
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj
