@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import Button from '../components/TButton';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
+import { Link } from 'react-router-dom';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const images = ['assets/ExamIcon.png', 'assets/Personalized.png'];
 const texts = [
   'Take mock exam and get the full experience of a real exam',
   'Practice on set of Exersices that fits you English level',
 ];
 const labels = ['Take Exam', 'Practice'];
-const buttonPage = ['/fexam', '/exersice'];
+const buttonPage = ['/full-exam', '/home'];
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -24,10 +25,6 @@ const Carousel = () => {
     const isLastSlide = currentIndex === images.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
   };
 
   return (
@@ -54,9 +51,11 @@ const Carousel = () => {
             <p className="text-center font-bold text-4xl max-md:text-2xl">
               {texts[currentIndex]}
             </p>
-            {/* <Link to "{buttonPage[currentIndex]}"> */}
+
             <div className="cursor-pointer w-full flex justify-center items-center">
-              <Button label={labels[currentIndex]} />
+              <Link to={buttonPage[currentIndex]}>
+                <Button label={labels[currentIndex]} />
+              </Link>
             </div>
           </div>
         </div>
@@ -67,17 +66,6 @@ const Carousel = () => {
             className="hidden group-hover:block bg-[#958F88] rounded-full text-[#EAE7E0] cursor-pointer"
           />
         </div>
-      </div>
-      <div className="w-full h-1/6 flex justify-center items-center">
-        {images.map((images, Index) => (
-          <div
-            key={Index}
-            onClick={() => goToSlide(Index)}
-            className="text-2xl cursor-pointer"
-          >
-            <RxDotFilled />
-          </div>
-        ))}
       </div>
     </div>
   );
