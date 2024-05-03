@@ -1,11 +1,11 @@
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Bucket, Table, StackContext, RDS } from 'sst/constructs';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsManager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
 import { Fn, RemovalPolicy, listMapper } from 'aws-cdk-lib';
 import AWS from 'aws-sdk';
-
 
 export function DBStack(this: any, { stack }: StackContext) {
   // Create a DynamoDB table
@@ -18,11 +18,27 @@ export function DBStack(this: any, { stack }: StackContext) {
   });
 
   const myTable = new dynamodb.Table(this, 'Table', {
-    partitionKey: { name: 'MyPartitionKey', type: dynamodb.AttributeType.STRING },
+    partitionKey: {
+      name: 'MyPartitionKey',
+      type: dynamodb.AttributeType.STRING,
+    },
     sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
+
+  /* For now we;re using a bucket that is already filled
+   * TODO: change this when the feature of adding questions is implemented
+   */
+  const speakingPollyBucket = s3.Bucket.fromBucketAttributes(
+    this,
+    'speakingPolly',
+    {
+      bucketArn: 'arn:aws:s3:::speaking-questions-polly',
+    },
+  );
+
+  //const speakingPollyBucket = new Bucket(stack, 'speakingPolly');
 
   const feedback_table = new Table(stack, 'ResponseFeedback', {
     fields: {
@@ -94,5 +110,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     uploads_bucket,
     feedback_table,
     myTable,
+    speakingPollyBucket,
   };
 }
