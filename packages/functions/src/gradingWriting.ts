@@ -1,17 +1,19 @@
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
+import { ApiGatewayManagementApi } from 'aws-sdk';
 
 const badRequest = {
   statusCode: 400,
 };
 
-export const main: APIGatewayProxyHandlerV2 = async event => {
+export const main: APIGatewayProxyHandler = async event => {
   if (event.body == undefined) {
     return { statusCode: 400, body: 'No valid input' };
   }
 
-  const requestBody = JSON.parse(event.body);
+  const requestBody = JSON.parse(event.body).data;
   const { answer, graphDescription, question, writingTask } = requestBody;
+  console.log('Request Body:', requestBody);
 
   // Assert answer and question exist in body
   if (!answer || !question || !writingTask) {
@@ -76,6 +78,17 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   const unifyPrompt = promptToUnifyFeedbacks(out);
   out['Combined Feedback'] = await runModel(unifyPrompt);
   console.log(unifyPrompt); // TODO: remove
+
+  const { stage, domainName } = event.requestContext;
+  const apiG = new ApiGatewayManagementApi({
+    endpoint: `${domainName}/${stage}`,
+  });
+
+  if (event.requestContext.connectionId) {
+    await apiG
+      .postToConnection({ ConnectionId: event.requestContext.connectionId, Data: JSON.stringify(out) })
+      .promise();
+  }
 
   return {
     statusCode: 200,

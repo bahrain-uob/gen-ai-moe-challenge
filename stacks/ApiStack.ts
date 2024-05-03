@@ -1,4 +1,4 @@
-import { Api, StackContext, use, Service } from 'sst/constructs';
+import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
@@ -149,6 +149,29 @@ export function ApiStack({ stack }: StackContext) {
       'Content-Type',
       'Referer',
     ),
+  });
+
+  const webSocket = new WebSocketApi(stack, "WebSocketApi", {
+    defaults: {
+      function: {
+        bind: [table],
+        permissions: ['bedrock:InvokeModel'],
+      },
+    },
+    routes: {
+      $connect: "packages/functions/src/connect.main",
+      $disconnect: "packages/functions/src/disconnect.main",
+      gradeWriting: {
+        function: {
+          handler:"packages/functions/src/gradingWriting.main",
+          timeout: "120 seconds",
+        }
+      },
+    },
+  });
+
+  stack.addOutputs({
+    WebSocketEndpoint: webSocket.url,
   });
 
   // Allowing authenticated users to access API
