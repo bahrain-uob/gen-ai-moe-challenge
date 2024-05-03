@@ -31,6 +31,11 @@ const generateFileName = () => {
   return `audio_${timestamp}_${randomString}.webm`;
 };
 
+const extractFeedbackSections = (feedback: string) => {
+  const scores = feedback.split('Score:').slice(1); // Ignore the first empty split result
+  return scores.map(section => 'Score: ' + section.trim());
+};
+
 const YourComponent: React.FC = () => {
   const [question, setQuestion] = useState<string>('');
   const [recorder, setRecorder] = useState<RecordRTC | null>(null);
@@ -46,6 +51,7 @@ const YourComponent: React.FC = () => {
   const [showAnswerTimer, setShowAnswerTimer] = useState<boolean>(false);
   const [answerTimerCount, setAnswerTimerCount] = useState<number>(30);
   const [submitted, setSubmitted] = useState<boolean>(false);
+
   useEffect(() => {
     let questionTimer: any;
     if (showQuestionTimer && questionTimerCount > 0) {
@@ -54,9 +60,9 @@ const YourComponent: React.FC = () => {
       }, 1000);
     } else if (questionTimerCount === 0) {
       clearInterval(questionTimer);
-      setShowQuestionTimer(false); // Hide the timer
+      setShowQuestionTimer(false);
       if (!recording && !showGetQuestion) {
-        startRecording(); // Start recording automatically
+        startRecording();
       }
     }
     return () => {
@@ -72,9 +78,9 @@ const YourComponent: React.FC = () => {
       }, 1000);
     } else if (answerTimerCount === 0) {
       clearInterval(answerTimer);
-      setShowAnswerTimer(false); // Hide the timer
+      setShowAnswerTimer(false);
       if (recording) {
-        stopRecording(); // Stop recording automatically
+        stopRecording();
       }
     }
     return () => {
@@ -94,7 +100,7 @@ const YourComponent: React.FC = () => {
       setShowGetQuestion(false);
       narrateQuestion(questionText.Questions[0].S3key);
       setShowQuestionTimer(true);
-      setQuestionTimerCount(20); // Reset the timer
+      setQuestionTimerCount(20);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
@@ -110,7 +116,7 @@ const YourComponent: React.FC = () => {
       setRecorder(newRecorder);
       setRecording(true);
       setShowAnswerTimer(true);
-      setAnswerTimerCount(30); // Reset the timer
+      setAnswerTimerCount(30);
       setShowQuestionTimer(false);
     } catch (error) {
       console.error('Error accessing user media:', error);
@@ -119,9 +125,9 @@ const YourComponent: React.FC = () => {
 
   const stopRecording = () => {
     if (recorder) {
-      setRecording(false); // Make sure to set recording to false immediately
+      setRecording(false);
       setSubmitted(true);
-      setShowAnswerTimer(false); // Ensure the timer is hidden
+      setShowAnswerTimer(false);
 
       recorder.stopRecording(async () => {
         const blob = recorder.getBlob();
@@ -172,13 +178,13 @@ const YourComponent: React.FC = () => {
           setShowFeedback2(false);
           setShowFeedback3(false);
         });
-      }); // end `stopRecording`
+      });
     }
   };
 
   return (
     <div className="container mx-auto text-center mt-8">
-      <h2 className="text-3xl mb-4">Speaking Long-Question Assessment</h2>
+      <h2 className="text-3xl mb-4">Speaking Conversation Assessment</h2>
       <img
         src={agentImage}
         alt="Agent"
@@ -188,16 +194,15 @@ const YourComponent: React.FC = () => {
       {showQuestionTimer && (
         <div
           className="timer bg-blue-100 text-blue-800 rounded-full text-3xl font-bold py-2 px-4 mb-4"
-          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }} // Added marginBottom here
+          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }}
         >
           {questionTimerCount}s
         </div>
       )}
-
-      {showAnswerTimer && (
+      {showAnswerTimer && !submitted && (
         <div
           className="timer bg-red-100 text-red-800 rounded-full text-3xl font-bold py-2 px-4 mb-4"
-          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }} // Added marginBottom here
+          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }}
         >
           {answerTimerCount}s
         </div>
@@ -212,7 +217,7 @@ const YourComponent: React.FC = () => {
             padding: '10px',
             borderRadius: '10px',
             margin: 'auto',
-            marginBottom: '30px', // Increased bottom margin
+            marginBottom: '30px',
           }}
         >
           Score: {feedback.Score}
@@ -236,7 +241,7 @@ const YourComponent: React.FC = () => {
             Answer
           </button>
         )}
-        {recording && (
+        {recording && !submitted && (
           <button
             onClick={stopRecording}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded text-xl"
@@ -245,51 +250,39 @@ const YourComponent: React.FC = () => {
           </button>
         )}
       </div>
-      {feedback && (
-        <div className="feedback">
-          <div
-            className="feedback-bar bg-blue-200 text-sm text-center p-4 mb-4 cursor-pointer"
-            onClick={() => setShowFeedback1(!showFeedback1)}
-          >
-            Fluency and Coherence
-          </div>
-          {showFeedback1 && (
-            <div className="feedback-content p-4 mb-4 bg-blue-100">
-              {feedback.Feedback.slice(
-                0,
-                feedback.Feedback.indexOf('Feedback'),
-              )}
+      {feedback &&
+        feedback.Feedback &&
+        extractFeedbackSections(feedback.Feedback).map((section, index) => (
+          <div key={index}>
+            <div
+              className={`feedback-bar bg-${
+                index === 0 ? 'blue' : index === 1 ? 'green' : 'yellow'
+              }-200 text-sm text-center p-4 mb-4 cursor-pointer`}
+              onClick={() => {
+                if (index === 0) setShowFeedback1(!showFeedback1);
+                if (index === 1) setShowFeedback2(!showFeedback2);
+                if (index === 2) setShowFeedback3(!showFeedback3);
+              }}
+            >
+              {index === 0
+                ? 'Fluency and Coherence'
+                : index === 1
+                ? 'Lexical Resource'
+                : 'Grammatical Range and Accuracy'}
             </div>
-          )}
-          <div
-            className="feedback-bar bg-green-200 text-sm text-center p-4 mb-4 cursor-pointer"
-            onClick={() => setShowFeedback2(!showFeedback2)}
-          >
-            Lexical Resource
+            {(index === 0 && showFeedback1) ||
+            (index === 1 && showFeedback2) ||
+            (index === 2 && showFeedback3) ? (
+              <div
+                className={`feedback-content p-4 mb-4 bg-${
+                  index === 0 ? 'blue' : index === 1 ? 'green' : 'yellow'
+                }-100`}
+              >
+                {section}
+              </div>
+            ) : null}
           </div>
-          {showFeedback2 && (
-            <div className="feedback-content p-4 mb-4 bg-green-100">
-              {feedback.Feedback.slice(
-                feedback.Feedback.indexOf('Feedback'),
-                feedback.Feedback.lastIndexOf('Feedback'),
-              )}
-            </div>
-          )}
-          <div
-            className="feedback-bar bg-yellow-200 text-sm text-center p-4 mb-4 cursor-pointer"
-            onClick={() => setShowFeedback3(!showFeedback3)}
-          >
-            Grammatical Range and Accuracy
-          </div>
-          {showFeedback3 && (
-            <div className="feedback-content p-4 mb-4 bg-yellow-100">
-              {feedback.Feedback.slice(
-                feedback.Feedback.lastIndexOf('Feedback'),
-              )}
-            </div>
-          )}
-        </div>
-      )}
+        ))}
     </div>
   );
 };
