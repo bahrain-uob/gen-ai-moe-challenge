@@ -106,7 +106,7 @@ export function ApiStack({ stack }: StackContext) {
             speakingUploadBucketName: uploads_bucket.bucketName,
             feedbackTableName: feedback_table.tableName,
           },
-          timeout: '60 seconds',
+          timeout: '120 seconds',
         },
       },
       // Grade both writing tasks
