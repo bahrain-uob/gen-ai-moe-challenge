@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
@@ -41,6 +41,46 @@ const YourComponent: React.FC = () => {
   const [showFeedback1, setShowFeedback1] = useState<boolean>(false);
   const [showFeedback2, setShowFeedback2] = useState<boolean>(false);
   const [showFeedback3, setShowFeedback3] = useState<boolean>(false);
+  const [showQuestionTimer, setShowQuestionTimer] = useState<boolean>(false);
+  const [questionTimerCount, setQuestionTimerCount] = useState<number>(20);
+  const [showAnswerTimer, setShowAnswerTimer] = useState<boolean>(false);
+  const [answerTimerCount, setAnswerTimerCount] = useState<number>(30);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  useEffect(() => {
+    let questionTimer: any;
+    if (showQuestionTimer && questionTimerCount > 0) {
+      questionTimer = setInterval(() => {
+        setQuestionTimerCount(prevCount => prevCount - 1);
+      }, 1000);
+    } else if (questionTimerCount === 0) {
+      clearInterval(questionTimer);
+      setShowQuestionTimer(false); // Hide the timer
+      if (!recording && !showGetQuestion) {
+        startRecording(); // Start recording automatically
+      }
+    }
+    return () => {
+      if (questionTimer) clearInterval(questionTimer);
+    };
+  }, [showQuestionTimer, questionTimerCount, recording, showGetQuestion]);
+
+  useEffect(() => {
+    let answerTimer: any;
+    if (showAnswerTimer && answerTimerCount > 0) {
+      answerTimer = setInterval(() => {
+        setAnswerTimerCount(prevCount => prevCount - 1);
+      }, 1000);
+    } else if (answerTimerCount === 0) {
+      clearInterval(answerTimer);
+      setShowAnswerTimer(false); // Hide the timer
+      if (recording) {
+        stopRecording(); // Stop recording automatically
+      }
+    }
+    return () => {
+      if (answerTimer) clearInterval(answerTimer);
+    };
+  }, [showAnswerTimer, answerTimerCount, recording]);
 
   const fetchQuestion = async () => {
     try {
@@ -50,10 +90,11 @@ const YourComponent: React.FC = () => {
           path: '/question/SpeakingP1',
         }),
       );
-
       setQuestion(questionText.Questions[0].text);
       setShowGetQuestion(false);
       narrateQuestion(questionText.Questions[0].S3key);
+      setShowQuestionTimer(true);
+      setQuestionTimerCount(20); // Reset the timer
     } catch (error) {
       console.error('Error fetching question:', error);
     }
@@ -68,6 +109,9 @@ const YourComponent: React.FC = () => {
       newRecorder.startRecording();
       setRecorder(newRecorder);
       setRecording(true);
+      setShowAnswerTimer(true);
+      setAnswerTimerCount(30); // Reset the timer
+      setShowQuestionTimer(false);
     } catch (error) {
       console.error('Error accessing user media:', error);
     }
@@ -75,8 +119,9 @@ const YourComponent: React.FC = () => {
 
   const stopRecording = () => {
     if (recorder) {
-      setRecording(false);
-      setShowGetQuestion(true);
+      setRecording(false); // Make sure to set recording to false immediately
+      setSubmitted(true);
+      setShowAnswerTimer(false); // Ensure the timer is hidden
 
       recorder.stopRecording(async () => {
         const blob = recorder.getBlob();
@@ -123,6 +168,9 @@ const YourComponent: React.FC = () => {
           }),
         ).then(response => {
           setFeedback(response);
+          setShowFeedback1(false);
+          setShowFeedback2(false);
+          setShowFeedback3(false);
         });
       }); // end `stopRecording`
     }
@@ -137,39 +185,66 @@ const YourComponent: React.FC = () => {
         className="object-cover rounded-full mx-auto mb-4"
         style={{ width: '402px', height: '402px' }}
       />
-      <div className="score text-4xl mb-4 mt-8">
-        {feedback && feedback.Score}
-      </div>
-      {!audioURL && (
-        <div className="buttons">
-          {showGetQuestion && (
-            <button
-              onClick={fetchQuestion}
-              disabled={recording}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Get Question
-            </button>
-          )}
-          {!recording && !showGetQuestion && (
-            <button
-              onClick={startRecording}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Answer
-            </button>
-          )}
-          {recording && (
-            <button
-              onClick={stopRecording}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Submit
-            </button>
-          )}
+      {showQuestionTimer && (
+        <div
+          className="timer bg-blue-100 text-blue-800 rounded-full text-3xl font-bold py-2 px-4 mb-4"
+          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }} // Added marginBottom here
+        >
+          {questionTimerCount}s
+        </div>
+      )}
+
+      {showAnswerTimer && (
+        <div
+          className="timer bg-red-100 text-red-800 rounded-full text-3xl font-bold py-2 px-4 mb-4"
+          style={{ width: '150px', margin: 'auto', marginBottom: '20px' }} // Added marginBottom here
+        >
+          {answerTimerCount}s
         </div>
       )}
       {audioURL && <audio controls src={audioURL} className="mx-auto my-4" />}
+      {feedback && feedback.Score && (
+        <div
+          className="score text-4xl mb-4 mt-8"
+          style={{
+            width: '200px',
+            background: '#E0FFFF',
+            padding: '10px',
+            borderRadius: '10px',
+            margin: 'auto',
+            marginBottom: '30px', // Increased bottom margin
+          }}
+        >
+          Score: {feedback.Score}
+        </div>
+      )}
+      <div className="buttons">
+        {showGetQuestion && (
+          <button
+            onClick={fetchQuestion}
+            disabled={recording}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded text-xl"
+          >
+            Get Question
+          </button>
+        )}
+        {!recording && !showGetQuestion && !submitted && (
+          <button
+            onClick={startRecording}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded text-xl"
+          >
+            Answer
+          </button>
+        )}
+        {recording && (
+          <button
+            onClick={stopRecording}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded text-xl"
+          >
+            Submit
+          </button>
+        )}
+      </div>
       {feedback && (
         <div className="feedback">
           <div
