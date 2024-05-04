@@ -5,13 +5,17 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
-import Writing from './pages/writing.tsx';
-import ReadingQuestions from './ReadingQuestions.tsx';
+import WritingTask1Page from './pages/writingTask1.tsx';
+import WritingTask2Page from './pages/writingTask2.tsx';
+import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
-import SignUp from './pages/SignUp.tsx';
-import SignIn from './pages/SignIn.tsx';
+import Home from './pages/home.tsx';
+import Sections from './pages/sections.tsx';
+import SignUp from './pages/signUp.tsx';
+import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
+import FeedbackPage from './pages/FeedbackPage.tsx';
 
 Amplify.configure(
   {
@@ -33,6 +37,7 @@ Amplify.configure(
   {
     API: {
       REST: {
+        // Include authentication token in headers
         headers: async () => {
           const authToken = (
             await fetchAuthSession()
@@ -55,16 +60,32 @@ const router = createBrowserRouter([
     Component: TestPage,
   },
   {
-    path: '/writing',
-    Component: Writing,
+    path: '/writing-task1',
+    Component: WritingTask1Page,
   },
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
   },
-  {    
+  {
+    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: FeedbackPage,
+  },
+  {
     path: '/speaking',
     Component: Speaking,
+  },
+  {
+    path: '/home',
+    Component: Home,
+  },
+  {
+    path: '/sections',
+    Component: Sections,
+  },
+  {
+    path: '/writing-task2',
+    Component: WritingTask2Page,
   },
   {
     path: '/sign-up',

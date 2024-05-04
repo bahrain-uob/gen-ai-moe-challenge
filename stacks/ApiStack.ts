@@ -6,7 +6,7 @@ import { AuthStack } from './AuthStack';
 import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, questions_table, uploads_bucket, feedback_table, myTable } =
+  const { table, uploads_bucket, feedback_table, myTable, speakingPollyBucket } =
     use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
@@ -20,7 +20,7 @@ export function ApiStack({ stack }: StackContext) {
           TABLE1_NAME: myTable.tableName,
         },
         // Bind the table name to our API
-        bind: [table, questions_table],
+        bind: [table],
       },
     },
     authorizers: {
@@ -35,10 +35,8 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       // Sample TypeScript lambda function
       'POST /': 'packages/functions/src/lambda.main',
-      // Speaking retrieving a question lambda function
-      'GET /questions/{id}': 'packages/functions/src/speakingGetQuestion.main',
       // Function that returns a random question
-      "GET    /question/{questionType}": "packages/functions/src/question.main",
+      'GET /question/{questionType}': 'packages/functions/src/question.main',
       //example for using the language tool service
       'GET /languageTool': {
         function: {
@@ -49,12 +47,22 @@ export function ApiStack({ stack }: StackContext) {
         },
       },
       // Speaking getting a presigned URL to upload the response
-      'GET /generate-presigned-url': {
+      'POST /generate-presigned-url': {
         function: {
           handler: 'packages/functions/src/generatePresignedUrl.main',
           permissions: ['s3:PutObject'],
           environment: {
             audioResponseBucket: uploads_bucket.bucketName,
+          },
+        },
+      },
+      // Speaking getting the polly audio
+      'GET /speakingRecording/{key}': {
+        function: {
+          handler: 'packages/functions/src/speakingRecording.main',
+          permissions: ['s3:GetObject'],
+          environment: {
+            speakingPollyBucket: speakingPollyBucket.bucketName,
           },
         },
       },
@@ -74,24 +82,27 @@ export function ApiStack({ stack }: StackContext) {
             speakingUploadBucketName: uploads_bucket.bucketName,
             feedbackTableName: feedback_table.tableName,
           },
-          timeout: '60 seconds',
+          timeout: '120 seconds',
         },
       },
-      // Writing grading lambda function
-      'POST /writing': {
+      // Grade both writing tasks
+      'POST /grade-writing': {
         function: {
-          handler: 'packages/functions/src/writing.main',
+          handler: 'packages/functions/src/gradingWriting.main',
           permissions: ['bedrock:InvokeModel'],
-          timeout: '60 seconds',
+          timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
-      'GET /{section}/{sk}': 'packages/functions/src/getQuestionsReadingListening.handler',
-      'POST /answers/{section}/{sk}': 'packages/functions/src/GradingReadingListening.handler',
-      'GET /scores/{section}/{sk}': 'packages/functions/src/getScoresReadingListening.handler',
+      'GET /{section}/{sk}':
+        'packages/functions/src/getQuestionsReadingListening.handler',
+      'POST /answers/{section}/{sk}':
+        'packages/functions/src/GradingReadingListening.handler',
+      'GET /scores/{section}/{sk}':
+        'packages/functions/src/getScoresReadingListening.handler',
 
       // Sample Pyhton lambda function
       'GET /': {
