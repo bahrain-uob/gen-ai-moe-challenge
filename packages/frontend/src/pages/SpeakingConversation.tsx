@@ -10,7 +10,10 @@ interface Response {
   Feedback: string;
 }
 
-const narrateQuestion = async (key: string) => {
+const narrateQuestion = async (
+  key: string,
+  setQuestionAudioURL: React.Dispatch<React.SetStateAction<string>>,
+) => {
   try {
     const response = await toJSON(
       get({
@@ -18,6 +21,7 @@ const narrateQuestion = async (key: string) => {
         path: `/speakingRecording/${key}`,
       }),
     );
+    setQuestionAudioURL(response.url); // Set the URL for the question audio
     const audio = new Audio(response.url);
     audio.play();
   } catch (error) {
@@ -38,6 +42,7 @@ const extractFeedbackSections = (feedback: string) => {
 
 const YourComponent: React.FC = () => {
   const [question, setQuestion] = useState<string>('');
+  const [questionAudioURL, setQuestionAudioURL] = useState<string>(''); // New state for question audio URL
   const [recorder, setRecorder] = useState<RecordRTC | null>(null);
   const [audioURL, setAudioURL] = useState<string>('');
   const [recording, setRecording] = useState<boolean>(false);
@@ -109,7 +114,10 @@ const YourComponent: React.FC = () => {
       );
       setQuestion(questionText.QuestionsP3[currentQuestionIndex].text);
       setShowGetQuestion(false);
-      narrateQuestion(questionText.QuestionsP3[currentQuestionIndex].S3key);
+      narrateQuestion(
+        questionText.QuestionsP3[currentQuestionIndex].S3key,
+        setQuestionAudioURL,
+      );
       setShowQuestionTimer(true);
       setQuestionTimerCount(20); // Reset the timer
     } catch (error) {
@@ -210,6 +218,32 @@ const YourComponent: React.FC = () => {
         className="object-cover rounded-full mx-auto mb-4"
         style={{ width: '402px', height: '402px' }}
       />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          width: '100%',
+        }}
+      >
+        {questionAudioURL && (
+          <div
+            style={{ margin: 'auto', display: 'flex', alignItems: 'center' }}
+          >
+            <label style={{ marginRight: '10px' }}>Question:</label>
+            <audio controls src={questionAudioURL} className="my-4" />
+          </div>
+        )}
+        {audioURL && (
+          <div
+            style={{ margin: 'auto', display: 'flex', alignItems: 'center' }}
+          >
+            <label style={{ marginRight: '10px' }}>Answer:</label>
+            <audio controls src={audioURL} className="my-4" />
+          </div>
+        )}
+      </div>
       {showQuestionTimer && (
         <div
           className="timer bg-blue-100 text-blue-800 rounded-full text-3xl font-bold py-2 px-4 mb-4"
@@ -226,7 +260,6 @@ const YourComponent: React.FC = () => {
           {answerTimerCount}s
         </div>
       )}
-      {audioURL && <audio controls src={audioURL} className="mx-auto my-4" />}
       {feedback && feedback.Score && (
         <div
           className="score text-4xl mb-4 mt-8"
