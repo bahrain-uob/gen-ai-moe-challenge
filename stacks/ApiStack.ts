@@ -177,5 +177,5 @@ export function ApiStack({ stack }: StackContext) {
   // Allowing authenticated users to access API
   auth.attachPermissionsForAuthUsers(stack, [api]);
 
-  return { api, apiCachePolicy };
+  return { api, apiCachePolicy, webSocket };
 }
