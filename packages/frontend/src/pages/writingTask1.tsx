@@ -20,8 +20,10 @@ function WritingTask1Page() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  //get the websocket url from the environment
   const socketUrl = import.meta.env.VITE_WEBSOCKET_URL as string;
 
+  //initialize the websocket
   const {
     sendMessage,
     readyState,
@@ -42,6 +44,7 @@ function WritingTask1Page() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    //send the message to the backend using the websocket
     sendMessage(JSON.stringify({action: 'gradeWriting', data: {writingTask: 'Task 1',   ...inputs,}}));
 
   };
