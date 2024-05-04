@@ -1,8 +1,4 @@
 import {
-  BedrockRuntime,
-  InvokeModelCommand,
-} from '@aws-sdk/client-bedrock-runtime';
-import {
   StartTranscriptionJobCommand,
   TranscribeClient,
   GetTranscriptionJobCommand,
@@ -12,13 +8,15 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { runModel } from './utilities';
 
-const bedrockClient = new BedrockRuntime();
 const transcribeClient = new TranscribeClient();
 const s3Client = new S3Client();
 const dynamoClient = new DynamoDBClient();
 
 const uploadResponseBucket = process.env.speakingUploadBucketName;
 const feedbackTableName = process.env.feedbackTableName;
+
+const missPronunciations: string[] = [];
+let pronunciationScore: number;
 
 type rubricType = {
   [key: string]: string;
@@ -79,6 +77,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   });
 
   const validScores = scores.filter(score => !isNaN(score));
+  validScores.push(pronunciationScore);
   const averageScore =
     Math.round(
       (validScores.reduce((acc, score) => acc + score, 0) /
@@ -93,6 +92,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   feedbackResults.forEach((feedback, index) => {
     console.log(`${criterias[index]}: ${feedback}\n\n`);
   });
+  console.log(`Pronunciation:\nScore: ${pronunciationScore}`);
 
   console.log(`Average Score: ${averageScore.toFixed(2)}`);
 
@@ -167,7 +167,22 @@ async function retrieveTranscript(audioFileName: string) {
       body: JSON.stringify('file is empty'),
     };
   } else {
-    return JSON.parse(content).results.transcripts[0].transcript as string;
+    let correctPron = 0;
+    let countOfWords = 0;
+    const transcribeResults = JSON.parse(content).results;
+    const transcribeItems = transcribeResults.items;
+    for (let item of transcribeItems) {
+      if (item.alternatives[0].confidence > 0) {
+        if (item.alternatives[0].confidence > 0.996) {
+          correctPron++;
+        } else {
+          missPronunciations.push(item.alternatives[0].content);
+        }
+        countOfWords++;
+      }
+    }
+    pronunciationScore = Math.floor((correctPron / countOfWords) * 9);
+    return transcribeResults.transcripts[0].transcript as string;
   }
 }
 
