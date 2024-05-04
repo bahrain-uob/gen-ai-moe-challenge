@@ -1,14 +1,36 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
-import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 
 const badRequest = {
   statusCode: 400,
   body: 'Bad Request',
 };
 
+const noValidInputws = JSON.stringify({
+  error: 'No valid input',
+});
+
+const badRequestws = JSON.stringify({
+  error: 'Bad Request',
+});
+
 export const main: APIGatewayProxyHandler = async event => {
+  const { stage, domainName } = event.requestContext;
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: `https://${domainName}/${stage}`,
+  });
+  const connectionId = event.requestContext.connectionId;
+
   if (event.body == undefined) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: noValidInputws,
+    });
+    await apiClient.send(command);
     return { statusCode: 400, body: 'No valid input' };
   }
 
@@ -17,9 +39,19 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Assert answer and question exist in body
   if (!answer || !question || !writingTask) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: badRequestws,
+    });
+    await apiClient.send(command);
     return badRequest;
   }
   if (writingTask === 'Task 1' && !graphDescription) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: badRequestws,
+    });
+    await apiClient.send(command);
     return badRequest;
   }
 
@@ -61,11 +93,11 @@ export const main: APIGatewayProxyHandler = async event => {
   const scores: Array<number> = feedbacks.map(feedback => {
     const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
     const number = parseFloat(score);
-    return number>=0 && number<=9 ? number : 0; // Ensure score is between 0 and 9
+    return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
   const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
   console.log('Scores', scores, 'Average Score:', avgScore);
-  
+
   const out = {
     'Coherence & Cohesion': feedbacks[0],
     'Grammatical Range & Accuracy': feedbacks[1],
@@ -79,13 +111,11 @@ export const main: APIGatewayProxyHandler = async event => {
   out['Combined Feedback'] = await runModel(unifyPrompt);
   console.log(unifyPrompt); // TODO: remove
 
-  const { stage, domainName } = event.requestContext;
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: `https://${domainName}/${stage}`,
-  });
-
-  if (event.requestContext.connectionId) {
-    const command = new PostToConnectionCommand({ ConnectionId: event.requestContext.connectionId, Data: JSON.stringify(out) })
+  if (connectionId) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: JSON.stringify(out),
+    });
     const response = await apiClient.send(command);
     console.log('Response:', response);
   }
