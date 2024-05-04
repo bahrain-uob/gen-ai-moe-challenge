@@ -1,7 +1,7 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { WritingGrading, toJSON } from '../utilities';
-import { ApiError, post } from 'aws-amplify/api';
+import { post } from 'aws-amplify/api';
 
 export function WritingTask2Page_() {
   const [inputs, setInputs] = useState({
