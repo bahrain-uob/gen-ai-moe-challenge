@@ -52,10 +52,10 @@ def main(event,context):
 
     data = json.loads(event['body'])
     print(data)
-    speeches =data['speeches']
-
+    speeches =json.loads(data)
+    
     for i,line in enumerate(speeches):
-
+        
         speaker=line['speaker']
         speech=line['speech']
         

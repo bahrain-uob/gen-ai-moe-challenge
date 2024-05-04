@@ -27,7 +27,7 @@ export default function MyApp() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: { speeches },
+          body: JSON.stringify(speeches) ,
         },
       }),
     );
