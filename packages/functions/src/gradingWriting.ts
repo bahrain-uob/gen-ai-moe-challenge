@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
-import { ApiGatewayManagementApi } from 'aws-sdk';
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
 
 const badRequest = {
   statusCode: 400,
@@ -13,7 +13,6 @@ export const main: APIGatewayProxyHandler = async event => {
 
   const requestBody = JSON.parse(event.body).data;
   const { answer, graphDescription, question, writingTask } = requestBody;
-  console.log('Request Body:', requestBody);
 
   // Assert answer and question exist in body
   if (!answer || !question || !writingTask) {
@@ -80,14 +79,14 @@ export const main: APIGatewayProxyHandler = async event => {
   console.log(unifyPrompt); // TODO: remove
 
   const { stage, domainName } = event.requestContext;
-  const apiG = new ApiGatewayManagementApi({
-    endpoint: `${domainName}/${stage}`,
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: `https://${domainName}/${stage}`,
   });
 
   if (event.requestContext.connectionId) {
-    await apiG
-      .postToConnection({ ConnectionId: event.requestContext.connectionId, Data: JSON.stringify(out) })
-      .promise();
+    const command = new PostToConnectionCommand({ ConnectionId: event.requestContext.connectionId, Data: JSON.stringify(out) })
+    const response = await apiClient.send(command);
+    console.log('Response:', response);
   }
 
   return {
