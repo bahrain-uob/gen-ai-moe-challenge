@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
 import WritingTask1Page from './pages/writingTask1.tsx';
 import WritingTask2Page from './pages/writingTask2.tsx';
-import ReadingQuestions from './ReadingQuestions.tsx';
+import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
@@ -15,6 +15,7 @@ import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
+import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
+  },
+  {
+    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: FeedbackPage,
   },
   {
     path: '/speaking',

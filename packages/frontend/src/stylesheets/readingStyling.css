@@ -1,0 +1,153 @@
+/*READING CONTAINER*/
+body {
+    background-color: rgb(250, 242, 242);
+  }
+  
+  .reading-part-container {
+    display: flex;
+    overflow-x: auto;
+  }
+  
+  .Reading-Part {
+    flex: 0 1 calc(50% - 40px);
+    margin-top: 70px;
+    margin-bottom: 80px;
+    margin-left: 30px;
+    background-color: white;
+    overflow-y: auto;
+    height: 90vh;
+    box-sizing: border-box;
+  }
+  
+  .Reading-Questions-Part {
+    flex: 0 1 calc(50% - 40px);
+    margin-top: 70px;
+    margin-bottom: 100px;
+    padding: 20px;
+    background-color: white;
+    overflow-y: auto;
+    height: 90vh;
+    box-sizing: border-box;
+  }
+  
+  .Reading-Part,
+  .Reading-Questions-Part {
+    flex: 0 1 calc(50% - 40px);
+  
+    border: 1px solid rgb(224, 218, 218);
+    background-color: white;
+    overflow-y: auto;
+    height: 90vh;
+    box-sizing: border-box;
+    text-align: left;
+  
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .reading-part-container {
+      flex-wrap: wrap;
+    }
+  
+    .Reading-Part,
+    .Reading-Questions-Part {
+      flex: 0 1 100%;
+      margin: 10px;
+      height: 60vh; /* Set height to auto for smaller screens */
+    }
+  }
+  
+  .question-num {
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+  }
+  
+  
+  .part-number {
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3b828e;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  .passage-title {
+    font-size: 30px;
+  
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    color: #3b828e;
+  }
+  .passage {
+    text-align: left;
+  }
+  
+  /*button*/
+  .reading-part-buttons {
+    background-color: rgb(250, 242, 242);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    border-radius: 20px;
+    z-index: 999;
+    padding: 10px;
+    margin-top: -70px; /* Adjust the negative margin as needed */
+  }
+  
+  .part-button {
+    background-color: rgba(59, 130, 142, 1);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    /* padding: 10px 20px; */
+    text-align: center;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .part-button.active {
+    background-color: rgb(35, 77, 85);
+  }
+  .part-button:hover {
+    background-color: rgb(35, 77, 85);
+  }
+  
+  /* options */
+  
+  
+  .choice-container {
+      padding: 15px;
+    }
+    
+  .choices {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    
+  }
+  
+  .choices li {
+    margin-bottom: 10px; /* Adjust margin between list items as needed */
+  }
+  
+  .choices select {
+    padding: 8px; /* Adjust the padding as needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    border: 1px solid #ccc; /* Adjust the border color as needed */
+    border-radius: 20px; /* Adjust the border radius as needed */
+    background-color: #f8f8f8; /* Adjust the background color as needed */
+  }
+  
+  .choices select:focus {
+    outline: none;
+    border-color: #007bff; /* Adjust the focus border color as needed */
+  }
