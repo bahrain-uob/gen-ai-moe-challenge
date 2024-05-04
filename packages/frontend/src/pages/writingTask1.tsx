@@ -26,10 +26,9 @@ function WritingTask1Page() {
   //initialize the websocket
   const {
     sendMessage,
-    readyState,
   } = useWebSocket(socketUrl, {
-    onOpen: () => console.log('opened', readyState),
-    onClose: () => console.log('closed', readyState),
+    onOpen: (event) => console.log('opened', event),
+    onClose: (event) => console.log('closed', event),
     onMessage: (e) => {
       
       console.log('message', e);
@@ -37,8 +36,8 @@ function WritingTask1Page() {
         console.log('message', e.data);
         setGrading(JSON.parse(e.data));
       }
-    }
-
+    },
+    shouldReconnect: () => true,
   });
 
   const handleSubmit = async (e: FormEvent) => {
