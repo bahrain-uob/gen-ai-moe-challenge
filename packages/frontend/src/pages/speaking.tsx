@@ -81,10 +81,14 @@ const YourComponent: React.FC = () => {
         setAudioURL(URL.createObjectURL(blob));
 
         const response = await toJSON(
-          get({
+          post({
             apiName: 'myAPI',
             path: '/generate-presigned-url',
             options: {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
               body: {
                 fileName: audioFileName,
                 fileType: blob.type,
@@ -92,7 +96,7 @@ const YourComponent: React.FC = () => {
             },
           }),
         );
-        const presignedUrl = response.data.url;
+        const presignedUrl = response.url;
 
         await axios.put(presignedUrl, blob, {
           headers: {
@@ -108,17 +112,14 @@ const YourComponent: React.FC = () => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
+              body: {
                 audioFileName,
                 question,
-              }),
+              },
             },
           }),
         ).then(response => {
-          response.json().then((body: any) => {
-            console.log(body);
-            setFeedback(body);
-          });
+          setFeedback(response);
         });
       }); // end `stopRecording`
     }
