@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const SpeakingExercises: React.FC = () => {
   return (
-    <div className="flex justify-center items-center h-screen bg-[#A6D8DD]">
+    <div className="flex justify-center items-center h-screen bg-[#AAAAAA]">
       {' '}
       {/* Changed background color */}
       <div className="flex w-full max-w-6xl mx-auto">

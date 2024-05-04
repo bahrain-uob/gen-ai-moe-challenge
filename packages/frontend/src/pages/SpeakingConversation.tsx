@@ -87,12 +87,12 @@ const YourComponent: React.FC = () => {
       const questionText = await toJSON(
         get({
           apiName: 'myAPI',
-          path: '/question/SpeakingP1',
+          path: '/question/SpeakingP2P3',
         }),
       );
-      setQuestion(questionText.Questions[0].text);
+      setQuestion(questionText.QuestionsP2[0].S);
       setShowGetQuestion(false);
-      narrateQuestion(questionText.Questions[0].S3key);
+      narrateQuestion(questionText.QuestionsP2[0].S3key);
       setShowQuestionTimer(true);
       setQuestionTimerCount(20); // Reset the timer
     } catch (error) {
@@ -248,7 +248,7 @@ const YourComponent: React.FC = () => {
       {feedback && (
         <div className="feedback">
           <div
-            className="feedback-bar bg-blue-200 text-sm text-center p-4 mb-4 cursor-pointer"
+            className="feedback-bar bg-green-200 text-sm text-center p-4 mb-4 cursor-pointer"
             onClick={() => setShowFeedback1(!showFeedback1)}
           >
             Fluency and Coherence
@@ -276,7 +276,7 @@ const YourComponent: React.FC = () => {
             </div>
           )}
           <div
-            className="feedback-bar bg-yellow-200 text-sm text-center p-4 mb-4 cursor-pointer"
+            className="feedback-bar bg-green-200 text-sm text-center p-4 mb-4 cursor-pointer"
             onClick={() => setShowFeedback3(!showFeedback3)}
           >
             Grammatical Range and Accuracy

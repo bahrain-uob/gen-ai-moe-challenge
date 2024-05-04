@@ -96,9 +96,10 @@ const YourComponent: React.FC = () => {
           path: '/question/SpeakingP1',
         }),
       );
-      setQuestion(questionText.Questions[0].text);
+      const randomIndex = Math.floor(Math.random() * 3);
+      setQuestion(questionText.Questions[randomIndex].text);
       setShowGetQuestion(false);
-      narrateQuestion(questionText.Questions[0].S3key);
+      narrateQuestion(questionText.Questions[randomIndex].S3key);
       setShowQuestionTimer(true);
       setQuestionTimerCount(20);
     } catch (error) {
@@ -184,7 +185,7 @@ const YourComponent: React.FC = () => {
 
   return (
     <div className="container mx-auto text-center mt-8">
-      <h2 className="text-3xl mb-4">Speaking Conversation Assessment</h2>
+      <h2 className="text-3xl mb-4">Speaking Long Question Assessment</h2>
       <img
         src={agentImage}
         alt="Agent"
@@ -255,9 +256,7 @@ const YourComponent: React.FC = () => {
         extractFeedbackSections(feedback.Feedback).map((section, index) => (
           <div key={index}>
             <div
-              className={`feedback-bar bg-${
-                index === 0 ? 'blue' : index === 1 ? 'green' : 'yellow'
-              }-200 text-sm text-center p-4 mb-4 cursor-pointer`}
+              className="feedback-bar bg-blue-200 text-sm text-center p-4 mb-4 cursor-pointer"
               onClick={() => {
                 if (index === 0) setShowFeedback1(!showFeedback1);
                 if (index === 1) setShowFeedback2(!showFeedback2);
@@ -273,11 +272,7 @@ const YourComponent: React.FC = () => {
             {(index === 0 && showFeedback1) ||
             (index === 1 && showFeedback2) ||
             (index === 2 && showFeedback3) ? (
-              <div
-                className={`feedback-content p-4 mb-4 bg-${
-                  index === 0 ? 'blue' : index === 1 ? 'green' : 'yellow'
-                }-100`}
-              >
+              <div className="feedback-content p-4 mb-4 bg-blue-100">
                 {section}
               </div>
             ) : null}
