@@ -7,6 +7,9 @@ const sections = () => (
     <div className="py-32">
       <h4 className="text-xl mb-4"> Better pages </h4>
       <div className="flex">
+        <Link to="/_writing-task1">
+          <Button label="Writing Task 1" />
+        </Link>
         <Link to="/_writing-task2">
           <Button label="Writing Task 2" />
         </Link>
