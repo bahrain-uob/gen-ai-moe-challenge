@@ -33,10 +33,10 @@ function WritingTask1Page() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
+          body: {
             writingTask: 'Task 1',
             ...inputs,
-          }),
+          },
         },
       }),
     );
@@ -129,14 +129,15 @@ function WritingTask1Page() {
         />
         <br />
 
-        <h4>Feedback</h4>
-
-        {gradingElement}
-        <br />
-
         <button type="submit"> Submit </button>
       </form>
 
+      <br />
+
+      <h4>Feedback</h4>
+
+      {gradingElement}
+    
       {/* <Link to="/"> Link back to root </Link> */}
     </>
   );

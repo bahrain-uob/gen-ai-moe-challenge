@@ -37,10 +37,10 @@ function WritingTask2Page() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
+          body: {
             writingTask: 'Task 1',
             ...inputs,
-          }),
+          },
         },
       }),
     );
@@ -55,7 +55,7 @@ function WritingTask2Page() {
 
   const pStyling: CSSProperties = { whiteSpace: 'pre-line' };
 
-  
+
   let grammarMistakes = null;
   if (grading && grading['Grammer Tool Feedback']) {
     grammarMistakes = grading['Grammer Tool Feedback'].map((mistake, index) => {
