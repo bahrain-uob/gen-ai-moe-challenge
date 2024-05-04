@@ -5,6 +5,7 @@ import { ApiStack } from './stacks/ApiStack';
 import { ImageBuilderForCodeCatalyst } from './stacks/devops/ImageBuilderForCodeCatalyst';
 import { OIDCForGitHubCI } from './stacks/devops/OIDCForGitHubCI';
 import { AuthStack } from './stacks/AuthStack';
+import { GrammarToolStack } from './stacks/GrammarToolStack';
 
 export default {
   config(_input) {
@@ -24,7 +25,12 @@ export default {
     } else if (app.stage == 'devops-gh') {
       app.stack(OIDCForGitHubCI);
     } else {
-      app.stack(AuthStack).stack(DBStack).stack(ApiStack).stack(FrontendStack);
+      app
+        .stack(AuthStack)
+        .stack(DBStack)
+        .stack(GrammarToolStack)
+        .stack(ApiStack)
+        .stack(FrontendStack);
     }
   },
 } satisfies SSTConfig;

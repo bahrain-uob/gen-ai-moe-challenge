@@ -3,34 +3,13 @@ import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 import { AuthStack } from './AuthStack';
+import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  
   const { table, questions_table, uploads_bucket, feedback_table, myTable } =
     use(DBStack);
   const { auth } = use(AuthStack);
-
-  //Create the GrammerCheckerTool Service
-    const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
-    path: 'packages/functions/src/docker-languagetool',
-    port: 8010,
-    // dev: {
-    //   deploy: true   //Uncomment to deploy the service while in dev mode
-    // },
-    cdk: {
-      cloudfrontDistribution: false,
-      applicationLoadBalancerTargetGroup: {
-        healthCheck: {
-          path: "/v2/languages",
-
-        },
-
-      },
-    },
-  });
-  const grammerToolDNS =
-    GrammerCheckerTool.cdk?.applicationLoadBalancer?.loadBalancerDnsName ??
-    'undefined DNS';
+  const { grammerToolDNS } = use(GrammarToolStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
