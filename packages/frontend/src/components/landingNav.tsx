@@ -13,18 +13,19 @@ const landingNav = () => {
             <img className="w-16" src="assets/Logo.png" />
           </Link>
 
-          <Link className={tmp} to="">
+          <Link className={tmp + 'max-md:hidden'} to="">
             <div>About</div>
           </Link>
-          <Link className={tmp} to="">
+          <Link className={tmp + 'max-md:hidden'} to="">
             <div>How to use</div>
           </Link>
-          <Link className={tmp + 'ml-auto'} to="">
+          <Link className={tmp + 'max-md:hidden ml-auto'} to="">
             <div>Sign in</div>
           </Link>
-        </div>
-        <div className="hidden max-lg:block">
-          <img src="assets/hamburger.svg" width={25} height={25} />
+
+          <Link className={tmp + 'md:hidden ml-auto'} to="">
+            <img className="w-6" src="assets/hamburger.svg" />
+          </Link>
         </div>
       </nav>
     </header>
