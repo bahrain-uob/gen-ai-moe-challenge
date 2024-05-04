@@ -4,6 +4,7 @@ import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk
 
 const badRequest = {
   statusCode: 400,
+  body: 'Bad Request',
 };
 
 export const main: APIGatewayProxyHandler = async event => {
