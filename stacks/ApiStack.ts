@@ -9,7 +9,7 @@ export function ApiStack({ stack }: StackContext) {
   const { table, questions_table, uploads_bucket, feedback_table, myTable } =
     use(DBStack);
   const { auth } = use(AuthStack);
-  const { grammerToolDNS } = use(GrammarToolStack);
+  const { grammarToolDNS } = use(GrammarToolStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -44,7 +44,7 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/languageTool.main',
           environment: {
-            grammerToolDNS: grammerToolDNS,
+            grammerToolDNS: grammarToolDNS,
           },
         },
       },
@@ -84,7 +84,7 @@ export function ApiStack({ stack }: StackContext) {
           permissions: ['bedrock:InvokeModel'],
           timeout: '60 seconds',
           environment: {
-            grammerToolDNS: grammerToolDNS,
+            grammerToolDNS: grammarToolDNS,
           },
         },
       }, //testing bedrock api for writing
