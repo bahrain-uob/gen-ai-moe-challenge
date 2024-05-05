@@ -1,10 +1,11 @@
-const Button = ({ label }: { label: string }) => {
-    return (
-      <button className="flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none rounded-full  
-                        bg-[#575553] text-white border-[#575553]">
-        {label}
-      </button>
-    )
-  }
-  
-  export default Button;
+const Button = ({ label, tag }: { label: string; tag: string }) => {
+  return (
+    <button
+      className={`flex justify-center items-center gap-2 px-7 py-4 font-montserrat text-lg leading-none bg-[#${tag}] rounded-full font-bold font-semi w-1/2`}
+    >
+      <p className="text-white max-sm:text-sm">{label}</p>
+    </button>
+  );
+};
+
+export default Button;

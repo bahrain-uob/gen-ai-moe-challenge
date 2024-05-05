@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
 import WritingTask1Page from './pages/writingTask1.tsx';
 import WritingTask2Page from './pages/writingTask2.tsx';
-import ReadingQuestions from './ReadingQuestions.tsx';
+import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
@@ -17,8 +17,9 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-
+import FullExam from './pages/fullExam.tsx'
 import { fetchAuthSession } from 'aws-amplify/auth';
+import FeedbackPage from './pages/FeedbackPage.tsx';
 
 Amplify.configure(
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
     Component: ReadingQuestions,
   },
   {
+    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: FeedbackPage,
+  },
+  {
     path: '/speaking',
     Component: Speaking,
   },
@@ -110,6 +115,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-in',
     Component: SignIn,
+  },
+  {
+    path: '/full-exam',
+    Component: FullExam,
   },
 ]);
 // TODO: handle not found pages

@@ -1,0 +1,391 @@
+body {
+    background-color: rgb(250, 242, 242);
+  }
+   
+  /*Listening Exam Bar */
+  .Listening-Header {
+    position: fixed;
+    top: 50px; /* Adjust the top value to place it below the ExamsHeader */
+    left: 0;
+    width: 100%; /* Adjust as needed */
+    height: 5%;
+    padding: 10px; /* Adjust padding as needed */
+    background-color: rgb(250, 242, 242);
+    z-index: 998; /* Ensure it appears below ExamsHeader but above other content */
+  }
+   
+  /*EXAM HEADER CSS */
+   
+  .exam-header {
+    position: fixed;
+    display: flex;
+   
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    background-color: #3b828e;
+    z-index: 999; /* Ensure the header is above other content */
+  }
+   
+  .remaining-time {
+    size: 40px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin: 20px;
+   
+    font-weight: bold;
+  }
+   
+  .header-button-container {
+    margin-left: auto; /* Push the button to the right */
+  }
+   
+  .submit-test-button {
+    background-color: #c9c3bb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+   
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+   
+  /*FOOTER CSS*/
+   
+  .exam-Footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    background-color: rgb(250, 242, 242);
+    z-index: 999;
+    padding: 10px;
+  }
+   
+  .button-footer {
+    display: inline-block;
+    padding: 10px 40px;
+    margin: 5px;
+   
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+    color: #3b828e;
+    border: 1px solid #c9c3bb;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+  }
+   
+  .button-footer:hover {
+    border: 1px solid #3b828e;
+  }
+   
+  .Listening-Questions-Part {
+    margin-top: 20px;
+  }
+   
+  .button-footer.active {
+    border: 2px solid #3b828e;
+  }
+   
+  /*MODAL SUBMIT CSS */
+   
+  .modal-overlay {
+    position: fixed; /* Position fixed to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center;
+    align-items: center;
+  }
+   
+  .modal-content {
+    background-color: rgb(224, 225, 231); /* Light blue background */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Drop shadow */
+    display: block;
+  }
+  .practice-modal-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: flex-end; /* Align close button to the right */
+  }
+   
+  .modal-main p {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+  }
+   
+  .modal-main {
+    width: 100%;
+    text-align: center;
+    border: none;
+  }
+   
+  .modal-footer {
+    align-items: center;
+    width: 100%;
+  }
+   
+  /* Styles for the start test button */
+   
+  .modal-submit-test-button {
+    padding: 10px 20px;
+    background-color: #3b828e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+   
+    margin: 10px;
+  }
+   
+  .modal-submit-test-button:hover {
+    background-color: #afa8a0;
+  }
+   
+  .cancel-test-button {
+    padding: 10px 20px;
+    color: rgb(48, 48, 75); /* Navy button color */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+  }
+   
+  /*section exam modal css */
+   
+  /* Styles for the container */
+  .SectionExamModalContainer {
+    padding: 20px;
+    width: 35%;
+    height: 40%;
+    border-radius: 5px;
+    margin: 20px;
+   
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* Apply Roboto font to the container */
+    background-color: rgb(250, 242, 242);
+    color: #3b828e;
+  }
+   
+  .SectionExamModalHeader {
+    text-align: end;
+  }
+   
+  .SectionExamModalDetails {
+    text-align: left;
+    margin: 0 auto;
+    width: 25%;
+    line-height: 0.5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+   
+  .parts {
+    font-weight: bold;
+  }
+   
+  .select-time {
+    color: rgb(48, 48, 75);
+    font-weight: bold;
+  }
+   
+  .choose-time {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .choose-time select {
+    margin-right: 10px;
+  }
+   
+  /* Styles for the start test button */
+  .start-test-button {
+    margin-top: 20px;
+    padding: 10px 70px;
+    background-color: #3b828e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+  }
+   
+  .start-test-button:hover {
+    background-color: #afa8a0;
+  }
+   
+  .select-time {
+    appearance: none;
+    padding: 8px 12px;
+    width: 10rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: grey;
+    text-align: center;
+  }
+   
+  /* Style the dropdown arrow */
+  .select-time::after {
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+   
+  /* Style when select is focused */
+  .select-time:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 3px #007bff; /* Add box shadow when focused */
+  }
+   
+  /* Style options */
+  .select-time option {
+    background-color: #fff; /* Set background color */
+    color: #333; /* Set text color */
+  }
+   
+  /* Style when select is disabled */
+  .select-time:disabled {
+    opacity: 0.5; /* Reduce opacity */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+  }
+   
+  .passage-content {
+    text-align: center;
+  }
+  .passage-title {
+    text-align: center;
+  }
+  .passage {
+    margin: 20px;
+  }
+  .Reading-Questions-Part p {
+    margin: 20px;
+  }
+   
+  /*FEED BACK CSS */
+   
+  .feedback-div {
+    flex: 0 1 calc(50% - 40px); /* Set flex basis to 50% minus the total space for margins */
+    margin: 30px;
+    margin-top: 80px;
+    border: 1px solid #ccc; /* Optional: add border for visual separation */
+    background-color: #fbf9f1;
+    overflow-y: auto;
+    height: 80vh;
+    box-sizing: border-box; /* Include border and padding in the width calculation */
+  }
+   
+  .feedback-content {
+    margin: 20px;
+    color: rgb(64, 64, 64);
+    padding: 20px;
+    background-color: #fbf9f1;
+    border-radius: 8px;
+  }
+  .feedback-content h1 {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .feedback-info{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom:70px ;
+  }
+  
+  .score-info {
+    display: flex;
+    align-items: center;
+    height: 100%; /* Ensure the parent container has a defined height */
+  }
+  .score-info h3 {
+    margin-top: 23px;
+    margin-left: 5px;
+  }
+  .time-info {
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    height: 100%; /* Ensure the parent container has a defined height */
+  }
+  .time-info h3 {
+    margin-top: 23px;
+    margin-left: 5px;
+  }
+   
+  table {
+    width: 100%;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+   
+  tr:hover {
+    background-color: #ddd;
+  }
+   
+  .PracticeModalContainer {
+    padding: 20px;
+    width: 35%;
+    height: 40%;
+    border-radius: 5px;
+    margin: 20px;
+   
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* Apply Roboto font to the container */
+    background-color: rgb(250, 242, 242);
+    color: #3b828e;
+  }
+   
+  .reading-part-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px; /* Optional: Add some spacing between reading parts */
+  }
+   
+  .Passage {
+    width: 50%; /* Adjust the width of the passage */
+  }
+   
+  .Questions {
+    width: 50%; /* Adjust the width of the questions */
+  }
+   
+  .question-container {
+    margin-right: 20px; /* Optional: Add some spacing between questions */
+  }
