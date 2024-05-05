@@ -1,13 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import CollapsableCard from '../components/collapsableCard';
-import { post } from 'aws-amplify/api';
-import { WritingGrading, toJSON } from '../utilities';
-=======
 import { WritingGrading } from '../utilities';
 import useWebSocket from 'react-use-websocket';
->>>>>>> main
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
