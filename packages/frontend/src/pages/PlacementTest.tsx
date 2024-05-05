@@ -9,6 +9,8 @@ const PlacementTest = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentSection, setCurrentSection] = useState(1);
+  const [score, setScore] = useState(0);
+  let end = false;
 
   interface Option {
     id: number;
@@ -156,8 +158,8 @@ const PlacementTest = () => {
         options: [
           { id: 0, text: 'you are hungry', isCorrect: false },
           { id: 1, text: "you wouldn't eat", isCorrect: false },
-          { id: 2, text: 'you will be hungry', isCorrect: false },
-          { id: 3, text: 'you shouldn’t eat', isCorrect: true },
+          { id: 2, text: 'you will be hungry', isCorrect: true },
+          { id: 3, text: 'you shouldn’t eat', isCorrect: false },
         ],
       },
     ],
@@ -166,11 +168,17 @@ const PlacementTest = () => {
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
 
   const optionClicked = (text: string) => {
+    const currentSectionQuestions = sections[currentSection - 1];
+    const currentQuestionObj = currentSectionQuestions[currentQuestion];
     const correctAnswer =
-      sections[currentSection - 1][currentQuestion].options.find(
-        option => option.isCorrect,
-      )?.text || '';
-    const question = sections[currentSection - 1][currentQuestion].text;
+      currentQuestionObj.options.find(option => option.isCorrect)?.text || '';
+    const question = currentQuestionObj.text;
+
+    const isCorrect = text === correctAnswer;
+
+    if (isCorrect) {
+      setScore(prevScore => prevScore + 1); // Increment score if the answer is correct
+    }
 
     setSectionSummary(prev => [
       ...prev,
@@ -179,10 +187,11 @@ const PlacementTest = () => {
         question,
         chosen: text,
         correct: correctAnswer,
+        isCorrect,
       },
     ]);
 
-    if (currentQuestion + 1 < sections[currentSection - 1].length) {
+    if (currentQuestion + 1 < currentSectionQuestions.length) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowFeedback(true);
@@ -192,10 +201,12 @@ const PlacementTest = () => {
   const handleNextSection = () => {
     if (currentSection + 1 <= sections.length) {
       setCurrentSection(currentSection + 1); // Move to the next section
+      setScore(0);
       setCurrentQuestion(0); // Start from the first question
       setSectionSummary([]); // Clear the summary array
       setShowFeedback(false); // Hide the feedback section
     } else {
+      end = true;
     }
   };
 
@@ -217,9 +228,13 @@ const PlacementTest = () => {
                 </div>
               </div>
             ))}
-            <div className="w-1/2" onClick={handleNextSection}>
-              <Button label="Next Section" tag="3B828E" />
-            </div>
+            
+            {score >= 5 && !end ? (
+              <div className="w-1/2" onClick={handleNextSection}><Button label="Next Section" tag="3B828E"/></div>
+            ) : (
+              <div><Button label="Show Result" tag="3B828E" /></div>
+            )}
+            
           </div>
         ) : (
           <div className="w-1/2 flex flex-col items-center rounded-xl">
