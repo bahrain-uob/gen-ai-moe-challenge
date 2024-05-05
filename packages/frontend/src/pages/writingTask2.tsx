@@ -32,14 +32,15 @@ function WritingTask2Page() {
     } = useWebSocket(socketUrl, {
       onOpen: (event) => console.log('opened', event),
       onClose: (event) => console.log('closed', event),
-      onMessage: (e) => {
-        
-        console.log('message', e);
-        if(JSON.parse(e.data)['Coherence & Cohesion']){
-          console.log('message', e.data);
-          setGrading(JSON.parse(e.data));
+      onMessage: e => {
+        console.log('event', e);
+        const response = JSON.parse(e.data);
+        console.log('message', response);
+        if (response['Coherence & Cohesion']) {
+          setGrading(response);
         }
       },
+      onError: console.log,
       shouldReconnect: () => true,
     });
 

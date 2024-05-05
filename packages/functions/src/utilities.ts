@@ -2,9 +2,29 @@ import {
   BedrockRuntime,
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 
-const client = new BedrockRuntime();
 
+/** Helper function for returning websocket errors */
+export async function wsError(
+  apiClient: ApiGatewayManagementApiClient,
+  connectionId: string | undefined,
+  code: number,
+  message: string,
+) {
+  const command = new PostToConnectionCommand({
+    ConnectionId: connectionId,
+    Data: JSON.stringify({ statusCode: code, error: message }),
+  });
+  await apiClient.send(command);
+  return {
+    statusCode: code,
+    body: JSON.stringify(message),
+  };
+}
 export interface Rubric {
   'Coherence & Cohesion': string;
   'Grammatical Range & Accuracy': string;
@@ -15,6 +35,9 @@ export interface Rubric {
 
 /** Runs Titan Model for the given prompt and returns its output */
 export async function runModel(prompt: string) {
+
+  const client = new BedrockRuntime();
+
   // Model parameters
   const modelParams = {
     inputText: prompt,

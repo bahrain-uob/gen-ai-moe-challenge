@@ -4,24 +4,8 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
+import { wsError } from './utilities';
 
-/** Helper function for returning websocket errors */
-async function wsError(
-  apiClient: ApiGatewayManagementApiClient,
-  connectionId: string | undefined,
-  code: number,
-  message: string,
-) {
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify({ statusCode: code, error: message }),
-  });
-  await apiClient.send(command);
-  return {
-    statusCode: code,
-    body: JSON.stringify(message),
-  };
-}
 
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
