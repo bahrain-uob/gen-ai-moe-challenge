@@ -12,7 +12,6 @@ const PlacementTest = () => {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [sectionScore, setSectionScore] = useState(0);
-  let end = false;
 
   interface Option {
     id: number;
@@ -208,11 +207,10 @@ const PlacementTest = () => {
       setCurrentQuestion(0); // Start from the first question
       setSectionSummary([]); // Clear the summary array
       setShowFeedback(false); // Hide the feedback section
-    } else {
-      end = true;
     }
   };
   const handleResult = () => {
+    if (score >=5) {setSectionScore(sectionScore + 1);}
     setShowResult(true);
   };
 
@@ -222,6 +220,7 @@ const PlacementTest = () => {
       {showResult? (
       <section className="w-full flex items-center h-1/3 flex-col gap-y-36">
           <div className="w-1/2 flex flex-col gap-10">
+            <h3>{score}</h3>
             <h3>{sectionScore}</h3>
           </div>
         </section>
@@ -242,7 +241,7 @@ const PlacementTest = () => {
               </div>
             ))}
             
-            {score >= 5 && !end ? (
+            {score >= 5 && currentSection + 1 <= sections.length ? (
               <div className="w-1/2" onClick={handleNextSection}><Button label="Next Section" tag="3B828E"/></div>
             ) : (
               <div className="w-1/2" onClick={handleResult}><Button label="Show Result" tag="3B828E" /></div>
