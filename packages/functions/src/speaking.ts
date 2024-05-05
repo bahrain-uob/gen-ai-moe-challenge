@@ -17,6 +17,7 @@ const feedbackTableName = process.env.feedbackTableName;
 
 const missPronunciations: string[] = [];
 let pronunciationScore: number;
+let pronunciationFeedbackString: string;
 
 type rubricType = {
   [key: string]: string;
@@ -86,16 +87,16 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     ) / 2;
 
   // Combine all feedback into one string
-  const combinedFeedback = feedbackResults.join('\n\n');
+  let combinedFeedback = feedbackResults.join('\n\n');
+  combinedFeedback = combinedFeedback.concat(pronunciationFeedbackString);
 
   // Log each feedback result and the average score
   feedbackResults.forEach((feedback, index) => {
     console.log(`${criterias[index]}: ${feedback}\n\n`);
   });
-  console.log(`Pronunciation:\nScore: ${pronunciationScore}`);
-  console.log(`Feedback:\nMispronounced Words: ${missPronunciations}`);
+  console.log(pronunciationFeedbackString);
 
-  console.log(`Average Score: ${averageScore.toFixed(2)}`);
+  console.log(`\n\nAverage Score: ${averageScore.toFixed(2)}`);
 
   const output = {
     Score: averageScore.toFixed(2),
@@ -183,6 +184,10 @@ async function retrieveTranscript(audioFileName: string) {
       }
     }
     pronunciationScore = Math.floor((correctPron / countOfWords) * 9);
+    pronunciationFeedbackString = pronunciationFeedback(
+      pronunciationScore,
+      missPronunciations,
+    );
     return transcribeResults.transcripts[0].transcript as string;
   }
 }
@@ -209,6 +214,17 @@ async function storeFeedback(
   } catch (error) {
     console.log('Error storing result');
   }
+}
+
+/** This function formulates the feedback string for the mispronuncitions in the user's response */
+function pronunciationFeedback(score: number, misses: string[]) {
+  const base = `\nPronunciation:\nScore: ${score}\n\nFeedback: `;
+  if (score < 9) {
+    return base.concat(
+      `There are some mispronunciations like ${misses.toString()}.`,
+    );
+  }
+  return base.concat('There are no mispronunciations.');
 }
 
 const rubric: rubricType = {
