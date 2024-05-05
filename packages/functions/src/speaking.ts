@@ -218,7 +218,7 @@ async function storeFeedback(
 
 /** This function formulates the feedback string for the mispronuncitions in the user's response */
 function pronunciationFeedback(score: number, misses: string[]) {
-  const base = `\nPronunciation:\nScore: ${score}\n\nFeedback: `;
+  const base = `\nScore: ${score}\n\nFeedback: `;
   if (score < 9) {
     return base.concat(
       `There are some mispronunciations like ${misses.toString()}.`,
