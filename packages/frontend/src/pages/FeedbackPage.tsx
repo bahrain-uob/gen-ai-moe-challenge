@@ -4,8 +4,7 @@ import 'react-circular-progressbar/dist/styles.css';
 //import { FaTimes, FaCheck } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
-
+import { get } from 'aws-amplify/api';
 
 export default function FeedbackPage() {
   const { section, sk } = useParams<{ section: string | undefined; sk: string | undefined }>();
@@ -15,7 +14,7 @@ export default function FeedbackPage() {
     if (!section || !sk) return;
 
     toJSON(
-      post({
+      get({
         apiName: 'myAPI',
         path: `/scores/${section}/${sk}`,
       }),
