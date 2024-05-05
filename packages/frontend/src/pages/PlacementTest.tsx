@@ -95,9 +95,14 @@ const PlacementTest = () => {
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
 
   const optionClicked = (text: string) => {
-    const correctAnswer = section1[currentQuestion].options.find(option => option.isCorrect)?.text || "";
+    const correctAnswer =
+      section1[currentQuestion].options.find(option => option.isCorrect)
+        ?.text || '';
     const question = section1[currentQuestion].text;
-    setSectionSummary(prev => [...prev, { question, chosen: text, correct: correctAnswer }]);
+    setSectionSummary(prev => [
+      ...prev,
+      { question, chosen: text, correct: correctAnswer },
+    ]);
 
     if (currentQuestion + 1 < section1.length) {
       setCurrentQuestion(currentQuestion + 1);
@@ -112,22 +117,22 @@ const PlacementTest = () => {
       <section className="w-full flex items-center h-1/3 flex-col gap-y-36">
         {showFeedback ? (
           <div className="w-1/2 flex flex-col gap-10">
-          <div>
-            <h1 className="text-4xl font-bold">Section Result</h1>
-          </div>
-          {sectionSummary.map((summary, index) => (
-            <div key={index}>
-              <div>
-                <h2 className="text-2xl font-semibold">{summary.question}</h2>
-                <h4 className="text-lg">Your Choice: {summary.chosen}</h4>
-                <h4 className="text-lg">Correct Answer: {summary.correct}</h4>
-              </div>
+            <div>
+              <h1 className="text-4xl font-bold">Section Result</h1>
             </div>
-          ))}
-          <div className="w-1/2">
-            <Button label="Next Section" tag="3B828E" />
+            {sectionSummary.map((summary, index) => (
+              <div key={index}>
+                <div>
+                  <h2 className="text-2xl font-semibold">{summary.question}</h2>
+                  <h4 className="text-lg">Your Choice: {summary.chosen}</h4>
+                  <h4 className="text-lg">Correct Answer: {summary.correct}</h4>
+                </div>
+              </div>
+            ))}
+            <div className="w-1/2">
+              <Button label="Next Section" tag="3B828E" />
+            </div>
           </div>
-        </div>        
         ) : (
           <div className="w-1/2 flex flex-col items-center rounded-xl">
             <h3 className="font-bold text-4xl pb-12">
@@ -136,7 +141,11 @@ const PlacementTest = () => {
             <div className="flex flex-row w-full flex-wrap justify-between">
               {section1[currentQuestion].options.map(option => {
                 return (
-                  <div key={option.id} className={optionsStyle} onClick={() => optionClicked(option.text)}>
+                  <div
+                    key={option.id}
+                    className={optionsStyle}
+                    onClick={() => optionClicked(option.text)}
+                  >
                     {option.text}
                   </div>
                 );
