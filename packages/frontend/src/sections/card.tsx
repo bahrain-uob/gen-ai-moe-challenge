@@ -25,7 +25,7 @@ const card = () => {
                 </div>
             </div>
                 <label className='text-white text-xl pl-1'><input type='checkbox'></input> Remember Me</label>
-                <Link to="/home"><div className='pt-6'><Button label='Sign In'/></div></Link>
+                <Link to="/home"><div className='pt-6'><Button label='Sign In' tag='FFFFFF'/></div></Link>
                 <p className='text-white text-decoration-line: underline'>Forget Password?</p>
 
             

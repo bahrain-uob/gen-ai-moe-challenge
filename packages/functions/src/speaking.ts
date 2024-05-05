@@ -80,8 +80,11 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   const validScores = scores.filter(score => !isNaN(score));
   const averageScore =
-    validScores.reduce((acc, score) => acc + score, 0) /
-    (validScores.length || 1);
+    Math.round(
+      (validScores.reduce((acc, score) => acc + score, 0) /
+        (validScores.length || 1)) *
+        2,
+    ) / 2;
 
   // Combine all feedback into one string
   const combinedFeedback = feedbackResults.join('\n\n');

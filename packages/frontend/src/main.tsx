@@ -13,9 +13,16 @@ import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
+import Exercises from './pages/Exercises.tsx';
+import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
+import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
+import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
+import FullExam from './pages/fullExam.tsx'
 import { fetchAuthSession } from 'aws-amplify/auth';
 import Polly from './pages/Polly.tsx';
 import FeedbackPage from './pages/FeedbackPage.tsx';
+import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
+import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 
 
 Amplify.configure(
@@ -81,6 +88,10 @@ const router = createBrowserRouter([
     Component: Speaking,
   },
   {
+    path: '/Exercises',
+    Component: Exercises,
+  },
+  {
     path: '/home',
     Component: Home,
   },
@@ -89,8 +100,29 @@ const router = createBrowserRouter([
     Component: Sections,
   },
   {
+    path: '/SpeakingExercises',
+    Component: SpeakingExercisesPage,
+  },
+  {
+    path: '/SpeakingLongQuestion',
+    Component: SpeakingLongQuestionPage,
+  },
+  {
+    path: '/SpeakingConversation',
+    Component: SpeakingConversationPage,
+  },
+
+  {
     path: '/writing-task2',
     Component: WritingTask2Page,
+  },
+  {
+    path: '/_writing-task1',
+    Component: WritingTask1Page_,
+  },
+  {
+    path: '/_writing-task2',
+    Component: WritingTask2Page_,
   },
   {
     path: '/sign-up',
@@ -99,6 +131,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-in',
     Component: SignIn,
+  },
+  {
+    path: '/full-exam',
+    Component: FullExam,
   },
 ]);
 // TODO: handle not found pages

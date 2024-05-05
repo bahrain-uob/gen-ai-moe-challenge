@@ -3,7 +3,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 //import { FaTimes, FaCheck } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-
+import { toJSON } from '../utilities';
+import { get } from 'aws-amplify/api';
 
 export default function FeedbackPage() {
   const { section, sk } = useParams<{ section: string | undefined; sk: string | undefined }>();
@@ -12,9 +13,12 @@ export default function FeedbackPage() {
   useEffect(() => {
     if (!section || !sk) return;
 
-    const url = `${import.meta.env.VITE_API_URL}/scores/${section}/${sk}`;
-    fetch(url)
-      .then(response => response.json())
+    toJSON(
+      get({
+        apiName: 'myAPI',
+        path: `/scores/${section}/${sk}`,
+      }),
+    )
       .then(data => {
         setData(data);
         console.log("data: ",data);
