@@ -1,5 +1,6 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
+import CollapsableCard from '../components/collapsableCard';
 import { WritingGrading } from '../utilities';
 import useWebSocket from 'react-use-websocket';
 
@@ -56,6 +57,31 @@ function WritingTask1Page() {
 
   const pStyling: CSSProperties = { whiteSpace: 'pre-line' };
 
+    
+  let grammarMistakes = null;
+  if (grading && grading['Grammer Tool Feedback']) {
+    grammarMistakes = grading['Grammer Tool Feedback'].map((mistake, index) => {
+      const context = mistake.context.text;
+      const before = context.substring(0, mistake.context.offset);
+      const inner = context.substring(mistake.context.offset, mistake.context.offset + mistake.context.length);
+      const after = context.substring(mistake.context.offset + mistake.context.length);
+
+      const title = (
+        <>
+          <span>{before.trim()} </span>
+          <span className="bg-yellow-300">{inner.trim()}</span>
+          <span> {after.trim()}</span>
+        </>
+      );
+
+      return (
+        <CollapsableCard title={title} key={index}>
+          {JSON.stringify(mistake)}
+        </CollapsableCard>
+      );
+    });
+  }
+
   const gradingElement = grading ? (
     <>
       <h5>Coherence & Cohesion</h5>
@@ -66,6 +92,8 @@ function WritingTask1Page() {
       <p style={pStyling}> {grading['Lexical Resource']} </p>
       <h5>Task Responce</h5>
       <p style={pStyling}> {grading['Task Responce']} </p>
+      <h5>Grammar Tool Feedback</h5>
+      {grammarMistakes? grammarMistakes : <p>No Mistakes Found</p>}
       <br />
       <br />
       <h5>Combined Feedback</h5>
@@ -107,14 +135,15 @@ function WritingTask1Page() {
         />
         <br />
 
-        <h4>Feedback</h4>
-
-        {gradingElement}
-        <br />
-
         <button type="submit"> Submit </button>
       </form>
 
+      <br />
+
+      <h4>Feedback</h4>
+
+      {gradingElement}
+    
       {/* <Link to="/"> Link back to root </Link> */}
     </>
   );
