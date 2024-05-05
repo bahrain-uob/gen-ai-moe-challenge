@@ -14,6 +14,8 @@ export interface WritingGrading {
   'Grammatical Range & Accuracy': string;
   'Lexical Resource': string;
   'Task Responce': string;
-  'Grammer Tool Feedback'?: Array<{message: string, context:{text:string, offset:number, length:number}}>;
+  'Grammer Tool Feedback'?: Array<{message: string,
+                                   context:{text:string, offset:number, length:number, }
+                                   [key: string] : any}>;
   'Combined Feedback': string;
 }
