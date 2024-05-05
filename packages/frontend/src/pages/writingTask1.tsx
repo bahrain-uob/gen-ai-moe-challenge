@@ -1,8 +1,7 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { WritingGrading } from './writingTask2';
 import { post } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
+import { WritingGrading, toJSON } from '../utilities';
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
@@ -32,10 +31,10 @@ function WritingTask1Page() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
+          body: {
             writingTask: 'Task 1',
             ...inputs,
-          }),
+          },
         },
       }),
     );
