@@ -23,7 +23,9 @@ const narrateQuestion = async (
     );
     setQuestionAudioURL(response.url); // Set the URL for the question audio
     const audio = new Audio(response.url);
-    audio.play();
+    audio
+      .play()
+      .catch(error => console.error('Error playing the audio:', error));
   } catch (error) {
     console.error('Error fetching question:', error);
   }
@@ -40,9 +42,9 @@ const extractFeedbackSections = (feedback: string) => {
   return scores.map(section => 'Score: ' + section.trim());
 };
 
-const YourComponent: React.FC = () => {
+export const SpeakingLongQuestionPage: React.FC = () => {
+  const [questionAudioURL, setQuestionAudioURL] = useState<string>('');
   const [question, setQuestion] = useState<string>('');
-  const [questionAudioURL, setQuestionAudioURL] = useState<string>(''); // New state for question audio URL
   const [recorder, setRecorder] = useState<RecordRTC | null>(null);
   const [audioURL, setAudioURL] = useState<string>('');
   const [recording, setRecording] = useState<boolean>(false);
@@ -56,17 +58,6 @@ const YourComponent: React.FC = () => {
   const [showAnswerTimer, setShowAnswerTimer] = useState<boolean>(false);
   const [answerTimerCount, setAnswerTimerCount] = useState<number>(30);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-
-  const getQueryParameter = (param: string): string => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param) || ''; // Return an empty string if the parameter is not found
-  };
-  useEffect(() => {
-    const indexString = getQueryParameter('index');
-    const index = indexString ? parseInt(indexString, 10) : 0; // Use 0 as a fallback if indexString is empty
-    setCurrentQuestionIndex(index);
-  }, []);
 
   useEffect(() => {
     let questionTimer: any;
@@ -109,17 +100,18 @@ const YourComponent: React.FC = () => {
       const questionText = await toJSON(
         get({
           apiName: 'myAPI',
-          path: `/question/SpeakingP2P3?index=${currentQuestionIndex}`,
+          path: '/question/SpeakingP1',
         }),
       );
-      setQuestion(questionText.QuestionsP3[currentQuestionIndex].text);
+      const randomIndex = Math.floor(Math.random() * 3);
+      setQuestion(questionText.Questions[randomIndex].text);
       setShowGetQuestion(false);
       narrateQuestion(
-        questionText.QuestionsP3[currentQuestionIndex].S3key,
+        questionText.Questions[randomIndex].S3key,
         setQuestionAudioURL,
       );
       setShowQuestionTimer(true);
-      setQuestionTimerCount(20); // Reset the timer
+      setQuestionTimerCount(20);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
@@ -201,17 +193,9 @@ const YourComponent: React.FC = () => {
     }
   };
 
-  const handleNextQuestion = () => {
-    const nextIndex = currentQuestionIndex + 1;
-    if (nextIndex < 5) {
-      // Assuming you have a maximum of 5 questions
-      window.location.href = `${window.location.origin}${window.location.pathname}?index=${nextIndex}`;
-    }
-  };
-
   return (
     <div className="container mx-auto text-center mt-8">
-      <h2 className="text-3xl mb-4">Speaking Conversation Assessment</h2>
+      <h2 className="text-3xl mb-4">Speaking Long Question Assessment</h2>
       <img
         src={agentImage}
         alt="Agent"
@@ -276,7 +260,7 @@ const YourComponent: React.FC = () => {
         </div>
       )}
       <div className="buttons">
-        {showGetQuestion && currentQuestionIndex < 4 && (
+        {showGetQuestion && (
           <button
             onClick={fetchQuestion}
             disabled={recording}
@@ -285,17 +269,14 @@ const YourComponent: React.FC = () => {
             Get Question
           </button>
         )}
-        {!recording &&
-          !showGetQuestion &&
-          !submitted &&
-          currentQuestionIndex < 4 && (
-            <button
-              onClick={startRecording}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded text-xl"
-            >
-              Answer
-            </button>
-          )}
+        {!recording && !showGetQuestion && !submitted && (
+          <button
+            onClick={startRecording}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded text-xl"
+          >
+            Answer
+          </button>
+        )}
         {recording && !submitted && (
           <button
             onClick={stopRecording}
@@ -303,19 +284,6 @@ const YourComponent: React.FC = () => {
           >
             Submit
           </button>
-        )}
-        {feedback && currentQuestionIndex < 4 && (
-          <button
-            onClick={handleNextQuestion}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded text-xl mb-4"
-          >
-            Next Question
-          </button>
-        )}
-        {currentQuestionIndex === 4 && (
-          <div className="end-of-questions text-4xl font-bold my-4">
-            Conversation Exercise Questions Ended
-          </div>
         )}
       </div>
       {feedback &&
@@ -348,5 +316,3 @@ const YourComponent: React.FC = () => {
     </div>
   );
 };
-
-export default YourComponent;

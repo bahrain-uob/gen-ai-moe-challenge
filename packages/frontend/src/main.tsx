@@ -14,9 +14,9 @@ import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 import Exercises from './pages/Exercises.tsx';
-import SpeakingExercises from './pages/SpeakingExercises.tsx';
-import SpeakingLongQuestion from './pages/SpeakingLongQuestion.tsx';
-import SpeakingConversation from './pages/SpeakingConversation.tsx';
+import { SpeakingExercisesPage } from './pages/SpeakingExercises.tsx';
+import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestion.tsx';
+import { SpeakingConversationPage } from './pages/SpeakingConversation.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
@@ -88,15 +88,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/SpeakingExercises',
-    Component: SpeakingExercises,
+    Component: SpeakingExercisesPage,
   },
   {
     path: '/SpeakingLongQuestion',
-    Component: SpeakingLongQuestion,
+    Component: SpeakingLongQuestionPage,
   },
   {
     path: '/SpeakingConversation',
-    Component: SpeakingConversation,
+    Component: SpeakingConversationPage,
   },
 
   {
