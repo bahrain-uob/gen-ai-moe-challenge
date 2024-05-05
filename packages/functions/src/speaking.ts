@@ -91,12 +91,12 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   combinedFeedback = combinedFeedback.concat(pronunciationFeedbackString);
 
   // Log each feedback result and the average score
-  feedbackResults.forEach((feedback, index) => {
-    console.log(`${criterias[index]}: ${feedback}\n\n`);
-  });
-  console.log(pronunciationFeedbackString);
+  // feedbackResults.forEach((feedback, index) => {
+  //   console.log(`${criterias[index]}: ${feedback}\n\n`);
+  // });
+  // console.log(pronunciationFeedbackString);
 
-  console.log(`\n\nAverage Score: ${averageScore.toFixed(2)}`);
+  // console.log(`\n\nAverage Score: ${averageScore.toFixed(2)}`);
 
   const output = {
     Score: averageScore.toFixed(2),
