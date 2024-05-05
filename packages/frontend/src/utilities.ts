@@ -5,3 +5,15 @@ export const toJSON = async (request: any) => {
   const json = await response.body.json();
   return json;
 };
+
+/**
+ * This is the format of the response sent by the `'POST /grade-writing'`.
+ */
+export interface WritingGrading {
+  'Coherence & Cohesion': string;
+  'Grammatical Range & Accuracy': string;
+  'Lexical Resource': string;
+  'Task Responce': string;
+  'Grammer Tool Feedback'?: Array<{message: string, context:{text:string, offset:number, length:number}}>;
+  'Combined Feedback': string;
+}
