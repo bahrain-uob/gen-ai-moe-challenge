@@ -4,6 +4,7 @@ import Nav from '../components/Nav';
 import { PointsBadge } from '../components/PointsBadge';
 import { WritingGrading, toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
+import { WritingFeedbackContainer } from '../components/WritingFeedback';
 
 export function WritingTask2Page_() {
   const [inputs, setInputs] = useState({
@@ -59,7 +60,7 @@ export function WritingTask2Page_() {
             </div>
           </section>
 
-          <section id="answer">
+          <section id="answer" className="mb-12">
             <form onSubmit={handleSubmit}>
               <h2 className="font-bold mb-6">Answer:</h2>
               {/* TODO: Fix textarea sizing */}
@@ -82,6 +83,12 @@ export function WritingTask2Page_() {
               </div>
             </form>
           </section>
+          {grading && (
+            <section id="feedback">
+              <h2 className="font-bold mb-6">Feedback:</h2>
+              <WritingFeedbackContainer feedback={grading} />
+            </section>
+          )}
         </div>
       </main>
     </>
