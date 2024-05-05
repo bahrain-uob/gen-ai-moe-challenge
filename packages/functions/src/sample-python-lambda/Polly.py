@@ -1,49 +1,25 @@
+from io import BytesIO
 import boto3
 import os
 import uuid
-from pydub import AudioSegment
 import json
 
-AudioSegment.converter = "ffmpeg"
+
 
 polly = boto3.client('polly', region_name='us-east-1') 
 s3 = boto3.client('s3')
 PollyBucket = os.environ.get('Polly_Bucket')
-output_files = []
 def text_to_speech(speech, speaker):
     
     text = f"<speak>{speech}<break time='1s'/></speak>"
     response = polly.synthesize_speech(Text=text, VoiceId=speaker, OutputFormat='mp3', TextType='ssml', Engine='neural')
-        
-    output_file = f"{uuid.uuid4()}.mp3" 
-    output_files.append(output_file)
-
-    if "AudioStream" in response:
-        with open(output_file, "wb") as f:
-            f.write(response["AudioStream"].read())
     
-    return output_files
+    return response["AudioStream"].read()
+
+            
 
 
-def merge_audio_files(output_files):
-    combined_audio = AudioSegment.empty()
-    for file_name in output_files:
-        audio = AudioSegment.from_file(file_name, format="mp3")
-        combined_audio += audio    
-        os.remove(file_name)
 
-    merged_file_name = f"{uuid.uuid4()}.mp3"
-    combined_audio.export(merged_file_name, format="mp3")
-    return merged_file_name
-
-def upload_to_s3(file_name):
-    bucket_name = PollyBucket
-    
-    with open(file_name, 'rb') as f:
-        s3.upload_fileobj(f, bucket_name, file_name)
-        os.remove(file_name)
-    
-    return f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
 
 
   
@@ -53,7 +29,7 @@ def main(event,context):
     data = json.loads(event['body'])
     print(data)
     speeches =json.loads(data)
-    
+    audio_streams = []
     for i,line in enumerate(speeches):
         
         speaker=line['speaker']
@@ -70,17 +46,17 @@ def main(event,context):
 
         
         speaker = voices[i % len(voices)]
+        audio_stream = text_to_speech(speech,speaker)
+        audio_streams.append(audio_stream)
         
-        output_files=text_to_speech(speech,speaker)
-        print(speaker)
-        print(speech)
-
-
-    merged_file_name = merge_audio_files(output_files)
+    concatenated_audio = b"".join(audio_streams)
+    audio_fileobj = BytesIO(concatenated_audio)
+    Key=str(uuid.uuid4())
+    s3.put_object(Body=audio_fileobj, Bucket=PollyBucket, Key=Key + ".mp3")
+    s3_url =  f'https://{PollyBucket}.s3.amazonaws.com/{Key}'
+  
     
-        
     
-    s3_url = upload_to_s3(merged_file_name)
 
     return {'statusCode': 200,
         'body': json.dumps({'s3_url': s3_url}),
