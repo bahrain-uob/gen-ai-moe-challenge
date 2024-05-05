@@ -14,9 +14,9 @@ import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 import Exercises from './pages/Exercises.tsx';
-import { SpeakingExercisesPage } from './pages/SpeakingExercises.tsx';
-import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestion.tsx';
-import { SpeakingConversationPage } from './pages/SpeakingConversation.tsx';
+import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
+import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
+import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 
