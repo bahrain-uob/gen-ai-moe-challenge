@@ -51,6 +51,7 @@ export const SpeakingConversationPage: React.FC = () => {
   const [showFeedback1, setShowFeedback1] = useState<boolean>(false);
   const [showFeedback2, setShowFeedback2] = useState<boolean>(false);
   const [showFeedback3, setShowFeedback3] = useState<boolean>(false);
+  const [showFeedback4, setShowFeedback4] = useState<boolean>(false);
   const [showQuestionTimer, setShowQuestionTimer] = useState<boolean>(false);
   const [questionTimerCount, setQuestionTimerCount] = useState<number>(20);
   const [showAnswerTimer, setShowAnswerTimer] = useState<boolean>(false);
@@ -196,6 +197,7 @@ export const SpeakingConversationPage: React.FC = () => {
           setShowFeedback1(false);
           setShowFeedback2(false);
           setShowFeedback3(false);
+          setShowFeedback4(false);
         });
       });
     }
@@ -328,17 +330,21 @@ export const SpeakingConversationPage: React.FC = () => {
                 if (index === 0) setShowFeedback1(!showFeedback1);
                 if (index === 1) setShowFeedback2(!showFeedback2);
                 if (index === 2) setShowFeedback3(!showFeedback3);
+                if (index === 3) setShowFeedback4(!showFeedback4);
               }}
             >
               {index === 0
                 ? 'Fluency and Coherence'
                 : index === 1
                 ? 'Lexical Resource'
-                : 'Grammatical Range and Accuracy'}
+                : index === 2
+                ? 'Grammatical Range and Accuracy'
+                : 'Pronunciation'}
             </div>
             {(index === 0 && showFeedback1) ||
             (index === 1 && showFeedback2) ||
-            (index === 2 && showFeedback3) ? (
+            (index === 2 && showFeedback3) ||
+            (index === 3 && showFeedback4) ? (
               <div className="feedback-content p-4 mb-4 bg-blue-100">
                 {section}
               </div>
