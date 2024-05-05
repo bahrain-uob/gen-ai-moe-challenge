@@ -13,6 +13,7 @@ import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
+import FullExam from './pages/fullExam.tsx'
 
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-in',
     Component: SignIn,
+  },
+  {
+    path: '/full-exam',
+    Component: FullExam,
   },
 ]);
 // TODO: handle not found pages
