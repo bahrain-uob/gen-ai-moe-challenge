@@ -1,15 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
+import useWebSocket from 'react-use-websocket';
+import { WritingGrading } from '../utilities';
 
-export interface WritingGrading {
-  'Coherence & Cohesion': string;
-  'Grammatical Range & Accuracy': string;
-  'Lexical Resource': string;
-  'Task Responce': string;
-  'Combined Feedback': string;
-}
 
 function WritingTask2Page() {
   const [inputs, setInputs] = useState({
@@ -24,26 +17,33 @@ function WritingTask2Page() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+    //get the websocket url from the environment
+    const socketUrl = import.meta.env.VITE_WEBSOCKET_URL as string;
+
+    //initialize the websocket
+    const {
+      sendMessage,
+    } = useWebSocket(socketUrl, {
+      onOpen: (event) => console.log('opened', event),
+      onClose: (event) => console.log('closed', event),
+      onMessage: e => {
+        console.log('event', e);
+        const response = JSON.parse(e.data);
+        console.log('message', response);
+        if (response['Coherence & Cohesion']) {
+          setGrading(response);
+        }
+      },
+      onError: console.log,
+      shouldReconnect: () => true,
+    });
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await toJSON(
-      post({
-        apiName: 'myAPI',
-        path: '/grade-writing',
-        options: {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            writingTask: 'Task 1',
-            ...inputs,
-          }),
-        },
-      }),
-    );
-    console.log(response);
-    setGrading(response);
+
+    //send the message to the backend using the websocket
+    sendMessage(JSON.stringify({action: 'gradeWriting', data: {writingTask: 'Task 2',   ...inputs,}}));
+
   };
 
   const size = {
