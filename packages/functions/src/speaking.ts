@@ -93,6 +93,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     console.log(`${criterias[index]}: ${feedback}\n\n`);
   });
   console.log(`Pronunciation:\nScore: ${pronunciationScore}`);
+  console.log(`Feedback:\nMispronounced Words: ${missPronunciations}`);
 
   console.log(`Average Score: ${averageScore.toFixed(2)}`);
 
@@ -173,7 +174,7 @@ async function retrieveTranscript(audioFileName: string) {
     const transcribeItems = transcribeResults.items;
     for (let item of transcribeItems) {
       if (item.alternatives[0].confidence > 0) {
-        if (item.alternatives[0].confidence > 0.996) {
+        if (item.alternatives[0].confidence > 0.995) {
           correctPron++;
         } else {
           missPronunciations.push(item.alternatives[0].content);
