@@ -12,7 +12,7 @@ import { ApiStack } from './ApiStack';
 import { AuthStack } from './AuthStack';
 
 export function FrontendStack({ stack, app }: StackContext) {
-  const { api, apiCachePolicy } = use(ApiStack);
+  const { api, apiCachePolicy, webSocket } = use(ApiStack);
   const { auth } = use(AuthStack);
 
   // Deploy our React app
@@ -25,6 +25,7 @@ export function FrontendStack({ stack, app }: StackContext) {
       VITE_APP_REGION: app.region,
       VITE_APP_USER_POOL_ID: auth.userPoolId,
       VITE_APP_USER_POOL_CLIENT_ID: auth.userPoolClientId,
+      VITE_WEBSOCKET_URL: webSocket.url,
     },
     cdk: {
       distribution: {

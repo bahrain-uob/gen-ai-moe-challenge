@@ -1,28 +1,43 @@
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
 import { runLangTool } from './utilities/writingUtilities';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
+import { wsError } from './utilities';
 
-const badRequest = {
-  statusCode: 400,
-};
 
-export const main: APIGatewayProxyHandlerV2 = async event => {
+export const main: APIGatewayProxyHandler = async event => {
+  // Get client info
+  const { stage, domainName } = event.requestContext;
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: `https://${domainName}/${stage}`,
+  });
+  const connectionId = event.requestContext.connectionId;
+
+  // Ensure message has a body
   if (event.body == undefined) {
-    return { statusCode: 400, body: 'No valid input' };
+    return await wsError(apiClient, connectionId, 400, 'Bad Request');
   }
 
-  const requestBody = JSON.parse(event.body);
+  const requestBody = JSON.parse(event.body).data;
   const { answer, graphDescription, question, writingTask } = requestBody;
 
-  // Assert answer and question exist in body
+  // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
-    return {
-      statusCode: 400,
-      body: 'Missing answer or question or writingTask',
-    };
+    return await wsError(apiClient, connectionId, 400, 'Missing answer or question or writingTask');
   }
   if (writingTask === 'Task 1' && !graphDescription) {
-    return { statusCode: 400, body: 'Missing graph description' };
+    return await wsError(apiClient, connectionId, 400, 'Missing graph description');
+  }
+  if (writingTask === 'Task 2' && graphDescription) {
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Unexpected graph description',
+    );
   }
 
   const criterias = [
@@ -66,11 +81,11 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   const scores: Array<number> = feedbacks.map(feedback => {
     const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
     const number = parseFloat(score);
-    return number>=0 && number<=9 ? number : 0; // Ensure score is between 0 and 9
+    return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
   const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
   console.log('Scores', scores, 'Average Score:', avgScore);
-  
+
   const out = {
     'Coherence & Cohesion': feedbacks[0],
     'Grammatical Range & Accuracy': feedbacks[1],
@@ -84,6 +99,15 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
   const unifyPrompt = promptToUnifyFeedbacks(out);
   out['Combined Feedback'] = await runModel(unifyPrompt);
   console.log(unifyPrompt); // TODO: remove
+
+  if (connectionId) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: JSON.stringify(out),
+    });
+    const response = await apiClient.send(command);
+    console.log('Response:', response);
+  }
 
   return {
     statusCode: 200,
