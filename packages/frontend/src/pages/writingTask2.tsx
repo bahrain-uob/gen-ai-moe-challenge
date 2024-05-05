@@ -57,9 +57,9 @@ function WritingTask2Page() {
 
       const title = (
         <>
-          {before}
-          <span className="bg-yellow-300">{inner}</span>
-          {after}
+          <span>{before.trim()} </span>
+          <span className="bg-yellow-300">{inner.trim()}</span>
+          <span> {after.trim()}</span>
         </>
       );
 
