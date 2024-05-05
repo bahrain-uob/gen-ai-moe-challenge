@@ -1,11 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import useWebSocket from 'react-use-websocket';
-=======
-import { WritingGrading, toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
->>>>>>> main
+import { WritingGrading } from '../utilities';
+
 
 function WritingTask2Page() {
   const [inputs, setInputs] = useState({
