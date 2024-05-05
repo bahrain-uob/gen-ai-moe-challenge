@@ -10,6 +10,8 @@ const PlacementTest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentSection, setCurrentSection] = useState(1);
   const [score, setScore] = useState(0);
+  const [showResult, setShowResult] = useState(false);
+  const [sectionScore, setSectionScore] = useState(0);
   let end = false;
 
   interface Option {
@@ -200,6 +202,7 @@ const PlacementTest = () => {
 
   const handleNextSection = () => {
     if (currentSection + 1 <= sections.length) {
+      setSectionScore(sectionScore+1);
       setCurrentSection(currentSection + 1); // Move to the next section
       setScore(0);
       setCurrentQuestion(0); // Start from the first question
@@ -209,11 +212,21 @@ const PlacementTest = () => {
       end = true;
     }
   };
+  const handleResult = () => {
+    setShowResult(true);
+  };
 
   return (
     <main>
       <Nav />
+      {showResult? (
       <section className="w-full flex items-center h-1/3 flex-col gap-y-36">
+          <div className="w-1/2 flex flex-col gap-10">
+            <h3>{sectionScore}</h3>
+          </div>
+        </section>
+      ) : (
+        <section className="w-full flex items-center h-1/3 flex-col gap-y-36">
         {showFeedback ? (
           <div className="w-1/2 flex flex-col gap-10">
             <div>
@@ -232,7 +245,7 @@ const PlacementTest = () => {
             {score >= 5 && !end ? (
               <div className="w-1/2" onClick={handleNextSection}><Button label="Next Section" tag="3B828E"/></div>
             ) : (
-              <div><Button label="Show Result" tag="3B828E" /></div>
+              <div className="w-1/2" onClick={handleResult}><Button label="Show Result" tag="3B828E" /></div>
             )}
             
           </div>
@@ -259,6 +272,9 @@ const PlacementTest = () => {
           </div>
         )}
       </section>
+
+
+      )}
     </main>
   );
 };
