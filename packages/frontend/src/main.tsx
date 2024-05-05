@@ -13,8 +13,11 @@ import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
+import Exercises from './pages/Exercises.tsx';
+import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
+import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
+import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx'
-
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 
@@ -77,6 +80,10 @@ const router = createBrowserRouter([
     Component: Speaking,
   },
   {
+    path: '/Exercises',
+    Component: Exercises,
+  },
+  {
     path: '/home',
     Component: Home,
   },
@@ -84,6 +91,19 @@ const router = createBrowserRouter([
     path: '/sections',
     Component: Sections,
   },
+  {
+    path: '/SpeakingExercises',
+    Component: SpeakingExercisesPage,
+  },
+  {
+    path: '/SpeakingLongQuestion',
+    Component: SpeakingLongQuestionPage,
+  },
+  {
+    path: '/SpeakingConversation',
+    Component: SpeakingConversationPage,
+  },
+
   {
     path: '/writing-task2',
     Component: WritingTask2Page,
