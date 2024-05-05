@@ -2,6 +2,9 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { PointsBadge } from '../components/PointsBadge';
+import { WritingGrading, toJSON } from '../utilities';
+import { WritingFeedbackContainer } from '../components/WritingFeedback';
+import { post } from 'aws-amplify/api';
 
 export function WritingTask1Page_() {
   const [inputs, setInputs] = useState({
@@ -10,6 +13,8 @@ export function WritingTask1Page_() {
     answer:
       'This is a bar chart of the number of men and women in further education in Britain in three periods.  In 1970, Most of Men were studying part-time but from 1980, studying part-time was decreased and studying full-time was increased and in 1990, it was twice as many students as in 1970.  On the other hand, women studying Full-time were increased and not only Full-time, part-time also were increased, in 1990, Studying full-time was three times as many students as in 1970.  If compare Men and Women, as you see, in 1970, Men were Studying more than women full-time or part-time but it changed from 1980 and then, in 1990, Women were studying part-time more than Men and Studying full-time was same number.  It shows you Women has a high education now.',
   });
+  // Feedback from backend
+  const [grading, setGrading] = useState<undefined | WritingGrading>(undefined);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -17,7 +22,24 @@ export function WritingTask1Page_() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(inputs);
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/grade-writing',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: {
+            writingTask: 'Task 1',
+            ...inputs,
+          },
+        },
+      }),
+    );
+    console.log(response);
+    setGrading(response);
   };
 
   return (
@@ -46,7 +68,7 @@ export function WritingTask1Page_() {
             </div>
           </section>
 
-          <section id="answer">
+          <section id="answer" className="mb-12">
             <form onSubmit={handleSubmit}>
               <h2 className="font-bold mb-6">Answer:</h2>
               {/* TODO: Fix textarea sizing */}
@@ -69,6 +91,12 @@ export function WritingTask1Page_() {
               </div>
             </form>
           </section>
+          {grading && (
+            <section id="feedback">
+              <h2 className="font-bold mb-6">Feedback:</h2>
+              <WritingFeedbackContainer feedback={grading} />
+            </section>
+          )}
         </div>
       </main>
     </>
