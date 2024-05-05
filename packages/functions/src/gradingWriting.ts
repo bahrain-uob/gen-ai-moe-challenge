@@ -30,6 +30,14 @@ export const main: APIGatewayProxyHandler = async event => {
   if (writingTask === 'Task 1' && !graphDescription) {
     return await wsError(apiClient, connectionId, 400, 'Missing graph description');
   }
+  if (writingTask === 'Task 2' && graphDescription) {
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Unexpected graph description',
+    );
+  }
 
   const criterias = [
     'Coherence & Cohesion',
