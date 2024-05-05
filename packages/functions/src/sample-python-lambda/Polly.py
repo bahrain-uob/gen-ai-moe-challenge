@@ -1,8 +1,10 @@
 from io import BytesIO
+from urllib.parse import urlparse
 import boto3
 import os
 import uuid
 import json
+from botocore.exceptions import ClientError
 
 
 
@@ -55,10 +57,48 @@ def main(event,context):
     s3.put_object(Body=audio_fileobj, Bucket=PollyBucket, Key=Key + ".mp3")
     s3_url =  f'https://{PollyBucket}.s3.amazonaws.com/{Key}'
   
+    s3_presignedurl=generate_presigned_url(s3_url)
+   
+    print(s3_presignedurl)
     
-    
-
     return {'statusCode': 200,
-        'body': json.dumps({'s3_url': s3_url}),
-        
+        'body': json.dumps({'s3_url': s3_presignedurl }),
         }
+
+
+
+
+s3_client = boto3.client('s3')
+s3_bucket = PollyBucket  # Replace with your S3 bucket name
+
+def generate_presigned_url(s3_url):
+    try:
+        parsed_url = urlparse(s3_url)
+        key = parsed_url.path.lstrip('/')
+
+
+        url = s3_client.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': s3_bucket,
+                'Key': key,
+            },
+            ExpiresIn=300  # URL expiration time in seconds (300 seconds = 5 minutes)
+        )
+        
+        return {
+            
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+            },
+            'body': json.dumps({'url': url}),
+        }
+    except ClientError as e:
+        print('Error generating pre-signed URL:', e)
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Error generating pre-signed URL'}),
+        }
+
+    

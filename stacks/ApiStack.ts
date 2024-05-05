@@ -132,7 +132,7 @@ export function ApiStack({ stack }: StackContext) {
           handler: 'packages/functions/src/sample-python-lambda/Polly.main',
           runtime: 'python3.11',
           permissions: [
-            's3:PutObject',
+            's3:*',
             'polly:SynthesizeSpeech',
             'dynamodb:PutItem',
           ],

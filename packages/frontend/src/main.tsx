@@ -15,6 +15,7 @@ import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import Polly from './pages/Polly.tsx';
+import success from './pages/success.tsx';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 
 
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: '/Listening/Polly',
     Component: Polly,
+  },
+  {
+    path: '/Listening/Polly/success',
+    Component: success,
   },
   {
     path: '/writing-task1',
