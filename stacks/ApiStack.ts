@@ -144,6 +144,9 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler:"packages/functions/src/gradingWriting.main",
           timeout: "120 seconds",
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
         }
       },
     },
