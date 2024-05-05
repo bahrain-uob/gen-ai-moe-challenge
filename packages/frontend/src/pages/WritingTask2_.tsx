@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
+import { PointsBadge } from '../components/PointsBadge';
 
 export function WritingTask2Page_() {
   const [inputs, setInputs] = useState({
@@ -33,9 +34,7 @@ export function WritingTask2Page_() {
             <h2 className="font-bold mb-4">Question:</h2>
             <p className="whitespace-pre-line ml-4 mb-2">{inputs.question}</p>
             <div className="flex flex-row-reverse">
-              <span className="bg-white text-blue-4 px-12 py-1 rounded-full shadow-md select-none">
-                10 points
-              </span>
+              <PointsBadge points={10} />
             </div>
           </section>
 
