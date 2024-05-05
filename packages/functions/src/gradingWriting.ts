@@ -25,10 +25,10 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
-    return await wsError(apiClient, connectionId, 400, 'Bad Request');
+    return await wsError(apiClient, connectionId, 400, 'Missing answer or question or writingTask');
   }
   if (writingTask === 'Task 1' && !graphDescription) {
-    return await wsError(apiClient, connectionId, 400, 'Bad Request');
+    return await wsError(apiClient, connectionId, 400, 'Missing graph description');
   }
 
   const criterias = [
