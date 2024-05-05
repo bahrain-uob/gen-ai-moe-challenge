@@ -5,54 +5,46 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 
-const badRequest = {
-  statusCode: 400,
-  body: 'Bad Request',
-};
-
-const noValidInputws = JSON.stringify({
-  error: 'No valid input',
-});
-
-const badRequestws = JSON.stringify({
-  error: 'Bad Request',
-});
+/** Helper function for returning websocket errors */
+async function wsError(
+  apiClient: ApiGatewayManagementApiClient,
+  connectionId: string | undefined,
+  code: number,
+  message: string,
+) {
+  const command = new PostToConnectionCommand({
+    ConnectionId: connectionId,
+    Data: JSON.stringify({ statusCode: code, error: message }),
+  });
+  await apiClient.send(command);
+  return {
+    statusCode: code,
+    body: JSON.stringify(message),
+  };
+}
 
 export const main: APIGatewayProxyHandler = async event => {
+  // Get client info
   const { stage, domainName } = event.requestContext;
   const apiClient = new ApiGatewayManagementApiClient({
     endpoint: `https://${domainName}/${stage}`,
   });
   const connectionId = event.requestContext.connectionId;
 
+  // Ensure message has a body
   if (event.body == undefined) {
-    const command = new PostToConnectionCommand({
-      ConnectionId: connectionId,
-      Data: noValidInputws,
-    });
-    await apiClient.send(command);
-    return { statusCode: 400, body: 'No valid input' };
+    return await wsError(apiClient, connectionId, 400, 'Bad Request');
   }
 
   const requestBody = JSON.parse(event.body).data;
   const { answer, graphDescription, question, writingTask } = requestBody;
 
-  // Assert answer and question exist in body
+  // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
-    const command = new PostToConnectionCommand({
-      ConnectionId: connectionId,
-      Data: badRequestws,
-    });
-    await apiClient.send(command);
-    return badRequest;
+    return await wsError(apiClient, connectionId, 400, 'Bad Request');
   }
   if (writingTask === 'Task 1' && !graphDescription) {
-    const command = new PostToConnectionCommand({
-      ConnectionId: connectionId,
-      Data: badRequestws,
-    });
-    await apiClient.send(command);
-    return badRequest;
+    return await wsError(apiClient, connectionId, 400, 'Bad Request');
   }
 
   const criterias = [
