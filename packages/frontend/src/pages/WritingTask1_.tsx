@@ -57,8 +57,16 @@ export function WritingTask1Page_() {
                 value={inputs.answer}
                 onChange={handleChange}
               />
-              {/* TODO: Add proper submit button */}
-              <button type="submit"> Submit </button>
+
+              {/* Submit button */}
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="bg-white text-blue-4 px-12 py-1 rounded-full shadow-md select-none"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </section>
         </div>

@@ -43,14 +43,22 @@ export function WritingTask2Page_() {
               <h2 className="font-bold mb-6">Answer:</h2>
               {/* TODO: Fix textarea sizing */}
               <textarea
-                className="bg-white w-full h-[50vh] p-4 rounded-xl shadow-md resize-none outline-none"
+                className="bg-white w-full h-[50vh] p-4 mb-4 rounded-xl shadow-md resize-none outline-none"
                 name="answer"
                 placeholder="Answer"
                 value={inputs.answer}
                 onChange={handleChange}
               />
-              {/* TODO: Add proper submit button */}
-              <button type="submit"> Submit </button>
+
+              {/* Submit button */}
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="bg-white text-blue-4 px-12 py-1 rounded-full shadow-md select-none"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </section>
         </div>
