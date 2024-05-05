@@ -19,7 +19,7 @@ const sections = () => (
         <Link to="">
           <Button label="Listening" />
         </Link>
-        <Link to="">
+        <Link to="/reading/1">
           <Button label="Reading" />
         </Link>
         <Link to="/speaking">
