@@ -278,10 +278,10 @@ const PlacementTest = () => {
         text: 'She got a new table ________ is quite a bit smaller than the last one.',
         sub : "",
         options: [
-          { id: 0, text: 'who', isCorrect: true },
+          { id: 0, text: 'who', isCorrect: false },
           { id: 1, text: 'that', isCorrect: false },
           { id: 2, text: 'so', isCorrect: false },
-          { id: 3, text: 'which', isCorrect: false },
+          { id: 3, text: 'which', isCorrect: true },
         ],
       },
       {
@@ -319,8 +319,8 @@ const PlacementTest = () => {
         sub:"The car crash was (expected), but the cause (important).",
         options: [
           { id: 0, text: 'il-', isCorrect: false },
-          { id: 1, text: "un-", isCorrect: false },
-          { id: 2, text: 'in-', isCorrect: true },
+          { id: 1, text: "un-", isCorrect: true },
+          { id: 2, text: 'in-', isCorrect: false },
           { id: 3, text: 'pre-', isCorrect: false },
         ],
       },
