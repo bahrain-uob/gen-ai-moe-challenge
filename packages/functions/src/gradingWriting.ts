@@ -1,5 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from './utilities';
+import { runLangTool } from './utilities/writingUtilities';
 import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
@@ -70,6 +71,9 @@ export const main: APIGatewayProxyHandler = async event => {
     return feedback;
   });
 
+  // Run the LanguageTool for grammar check
+  const grammerToolFeedback = await runLangTool(answer);
+
   // Get all feedbacks in parallel
   const feedbacks = await Promise.all(_feedbacks);
 
@@ -87,6 +91,7 @@ export const main: APIGatewayProxyHandler = async event => {
     'Grammatical Range & Accuracy': feedbacks[1],
     'Lexical Resource': feedbacks[2],
     'Task Responce': feedbacks[3],
+    'Grammer Tool Feedback': grammerToolFeedback,
     'Combined Feedback': '',
   };
 
