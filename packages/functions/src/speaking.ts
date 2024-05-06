@@ -20,6 +20,10 @@ const dynamoClient = new DynamoDBClient();
 const uploadResponseBucket = process.env.speakingUploadBucketName;
 const feedbackTableName = process.env.feedbackTableName;
 
+const missPronunciations: string[] = [];
+let pronunciationScore: number;
+let pronunciationFeedbackString: string;
+
 type rubricType = {
   [key: string]: string;
 };
@@ -102,6 +106,7 @@ export const main: APIGatewayProxyHandler = async event => {
   });
 
   const validScores = scores.filter(score => !isNaN(score));
+  validScores.push(pronunciationScore);
   const averageScore =
     Math.round(
       (validScores.reduce((acc, score) => acc + score, 0) /
@@ -110,14 +115,16 @@ export const main: APIGatewayProxyHandler = async event => {
     ) / 2;
 
   // Combine all feedback into one string
-  const combinedFeedback = feedbackResults.join('\n\n');
+  let combinedFeedback = feedbackResults.join('\n\n');
+  combinedFeedback = combinedFeedback.concat(pronunciationFeedbackString);
 
   // Log each feedback result and the average score
-  feedbackResults.forEach((feedback, index) => {
-    console.log(`${criterias[index]}: ${feedback}\n\n`);
-  });
+  // feedbackResults.forEach((feedback, index) => {
+  //   console.log(`${criterias[index]}: ${feedback}\n\n`);
+  // });
+  // console.log(pronunciationFeedbackString);
 
-  console.log(`Average Score: ${averageScore.toFixed(2)}`);
+  // console.log(`\n\nAverage Score: ${averageScore.toFixed(2)}`);
 
   const output = {
     Score: averageScore.toFixed(2),
@@ -199,7 +206,26 @@ async function retrieveTranscript(audioFileName: string) {
       body: JSON.stringify('file is empty'),
     };
   } else {
-    return JSON.parse(content).results.transcripts[0].transcript as string;
+    let correctPron = 0;
+    let countOfWords = 0;
+    const transcribeResults = JSON.parse(content).results;
+    const transcribeItems = transcribeResults.items;
+    for (let item of transcribeItems) {
+      if (item.alternatives[0].confidence > 0) {
+        if (item.alternatives[0].confidence > 0.995) {
+          correctPron++;
+        } else {
+          missPronunciations.push(item.alternatives[0].content);
+        }
+        countOfWords++;
+      }
+    }
+    pronunciationScore = Math.floor((correctPron / countOfWords) * 9);
+    pronunciationFeedbackString = pronunciationFeedback(
+      pronunciationScore,
+      missPronunciations,
+    );
+    return transcribeResults.transcripts[0].transcript as string;
   }
 }
 
@@ -225,6 +251,17 @@ async function storeFeedback(
   } catch (error) {
     console.log('Error storing result');
   }
+}
+
+/** This function formulates the feedback string for the mispronuncitions in the user's response */
+function pronunciationFeedback(score: number, misses: string[]) {
+  const base = `\nScore: ${score}\n\nFeedback: `;
+  if (score < 9) {
+    return base.concat(
+      `There are some mispronunciations like ${misses.toString()}.`,
+    );
+  }
+  return base.concat('There are no mispronunciations.');
 }
 
 const rubric: rubricType = {
