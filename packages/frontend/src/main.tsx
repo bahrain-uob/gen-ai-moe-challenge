@@ -5,8 +5,6 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
-import WritingTask1Page from './pages/writingTask1.tsx';
-import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
@@ -22,8 +20,6 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import Polly from './pages/Polly.tsx';
 import success from './pages/success.tsx';
 import FeedbackPage from './pages/FeedbackPage.tsx';
-import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
-import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 
 
 Amplify.configure(
@@ -76,10 +72,7 @@ const router = createBrowserRouter([
     path: '/Listening/Polly/success',
     Component: success,
   },
-  {
-    path: '/writing-task1',
-    Component: WritingTask1Page,
-  },
+ 
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
@@ -117,18 +110,9 @@ const router = createBrowserRouter([
     Component: SpeakingConversationPage,
   },
 
-  {
-    path: '/writing-task2',
-    Component: WritingTask2Page,
-  },
-  {
-    path: '/_writing-task1',
-    Component: WritingTask1Page_,
-  },
-  {
-    path: '/_writing-task2',
-    Component: WritingTask2Page_,
-  },
+  
+
+
   {
     path: '/sign-up',
     Component: SignUp,

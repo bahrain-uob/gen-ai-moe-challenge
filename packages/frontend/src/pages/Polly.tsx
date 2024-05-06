@@ -1,7 +1,7 @@
 import { post } from 'aws-amplify/api';
 import React, { useState } from 'react';
 import { toJSON } from '../utilities';
-import { Link } from 'react-router-dom';
+import { render } from 'react-dom';
 
 interface Speech {
   speaker: string;
@@ -9,42 +9,47 @@ interface Speech {
 }
 
 function BEN() {
-  const [Audio, setAudio] = useState<string | null>(null);
+  const [audio, setAudio] = useState<string | null>(null);
 
   return (
-    Audio ? <MyComponent Audio={Audio}/> : <MyApp setAudio={setAudio}/>
+    audio ? <MyComponent audioUrl={audio} /> : <MyApp setAudio={setAudio} />
   );
 }
 
 export default BEN;
-  
-function MyApp(props) {
+
+function MyApp(props: { setAudio: (audio: string) => void }) {
   const [speakerA, setSpeakerA] = useState<string>('male');
   const [speakerB, setSpeakerB] = useState<string>('female');
   const [inputValue, setInputValue] = useState<string>('');
   const [speeches, setSpeeches] = useState<Speech[]>([]);
-  
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleSubmit = async () => {
-    const response = await toJSON(
-      post({
-        apiName: 'myAPI',
-        path: '/Listening/Polly',
-        options: {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+    try {
+      const response = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: '/Listening/Polly',
+          options: {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(speeches),
           },
-          body: JSON.stringify(speeches),
-        },
-      }),
-    );
-    props.setAudio(response.body.url)
-    console.log(response.body.url); // Log the response URL
-    return console.log(response);
+        })
+      );
+      props.setAudio(response.body.url);
+      console.log(response.body.url);
+      const domNode = document.getElementById('root');
+      render(<MyComponent audioUrl={props.setAudio} />, domNode) // Log the response URL
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
   };
 
   const handleButtonClick = () => {
@@ -85,9 +90,7 @@ function MyApp(props) {
         <input type="text" value={inputValue} onChange={handleInputChange} />
       </div>
       <button onClick={handleButtonClick}>Add speech</button>
-      <button onClick={handleSubmit}>
-        Submit
-      </button>
+      <button onClick={handleSubmit}>Submit</button>
       <div>
         {speeches.map((speech, index) => (
           <div key={index}>
@@ -100,8 +103,8 @@ function MyApp(props) {
   );
 }
 
-function MyComponent(props) {
-  const audioUrl = props.audioUrl;
+function MyComponent(props: { audioUrl: string }) {
+  const { audioUrl } = props;
 
   return (
     <div>
