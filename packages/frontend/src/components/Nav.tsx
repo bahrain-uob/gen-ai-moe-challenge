@@ -1,30 +1,33 @@
 import { Link } from 'react-router-dom';
 
 const Nav = () => {
+  const linkStyling =
+    'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
+
   return (
     <header className="z-10 w-full">
-      <nav className="flex justify-between items-center bg-[#3B828E] px-7 py-3">
-        <Link to="/home">
-          <img className="w-[100px]" src="assets/Logo.png" />
-        </Link>
+      <nav className="bg-blue-4 h-20">
+        <div className="flex flex-1 h-full font-montserrat text-lg font-bold text-white">
+          <Link className={linkStyling} to="">
+            <img className="w-16" src="assets/Logo.png" />
+          </Link>
 
-        <ul className="flex-1 flex px-12 gap-16 max-lg:hidden font-montserrat leading-normal text-2xl font-bold text-white">
-          <Link to="/Full-Exam">
-            <li>Full Exams</li>
+          <Link className={linkStyling + 'max-md:hidden'} to="/Full-Exams">
+            <div>Full Exams</div>
           </Link>
-          <Link to="/Sections">
-            <li>Section Exams</li>
+          <Link className={linkStyling + 'max-md:hidden'} to="/Sections">
+            <div>Section Exams</div>
           </Link>
-          <Link to="/Exercises">
-            <li>Exercises</li>
+          <Link className={linkStyling + 'max-md:hidden'} to="/Exercises">
+            <div>Exercises</div>
           </Link>
-        </ul>
+          <Link className={linkStyling + 'max-md:hidden ml-auto'} to="">
+            <img className="w-11" src="assets/User.png" />
+          </Link>
 
-        <Link to="">
-          <img className="w-[55px] max-lg:hidden" src="assets/User.png" />
-        </Link>
-        <div className="hidden max-lg:block">
-          <img src="assets/hamburger.svg" width={25} height={25} />
+          <Link className={linkStyling + 'md:hidden ml-auto'} to="">
+            <img className="w-6" src="assets/hamburger.svg" />
+          </Link>
         </div>
       </nav>
     </header>

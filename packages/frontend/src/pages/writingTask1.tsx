@@ -1,7 +1,8 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { post } from 'aws-amplify/api';
-import { WritingGrading, toJSON } from '../utilities';
+import CollapsableCard from '../components/collapsableCard';
+import { WritingGrading } from '../utilities';
+import useWebSocket from 'react-use-websocket';
 
 function WritingTask1Page() {
   const [inputs, setInputs] = useState({
@@ -20,26 +21,33 @@ function WritingTask1Page() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  //get the websocket url from the environment
+  const socketUrl = import.meta.env.VITE_WEBSOCKET_URL as string;
+
+  //initialize the websocket
+  const {
+    sendMessage,
+  } = useWebSocket(socketUrl, {
+    onOpen: (event) => console.log('opened', event),
+    onClose: (event) => console.log('closed', event),
+    onMessage: e => {
+      console.log('event', e);
+      const response = JSON.parse(e.data);
+      console.log('message', response);
+      if (response['Coherence & Cohesion']) {
+        setGrading(response);
+      }
+    },
+    onError: console.log,
+    shouldReconnect: () => true,
+  });
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await toJSON(
-      post({
-        apiName: 'myAPI',
-        path: '/grade-writing',
-        options: {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            writingTask: 'Task 1',
-            ...inputs,
-          },
-        },
-      }),
-    );
-    console.log(response);
-    setGrading(response);
+
+    //send the message to the backend using the websocket
+    sendMessage(JSON.stringify({action: 'gradeWriting', data: {writingTask: 'Task 1',   ...inputs,}}));
+
   };
 
   const size = {
@@ -48,6 +56,31 @@ function WritingTask1Page() {
   };
 
   const pStyling: CSSProperties = { whiteSpace: 'pre-line' };
+
+    
+  let grammarMistakes = null;
+  if (grading && grading['Grammer Tool Feedback']) {
+    grammarMistakes = grading['Grammer Tool Feedback'].map((mistake, index) => {
+      const context = mistake.context.text;
+      const before = context.substring(0, mistake.context.offset);
+      const inner = context.substring(mistake.context.offset, mistake.context.offset + mistake.context.length);
+      const after = context.substring(mistake.context.offset + mistake.context.length);
+
+      const title = (
+        <>
+          <span>{before.trim()} </span>
+          <span className="bg-yellow-300">{inner.trim()}</span>
+          <span> {after.trim()}</span>
+        </>
+      );
+
+      return (
+        <CollapsableCard title={title} key={index}>
+          {JSON.stringify(mistake)}
+        </CollapsableCard>
+      );
+    });
+  }
 
   const gradingElement = grading ? (
     <>
@@ -59,6 +92,8 @@ function WritingTask1Page() {
       <p style={pStyling}> {grading['Lexical Resource']} </p>
       <h5>Task Responce</h5>
       <p style={pStyling}> {grading['Task Responce']} </p>
+      <h5>Grammar Tool Feedback</h5>
+      {grammarMistakes? grammarMistakes : <p>No Mistakes Found</p>}
       <br />
       <br />
       <h5>Combined Feedback</h5>
@@ -100,14 +135,15 @@ function WritingTask1Page() {
         />
         <br />
 
-        <h4>Feedback</h4>
-
-        {gradingElement}
-        <br />
-
         <button type="submit"> Submit </button>
       </form>
 
+      <br />
+
+      <h4>Feedback</h4>
+
+      {gradingElement}
+    
       {/* <Link to="/"> Link back to root </Link> */}
     </>
   );

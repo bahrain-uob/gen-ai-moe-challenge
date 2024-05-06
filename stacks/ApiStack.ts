@@ -1,35 +1,15 @@
-import { Api, StackContext, use, Service } from 'sst/constructs';
+import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
 import { AuthStack } from './AuthStack';
+import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const {
-    table,
-    uploads_bucket,
-    feedback_table,
-    myTable,
-    speakingPollyBucket,
-  } = use(DBStack);
+  const { table, uploads_bucket, feedback_table, myTable, speakingPollyBucket } =
+    use(DBStack);
   const { auth } = use(AuthStack);
-
-  //Create the GrammerCheckerTool Service
-  const GrammerCheckerTool = new Service(stack, 'GrammerCheckerTool', {
-    path: 'packages/functions/src/docker-languagetool',
-    port: 8010,
-    // dev: {
-    //   deploy: true   //Uncomment to deploy the service while in dev mode
-    // },
-    cdk: {
-      cloudfrontDistribution: false,
-      applicationLoadBalancerTargetGroup: {
-        healthCheck: {
-          path: '/v2/languages',
-        },
-      },
-    },
-  });
+  const { grammarToolDNS } = use(GrammarToolStack);
 
   // Create the HTTP API
   const api = new Api(stack, 'Api', {
@@ -62,11 +42,7 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/languageTool.main',
           environment: {
-            grammerToolDNS: GrammerCheckerTool.cdk?.applicationLoadBalancer
-              ?.loadBalancerDnsName
-              ? GrammerCheckerTool.cdk?.applicationLoadBalancer
-                  ?.loadBalancerDnsName
-              : 'undefined DNS',
+            grammerToolDNS: grammarToolDNS,
           },
         },
       },
@@ -115,6 +91,9 @@ export function ApiStack({ stack }: StackContext) {
           handler: 'packages/functions/src/gradingWriting.main',
           permissions: ['bedrock:InvokeModel'],
           timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
         },
       }, //testing bedrock api for writing
       //api endpoint for retrieving reading questions
@@ -151,8 +130,34 @@ export function ApiStack({ stack }: StackContext) {
     ),
   });
 
+  const webSocket = new WebSocketApi(stack, "WebSocketApi", {
+    defaults: {
+      function: {
+        bind: [table],
+        permissions: ['bedrock:InvokeModel'],
+      },
+    },
+    routes: {
+      $connect: "packages/functions/src/connect.main",
+      $disconnect: "packages/functions/src/disconnect.main",
+      gradeWriting: {
+        function: {
+          handler:"packages/functions/src/gradingWriting.main",
+          timeout: "120 seconds",
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        }
+      },
+    },
+  });
+
+  stack.addOutputs({
+    WebSocketEndpoint: webSocket.url,
+  });
+
   // Allowing authenticated users to access API
   auth.attachPermissionsForAuthUsers(stack, [api]);
 
-  return { api, apiCachePolicy };
+  return { api, apiCachePolicy, webSocket };
 }

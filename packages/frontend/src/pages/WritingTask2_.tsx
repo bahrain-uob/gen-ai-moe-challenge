@@ -2,9 +2,9 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { PointsBadge } from '../components/PointsBadge';
-import { WritingGrading, toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
+import { WritingGrading } from '../utilities';
 import { WritingFeedbackContainer } from '../components/WritingFeedback';
+import useWebSocket from 'react-use-websocket';
 
 export function WritingTask2Page_() {
   const [inputs, setInputs] = useState({
@@ -20,26 +20,32 @@ export function WritingTask2Page_() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const { sendMessage } = useWebSocket(
+    // Get the websocket url from the environment
+    import.meta.env.VITE_WEBSOCKET_URL as string,
+    {
+      onOpen: event => console.log('opened', event),
+      onClose: event => console.log('closed', event),
+      onMessage: e => {
+        console.log('event', e);
+        const response = JSON.parse(e.data);
+        console.log('message', response);
+        if (response['Coherence & Cohesion']) {
+          setGrading(response);
+        }
+      },
+      shouldReconnect: () => true,
+    },
+  );
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await toJSON(
-      post({
-        apiName: 'myAPI',
-        path: '/grade-writing',
-        options: {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            writingTask: 'Task 2',
-            ...inputs,
-          },
-        },
+    sendMessage(
+      JSON.stringify({
+        action: 'gradeWriting',
+        data: { writingTask: 'Task 2', ...inputs },
       }),
     );
-    console.log(response);
-    setGrading(response);
   };
 
   return (
