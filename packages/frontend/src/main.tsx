@@ -22,6 +22,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
+import PlacementTest from'./pages/PlacementTest.tsx';
 
 Amplify.configure(
   {
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
   {
     path: '/full-exam',
     Component: FullExam,
+  },
+  {
+    path: '/PlacementTest',
+    Component: PlacementTest,
   },
 ]);
 // TODO: handle not found pages
