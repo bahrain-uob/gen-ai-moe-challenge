@@ -649,7 +649,7 @@ const PlacementTest = () => {
   };
 
   return (
-    <main className="bg-[#FBF9F1] h-screen">
+    <main className="bg-[#FBF9F1] h-full min-h-screen">
       <Nav />
       {showResult ? (
         <section className="w-full flex items-center h-1/3 flex-col gap-y-48">
