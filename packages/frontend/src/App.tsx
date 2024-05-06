@@ -18,10 +18,10 @@ const App = () => {
   return (
     <main>
       <Nav />
-      <section className="xl:padding-1 wide:padding-r">
+      <section className="px-10 py-12">
         <Describe />
 
-        <div className="lg:pt-32 flex flex-col justify-start pl-3 max-sm:pt-20">
+        <div className="pt-16 flex flex-col justify-start pl-3">
           <h3 className="text-[65px] font-extrabold text-[#363534] max-sm:text-[40px]">
             Features
           </h3>
