@@ -52,61 +52,55 @@ export function WritingTask1Page_() {
 
   return (
     <>
-      {/* TODO: use layouts */}
-      <main className="bg-[#FBF9F1] min-h-screen">
-        <Nav />
-        <div className="py-40 px-8">
-          <h1 className="text-2xl text-blue-4 font-bold text-center mb-12">
-            Writing 1
-          </h1>
+      <h1 className="text-2xl text-blue-4 font-bold text-center mb-12">
+        Writing 1
+      </h1>
 
-          <section id="question" className="mb-12">
-            <h2 className="font-bold mb-4">Question:</h2>
-            <p className="whitespace-pre-line ml-4 mb-2">{inputs.question}</p>
-            <div className="flex flex-row justify-center my-12 mx-4">
-              {/* TODO: Don't hard code image url */}
-              <img
-                className="shadow-xl md:max-w-[50%] xl:max-w-[33%]"
-                src="/assets/out-000.png"
-                alt=""
-              />
-            </div>
-            <div className="flex flex-row-reverse">
-              <PointsBadge points={10} />
-            </div>
-          </section>
-
-          <section id="answer" className="mb-12">
-            <form onSubmit={handleSubmit}>
-              <h2 className="font-bold mb-6">Answer:</h2>
-              {/* TODO: Fix textarea sizing */}
-              <textarea
-                className="bg-white w-full h-[50vh] p-4 rounded-xl shadow-md resize-none outline-none"
-                name="answer"
-                placeholder="Answer"
-                value={inputs.answer}
-                onChange={handleChange}
-              />
-
-              {/* Submit button */}
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="bg-white text-blue-4 px-12 py-1 rounded-full shadow-md select-none"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-          </section>
-          {grading && (
-            <section id="feedback">
-              <h2 className="font-bold mb-6">Feedback:</h2>
-              <WritingFeedbackContainer feedback={grading} />
-            </section>
-          )}
+      <section id="question" className="mb-12">
+        <h2 className="font-bold mb-4">Question:</h2>
+        <p className="whitespace-pre-line ml-4 mb-6">{inputs.question}</p>
+        <div className="flex flex-row justify-center my-12 mx-4">
+          {/* TODO: Don't hard code image url */}
+          <img
+            className="shadow-xl md:max-w-[50%] xl:max-w-[33%]"
+            src="/assets/out-000.png"
+            alt=""
+          />
         </div>
-      </main>
+        <div className="flex flex-row-reverse">
+          <PointsBadge points={10} />
+        </div>
+      </section>
+
+      <section id="answer" className="mb-12">
+        <form onSubmit={handleSubmit}>
+          <h2 className="font-bold mb-6">Answer:</h2>
+          {/* TODO: Fix textarea sizing */}
+          <textarea
+            className="bg-white w-full h-[50vh] p-4 rounded-xl shadow-md resize-none outline-none"
+            name="answer"
+            placeholder="Answer"
+            value={inputs.answer}
+            onChange={handleChange}
+          />
+
+          {/* Submit button */}
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-white text-blue-4 px-12 py-1 rounded-full shadow-md select-none"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </section>
+      {grading && (
+        <section id="feedback">
+          <h2 className="font-bold mb-6">Feedback:</h2>
+          <WritingFeedbackContainer feedback={grading} />
+        </section>
+      )}
     </>
   );
 }
