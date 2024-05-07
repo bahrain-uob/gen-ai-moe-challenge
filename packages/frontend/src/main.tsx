@@ -17,12 +17,13 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx'
+import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
-import PlacementTest from'./pages/PlacementTest.tsx';
+import PlacementTest from './pages/PlacementTest.tsx';
+import { PLTestPage } from './pages/PLTestPage.tsx';
 
 Amplify.configure(
   {
