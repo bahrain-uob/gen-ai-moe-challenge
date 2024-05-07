@@ -135,6 +135,10 @@ const router = createBrowserRouter([
     path: '/PlacementTest',
     Component: PlacementTest,
   },
+  {
+    path: '/pl-test',
+    Component: PLTestPage,
+  },
 ]);
 // TODO: handle not found pages
 

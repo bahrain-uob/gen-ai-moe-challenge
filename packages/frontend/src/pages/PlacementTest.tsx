@@ -9,13 +9,13 @@ export interface Question {
   options: Option[];
 }
 
-interface Option {
+export interface Option {
   id: number;
   text: string;
   isCorrect: boolean;
 }
 
-interface Selected {
+export interface Selected {
   section: number;
   question: string;
   chosen: string;
