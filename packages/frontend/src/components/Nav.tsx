@@ -12,7 +12,7 @@ const Nav = () => {
             <img className="w-16" src="assets/Logo.png" />
           </Link>
 
-          <Link className={linkStyling + 'max-md:hidden'} to="/Full-Exams">
+          <Link className={linkStyling + 'max-md:hidden'} to="/Full-Exam">
             <div>Full Exams</div>
           </Link>
           <Link className={linkStyling + 'max-md:hidden'} to="/Sections">

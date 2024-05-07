@@ -15,12 +15,13 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx'
+import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import Polly from './pages/Polly.tsx';
 import success from './pages/success.tsx';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 
+import PlacementTest from './pages/PlacementTest.tsx';
 
 Amplify.configure(
   {
@@ -72,7 +73,7 @@ const router = createBrowserRouter([
     path: '/Listening/Polly/success',
     Component: success,
   },
- 
+
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
@@ -120,6 +121,10 @@ const router = createBrowserRouter([
   {
     path: '/full-exam',
     Component: FullExam,
+  },
+  {
+    path: '/PlacementTest',
+    Component: PlacementTest,
   },
 ]);
 // TODO: handle not found pages
