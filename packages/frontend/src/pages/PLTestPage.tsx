@@ -3,9 +3,12 @@ import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
 
 export const PLTestPage = () => {
-  const [level, question] = getRandomQuestion();
   // console.log(level, question);
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
+  const selectedLevel = selectLevel(cf);
+  const [level, question] = getRandomQuestion(selectedLevel);
+
+  console.log('Selected level', CFRLevels[selectedLevel]);
 
   const handleClick = (option: Option) => {
     console.log(`correct: ${option.isCorrect}`);
@@ -61,8 +64,10 @@ const RenederQuestion = ({
 
 const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const getRandomQuestion = (): [number, Question] => {
-  const level = Math.floor(Math.random() * questions.length);
+const getRandomQuestion = (level?: number): [number, Question] => {
+  if (!level) {
+    level = Math.floor(Math.random() * questions.length);
+  }
   const qArray = questions[level];
   const question = qArray[Math.floor(Math.random() * qArray.length)];
   return [level, question];
@@ -107,4 +112,43 @@ const DevPanel = ({
       </div>
     </>
   );
+};
+
+const selectLevel = (cf: number[]): number => {
+  const cfObj = Object.entries(cf);
+
+  // Sort in descending order
+  cfObj.sort(([_, a], [__, b]) => {
+    if (a > b) {
+      return -1;
+    } else if (a < b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  const topCf = cfObj.slice(0, 3);
+  // console.log(topCf.map(v => `${CFRLevels[v[0]]} - ${v[1]}`));
+  console.log(topCf);
+  const level = topCf[Math.floor(Math.random() * topCf.length)][0];
+  return Number(level);
+
+  // const topCf = cfObj.filter(([_index, value]) => value === cfObj[0][1]);
+  // // console.log(topCf);
+  // return topCf
+
+  // console.log(cfObj.map(v => v[1]));
+  // // const randomIndex = Math.random() * cfObj.length
+  // console.log(Math.log(1 - Math.random()));
+
+  // let max = cf[0],
+  //   ind = 0;
+  // cf.forEach((value, index) => {
+  //   if (value > max) {
+  //     max = value;
+  //     ind = index;
+  //   }
+  // });
+  // return ind;
 };
