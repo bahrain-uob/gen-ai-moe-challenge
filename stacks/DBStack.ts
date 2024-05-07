@@ -48,11 +48,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     primaryIndex: { partitionKey: 'feedbackId' },
   });
 
-  Polly_bucket.attachPermissions([
-    's3:GetObject',
-    'polly:SynthesizeSpeech',
-    'dynamodb:PutItem',
-  ]);
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';

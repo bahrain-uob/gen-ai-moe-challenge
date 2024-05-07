@@ -8,7 +8,7 @@ interface Speech {
   gender: string;
 }
 
-export default function MyApp() {
+export default function AddListeningQ() {
   const [speakerA, setSpeakerA] = useState<string>('Gregory');
   const [speakerB, setSpeakerB] = useState<string>('Joanna');
   const [inputValue, setInputValue] = useState<string>('');
@@ -28,7 +28,7 @@ export default function MyApp() {
     const response = await toJSON(
       post({
         apiName: 'myAPI',
-        path: '/Listening/Polly',
+        path: '/Listening/AddQuestion',
         options: {
           headers: {
             Accept: 'application/json',
@@ -38,8 +38,7 @@ export default function MyApp() {
         },
       }),
     );
-    const ok = response;
-    navigate('/Listening/Polly/success', { replace: true, state: { ok } });
+    navigate('/Listening/AddQuestion/success', { replace: true, state: { response } });
     console.log(response); // Log the response URL
   };
 
@@ -98,7 +97,7 @@ export default function MyApp() {
         <input type="text" value={inputValue} onChange={handleInputChange} />
       </div>
       <button onClick={handleButtonClick}>Add speech</button>
-      <Link to="/Listening/Polly/success">
+      <Link to="/Listening/AddQuestion/success">
         <button onClick={handleSubmit}>Submit</button>
       </Link>
       <div>

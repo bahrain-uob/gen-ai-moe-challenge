@@ -11,6 +11,14 @@ from botocore.exceptions import ClientError
 polly = boto3.client('polly', region_name='us-east-1') 
 s3 = boto3.client('s3')
 PollyBucket = os.environ.get('Polly_Bucket')
+possibleSpeakers = ["Gregory", "Joey", "Matthew", "Stephen", "Joanna",
+                    "Salli", "Kimberly", "kendra", "Ruth", "Danielle"]
+
+invalidSpeaker = {
+    'statusCode': 400,
+    'body': "Invalid Speaker"
+}
+
 def text_to_speech(speech, speaker):
     
     text = f"<speak>{speech}<break time='1s'/></speak>"
@@ -18,13 +26,6 @@ def text_to_speech(speech, speaker):
     
     return response["AudioStream"].read()
 
-            
-
-
-
-
-
-  
 
 def main(event,context):
 
@@ -38,6 +39,9 @@ def main(event,context):
         speech=line['speech']
         gender = line['gender']
         speaker = gender
+        if speaker not in possibleSpeakers:
+            print(speaker)
+            return invalidSpeaker
         audio_stream = text_to_speech(speech,speaker)
         audio_streams.append(audio_stream)
         
@@ -47,13 +51,7 @@ def main(event,context):
     s3.put_object(Body=audio_fileobj, Bucket=PollyBucket, Key=Key + ".mp3")
     s3_url =  f'https://{PollyBucket}.s3.amazonaws.com/{Key}'
   
-    s3_presignedurl=generate_presigned_url(s3_url)
-   
-    print(s3_presignedurl)
-    
-    return {'statusCode': 200,
-        'body': json.dumps({'s3_url': s3_presignedurl }),
-        }
+    return generate_presigned_url(s3_url)
 
 
 
@@ -77,13 +75,10 @@ def generate_presigned_url(s3_url):
         )
         
         return {
-            
             'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-            },
             'body': json.dumps({'url': url}),
         }
+    
     except ClientError as e:
         print('Error generating pre-signed URL:', e)
         return {

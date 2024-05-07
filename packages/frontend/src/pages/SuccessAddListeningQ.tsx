@@ -1,15 +1,14 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const MyComponent: React.FC = () => {
+const SuccessAddListeningQ: React.FC = () => {
   const location = useLocation();
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [audioUrl, setAudioUrl] = React.useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [audioUrl, setAudioUrl] = useState('');
 
-  React.useEffect(() => {
-    if (location.state?.ok) {
-      const { s3_url } = location.state.ok;
-      const url = JSON.parse(s3_url.body).url;
+  useEffect(() => {
+    if (location.state?.response) {
+      const { url } = location.state.response;
       setAudioUrl(url);
       setIsLoading(false);
     }
@@ -30,4 +29,4 @@ const MyComponent: React.FC = () => {
   );
 };
 
-export default MyComponent;
+export default SuccessAddListeningQ;
