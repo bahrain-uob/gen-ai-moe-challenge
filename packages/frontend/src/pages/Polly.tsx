@@ -1,7 +1,8 @@
 import { post } from 'aws-amplify/api';
 import React, { useState } from 'react';
 import { toJSON } from '../utilities';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useNavigation } from 'react-router-dom'; // Import useHistory hook
+;
 
 interface Speech {
   speaker: string;
@@ -10,24 +11,33 @@ interface Speech {
 }
 
 function BEN() {
-  const [Audio, setAudio] = useState<string | null>(null);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
-  return Audio ? <MyComponent Audio={Audio} /> : <MyApp setAudio={setAudio} />;
+  return audioUrl ? <MyComponent audioUrl={audioUrl} /> : <MyApp setAudioUrl={setAudioUrl} />;
 }
 
 export default BEN;
 
-function MyApp(props) {
-  const [speakerA, setSpeakerA] = useState<string>('male');
-  const [speakerB, setSpeakerB] = useState<string>('female');
+function MyApp(props: {
+  audioUrl: any; setAudioUrl: (audioUrl: string | null) => void 
+}) {
+  const [speakerA, setSpeakerA] = useState<string>('Gregory');
+  const [speakerB, setSpeakerB] = useState<string>('Joanna');
   const [inputValue, setInputValue] = useState<string>('');
   const [speeches, setSpeeches] = useState<Speech[]>([]);
+  const navigate = useNavigate();
+
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleSubmit = async () => {
+    if (speeches.length === 0) {
+      console.log("No speeches to submit");
+      return;
+    }
+
     const response = await toJSON(
       post({
         apiName: 'myAPI',
@@ -41,9 +51,12 @@ function MyApp(props) {
         },
       }),
     );
-    props.setAudio(response.body.url);
-    console.log(response.body.url); // Log the response URL
-    return console.log(response);
+    
+      
+    props.setAudioUrl(response);
+    const ok=response
+    navigate('/Listening/Polly/success', {replace: true, state:{ok}});
+    console.log(response); // Log the response URL
   };
 
   const handleButtonClick = () => {
@@ -66,8 +79,16 @@ function MyApp(props) {
           value={speakerA}
           onChange={event => setSpeakerA(event.target.value)}
         >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="Gregory">Gregory</option>
+          <option value="Joey">Joey</option>
+          <option value="Matthew">Matthew</option>
+          <option value="Stephen">Stephen</option>
+          <option value="Joanna">Joanna</option>
+          <option value="Salli">Salli</option>
+          <option value="Kimberly">Kimberly</option>
+          <option value="Kendra">Kendra</option>
+          <option value="Ruth">Ruth</option>
+          <option value="Danielle">Danielle</option>
         </select>
       </div>
       <div>
@@ -76,8 +97,16 @@ function MyApp(props) {
           value={speakerB}
           onChange={event => setSpeakerB(event.target.value)}
         >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="Gregory">Gregory</option>
+          <option value="Joey">Joey</option>
+          <option value="Matthew">Matthew</option>
+          <option value="Stephen">Stephen</option>
+          <option value="Joanna">Joanna</option>
+          <option value="Salli">Salli</option>
+          <option value="Kimberly">Kimberly</option>
+          <option value="Kendra">Kendra</option>
+          <option value="Ruth">Ruth</option>
+          <option value="Danielle">Danielle</option>
         </select>
       </div>
       <div>
@@ -85,7 +114,9 @@ function MyApp(props) {
         <input type="text" value={inputValue} onChange={handleInputChange} />
       </div>
       <button onClick={handleButtonClick}>Add speech</button>
+      <Link to="/Listening/Polly/success">
       <button onClick={handleSubmit}>Submit</button>
+      </Link>
       <div>
         {speeches.map((speech, index) => (
           <div key={index}>
@@ -99,7 +130,7 @@ function MyApp(props) {
   );
 }
 
-function MyComponent(props) {
+function MyComponent(props: { audioUrl: string }) {
   const audioUrl = props.audioUrl;
 
   return (

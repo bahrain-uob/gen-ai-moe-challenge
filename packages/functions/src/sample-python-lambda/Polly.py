@@ -37,10 +37,7 @@ def main(event,context):
         speaker=line['speaker']
         speech=line['speech']
         gender = line['gender']
-        voices=['Danielle','Gregory','Joanna','Kendra','Kimberly','Salli','Joey','Matthew','Ruth','Stephen']
-        
-        
-        speaker = voices[i % len(voices)]
+        speaker = gender
         audio_stream = text_to_speech(speech,speaker)
         audio_streams.append(audio_stream)
         
@@ -74,7 +71,7 @@ def generate_presigned_url(s3_url):
             'get_object',
             Params={
                 'Bucket': s3_bucket,
-                'Key': key,
+                'Key': f'{key}.mp3',
             },
             ExpiresIn=300  # URL expiration time in seconds (300 seconds = 5 minutes)
         )
