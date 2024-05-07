@@ -5,6 +5,8 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
+import WritingTask1Page from './pages/writingTask1.tsx';
+import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
@@ -17,12 +19,12 @@ import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import Polly from './pages/Polly.tsx';
-import success from './pages/success.tsx';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
+import Polly from './pages/Polly.tsx';
+import success from './pages/success.tsx';
 
 Amplify.configure(
   {
@@ -67,14 +69,9 @@ const router = createBrowserRouter([
     Component: TestPage,
   },
   {
-    path: '/Listening/Polly',
-    Component: Polly,
+    path: '/writing-task1',
+    Component: WritingTask1Page,
   },
-  {
-    path: '/Listening/Polly/success',
-    Component: success,
-  },
-
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
@@ -111,6 +108,19 @@ const router = createBrowserRouter([
     path: '/SpeakingConversation',
     Component: SpeakingConversationPage,
   },
+
+  {
+    path: '/writing-task2',
+    Component: WritingTask2Page,
+  },
+  {
+    path: '/_writing-task1',
+    Component: WritingTask1Page_,
+  },
+  {
+    path: '/_writing-task2',
+    Component: WritingTask2Page_,
+  },
   {
     path: '/sign-up',
     Component: SignUp,
@@ -119,6 +129,15 @@ const router = createBrowserRouter([
     path: '/sign-in',
     Component: SignIn,
   },
+  {
+    path: '/Listening/Polly',
+    Component: Polly,
+  },
+  {
+    path: '/Listening/Polly/success',
+    Component: success,
+  },
+
   {
     path: '/full-exam',
     Component: FullExam,
