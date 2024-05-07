@@ -2,31 +2,29 @@ import { useState } from 'react';
 import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
 
-interface CF {
-  A1: number;
-  A2: number;
-  B1: number;
-  B2: number;
-  C1: number;
-  C2: number;
-}
-
 export const PLTestPage = () => {
   const [level, question] = getRandomQuestion();
   // console.log(level, question);
-  const [cf, setCf] = useState({
-    A1: 0.05,
-    A2: 0.1,
-    B1: 0.2,
-    B2: 0.3,
-    C1: 0.6,
-    C2: 1,
-  });
+  const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
+
+  const handleClick = (option: Option) => {
+    const cfCopy = [...cf];
+    if (option.isCorrect) {
+      for (let i = level; i < 6; i++) {
+        cfCopy[i] = combineCf(cf[i], 0.3);
+      }
+    } else {
+      for (let i = level - 1; i >= 0; i--) {
+        cfCopy[i] = combineCf(cf[i], 0.3);
+      }
+    }
+    setCf(cfCopy);
+  };
 
   return (
     <>
       <DevPanel cf={cf} question={question} level={level} />
-      <RenederQuestion question={question} handleClick={console.log} />
+      <RenederQuestion question={question} handleClick={handleClick} />
     </>
   );
 };
@@ -65,21 +63,23 @@ const RenederQuestion = ({
 
 const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-const getRandomQuestion = (): [string, Question] => {
+const getRandomQuestion = (): [number, Question] => {
   const level = Math.floor(Math.random() * questions.length);
   const qArray = questions[level];
   const question = qArray[Math.floor(Math.random() * qArray.length)];
-  return [CFRLevels[level], question];
+  return [level, question];
 };
+
+const combineCf = (a: number, b: number) => a + b - a * b;
 
 const DevPanel = ({
   cf,
   question,
   level,
 }: {
-  cf: CF;
+  cf: number[];
   question: Question;
-  level: string;
+  level: number;
 }) => {
   const correctAnswer = question.options.findIndex(
     ({ isCorrect }) => isCorrect,
@@ -88,17 +88,17 @@ const DevPanel = ({
   return (
     <>
       <div className="mb-16">
-        <div>Question level: {level}</div>
+        <div>Question level: {CFRLevels[level]}</div>
         <div>Correct answer: {correctAnswer + 1}</div>
         <div>
-          {Object.entries(cf).map(([level, prop]) => (
+          {cf.map((level, index) => (
             <div className="flex items-center mb-1">
               <div className="w-16">
-                {level}, {prop}
+                {CFRLevels[index]}, {level.toFixed(2)}
               </div>
               <div
                 className="inline-block bg-blue-4 h-4 ml-2"
-                style={{ width: 10 * prop + 'rem' }}
+                style={{ width: 10 * level + 'rem' }}
               ></div>
             </div>
           ))}
