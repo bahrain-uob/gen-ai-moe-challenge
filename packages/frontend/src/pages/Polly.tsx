@@ -1,32 +1,19 @@
 import { post } from 'aws-amplify/api';
 import React, { useState } from 'react';
 import { toJSON } from '../utilities';
-import { Link, useNavigate, useNavigation } from 'react-router-dom'; // Import useHistory hook
-;
-
+import { Link, useNavigate } from 'react-router-dom'; // Import useHistory hook
 interface Speech {
   speaker: string;
   speech: string;
   gender: string;
 }
 
-function BEN() {
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
-
-  return audioUrl ? <MyComponent audioUrl={audioUrl} /> : <MyApp setAudioUrl={setAudioUrl} />;
-}
-
-export default BEN;
-
-function MyApp(props: {
-  audioUrl: any; setAudioUrl: (audioUrl: string | null) => void 
-}) {
+function MyApp(props: {}) {
   const [speakerA, setSpeakerA] = useState<string>('Gregory');
   const [speakerB, setSpeakerB] = useState<string>('Joanna');
   const [inputValue, setInputValue] = useState<string>('');
   const [speeches, setSpeeches] = useState<Speech[]>([]);
   const navigate = useNavigate();
-
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -34,7 +21,7 @@ function MyApp(props: {
 
   const handleSubmit = async () => {
     if (speeches.length === 0) {
-      console.log("No speeches to submit");
+      console.log('No speeches to submit');
       return;
     }
 
@@ -51,11 +38,8 @@ function MyApp(props: {
         },
       }),
     );
-    
-      
-    props.setAudioUrl(response);
-    const ok=response
-    navigate('/Listening/Polly/success', {replace: true, state:{ok}});
+    const ok = response;
+    navigate('/Listening/Polly/success', { replace: true, state: { ok } });
     console.log(response); // Log the response URL
   };
 
@@ -115,7 +99,7 @@ function MyApp(props: {
       </div>
       <button onClick={handleButtonClick}>Add speech</button>
       <Link to="/Listening/Polly/success">
-      <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </Link>
       <div>
         {speeches.map((speech, index) => (
@@ -126,20 +110,6 @@ function MyApp(props: {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function MyComponent(props: { audioUrl: string }) {
-  const audioUrl = props.audioUrl;
-
-  return (
-    <div>
-      <h1>Play Audio</h1>
-      <audio controls>
-        <source src={audioUrl} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
     </div>
   );
 }
