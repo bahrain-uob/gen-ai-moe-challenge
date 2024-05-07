@@ -12,6 +12,7 @@ export function ApiStack({ stack }: StackContext) {
     feedback_table,
     myTable,
     speakingPollyBucket,
+    Polly_bucket,
   } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
