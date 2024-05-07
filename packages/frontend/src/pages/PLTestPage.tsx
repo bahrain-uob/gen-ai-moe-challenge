@@ -8,16 +8,14 @@ export const PLTestPage = () => {
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
 
   const handleClick = (option: Option) => {
-    const cfCopy = [...cf];
-    if (option.isCorrect) {
-      for (let i = level; i < 6; i++) {
-        cfCopy[i] = combineCf(cf[i], 0.3);
+    console.log(`correct: ${option.isCorrect}`);
+    const cfCopy = cf.map((value, index) => {
+      if (option.isCorrect) {
+        return index < level ? combineCf(value, -0.1) : combineCf(value, 0.2);
+      } else {
+        return index < level ? combineCf(value, 0.2) : combineCf(value, -0.1);
       }
-    } else {
-      for (let i = level - 1; i >= 0; i--) {
-        cfCopy[i] = combineCf(cf[i], 0.3);
-      }
-    }
+    });
     setCf(cfCopy);
   };
 
@@ -70,7 +68,10 @@ const getRandomQuestion = (): [number, Question] => {
   return [level, question];
 };
 
-const combineCf = (a: number, b: number) => a + b - a * b;
+const combineCf = (a: number, b: number) => {
+  const c = a + b - a * b;
+  return c > 0 ? c : 0;
+};
 
 const DevPanel = ({
   cf,
