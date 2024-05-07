@@ -3,7 +3,8 @@ import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
 import { get, post } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
+import { toJSON, updateSocketUrl } from '../utilities';
+import useWebSocket from 'react-use-websocket';
 
 interface Response {
   Score: string;
@@ -59,6 +60,28 @@ export const SpeakingLongQuestionPage: React.FC = () => {
   const [showAnswerTimer, setShowAnswerTimer] = useState<boolean>(false);
   const [answerTimerCount, setAnswerTimerCount] = useState<number>(30);
   const [submitted, setSubmitted] = useState<boolean>(false);
+
+  // socket url
+  const [socketUrl, setSocketUrl] = useState<string>(``);
+
+  updateSocketUrl(setSocketUrl);
+
+  //initialize the websocket
+  const { sendMessage } = useWebSocket(socketUrl, {
+    onOpen: event => console.log('opened', event),
+    onClose: event => console.log('closed', event),
+    onMessage: e => {
+      console.log('event', e);
+      const response = JSON.parse(e.data);
+      console.log('message', response);
+      setFeedback(response);
+      setShowFeedback1(false);
+      setShowFeedback2(false);
+      setShowFeedback3(false);
+    },
+    onError: console.log,
+    shouldReconnect: () => true,
+  });
 
   useEffect(() => {
     let questionTimer: any;
@@ -170,27 +193,18 @@ export const SpeakingLongQuestionPage: React.FC = () => {
           },
         });
 
-        toJSON(
-          post({
-            apiName: 'myAPI',
-            path: '/speaking',
-            options: {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: {
-                audioFileName,
-                question,
-              },
+        /**
+         * Changes Start here only
+         */
+        sendMessage(
+          JSON.stringify({
+            action: 'speaking',
+            data: {
+              audioFileName: `${audioFileName}`,
+              question: `${question}`,
             },
           }),
-        ).then(response => {
-          setFeedback(response);
-          setShowFeedback1(false);
-          setShowFeedback2(false);
-          setShowFeedback3(false);
-          setShowFeedback4(false);
-        });
+        );
       });
     }
   };

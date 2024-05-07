@@ -6,8 +6,13 @@ import { AuthStack } from './AuthStack';
 import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, uploads_bucket, feedback_table, myTable, speakingPollyBucket } =
-    use(DBStack);
+  const {
+    table,
+    uploads_bucket,
+    feedback_table,
+    myTable,
+    speakingPollyBucket,
+  } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
 
@@ -130,7 +135,7 @@ export function ApiStack({ stack }: StackContext) {
     ),
   });
 
-  const webSocket = new WebSocketApi(stack, "WebSocketApi", {
+  const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
         bind: [table],
@@ -150,17 +155,34 @@ export function ApiStack({ stack }: StackContext) {
       }),
     },
     routes: {
-      $connect: "packages/functions/src/connect.main",
-      $disconnect: "packages/functions/src/disconnect.main",
+      $connect: 'packages/functions/src/connect.main',
+      $disconnect: 'packages/functions/src/disconnect.main',
       gradeWriting: {
         function: {
-          handler:"packages/functions/src/gradingWriting.main",
-          timeout: "120 seconds",
+          handler: 'packages/functions/src/gradingWriting.main',
+          timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
 
         }
+        },
+      speaking: {
+        function: {
+          handler: 'packages/functions/src/speaking.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
       },
     },
   });
