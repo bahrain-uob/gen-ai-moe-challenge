@@ -156,6 +156,23 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
+      speaking: {
+        function: {
+          handler: 'packages/functions/src/speaking.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
+      },
     },
   });
 

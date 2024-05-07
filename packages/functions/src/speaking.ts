@@ -3,7 +3,12 @@ import {
   TranscribeClient,
   GetTranscriptionJobCommand,
 } from '@aws-sdk/client-transcribe';
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { APIGatewayProxyHandler } from 'aws-lambda';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
+import { wsError } from './utilities';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { runModel } from './utilities';
@@ -23,31 +28,54 @@ type rubricType = {
   [key: string]: string;
 };
 
-export const main: APIGatewayProxyHandlerV2 = async event => {
+export const main: APIGatewayProxyHandler = async event => {
+  // Get client info
+  const { stage, domainName } = event.requestContext;
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: `https://${domainName}/${stage}`,
+  });
+  const connectionId = event.requestContext.connectionId;
+
+  // Ensure message has a body
   if (event.body == undefined) {
-    return { statusCode: 400, body: JSON.stringify('No valid input') };
+    return await wsError(apiClient, connectionId, 400, 'Bad Request');
   }
 
-  const requestBody = JSON.parse(event.body);
+  const requestBody = JSON.parse(event.body).data;
   const { audioFileName, question } = requestBody;
+
+  // Ensure audioFileName and question exist in the body
+  if (!audioFileName || !question) {
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Missing audio file or question',
+    );
+  }
+
   const fileName = audioFileName.slice(0, -5);
 
   /* Transcription Function */
   const transcriptionStatus = await startTranscription(fileName);
   if (transcriptionStatus === 'FAILED') {
-    return {
-      statusCode: 400,
-      body: JSON.stringify('Failed to start transcription.'),
-    };
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Failed to start transcription',
+    );
   }
 
   /* Retreive from S3 the transcript */
   const answer = await retrieveTranscript(fileName);
   if (typeof answer !== 'string') {
-    return {
-      statusCode: 400,
-      body: JSON.stringify('Failed to retreive the transcript.'),
-    };
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Failed to retrieve the transcript',
+    );
   }
 
   /* Prompt Bedrock */
@@ -105,6 +133,15 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
 
   /* Store the result in dynamodb */
   await storeFeedback(fileName, `${averageScore.toFixed(2)}`, combinedFeedback);
+
+  if (connectionId) {
+    const command = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: JSON.stringify(output),
+    });
+    const response = await apiClient.send(command);
+    console.log('Response:', response);
+  }
 
   return {
     statusCode: 200,
