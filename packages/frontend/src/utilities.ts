@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { fetchAuthSession } from 'aws-amplify/auth';
+
 // Note: I'm using requets type any, because I couldn't find a way to import
 // types from amplify
 export const toJSON = async (request: any) => {
@@ -18,4 +21,22 @@ export interface WritingGrading {
                                    context:{text:string, offset:number, length:number, }
                                    [key: string] : any}>;
   'Combined Feedback': string;
+}
+
+/**
+ * This is a function the will update the url of the websocket with the auth token
+ */
+
+export const updateSocketUrl = async (setSocketUrl: (url: string) => void) => {
+  
+  useEffect(() => {
+    const getToken = async () => {
+      const token = (
+        await fetchAuthSession()
+        ).tokens?.idToken?.toString();
+        setSocketUrl(`${import.meta.env.VITE_WEBSOCKET_URL as string}?idToken=${token}`);
+    }
+    getToken();
+  }, []);
+
 }

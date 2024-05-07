@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { PointsBadge } from '../components/PointsBadge';
-import { WritingGrading } from '../utilities';
+import { WritingGrading, updateSocketUrl } from '../utilities';
 import { WritingFeedbackContainer } from '../components/WritingFeedback';
 import useWebSocket from 'react-use-websocket';
 
@@ -18,13 +18,18 @@ export function WritingTask1Page_() {
   // Feedback from backend
   const [grading, setGrading] = useState<undefined | WritingGrading>(undefined);
 
+  // socket url
+  const [socketUrl, setSocketUrl] = useState<string>(``);
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  // Update the socket url with the auth token
+  updateSocketUrl(setSocketUrl);
+
   const { sendMessage } = useWebSocket(
-    // Get the websocket url from the environment
-    import.meta.env.VITE_WEBSOCKET_URL as string,
+    socketUrl,
     {
       onOpen: event => console.log('opened', event),
       onClose: event => console.log('closed', event),

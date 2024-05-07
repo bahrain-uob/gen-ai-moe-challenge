@@ -1,7 +1,7 @@
 import { CSSProperties, ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import CollapsableCard from '../components/collapsableCard';
-import { WritingGrading } from '../utilities';
+import { WritingGrading, updateSocketUrl } from '../utilities';
 import useWebSocket from 'react-use-websocket';
 
 function WritingTask1Page() {
@@ -17,12 +17,14 @@ function WritingTask1Page() {
     undefined as undefined | WritingGrading,
   );
 
+  // socket url
+  const [socketUrl, setSocketUrl] = useState<string>(``);
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  //get the websocket url from the environment
-  const socketUrl = import.meta.env.VITE_WEBSOCKET_URL as string;
+  updateSocketUrl(setSocketUrl);
 
   //initialize the websocket
   const {
