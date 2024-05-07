@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { PointsBadge } from '../components/PointsBadge';
 import { WritingGrading } from '../utilities';
 import { WritingFeedbackContainer } from '../components/WritingFeedback';
 import useWebSocket from 'react-use-websocket';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 export function WritingTask2Page_() {
   const [inputs, setInputs] = useState({
@@ -20,12 +21,26 @@ export function WritingTask2Page_() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  // socket url
+  const [socketUrl, setSocketUrl] = useState<string>(``);
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = (
+        await fetchAuthSession()
+        ).tokens?.idToken?.toString();
+        setSocketUrl(`${import.meta.env.VITE_WEBSOCKET_URL as string}?idToken=${token}`);
+    }
+    getToken();
+  }, []);
+
   const { sendMessage } = useWebSocket(
     // Get the websocket url from the environment
-    import.meta.env.VITE_WEBSOCKET_URL as string,
+    socketUrl,
     {
       onOpen: event => console.log('opened', event),
       onClose: event => console.log('closed', event),
+      onError: console.log,
       onMessage: e => {
         console.log('event', e);
         const response = JSON.parse(e.data);
