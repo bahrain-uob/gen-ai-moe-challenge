@@ -36,16 +36,9 @@ def main(event,context):
         
         speaker=line['speaker']
         speech=line['speech']
+        gender = line['gender']
+        voices=['Danielle','Gregory','Joanna','Kendra','Kimberly','Salli','Joey','Matthew','Ruth','Stephen']
         
-
-        if speaker == 'male' and all(speaker  == 'male' for line in speech):
-            voices = ['Joey', 'Matthew'] 
-            
-        elif speaker == 'female' and all(speaker == 'female' for line in speech):
-            voices = ['Joanna', 'Kendra'] 
-        else:
-            voices = ['Joanna', 'Joey']
-
         
         speaker = voices[i % len(voices)]
         audio_stream = text_to_speech(speech,speaker)

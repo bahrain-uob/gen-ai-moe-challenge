@@ -1,24 +1,23 @@
 import { post } from 'aws-amplify/api';
 import React, { useState } from 'react';
 import { toJSON } from '../utilities';
-import { render } from 'react-dom';
+import { Link } from 'react-router-dom';
 
 interface Speech {
   speaker: string;
   speech: string;
+  gender: string;
 }
 
 function BEN() {
-  const [audio, setAudio] = useState<string | null>(null);
+  const [Audio, setAudio] = useState<string | null>(null);
 
-  return (
-    audio ? <MyComponent audioUrl={audio} /> : <MyApp setAudio={setAudio} />
-  );
+  return Audio ? <MyComponent Audio={Audio} /> : <MyApp setAudio={setAudio} />;
 }
 
 export default BEN;
 
-function MyApp(props: { setAudio: (audio: string) => void }) {
+function MyApp(props) {
   const [speakerA, setSpeakerA] = useState<string>('male');
   const [speakerB, setSpeakerB] = useState<string>('female');
   const [inputValue, setInputValue] = useState<string>('');
@@ -29,35 +28,31 @@ function MyApp(props: { setAudio: (audio: string) => void }) {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: '/Listening/Polly',
-          options: {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(speeches),
+    const response = await toJSON(
+      post({
+        apiName: 'myAPI',
+        path: '/Listening/Polly',
+        options: {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
-        })
-      );
-      props.setAudio(response.body.url);
-      console.log(response.body.url);
-      const domNode = document.getElementById('root');
-      render(<MyComponent audioUrl={props.setAudio} />, domNode) // Log the response URL
-    } catch (error) {
-      console.error('Error submitting data:', error);
-    }
+          body: JSON.stringify(speeches),
+        },
+      }),
+    );
+    props.setAudio(response.body.url);
+    console.log(response.body.url); // Log the response URL
+    return console.log(response);
   };
 
   const handleButtonClick = () => {
     if (inputValue.trim() !== '') {
       const speaker = speeches.length % 2 === 0 ? 'A' : 'B';
+      const gender = speaker === 'A' ? speakerA : speakerB;
       setSpeeches(prevSpeeches => [
         ...prevSpeeches,
-        { speaker, speech: inputValue },
+        { speaker, speech: inputValue, gender },
       ]);
       setInputValue('');
     }
@@ -96,6 +91,7 @@ function MyApp(props: { setAudio: (audio: string) => void }) {
           <div key={index}>
             <span>{speech.speaker}: </span>
             <span>{speech.speech}</span>
+            <span>({speech.gender})</span>
           </div>
         ))}
       </div>
@@ -103,8 +99,8 @@ function MyApp(props: { setAudio: (audio: string) => void }) {
   );
 }
 
-function MyComponent(props: { audioUrl: string }) {
-  const { audioUrl } = props;
+function MyComponent(props) {
+  const audioUrl = props.audioUrl;
 
   return (
     <div>
