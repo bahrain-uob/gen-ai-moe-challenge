@@ -2,7 +2,7 @@ import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
 
 export const PLTestPage = () => {
-  const rQuestion = questions[Math.floor(Math.random() * questions.length)][0];
+  const rQuestion = getRandomQuestion();
 
   return <RenederQuestion question={rQuestion} handleClick={console.log} />;
 };
@@ -38,3 +38,9 @@ const RenederQuestion = ({
 // function optionClicked(text: any): void {
 //   throw new Error('Function not implemented.');
 // }
+
+const getRandomQuestion = () => {
+  const qArray = questions[Math.floor(Math.random() * questions.length)];
+  const question = qArray[Math.floor(Math.random() * qArray.length)];
+  return question;
+};
