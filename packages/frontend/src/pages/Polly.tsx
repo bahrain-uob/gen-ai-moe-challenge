@@ -8,7 +8,7 @@ interface Speech {
   gender: string;
 }
 
-function MyApp(props: {}) {
+export default function MyApp() {
   const [speakerA, setSpeakerA] = useState<string>('Gregory');
   const [speakerB, setSpeakerB] = useState<string>('Joanna');
   const [inputValue, setInputValue] = useState<string>('');
