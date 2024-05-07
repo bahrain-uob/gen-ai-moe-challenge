@@ -4,11 +4,14 @@
 import { APIGatewayRequestAuthorizerHandler } from "aws-lambda";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 
-const UserPoolId = process.env.userPoolId!;
+const UserPoolId = process.env.userPool!;
 const AppClientId = process.env.userPoolClient!;
 
 export const handler: APIGatewayRequestAuthorizerHandler = async (event, context) => {
   try {
+
+    console.log("userPoolId", UserPoolId);
+    console.log("userPoolClient", AppClientId);
     const verifier = CognitoJwtVerifier.create({
       userPoolId: UserPoolId,
       tokenUse: "id",
@@ -16,6 +19,7 @@ export const handler: APIGatewayRequestAuthorizerHandler = async (event, context
     });
 
     const encodedToken = event.queryStringParameters!.idToken!;
+    console.log("params", event.queryStringParameters);
     const payload = await verifier.verify(encodedToken);
     console.log("Token is valid. Payload:", payload);
 

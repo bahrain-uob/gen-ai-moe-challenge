@@ -139,12 +139,14 @@ export function ApiStack({ stack }: StackContext) {
     },
     authorizer: {
       type: "lambda",
+      identitySource: [`route.request.querystring.idToken`],
       function: new Function(stack, "Authorizer", {
-        handler: "packages/functions/src/authorizer.main",
+        handler: "packages/functions/src/authorizer.handler",
         environment: {
           userPool: auth.userPoolId,
           userPoolClient: auth.userPoolClientId
         },
+        
       }),
     },
     routes: {
