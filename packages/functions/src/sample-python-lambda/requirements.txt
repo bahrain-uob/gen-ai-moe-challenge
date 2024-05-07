@@ -1,4 +1,2 @@
 boto3
 AudioSegment
-pydub==0.25.1
-io
