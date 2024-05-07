@@ -98,7 +98,7 @@ const DevPanel = ({
         <div>Correct answer: {correctAnswer + 1}</div>
         <div>
           {cf.map((level, index) => (
-            <div className="flex items-center mb-1">
+            <div className="flex items-center mb-1" key={index}>
               <div className="w-16">
                 {CFRLevels[index]}, {level.toFixed(2)}
               </div>
