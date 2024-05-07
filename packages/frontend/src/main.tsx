@@ -23,8 +23,8 @@ import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
-import { AddListeningQ } from './pages/AddListeningQ.tsx';
-import { SuccessAddListeningQ } from './pages/SuccessAddListeningQ.tsx';
+import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
+import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 
 Amplify.configure(
   {
@@ -131,11 +131,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/Listening/addQuestion',
-    Component: AddListeningQ,
+    Component: AddListeningQPage,
   },
   {
     path: '/Listening/addQuestion/success',
-    Component: SuccessAddListeningQ,
+    Component: SuccessAddListeningQPage,
   },
 
   {

@@ -8,7 +8,7 @@ interface Speech {
   gender: string;
 }
 
-export function AddListeningQ() {
+export function AddListeningQPage() {
   const [speakerA, setSpeakerA] = useState<string>('Gregory');
   const [speakerB, setSpeakerB] = useState<string>('Joanna');
   const [inputValue, setInputValue] = useState<string>('');

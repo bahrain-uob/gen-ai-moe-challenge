@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export const SuccessAddListeningQ: React.FC = () => {
+export const SuccessAddListeningQPage: React.FC = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [audioUrl, setAudioUrl] = useState('');
