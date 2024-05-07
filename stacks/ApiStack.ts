@@ -6,8 +6,14 @@ import { AuthStack } from './AuthStack';
 import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, uploads_bucket, feedback_table, myTable, speakingPollyBucket } =
-    use(DBStack);
+  const {
+    table,
+    uploads_bucket,
+    feedback_table,
+    myTable,
+    speakingPollyBucket,
+    Polly_bucket,
+  } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
 
@@ -104,14 +110,15 @@ export function ApiStack({ stack }: StackContext) {
       'GET /scores/{section}/{sk}':
         'packages/functions/src/getScoresReadingListening.handler',
 
-      // Sample Pyhton lambda function
-      'GET /': {
+      // Listening to convert script to audio (for now)
+      'POST /Listening/AddQuestion': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
+          handler: 'packages/functions/src/sample-python-lambda/addListeningQ.main',
           runtime: 'python3.11',
+          permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
           timeout: '60 seconds',
+          environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
-        authorizer: 'none',
       },
     },
   });
@@ -130,7 +137,7 @@ export function ApiStack({ stack }: StackContext) {
     ),
   });
 
-  const webSocket = new WebSocketApi(stack, "WebSocketApi", {
+  const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
         bind: [table],
@@ -138,16 +145,33 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
     routes: {
-      $connect: "packages/functions/src/connect.main",
-      $disconnect: "packages/functions/src/disconnect.main",
+      $connect: 'packages/functions/src/connect.main',
+      $disconnect: 'packages/functions/src/disconnect.main',
       gradeWriting: {
         function: {
-          handler:"packages/functions/src/gradingWriting.main",
-          timeout: "120 seconds",
+          handler: 'packages/functions/src/gradingWriting.main',
+          timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
-        }
+        },
+      },
+      speaking: {
+        function: {
+          handler: 'packages/functions/src/speaking.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
       },
     },
   });

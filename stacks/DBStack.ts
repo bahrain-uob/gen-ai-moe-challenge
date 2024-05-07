@@ -26,6 +26,7 @@ export function DBStack(this: any, { stack }: StackContext) {
   });
 
   const uploads_bucket = new Bucket(stack, 'Uploads');
+  const Polly_bucket = new Bucket(stack, 'Polly');
 
   /* For now we;re using a bucket that is already filled
    * TODO: change this when the feature of adding questions is implemented
@@ -46,6 +47,7 @@ export function DBStack(this: any, { stack }: StackContext) {
     },
     primaryIndex: { partitionKey: 'feedbackId' },
   });
+
 
   // Create an RDS database
   const mainDBLogicalName = 'MainDatabase';
@@ -109,6 +111,7 @@ export function DBStack(this: any, { stack }: StackContext) {
     table,
     uploads_bucket,
     feedback_table,
+    Polly_bucket,
     myTable,
     speakingPollyBucket,
   };
