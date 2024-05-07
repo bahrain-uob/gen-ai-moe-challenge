@@ -12,7 +12,8 @@ interface CF {
 }
 
 export const PLTestPage = () => {
-  const rQuestion = getRandomQuestion();
+  const [level, question] = getRandomQuestion();
+  // console.log(level, question);
   const [cf, setCf] = useState({
     A1: 0.05,
     A2: 0.1,
@@ -24,8 +25,8 @@ export const PLTestPage = () => {
 
   return (
     <>
-      <DevPanel cf={cf} question={rQuestion} />
-      <RenederQuestion question={rQuestion} handleClick={console.log} />
+      <DevPanel cf={cf} question={question} level={level} />
+      <RenederQuestion question={question} handleClick={console.log} />
     </>
   );
 };
@@ -62,13 +63,24 @@ const RenederQuestion = ({
 //   throw new Error('Function not implemented.');
 // }
 
-const getRandomQuestion = () => {
-  const qArray = questions[Math.floor(Math.random() * questions.length)];
+const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
+const getRandomQuestion = (): [string, Question] => {
+  const level = Math.floor(Math.random() * questions.length);
+  const qArray = questions[level];
   const question = qArray[Math.floor(Math.random() * qArray.length)];
-  return question;
+  return [CFRLevels[level], question];
 };
 
-const DevPanel = ({ cf, question }: { cf: CF; question: Question }) => {
+const DevPanel = ({
+  cf,
+  question,
+  level,
+}: {
+  cf: CF;
+  question: Question;
+  level: string;
+}) => {
   const correctAnswer = question.options.findIndex(
     ({ isCorrect }) => isCorrect,
   );
@@ -76,7 +88,8 @@ const DevPanel = ({ cf, question }: { cf: CF; question: Question }) => {
   return (
     <>
       <div className="mb-16">
-        <span>Correct answer: {correctAnswer + 1}</span>
+        <div>Question level: {level}</div>
+        <div>Correct answer: {correctAnswer + 1}</div>
         <div>
           {Object.entries(cf).map(([level, prop]) => (
             <div className="flex items-center mb-1">
