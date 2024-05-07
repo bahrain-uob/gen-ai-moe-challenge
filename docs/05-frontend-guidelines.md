@@ -24,7 +24,6 @@ same file, or (B) create a sub-directory like `src/components/writing` and put
 your components there.
 
 
-
 ## Tailwind colors
 
 You can use our specific colors, like `blue-4` in the following example:
@@ -39,3 +38,7 @@ Here are the colors for a reference:
 
 ![](./diagrams/color-palette.png)
 
+
+## Use react icons
+
+See https://react-icons.github.io/react-icons/
