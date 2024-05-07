@@ -1,4 +1,4 @@
-import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
+import { Api, StackContext, use, WebSocketApi, Function } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
@@ -137,6 +137,16 @@ export function ApiStack({ stack }: StackContext) {
         permissions: ['bedrock:InvokeModel'],
       },
     },
+    authorizer: {
+      type: "lambda",
+      function: new Function(stack, "Authorizer", {
+        handler: "packages/functions/src/authorizer.main",
+        environment: {
+          userPool: auth.userPoolId,
+          userPoolClient: auth.userPoolClientId
+        },
+      }),
+    },
     routes: {
       $connect: "packages/functions/src/connect.main",
       $disconnect: "packages/functions/src/disconnect.main",
@@ -147,6 +157,7 @@ export function ApiStack({ stack }: StackContext) {
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
+
         }
       },
     },
@@ -157,7 +168,8 @@ export function ApiStack({ stack }: StackContext) {
   });
 
   // Allowing authenticated users to access API
-  auth.attachPermissionsForAuthUsers(stack, [api]);
+  auth.attachPermissionsForAuthUsers(stack, [api, webSocket]);
+
 
   return { api, apiCachePolicy, webSocket };
 }
