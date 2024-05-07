@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const SuccessAddListeningQ: React.FC = () => {
+export const SuccessAddListeningQ: React.FC = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [audioUrl, setAudioUrl] = useState('');
@@ -28,5 +28,3 @@ const SuccessAddListeningQ: React.FC = () => {
     </div>
   );
 };
-
-export default SuccessAddListeningQ;
