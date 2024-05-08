@@ -10,14 +10,11 @@ import {
   retrieveTranscript,
   createPrompt,
   rubric,
+  pronunciationFeedback,
 } from './utilities/speakingUtilities';
 
 const uploadResponseBucket = process.env.speakingUploadBucketName;
 const feedbackTableName = process.env.feedbackTableName;
-
-const missPronunciations: string[] = [];
-let pronunciationScore: number;
-let pronunciationFeedbackString: string;
 
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
@@ -73,7 +70,7 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Retreive the transcript from S3
   const answer = await retrieveTranscript(fileName, uploadResponseBucket);
-  if (typeof answer !== 'string') {
+  if (typeof answer !== 'object') {
     return await wsError(
       apiClient,
       connectionId,
@@ -82,7 +79,10 @@ export const main: APIGatewayProxyHandler = async event => {
     );
   }
 
-  /* Prompt Bedrock */
+  // Pronunciation Check
+  const { pronScore, pronFeedback } = await pronunciationFeedback(answer.items);
+
+  // Prompt Bedrock
   const criterias = [
     'Fluency and Coherence',
     'Lexical Resource',
@@ -91,55 +91,43 @@ export const main: APIGatewayProxyHandler = async event => {
 
   const feedbackResults = await Promise.all(
     criterias.map(criteria =>
-      runModel(createPrompt(criteria, rubric[criteria], question, answer)),
+      runModel(
+        createPrompt(
+          criteria,
+          rubric[criteria],
+          question,
+          answer.transcripts[0].transcript as string,
+        ),
+      ),
     ),
   );
 
-  /* Extract scores from feedback results and calculate the average */
-  const scores = feedbackResults.map(feedback => {
-    // Find the line containing 'Score:' and extract the number
-    const scoreLine = feedback
-      .split('\n')
-      .find((line: string) => line.includes('Score:'));
-    const scoreStr = scoreLine?.match(/\d+/)?.[0];
-    if (!scoreStr) {
-      console.error('No score found in feedback:', feedback);
-      return 0;
-    }
-    return parseInt(scoreStr, 10);
+  // Extract scores from feedback results and calculate the average
+  const scores: Array<number> = feedbackResults.map(feedback => {
+    const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
+    const number = parseFloat(score);
+    return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
+  scores.push(pronScore);
+  const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
+    2,
+  );
 
-  const validScores = scores.filter(score => !isNaN(score));
-  validScores.push(pronunciationScore);
-  const averageScore =
-    Math.round(
-      (validScores.reduce((acc, score) => acc + score, 0) /
-        (validScores.length || 1)) *
-        2,
-    ) / 2;
+  // TODO: Ensure 1-2 minutes of speech
 
-  // Combine all feedback into one string
-  let combinedFeedback = feedbackResults.join('\n\n');
-  combinedFeedback = combinedFeedback.concat(pronunciationFeedbackString);
-
-  // Log each feedback result and the average score
-  // feedbackResults.forEach((feedback, index) => {
-  //   console.log(`${criterias[index]}: ${feedback}\n\n`);
-  // });
-  // console.log(pronunciationFeedbackString);
-
-  // console.log(`\n\nAverage Score: ${averageScore.toFixed(2)}`);
-
+  // Feedback to be returned to the user
   const output = {
-    Score: averageScore.toFixed(2),
-    Feedback: combinedFeedback,
+    Score: avgScore,
+    'Fluency and Coherence': feedbackResults[0],
+    'Lexical Resource': feedbackResults[1],
+    'Grammatical Range and Accuracy': feedbackResults[2],
+    Pronunciation: pronFeedback,
   };
 
-  /* Store the result in dynamodb */
+  // Store the result in dynamodb
   const storeStatus = await storeFeedback(
     fileName,
-    `${averageScore.toFixed(2)}`,
-    combinedFeedback,
+    `${avgScore}`,
     feedbackTableName,
   );
   if (storeStatus === false) {
@@ -165,14 +153,3 @@ export const main: APIGatewayProxyHandler = async event => {
     body: JSON.stringify(output),
   };
 };
-
-/** This function formulates the feedback string for the mispronuncitions in the user's response */
-function pronunciationFeedback(score: number, misses: string[]) {
-  const base = `\nScore: ${score}\n\nFeedback: `;
-  if (score < 9) {
-    return base.concat(
-      `There are some mispronunciations like ${misses.toString()}.`,
-    );
-  }
-  return base.concat('There are no mispronunciations.');
-}
