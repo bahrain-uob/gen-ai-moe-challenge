@@ -17,12 +17,15 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx'
+import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
-import PlacementTest from'./pages/PlacementTest.tsx';
+import PlacementTest from './pages/PlacementTest.tsx';
+import { Layout } from './Layout.tsx';
+import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
+import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 
 Amplify.configure(
   {
@@ -62,13 +65,86 @@ const router = createBrowserRouter([
     path: '/',
     Component: App,
   },
+  // Note that home page doesn't need a padding, because of the slider
   {
-    path: '/test',
-    Component: TestPage,
+    element: <Layout noPadding />,
+    children: [
+      {
+        path: '/home',
+        Component: Home,
+      },
+    ],
+  },
+  // All routes inside `children` use the default layout
+  {
+    Component: Layout,
+    children: [
+      {
+        path: '/speaking',
+        Component: Speaking,
+      },
+      {
+        path: '/Exercises',
+        Component: Exercises,
+      },
+      {
+        path: '/sections',
+        Component: Sections,
+      },
+      {
+        path: '/SpeakingExercises',
+        Component: SpeakingExercisesPage,
+      },
+      {
+        path: '/SpeakingLongQuestion',
+        Component: SpeakingLongQuestionPage,
+      },
+      {
+        path: '/SpeakingConversation',
+        Component: SpeakingConversationPage,
+      },
+      {
+        path: '/writing-task2',
+        Component: WritingTask2Page,
+      },
+      {
+        path: '/_writing-task1',
+        Component: WritingTask1Page_,
+      },
+      {
+        path: '/_writing-task2',
+        Component: WritingTask2Page_,
+      },
+      {
+        path: '/sign-up',
+        Component: SignUp,
+      },
+      {
+        path: '/sign-in',
+        Component: SignIn,
+      },
+      {
+    path: '/Listening/addQuestion',
+    Component: AddListeningQPage,
   },
   {
-    path: '/writing-task1',
-    Component: WritingTask1Page,
+    path: '/Listening/addQuestion/success',
+    Component: SuccessAddListeningQPage,
+  },
+
+  {
+        path: '/full-exam',
+        Component: FullExam,
+      },
+      {
+        path: '/writing-task1',
+        Component: WritingTask1Page,
+      },
+      {
+        path: '/test',
+        Component: TestPage,
+      },
+    ],
   },
   {
     path: '/:section/:sk', // Updated route with path parameters
@@ -77,59 +153,6 @@ const router = createBrowserRouter([
   {
     path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
     Component: FeedbackPage,
-  },
-  {
-    path: '/speaking',
-    Component: Speaking,
-  },
-  {
-    path: '/Exercises',
-    Component: Exercises,
-  },
-  {
-    path: '/home',
-    Component: Home,
-  },
-  {
-    path: '/sections',
-    Component: Sections,
-  },
-  {
-    path: '/SpeakingExercises',
-    Component: SpeakingExercisesPage,
-  },
-  {
-    path: '/SpeakingLongQuestion',
-    Component: SpeakingLongQuestionPage,
-  },
-  {
-    path: '/SpeakingConversation',
-    Component: SpeakingConversationPage,
-  },
-
-  {
-    path: '/writing-task2',
-    Component: WritingTask2Page,
-  },
-  {
-    path: '/_writing-task1',
-    Component: WritingTask1Page_,
-  },
-  {
-    path: '/_writing-task2',
-    Component: WritingTask2Page_,
-  },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
-  {
-    path: '/full-exam',
-    Component: FullExam,
   },
   {
     path: '/PlacementTest',

@@ -12,6 +12,7 @@ export function ApiStack({ stack }: StackContext) {
     feedback_table,
     myTable,
     speakingPollyBucket,
+    Polly_bucket,
   } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
@@ -109,14 +110,15 @@ export function ApiStack({ stack }: StackContext) {
       'GET /scores/{section}/{sk}':
         'packages/functions/src/getScoresReadingListening.handler',
 
-      // Sample Pyhton lambda function
-      'GET /': {
+      // Listening to convert script to audio (for now)
+      'POST /Listening/AddQuestion': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
+          handler: 'packages/functions/src/sample-python-lambda/addListeningQ.main',
           runtime: 'python3.11',
+          permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
           timeout: '60 seconds',
+          environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
-        authorizer: 'none',
       },
     },
   });
