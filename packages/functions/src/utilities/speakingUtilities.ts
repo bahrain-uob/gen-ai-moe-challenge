@@ -66,14 +66,14 @@ export async function startTranscription(
 export async function storeFeedback(
   audioFileName: string,
   score: string,
-  feedback: string,
+  //feedback: string,
   feedbackTableName: string,
 ) {
   const dynamoClient = new DynamoDBClient();
   const item = {
     feedbackId: { S: audioFileName },
     feedbackScore: { S: score },
-    feedbackText: { S: feedback },
+    //feedbackText: { S: feedback },
   };
   try {
     const command = new PutItemCommand({
@@ -105,8 +105,7 @@ export async function retrieveTranscript(
     return false;
   }
   const content = await response.Body.transformToString('utf-8');
-  console.log(content);
-  return JSON.parse(content).results.transcripts[0].transcript as string;
+  return JSON.parse(content).results;
 }
 
 /**
@@ -144,22 +143,25 @@ export function createPrompt(
       `;
 }
 
-//let correctPron = 0;
-// let countOfWords = 0;
-// const transcribeResults = JSON.parse(content).results;
-// const transcribeItems = transcribeResults.items;
-// for (let item of transcribeItems) {
-//   if (item.alternatives[0].confidence > 0) {
-//     if (item.alternatives[0].confidence > 0.995) {
-//       correctPron++;
-//     } else {
-//       missPronunciations.push(item.alternatives[0].content);
-//     }
-//     countOfWords++;
-//   }
-// }
-// pronunciationScore = Math.floor((correctPron / countOfWords) * 9);
-// pronunciationFeedbackString = pronunciationFeedback(
-//   pronunciationScore,
-//   missPronunciations,
-// );
+/** This function formulates the feedback string for the mispronuncitions in the user's response */
+export function pronunciationFeedback(pronunciationItems: object) {
+  let correctPron = 0;
+  let countOfWords = 0;
+  const missPronunciations = [];
+  for (let item of pronunciationItems) {
+    if (item.alternatives[0].confidence > 0) {
+      if (item.alternatives[0].confidence > 0.995) {
+        correctPron++;
+      } else {
+        missPronunciations.push(item.alternatives[0].content);
+      }
+      countOfWords++;
+    }
+  }
+  const pronScore = Math.floor((correctPron / countOfWords) * 9);
+  let pronFeedback = 'There are no mispronunciation mistakes.';
+  if (pronScore < 9) {
+    pronFeedback = `There are some mispronunciations like ${missPronunciations.toString()}.`;
+  }
+  return { pronScore, pronFeedback };
+}
