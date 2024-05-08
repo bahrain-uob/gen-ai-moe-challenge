@@ -38,13 +38,17 @@ export const PLTestPage = () => {
 
   const handleClick = (option: Option) => {
     console.log(`correct: ${option.isCorrect}`);
-    const cfCopy = cf.map((value, index) => {
-      if (option.isCorrect) {
-        return index < level ? combineCf(value, -0.1) : combineCf(value, 0.2);
-      } else {
-        return index < level ? combineCf(value, 0.2) : combineCf(value, -0.1);
-      }
-    });
+    const CFRL = CFRLevels[selectedLevel];
+    const t1 = option.isCorrect
+      ? knowledgeBase.correct
+      : knowledgeBase.incorrect;
+    const increments = t1[CFRL] as number[];
+    // console.log('inc', increments);
+
+    const cfCopy = increments.map((value, index) =>
+      combineCf(value, cf[index]),
+    );
+
     setCf(cfCopy);
   };
 
