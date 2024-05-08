@@ -120,6 +120,7 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
+      'GET /startTest/{testType}' : 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
