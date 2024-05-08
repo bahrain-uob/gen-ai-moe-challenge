@@ -1,30 +1,16 @@
-interface ReadingPart {
+export interface ReadingPart {
   MyPartitionKey: string;
   MySortKey: string;
   NumOfQuestions: number;
   PassageTitle: string;
   Passage: string;
-  Questions: Question[];
+  Questions: ReadingQuestion[];
 }
-type Question =
+export type ReadingQuestion =
   | QuestionTableCompletion
   | QuestionListSelection
   | QuestionMultipleChoice
-  | QuestionSQSummaryCompletion
-  | Question_;
-
-interface Question_ {
-  NumOfSubQuestions: number;
-  Question: string;
-  QuestionType:
-    | 'List Selection'
-    | 'Multiple Choice'
-    | 'Yes No Not Given'
-    | 'Summary Completion'
-    | 'Matching Paragraph Information'
-    | 'True False Not Given';
-  SubQuestions: SubQuestion[];
-}
+  | QuestionSQSummaryCompletion;
 
 //table
 interface QuestionTableCompletion {
@@ -86,14 +72,6 @@ interface SQSummaryCompletion {
   QuestionText: string;
   /** @deprecated */
   QuestionWeight: number;
-}
-
-interface SubQuestion {
-  RowTitle: String;
-  Choices: string[];
-  CorrectAnswer: string;
-  QuestionText: string;
-  selectedAnswer: string;
 }
 
 export const readingPart: ReadingPart[] = [
