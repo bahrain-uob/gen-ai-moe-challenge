@@ -2,6 +2,32 @@ import { useState } from 'react';
 import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
 
+/**
+ * What increments to use for each level
+ *
+ * First key specifies whether the student answered correctly or not.  Second key specifies the quetsion level.
+ *
+ *
+ */
+const knowledgeBase = {
+  correct: {
+    A1: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+    A2: [-0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+    B1: [-0.1, -0.1, 0.1, 0.1, 0.1, 0.1],
+    B2: [-0.1, -0.1, -0.1, 0.1, 0.1, 0.1],
+    C1: [-0.1, -0.1, -0.1, -0.1, 0.1, 0.1],
+    C2: [-0.1, -0.1, -0.1, -0.1, -0.1, 0.1],
+  },
+  incorrect: {
+    A1: [0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
+    A2: [0.1, 0.1, -0.1, -0.1, -0.1, -0.1],
+    B1: [0.1, 0.1, 0.1, -0.1, -0.1, -0.1],
+    B2: [0.1, 0.1, 0.1, 0.1, -0.1, -0.1],
+    C1: [0.1, 0.1, 0.1, 0.1, 0.1, -0.1],
+    C2: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+  },
+};
+
 export const PLTestPage = () => {
   // console.log(level, question);
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
