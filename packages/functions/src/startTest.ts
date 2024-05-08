@@ -1,7 +1,12 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
+import {
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+} from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { v4 as uuidv4 } from 'uuid';
 
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -25,7 +30,7 @@ export const main = async (
   // Test sections
   const testSections = ['Writing', 'Reading', 'Listening', 'Speaking'];
 
-  const userID =event.requestContext.authorizer;
+  const userID = event.requestContext.authorizer;
   console.log(userID);
 
   //validate the question type
@@ -55,6 +60,19 @@ export const main = async (
     } else {
       Questions = await getQuestion(PK);
     }
+
+    // Store the question in the user's record
+    const putCommand = new PutCommand({
+      TableName: Table.Records.tableName,
+      Item: {
+        PK: userID,
+        SK: Date.now().toString + uuidv4(),
+        ...Questions,
+      },
+    });
+
+    await dynamoDb.send(putCommand);
+
     return {
       statusCode: 200,
       body: JSON.stringify(Questions),
