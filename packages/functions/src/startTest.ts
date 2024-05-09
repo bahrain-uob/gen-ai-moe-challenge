@@ -28,7 +28,7 @@ export const main = async (
   ];
 
   // Test sections
-  const testSections = ['Writing', 'Reading', 'Listening', 'Speaking'];
+  const testSections = ['writing', 'reading', 'listening', 'speaking'];
 
   const userID = event.requestContext.authorizer;
   console.log(userID);
