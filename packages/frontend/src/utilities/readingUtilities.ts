@@ -10,16 +10,15 @@ export type ReadingQuestion =
   | QuestionTableCompletion
   | QuestionListSelection
   | QuestionMultipleChoice
-  | QuestionSQSummaryCompletion;
+  | QuestionSummaryCompletion;
 
-//table
-interface QuestionTableCompletion {
+export interface QuestionTableCompletion {
   NumOfSubQuestions: number;
   Question: string;
   QuestionType: 'Table Completion';
   SubQuestions: SQTableCompletion[];
 }
-interface SQTableCompletion {
+export interface SQTableCompletion {
   RowTitle: String;
   CorrectAnswers: string[][];
   QuestionText: string;
@@ -27,8 +26,7 @@ interface SQTableCompletion {
   QuestionWeight: number;
 }
 
-//list
-interface QuestionListSelection {
+export interface QuestionListSelection {
   NumOfSubQuestions: number;
   Question: string;
   ListTitle: string;
@@ -36,14 +34,13 @@ interface QuestionListSelection {
   QuestionType: 'List Selection';
   SubQuestions: SQListSelection[];
 }
-interface SQListSelection {
+export interface SQListSelection {
   CorrectAnswer: string;
   QuestionText: string;
   Choices: string[];
 }
 
-//MCQ
-interface QuestionMultipleChoice {
+export interface QuestionMultipleChoice {
   NumOfSubQuestions: number;
   Question: string;
   QuestionType:
@@ -54,27 +51,54 @@ interface QuestionMultipleChoice {
     | 'Matching Headings';
   SubQuestions: SQMultipleChoice[];
 }
-interface SQMultipleChoice {
+export interface SQMultipleChoice {
   CorrectAnswer: string;
   QuestionText: string;
   Choices: string[];
 }
 
-//Summary Completion
-interface QuestionSQSummaryCompletion {
+export interface QuestionSummaryCompletion {
   NumOfSubQuestions: number;
   Question: string;
-  QuestionType: 'Summary Completion';
+  QuestionType: 'Summary Completion' | 'Short Answers';
   SubQuestions: SQSummaryCompletion[];
 }
-interface SQSummaryCompletion {
+export interface SQSummaryCompletion {
   CorrectAnswers: string[][];
   QuestionText: string;
   /** @deprecated */
   QuestionWeight: number;
 }
 
-export const readingPart: ReadingPart[] = [
+export interface QuestionMultipleAnswers {
+  NumOfSubQuestions: number;
+  Question: string;
+  QuestionType: 'Multiple Answers';
+  SubQuestions: SQMultipleAnswers[];
+}
+export interface SQMultipleAnswers {
+  Choices: string[];
+  CorrectAnswers: string[][];
+  QuestionText: string;
+  /** @deprecated */
+  QuestionWeight: number;
+}
+
+export interface QuestionDiagramCompletion {
+  Diagram: string;
+  NumOfSubQuestions: number;
+  Question: string;
+  QuestionType: 'Diagram Completion';
+  SubQuestions: SQDiagramCompletion[];
+}
+export interface SQDiagramCompletion {
+  CorrectAnswers: string[][];
+  QuestionText: string;
+  /** @deprecated */
+  QuestionWeight: number;
+}
+
+export const readingParts: ReadingPart[] = [
   {
     NumOfQuestions: 3,
     MyPartitionKey: 'ReadingP1',
