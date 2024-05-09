@@ -11,6 +11,7 @@ import {
   createPrompt,
   rubric,
   pronunciationFeedback,
+  speechDuration,
 } from './utilities/speakingUtilities';
 
 const uploadResponseBucket = process.env.speakingUploadBucketName;
@@ -102,18 +103,24 @@ export const main: APIGatewayProxyHandler = async event => {
     ),
   );
 
+  /**
+   * Ensure 1-2 minutes of speech
+   * Went in the middle and required that at least 90 seconds must be spoken
+   * Reduced the amount by 15%, accounting for breaks in speech
+   */
+  const speechSum = speechDuration(answer.items);
+  const speechPercentage = speechSum < 75 ? speechSum / 75 : 1;
+
   // Extract scores from feedback results and calculate the average
   const scores: Array<number> = feedbackResults.map(feedback => {
     const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
-    const number = parseFloat(score);
+    const number = Math.round(parseFloat(score) * speechPercentage);
     return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
-  scores.push(pronScore);
+  scores.push(Math.round(pronScore * speechPercentage));
   const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
     2,
   );
-
-  // TODO: Ensure 1-2 minutes of speech
 
   // Feedback to be returned to the user
   const output = {

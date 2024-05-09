@@ -165,3 +165,16 @@ export function pronunciationFeedback(pronunciationItems: object) {
   }
   return { pronScore, pronFeedback };
 }
+
+/**
+ * This Function sums the total amount of time the user has spoken for
+ */
+export function speechDuration(speechItems: object) {
+  let sum = 0;
+  for (let item of speechItems) {
+    if (item.end_time !== undefined && item.start_time !== undefined) {
+      sum += Number(item.end_time) - Number(item.start_time);
+    }
+  }
+  return Math.round(sum);
+}
