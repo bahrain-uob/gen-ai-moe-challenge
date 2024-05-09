@@ -10,7 +10,9 @@ export type ReadingQuestion =
   | QuestionTableCompletion
   | QuestionListSelection
   | QuestionMultipleChoice
-  | QuestionSummaryCompletion;
+  | QuestionSummaryCompletion
+  | QuestionMultipleAnswers
+  | QuestionDiagramCompletion;
 
 export interface QuestionTableCompletion {
   NumOfSubQuestions: number;
