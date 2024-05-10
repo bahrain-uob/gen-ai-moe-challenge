@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 // Note: I'm using requets type any, because I couldn't find a way to import
 // types from amplify
@@ -23,20 +23,20 @@ export interface WritingGrading {
   'Combined Feedback': string;
 }
 
-/**
- * This is a function the will update the url of the websocket with the auth token
+/** Get authenticated socket url, returns undefined if not signed in, or there
+ * where any other issues
+ *
+ * This uses the `AuthContext` under the hood to get the JWT token, and injects
+ * it in the url for authentication.
  */
+export const getSocketUrl = (): string | undefined => {
+  const authInfo = useContext(AuthContext);
+  if (!authInfo) return;
+  // return undefined;
 
-export const updateSocketUrl = async (setSocketUrl: (url: string) => void) => {
-  
-  useEffect(() => {
-    const getToken = async () => {
-      const token = (
-        await fetchAuthSession()
-        ).tokens?.idToken?.toString();
-        setSocketUrl(`${import.meta.env.VITE_WEBSOCKET_URL as string}?idToken=${token}`);
-    }
-    getToken();
-  }, []);
+  const token = authInfo.authSession.tokens?.idToken?.toString();
+  if (!token) return;
 
-}
+  // console.log(`URL is ${import.meta.env.VITE_WEBSOCKET_URL}?idToken=${token}`);
+  return `${import.meta.env.VITE_WEBSOCKET_URL}?idToken=${token}`;
+};
