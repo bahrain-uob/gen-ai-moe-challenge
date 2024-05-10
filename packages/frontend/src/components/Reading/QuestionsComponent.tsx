@@ -16,29 +16,19 @@ export const QuestionsComponent = ({
       {questions.map((question, index) => (
         <div key={index}>
           <p>Question {index + 1}:</p>
-          {renderQuestionComponent(question, index)}
+          {renderQuestionComponent(question)}
         </div>
       ))}
     </>
   );
 };
 
-const renderQuestionComponent = (question: ReadingQuestion, index: number) => {
+const renderQuestionComponent = (question: ReadingQuestion) => {
   switch (question.QuestionType) {
     case 'Table Completion':
-      return (
-        <TableCompletionQuestionComponent
-          question={question}
-          questionIndex={index}
-        />
-      );
+      return <TableCompletionQuestionComponent question={question} />;
     case 'List Selection':
-      return (
-        <ListSelectionQuestionComponent
-          question={question}
-          questionIndex={index}
-        />
-      );
+      return <ListSelectionQuestionComponent question={question} />;
     case 'Multiple Choice':
     case 'Yes No Not Given':
     case 'True False Not Given':
