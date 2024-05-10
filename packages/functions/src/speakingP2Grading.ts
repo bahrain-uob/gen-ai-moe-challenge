@@ -114,8 +114,9 @@ export const main: APIGatewayProxyHandler = async event => {
   // Extract scores from feedback results and calculate the average
   const scores: Array<number> = feedbackResults.map(feedback => {
     const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
-    const number = Math.round(parseFloat(score) * speechPercentage);
-    return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
+    let number = Math.round(parseFloat(score) * speechPercentage);
+    number = number < 1 ? 1 : number;
+    return number >= 1 && number <= 9 ? number : 1; // Ensure score is between 1 and 9
   });
   scores.push(Math.round(pronScore * speechPercentage));
   const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
