@@ -6,7 +6,7 @@ import {
 } from 'aws-amplify/auth';
 import { createContext, useState } from 'react';
 
-declare var __authInterval: any;
+let __authInterval: string | number | NodeJS.Timeout | undefined;
 
 type AuthInfo = {
   authSession: AuthSession;
@@ -30,7 +30,7 @@ export const createAuthContext = () => {
   };
 
   // Set update interval
-  if (__authInterval) {
+  if (typeof __authInterval !== 'undefined') {
     clearInterval(__authInterval);
   }
   __authInterval = setInterval(triggerUpdate, 5000);
