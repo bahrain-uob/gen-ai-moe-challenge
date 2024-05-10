@@ -1,31 +1,48 @@
 import { useState } from 'react';
 import { QuestionListSelection } from '../../utilities/readingUtilities';
+import React from 'react';
 
 export const ListSelectionQuestionComponent = ({
   question,
-  questionIndex,
 }: {
   question: QuestionListSelection;
-  questionIndex: number;
 }) => {
   // Initialize state to hold the selection for each sub-question as an array of arrays to be in the same format as the tableCompletion component
-  const [selections, setSelections] = useState<string[][]>(
-    question.SubQuestions.map(() => ['']),
+  const [selections, setSelections] = useState<string[]>(
+    Array(question.SubQuestions.length).fill(''),
   );
 
-  const generateSelectName = (rowIndex: number) => {
-    return `select-${questionIndex}-${rowIndex}`;
-  };
-
-  const handleSelectionChange = (
-    rowIndex: number,
-    columnIndex: number,
-    value: string,
-  ) => {
+  const handleSelectionChange = (index: number, value: string) => {
     const newSelections = [...selections];
-    newSelections[rowIndex][columnIndex] = value;
+    newSelections[index] = value;
     setSelections(newSelections);
   };
+
+  // Function to render text with selects
+  const renderQuestionTextWithSelects = (text: string, index: number) => {
+    const parts = text.split('-answer-');
+    return parts.map((part, partIndex) =>
+      partIndex < parts.length - 1 ? (
+        <React.Fragment key={partIndex}>
+          {part}
+          <select
+            value={selections[index]}
+            onChange={e => handleSelectionChange(index, e.target.value)}
+          >
+            <option value="">Select an answer</option>
+            {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
+              <option key={choiceIndex} value={choice}>
+                {choice}
+              </option>
+            ))}
+          </select>
+        </React.Fragment>
+      ) : (
+        part
+      ), // Render the last part without a select
+    );
+  };
+
   console.log(selections);
   return (
     <div>
@@ -35,20 +52,7 @@ export const ListSelectionQuestionComponent = ({
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
-            <p>{subQuestion.QuestionText}</p>
-            <select
-              name={generateSelectName(index)}
-              id={generateSelectName(index)}
-              value={selections[index][0]} // Using [0] since each sub-question only has one answer
-              onChange={e => handleSelectionChange(index, 0, e.target.value)}
-            >
-              <option value="">Select an answer</option>
-              {subQuestion.Choices.map((choice, choiceIndex) => (
-                <option key={choiceIndex} value={choice}>
-                  {choice}
-                </option>
-              ))}
-            </select>
+            {renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
           </li>
         ))}
       </ul>
