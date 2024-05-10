@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Amplify } from 'aws-amplify';
 import App from './App.tsx';
@@ -16,7 +15,7 @@ import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
-import { fetchAuthSession, signOut } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
 import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
 import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
