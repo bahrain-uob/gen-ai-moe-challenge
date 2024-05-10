@@ -61,10 +61,6 @@ Amplify.configure(
 
 // Place pages here
 const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: App,
-  },
   // Note that home page doesn't need a padding, because of the slider
   {
     element: <Layout noPadding />,
@@ -79,6 +75,10 @@ const router = createBrowserRouter([
   {
     Component: Layout,
     children: [
+      {
+        path: '/',
+        Component: App,
+      },
       {
         path: '/speaking',
         Component: Speaking,
