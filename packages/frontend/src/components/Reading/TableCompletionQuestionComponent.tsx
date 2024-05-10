@@ -3,10 +3,8 @@ import { QuestionTableCompletion } from '../../utilities/readingUtilities';
 
 export const TableCompletionQuestionComponent = ({
   question,
-  questionIndex,
 }: {
   question: QuestionTableCompletion;
-  questionIndex: number;
 }) => {
   // initialize inputValues as an array of arrays, where each inner array corresponds to a row of input fields (a subQuestion) and it is filled with '' as an intital value for each input field.
   const [inputValues, setInputValues] = useState<string[][]>(
@@ -18,11 +16,6 @@ export const TableCompletionQuestionComponent = ({
       return Array(numInputs).fill('');
     }),
   );
-
-  //a function to generate a unique name for each input field
-  const generateInputName = (rowIndex: number, columnIndex: number) => {
-    return `answer-${questionIndex}-${rowIndex}-${columnIndex}`;
-  };
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -45,8 +38,6 @@ export const TableCompletionQuestionComponent = ({
           {part}
           <input
             type="text"
-            name={generateInputName(rowIndex, index)}
-            id={generateInputName(rowIndex, index)}
             value={inputValues[rowIndex][index] || ''} // Bind input value to state
             onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
           />
