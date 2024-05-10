@@ -9,9 +9,9 @@ const AppClientId = process.env.userPoolClient!;
 
 export const handler: APIGatewayRequestAuthorizerHandler = async (event, context) => {
   try {
+    // console.log("userPoolId", UserPoolId);
+    // console.log("userPoolClient", AppClientId);
 
-    console.log("userPoolId", UserPoolId);
-    console.log("userPoolClient", AppClientId);
     const verifier = CognitoJwtVerifier.create({
       userPoolId: UserPoolId,
       tokenUse: "id",

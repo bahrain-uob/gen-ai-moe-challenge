@@ -147,8 +147,8 @@ export function ApiStack({ stack }: StackContext) {
     authorizer: {
       type: "lambda",
       identitySource: [`route.request.querystring.idToken`],
-      function: new Function(stack, "Authorizer", {
-        handler: "packages/functions/src/authorizer.handler",
+      function: new Function(stack, 'Authorizer', {
+        handler: 'packages/functions/src/websockets/authorizer.handler',
         environment: {
           userPool: auth.userPoolId,
           userPoolClient: auth.userPoolClientId
@@ -157,8 +157,8 @@ export function ApiStack({ stack }: StackContext) {
       }),
     },
     routes: {
-      $connect: 'packages/functions/src/connect.main',
-      $disconnect: 'packages/functions/src/disconnect.main',
+      $connect: 'packages/functions/src/websockets/connect.main',
+      $disconnect: 'packages/functions/src/websockets/disconnect.main',
       gradeWriting: {
         function: {
           handler: 'packages/functions/src/gradingWriting.main',
@@ -190,6 +190,7 @@ export function ApiStack({ stack }: StackContext) {
   });
 
   stack.addOutputs({
+    ApiEndpoint: api.url,
     WebSocketEndpoint: webSocket.url,
   });
 
