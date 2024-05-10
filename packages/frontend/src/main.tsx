@@ -5,8 +5,6 @@ import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
-import WritingTask1Page from './pages/writingTask1.tsx';
-import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
@@ -105,10 +103,6 @@ const router = createBrowserRouter([
         Component: SpeakingConversationPage,
       },
       {
-        path: '/writing-task2',
-        Component: WritingTask2Page,
-      },
-      {
         path: '/_writing-task1',
         Component: WritingTask1Page_,
       },
@@ -136,10 +130,6 @@ const router = createBrowserRouter([
   {
         path: '/full-exam',
         Component: FullExam,
-      },
-      {
-        path: '/writing-task1',
-        Component: WritingTask1Page,
       },
       {
         path: '/test',
