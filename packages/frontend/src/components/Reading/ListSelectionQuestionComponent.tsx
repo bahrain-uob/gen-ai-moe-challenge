@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { QuestionListSelection } from '../../utilities/readingUtilities';
 
 export const ListSelectionQuestionComponent = ({
