@@ -3,7 +3,6 @@ import { Layout } from '../Layout';
 
 export default function ErrorPage() {
   const error = useRouteError();
-  console.log('Executed');
 
   if (!isRouteErrorResponse(error)) {
     throw error;
@@ -12,10 +11,10 @@ export default function ErrorPage() {
   return (
     <Layout>
       <div>
-        <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
-        <p>
-          <i>{error.statusText}</i>
+        <h1 className="text-4xl font-light mb-6">Oops!</h1>
+        <p className="mb-3">Sorry, an unexpected error has occurred </p>
+        <p className="font-mono">
+          -- {error.statusText} ({error.status})
         </p>
       </div>
     </Layout>
