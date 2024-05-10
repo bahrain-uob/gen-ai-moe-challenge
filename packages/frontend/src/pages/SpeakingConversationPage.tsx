@@ -3,7 +3,7 @@ import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
 import { get, post } from 'aws-amplify/api';
-import { toJSON, updateSocketUrl } from '../utilities';
+import { getSocketUrl, toJSON } from '../utilities';
 import useWebSocket from 'react-use-websocket';
 
 interface Response {
@@ -60,10 +60,7 @@ export const SpeakingConversationPage: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  // socket url
-  const [socketUrl, setSocketUrl] = useState<string>(``);
-
-  updateSocketUrl(setSocketUrl);
+  const socketUrl = getSocketUrl() as string;
 
   //initialize the websocket
   const { sendMessage } = useWebSocket(socketUrl, {

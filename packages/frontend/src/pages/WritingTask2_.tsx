@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { PointsBadge } from '../components/PointsBadge';
-import { updateSocketUrl, WritingGrading } from '../utilities';
+import { getSocketUrl, WritingGrading } from '../utilities';
 import { WritingFeedbackContainer } from '../components/WritingFeedback';
 import useWebSocket from 'react-use-websocket';
 
@@ -15,16 +15,11 @@ export function WritingTask2Page_() {
   // Feedback from backend
   const [grading, setGrading] = useState<undefined | WritingGrading>(undefined);
 
-  // socket url
-  const [socketUrl, setSocketUrl] = useState<string>(``);
-
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  // Update the socket url with the auth token
-  updateSocketUrl(setSocketUrl);
-
+  const socketUrl = getSocketUrl() as string;
   const { sendMessage } = useWebSocket(
     socketUrl,
     {
