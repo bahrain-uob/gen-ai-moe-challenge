@@ -13,13 +13,14 @@ type AuthInfo = {
   user: AuthUser;
 };
 
-export const createAuthContext = () => {
-  /** Stores `AuthInfo` for the current session */
+export const AuthInfoProvider = ({ children }: { children: any }) => {
+  /** Stores `AuthInfo` for the current session
+   *
+   * Note that we later bind the state to the `AuthInfo` value provided
+   */
   const AuthContext = createContext<AuthInfo | undefined>(undefined);
   /** This is used to update the `AuthInfo` */
   const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>(undefined);
-  // Note that we bind the state to the `AuthInfo` value provided
-  const provider = <AuthContext.Provider value={authInfo} />;
 
   /** Updates the current `AuthInfo` */
   const triggerUpdate = async () => {
@@ -35,6 +36,7 @@ export const createAuthContext = () => {
   }
   __authInterval = setInterval(triggerUpdate, 5000);
 
-  return { authInfoProvider: provider, updateAuthInfo: triggerUpdate };
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
-

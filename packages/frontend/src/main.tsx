@@ -26,6 +26,7 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import { AuthInfoProvider } from './AuthContext.tsx';
 
 Amplify.configure(
   {
@@ -163,6 +164,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthInfoProvider>
+      <RouterProvider router={router} />
+    </AuthInfoProvider>
   </React.StrictMode>,
 );
