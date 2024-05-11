@@ -116,7 +116,7 @@ export function createPrompt(
   criteriaName: string,
   gradingRubric: string,
   question: string,
-  answer: string,
+  answer: string | string[],
 ): string {
   return `
       Given that IELTS speaking is graded on ${criteriaName} the score can be between 0-9 according to the following rubric/scoring criteria:
@@ -159,11 +159,7 @@ export function pronunciationFeedback(pronunciationItems: object) {
     }
   }
   const pronScore = Math.floor((correctPron / countOfWords) * 9);
-  let pronFeedback = 'There are no mispronunciation mistakes.';
-  if (pronScore < 9) {
-    pronFeedback = `There are some mispronunciations like ${missPronunciations.toString()}.`;
-  }
-  return { pronScore, pronFeedback };
+  return { pronScore, missPronunciations };
 }
 
 /**
