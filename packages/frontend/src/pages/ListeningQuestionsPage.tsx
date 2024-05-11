@@ -33,9 +33,26 @@ interface SubQuestion {
 const ListeningQuestionsPage = () => {
   const [parts, setParts] = useState<ListeningPart[]>([]);
   const [activePart, setActivePart] = useState<string>('part1');
+  const [audioUrl, setAudioUrl] = useState<string>('');
   const { section, sk } = useParams();
-
   useEffect(() => {
+
+    const fetchAudio = async () => {
+      try {
+        const data = await toJSON(
+          get({
+            apiName: 'myAPI',
+            path: `/Listening/audio`,
+          }),
+        );
+          setAudioUrl(data.url);
+          console.log(data.url);
+        
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+
     const fetchParts = async () => {
       try {
         const data = await toJSON(
@@ -52,6 +69,7 @@ const ListeningQuestionsPage = () => {
       }
     };
 
+    fetchAudio();
     fetchParts();
   }, [sk]);
 
@@ -160,10 +178,17 @@ const ListeningQuestionsPage = () => {
 
   return (
     <>
+      
       <ExamsHeader duration={60} />
       <div className="Listening-part-container">
         <div className="audio-container">
-          <input ></input>
+        <div>
+      <h1>Audio</h1>
+      <audio controls>
+        <source src={audioUrl} type="audio/mpeg" />
+        {audioUrl}
+      </audio>
+    </div> 
         </div>
         <div className="Listening-Questions-Part">
           <h1 className="part-number">{`Part ${parseInt(

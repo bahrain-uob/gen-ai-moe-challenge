@@ -26,6 +26,7 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import ListeningQuestionsPage from './pages/ListeningQuestionsPage.tsx';
 
 Amplify.configure(
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: '/writing-task2',
         Component: WritingTask2Page,
+      },
+      {
+        path: '/Listening/audio',
+        Component: ListeningQuestionsPage,
       },
       {
         path: '/_writing-task1',
