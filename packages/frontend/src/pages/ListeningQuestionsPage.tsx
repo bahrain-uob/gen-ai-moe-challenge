@@ -45,8 +45,8 @@ const ListeningQuestionsPage = () => {
             path: `/Listening/audio`,
           }),
         );
-          setAudioUrl(data.url);
-          console.log(data.url);
+        setAudioUrl(data.url);
+        console.log(data.url);
         
       } catch (error) {
         console.error('Error fetching questions:', error);
@@ -178,18 +178,19 @@ const ListeningQuestionsPage = () => {
 
   return (
     <>
-      
       <ExamsHeader duration={60} />
       <div className="Listening-part-container">
-        <div className="audio-container">
-        <div>
-      <h1>Audio</h1>
-      <audio controls>
-        <source src={audioUrl} type="audio/mpeg" />
-        {audioUrl}
-      </audio>
-    </div> 
-        </div>
+        {audioUrl && (
+          <div className="audio-container">
+            <div>
+              <h1>Audio</h1>
+              <audio controls>
+                <source src={audioUrl} type="audio/mpeg" />
+                {audioUrl}
+              </audio>
+            </div>
+          </div>
+        )}
         <div className="Listening-Questions-Part">
           <h1 className="part-number">{`Part ${parseInt(
             activePart.charAt(4),
