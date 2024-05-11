@@ -81,7 +81,13 @@ export const main: APIGatewayProxyHandler = async event => {
   }
 
   // Pronunciation Check
-  const { pronScore, pronFeedback } = await pronunciationFeedback(answer.items);
+  const { pronScore, missPronunciations } = await pronunciationFeedback(
+    answer.items,
+  );
+  const pronFeedback =
+    missPronunciations.length > 0
+      ? `There are pronunciation mistakes in the words ${missPronunciations.toString()}.`
+      : 'There are no pronunciation mistakes.';
 
   // Prompt Bedrock
   const criterias = [
