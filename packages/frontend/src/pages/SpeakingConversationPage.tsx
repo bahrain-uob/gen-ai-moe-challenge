@@ -201,6 +201,7 @@ export const SpeakingConversationPage: React.FC = () => {
 
         const audioFileNames: string[] = [];
         const questions: string[] = [];
+        console.log(question);
 
         sendMessage(
           JSON.stringify({
