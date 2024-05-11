@@ -37,8 +37,7 @@ export const McqQuestionsComponent = ({
 
   // Render choices as a select list that replaces '-answer-'
   const renderQuestionTextWithSelects = (text: string, index: number) => {
-    const answerIndex = text.indexOf('-answer-');
-    const textBeforeAnswer = text.slice(0, answerIndex);
+    const textBeforeAnswer = text.slice(0, text.indexOf('-answer-'));
 
     return (
       <React.Fragment>
