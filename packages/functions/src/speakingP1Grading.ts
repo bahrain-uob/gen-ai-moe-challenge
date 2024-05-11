@@ -34,10 +34,10 @@ export const main: APIGatewayProxyHandler = async event => {
   const requestBody = JSON.parse(event.body).data;
   const { audioFileNames, questions } = requestBody;
   const fileNames = audioFileNames.map((file: string) => {
-    file.slice(0, -5);
+    return file.slice(0, -5);
   });
 
-  // Ensure audioFileName and question exist in the body
+  // Ensure audioFileNames and questions exist in the body
   if (!audioFileNames || !questions) {
     return await wsError(
       apiClient,
@@ -59,9 +59,9 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Starting the transcription
   const transcriptionStatuses = await Promise.all(
-    fileNames.map((fileName: string) =>
-      startTranscription(fileName, uploadResponseBucket),
-    ),
+    fileNames.map((fileName: string) => {
+      return startTranscription(fileName, uploadResponseBucket);
+    }),
   );
   for (let transcriptionStatus of transcriptionStatuses) {
     if (transcriptionStatus === false) {
@@ -76,9 +76,9 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Retreive the transcript from S3
   const answers = await Promise.all(
-    fileNames.map((fileName: string) =>
-      retrieveTranscript(fileName, uploadResponseBucket),
-    ),
+    fileNames.map((fileName: string) => {
+      return retrieveTranscript(fileName, uploadResponseBucket);
+    }),
   );
   for (let answer of answers) {
     if (typeof answer !== 'object') {
@@ -90,11 +90,6 @@ export const main: APIGatewayProxyHandler = async event => {
       );
     }
   }
-
-  //   let pronFeedback = 'There are no mispronunciation mistakes.';
-  //   if (pronScore < 9) {
-  //     pronFeedback = `There are some mispronunciations like ${missPronunciations.toString()}.`;
-  //   }
 
   // Pronunciation Check
   const pronScores = [],
@@ -136,9 +131,7 @@ export const main: APIGatewayProxyHandler = async event => {
   );
 
   /**
-   * Ensure 1-2 minutes of speech
-   * Went in the middle and required that at least 90 seconds must be spoken
-   * Reduced the amount by 15%, accounting for breaks in speech
+   * Ensure 15 seconds of speech per question
    */
   const speechSum = answers.reduce((acc, answer) => {
     return acc + speechDuration(answer.items);
