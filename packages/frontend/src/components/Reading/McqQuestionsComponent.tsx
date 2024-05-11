@@ -37,25 +37,25 @@ export const McqQuestionsComponent = ({
 
   // Render choices as a select list that replaces '-answer-'
   const renderQuestionTextWithSelects = (text: string, index: number) => {
-    const parts = text.split('-answer-');
-    return parts.map((part, partIndex) => (
-      <React.Fragment key={partIndex}>
-        {part}
-        {partIndex < parts.length - 1 && (
-          <select
-            value={selections[index]}
-            onChange={e => handleSelectionChange(index, e.target.value)}
-          >
-            <option value="">Select an answer</option>
-            {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
-              <option key={choiceIndex} value={choice}>
-                {choice}
-              </option>
-            ))}
-          </select>
-        )}
+    const answerIndex = text.indexOf('-answer-');
+    const textBeforeAnswer = text.slice(0, answerIndex);
+
+    return (
+      <React.Fragment>
+        {textBeforeAnswer}
+        <select
+          value={selections[index]}
+          onChange={e => handleSelectionChange(index, e.target.value)}
+        >
+          <option value="">Select an answer</option>
+          {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
+            <option key={choiceIndex} value={choice}>
+              {choice}
+            </option>
+          ))}
+        </select>
       </React.Fragment>
-    ));
+    );
   };
   console.log(selections);
   return (
