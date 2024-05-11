@@ -38,7 +38,8 @@ const VocabularyPracticePage: React.FC = () => {
 
   const handleAnswer = (choice: string) => {
     setSelectedAnswer(choice);
-    setShowExplanation(true);
+    // Show explanation only if the chosen answer is not the right one
+    setShowExplanation(choice !== question?.right_choice);
   };
 
   const getButtonClass = (choice: string) => {
@@ -100,11 +101,20 @@ const VocabularyPracticePage: React.FC = () => {
               ))}
             </div>
             {showExplanation && (
-              <div
-                className="bg-blue-4 p-4 mt-4 rounded-md shadow-lg text-g text-white"
-                style={{ textShadow: '1px 1px 2px black' }}
-              >
-                <p className="text-xl">{question.explanation}</p>
+              <div className="bg-gray-700 p-4 mt-4 rounded-md shadow-lg text-g text-white">
+                {' '}
+                <p
+                  className="text-xl"
+                  style={{ textShadow: '1px 1px 2px black' }}
+                >
+                  <span
+                    style={{ color: 'red', fontSize: '1.4em', border: 'none' }}
+                  >
+                    {' '}
+                    Incorrect:
+                  </span>{' '}
+                  {question.explanation}
+                </p>
               </div>
             )}
           </div>
