@@ -1,19 +1,9 @@
 import Describe from './sections/toolDescribe';
 import Features from './sections/features';
 import './index.css';
-import { signOut } from 'aws-amplify/auth';
+import { Link } from 'react-router-dom';
 
 const App = () => {
-  const signOutHandler = () => {
-    signOut()
-      .then(() => {
-        console.log('Signed out successfully');
-      })
-      .catch(error => {
-        console.log('error signing out: ', error);
-      });
-  };
-
   return (
     <>
       <section className="xl:padding-1 wide:padding-r">
@@ -30,7 +20,9 @@ const App = () => {
           <Features />
         </section>
 
-        <button onClick={signOutHandler}> Sign out </button>
+        <Link to="sign-out">
+          <button> Sign out </button>
+        </Link>
       </section>
     </>
   );

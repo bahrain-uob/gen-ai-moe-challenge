@@ -1,4 +1,4 @@
-import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
+import { Api, StackContext, use, WebSocketApi, Function } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
@@ -144,9 +144,21 @@ export function ApiStack({ stack }: StackContext) {
         permissions: ['bedrock:InvokeModel'],
       },
     },
+    authorizer: {
+      type: "lambda",
+      identitySource: [`route.request.querystring.idToken`],
+      function: new Function(stack, 'Authorizer', {
+        handler: 'packages/functions/src/websockets/authorizer.handler',
+        environment: {
+          userPool: auth.userPoolId,
+          userPoolClient: auth.userPoolClientId
+        },
+        
+      }),
+    },
     routes: {
-      $connect: 'packages/functions/src/connect.main',
-      $disconnect: 'packages/functions/src/disconnect.main',
+      $connect: 'packages/functions/src/websockets/connect.main',
+      $disconnect: 'packages/functions/src/websockets/disconnect.main',
       gradeWriting: {
         function: {
           handler: 'packages/functions/src/gradingWriting.main',
@@ -154,8 +166,9 @@ export function ApiStack({ stack }: StackContext) {
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
+
+        }
         },
-      },
       speaking: {
         function: {
           handler: 'packages/functions/src/speaking.main',
@@ -177,11 +190,13 @@ export function ApiStack({ stack }: StackContext) {
   });
 
   stack.addOutputs({
+    ApiEndpoint: api.url,
     WebSocketEndpoint: webSocket.url,
   });
 
   // Allowing authenticated users to access API
-  auth.attachPermissionsForAuthUsers(stack, [api]);
+  auth.attachPermissionsForAuthUsers(stack, [api, webSocket]);
+
 
   return { api, apiCachePolicy, webSocket };
 }
