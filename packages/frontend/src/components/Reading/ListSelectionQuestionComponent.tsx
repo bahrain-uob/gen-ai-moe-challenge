@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { QuestionListSelection } from '../../utilities/readingUtilities';
-import React from 'react';
 
 export const ListSelectionQuestionComponent = ({
   question,
 }: {
   question: QuestionListSelection;
 }) => {
-  // Initialize state to hold the selection for each sub-question as an array of arrays to be in the same format as the tableCompletion component
   const [selections, setSelections] = useState<string[]>(
     Array(question.SubQuestions.length).fill(''),
   );
@@ -18,28 +16,23 @@ export const ListSelectionQuestionComponent = ({
     setSelections(newSelections);
   };
 
-  // Function to render text with selects
   const renderQuestionTextWithSelects = (text: string, index: number) => {
-    const parts = text.split('-answer-');
-    return parts.map((part, partIndex) =>
-      partIndex < parts.length - 1 ? (
-        <React.Fragment key={partIndex}>
-          {part}
-          <select
-            value={selections[index]}
-            onChange={e => handleSelectionChange(index, e.target.value)}
-          >
-            <option value="">Select an answer</option>
-            {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
-              <option key={choiceIndex} value={choice}>
-                {choice}
-              </option>
-            ))}
-          </select>
-        </React.Fragment>
-      ) : (
-        part
-      ), // Render the last part without a select
+    const textBeforeAnswer = text.slice(0, text.indexOf('-answer-'));
+    return (
+      <React.Fragment>
+        {textBeforeAnswer}
+        <select
+          value={selections[index]}
+          onChange={e => handleSelectionChange(index, e.target.value)}
+        >
+          <option value="">Select an answer</option>
+          {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
+            <option key={choiceIndex} value={choice}>
+              {choice}
+            </option>
+          ))}
+        </select>
+      </React.Fragment>
     );
   };
 
