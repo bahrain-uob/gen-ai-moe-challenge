@@ -157,7 +157,24 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
-      speaking: {
+      gradeSpeakingP1: {
+        function: {
+          handler: 'packages/functions/src/speakingP1Grading.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
+      },
+      gradeSpeakingP2: {
         function: {
           handler: 'packages/functions/src/speakingP2Grading.main',
           permissions: [
