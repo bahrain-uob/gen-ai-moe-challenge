@@ -46,7 +46,7 @@ export const SummaryCompletionQuestionComponent = ({
       </React.Fragment>
     ));
   };
-
+  console.log(inputValues);
   return (
     <div>
       <p>{question.Question}</p>

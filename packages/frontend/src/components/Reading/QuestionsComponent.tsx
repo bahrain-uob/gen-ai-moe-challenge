@@ -1,4 +1,5 @@
 import { ReadingQuestion } from '../../utilities/readingUtilities';
+import { ListeningQuestion } from '../../utilities/ListeningUtilities';
 import { ListSelectionQuestionComponent } from './ListSelectionQuestionComponent';
 import { McqQuestionsComponent } from './McqQuestionsComponent';
 import { TableCompletionQuestionComponent } from './TableCompletionQuestionComponent';
@@ -23,7 +24,9 @@ export const QuestionsComponent = ({
   );
 };
 
-const renderQuestionComponent = (question: ReadingQuestion) => {
+const renderQuestionComponent = (
+  question: ReadingQuestion | ListeningQuestion,
+) => {
   switch (question.QuestionType) {
     case 'Table Completion':
       return <TableCompletionQuestionComponent question={question} />;

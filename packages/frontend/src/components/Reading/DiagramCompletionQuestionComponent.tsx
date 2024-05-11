@@ -46,6 +46,7 @@ export const DiagramCompletionQuestionComponent = ({
       </React.Fragment>
     ));
   };
+  console.log(inputValues);
   return (
     <div>
       <p>{question.Question}</p>
