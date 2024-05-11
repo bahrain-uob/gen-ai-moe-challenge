@@ -64,7 +64,9 @@ export const McqQuestionsComponent = ({
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
-            <p>{subQuestion.QuestionText}</p>
+            {question.QuestionType === 'Multiple Choice' ? (
+              <p>{subQuestion.QuestionText}</p> // Text for Multiple Choice
+            ) : null}
             {question.QuestionType === 'Multiple Choice'
               ? renderRadioButtons(subQuestion.Choices, index)
               : renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
