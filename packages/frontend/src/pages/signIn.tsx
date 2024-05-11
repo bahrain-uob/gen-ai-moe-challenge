@@ -24,38 +24,48 @@ export default function SignIn() {
   };
 
   return (
-    <main className='flex justify-center'>
-    <div className="login flex flex-col bg-blue-4 w-[750px] rounded-xl max-md:w-full">
-      <div className='SignIn w-full flex justify-center pb-16 pt-4'>
-        <h1 className='text-5xl font-bold text-white'>Sign In</h1>
-      </div>
+    <main className="flex justify-center">
+      <div className="login flex flex-col bg-blue-4 w-[750px] rounded-xl max-md:w-full">
+        <div className="SignIn w-full flex justify-center pb-16 pt-4">
+          <h1 className="text-5xl font-bold text-white">Sign In</h1>
+        </div>
 
-      <div className=' flex flex-col px-24 pb-5 max-md:px-12'>
-        <h2 className='text-xl font-semibold text-white'>Email</h2>
-        <input
-          type="email"
-          autoComplete="off"
-          onChange={e => setEmail(e.target.value)}
-          className='rounded-lg h-7'
-        />
-      </div>
-      <div className=' flex flex-col px-24 max-md:px-12'>
-      <h2 className='text-xl font-semibold text-white'>Password</h2>
-      <input
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-        className='rounded-lg h-7'
-      />
-      </div>
+        <div className=" flex flex-col px-24 pb-5 max-md:px-12">
+          <h2 className="text-xl font-semibold text-white">Email</h2>
+          <input
+            type="email"
+            autoComplete="off"
+            onChange={e => setEmail(e.target.value)}
+            className="rounded-lg h-7"
+          />
+        </div>
+        <div className=" flex flex-col px-24 max-md:px-12">
+          <h2 className="text-xl font-semibold text-white">Password</h2>
+          <input
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+            className="rounded-lg h-7"
+          />
+        </div>
 
-      <div className='flex justify-center pt-10'>
-        <button onClick={handleSignIn} className='bg-[#AFA8A0] w-1/3 text-white font-bold rounded-md h-8'>Login</button>
+        <div className="flex justify-center pt-10">
+          <button
+            onClick={handleSignIn}
+            className="bg-[#AFA8A0] w-1/3 text-white font-bold rounded-md h-8"
+          >
+            Login
+          </button>
+        </div>
+
+        <div className="px-24 max-md:px-12 py-7">
+          <p className="font-semibold text-white">
+            Don't have an account ?{' '}
+            <Link to="/sign-up">
+              <span className=" underline">Sign up</span>
+            </Link>
+          </p>
+        </div>
       </div>
-      
-      <div className='px-24 max-md:px-12 py-7'>
-        <p className='font-semibold text-white'>Don't have an account ? <Link to="/sign-up"><span className=' underline'>Sign up</span></Link></p>
-      </div>
-    </div>
     </main>
   );
 }
