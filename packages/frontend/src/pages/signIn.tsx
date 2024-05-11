@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
 import { Link } from 'react-router-dom';
-import Button from '../components/FButton';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
