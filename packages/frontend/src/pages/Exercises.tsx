@@ -18,6 +18,9 @@ const Exercises = () => (
     <Link to="/writing-task2">
       <Button label="Writing Task 2" />
     </Link>
+    <Link to="/VocabularyPracticePage">
+      <Button label="Vocabulary Practice" />
+    </Link>
   </div>
 );
 

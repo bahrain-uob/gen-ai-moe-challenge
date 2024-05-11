@@ -26,6 +26,7 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import VocabularyPracticePage from './pages/VocabularyPracticePage';
 
 Amplify.configure(
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
         Component: SpeakingConversationPage,
       },
       {
+        path: '/VocabularyPracticePage',
+        Component: VocabularyPracticePage,
+      },
+      {
         path: '/writing-task2',
         Component: WritingTask2Page,
       },
@@ -124,15 +129,15 @@ const router = createBrowserRouter([
         Component: SignIn,
       },
       {
-    path: '/Listening/addQuestion',
-    Component: AddListeningQPage,
-  },
-  {
-    path: '/Listening/addQuestion/success',
-    Component: SuccessAddListeningQPage,
-  },
+        path: '/Listening/addQuestion',
+        Component: AddListeningQPage,
+      },
+      {
+        path: '/Listening/addQuestion/success',
+        Component: SuccessAddListeningQPage,
+      },
 
-  {
+      {
         path: '/full-exam',
         Component: FullExam,
       },

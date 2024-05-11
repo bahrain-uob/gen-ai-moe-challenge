@@ -113,7 +113,8 @@ export function ApiStack({ stack }: StackContext) {
       // Listening to convert script to audio (for now)
       'POST /Listening/AddQuestion': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/addListeningQ.main',
+          handler:
+            'packages/functions/src/sample-python-lambda/addListeningQ.main',
           runtime: 'python3.11',
           permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
           timeout: '60 seconds',
