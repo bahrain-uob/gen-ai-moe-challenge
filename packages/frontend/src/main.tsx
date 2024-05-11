@@ -1,12 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Amplify } from 'aws-amplify';
 import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
-import WritingTask1Page from './pages/writingTask1.tsx';
-import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
@@ -26,6 +23,8 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import { SignOutPage } from './pages/signOut.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
 
 Amplify.configure(
   {
@@ -61,24 +60,15 @@ Amplify.configure(
 
 // Place pages here
 const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: App,
-  },
-  // Note that home page doesn't need a padding, because of the slider
-  {
-    element: <Layout noPadding />,
-    children: [
-      {
-        path: '/home',
-        Component: Home,
-      },
-    ],
-  },
   // All routes inside `children` use the default layout
   {
     Component: Layout,
+    errorElement: <ErrorPage />,
     children: [
+      {
+        path: '/',
+        Component: App,
+      },
       {
         path: '/speaking',
         Component: Speaking,
@@ -104,10 +94,6 @@ const router = createBrowserRouter([
         Component: SpeakingConversationPage,
       },
       {
-        path: '/writing-task2',
-        Component: WritingTask2Page,
-      },
-      {
         path: '/_writing-task1',
         Component: WritingTask1Page_,
       },
@@ -115,6 +101,29 @@ const router = createBrowserRouter([
         path: '/_writing-task2',
         Component: WritingTask2Page_,
       },
+      {
+        path: '/Listening/addQuestion',
+        Component: AddListeningQPage,
+      },
+      {
+        path: '/Listening/addQuestion/success',
+        Component: SuccessAddListeningQPage,
+      },
+
+      {
+        path: '/full-exam',
+        Component: FullExam,
+      },
+      {
+        path: '/test',
+        Component: TestPage,
+      },
+    ],
+  },
+  /* Include all the routes that may affect authentication info here */
+  {
+    element: <Layout hasAuthContext={false} />,
+    children: [
       {
         path: '/sign-up',
         Component: SignUp,
@@ -124,28 +133,22 @@ const router = createBrowserRouter([
         Component: SignIn,
       },
       {
-    path: '/Listening/addQuestion',
-    Component: AddListeningQPage,
-  },
-  {
-    path: '/Listening/addQuestion/success',
-    Component: SuccessAddListeningQPage,
-  },
-
-  {
-        path: '/full-exam',
-        Component: FullExam,
-      },
-      {
-        path: '/writing-task1',
-        Component: WritingTask1Page,
-      },
-      {
-        path: '/test',
-        Component: TestPage,
+        path: '/sign-out',
+        Component: SignOutPage,
       },
     ],
   },
+  // Note that home page doesn't need a padding, because of the slider
+  {
+    element: <Layout noPadding />,
+    children: [
+      {
+        path: '/home',
+        Component: Home,
+      },
+    ],
+  },
+  // These pages don't use `Layout` yet
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
@@ -162,7 +165,5 @@ const router = createBrowserRouter([
 // TODO: handle not found pages
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  <RouterProvider router={router} />,
 );

@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { PointsBadge } from '../components/PointsBadge';
-import { WritingGrading } from '../utilities';
+import { WritingGrading, getSocketUrl } from '../utilities';
 import { WritingFeedbackContainer } from '../components/WritingFeedback';
 import useWebSocket from 'react-use-websocket';
 
@@ -21,9 +21,10 @@ export function WritingTask1Page_() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const socketUrl = getSocketUrl() as string;
+
   const { sendMessage } = useWebSocket(
-    // Get the websocket url from the environment
-    import.meta.env.VITE_WEBSOCKET_URL as string,
+    socketUrl,
     {
       onOpen: event => console.log('opened', event),
       onClose: event => console.log('closed', event),
