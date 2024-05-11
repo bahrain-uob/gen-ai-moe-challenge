@@ -52,8 +52,9 @@ export default function SignIn() {
         <button onClick={handleSignIn} className='bg-[#AFA8A0] w-1/3 text-white font-bold rounded-md h-8'>Login</button>
       </div>
       
-      <Link to="/sign-up">Don't have an account? Sign up</Link>
-
+      <div className='px-24 max-md:px-12 pt-3'>
+      <p className='font-semibold text-white'>Don't have an account ? <Link to="/sign-up"><span className=' underline'>Sign up</span></Link></p>
+      </div>
       <div>
         <Link to="/"> Back </Link>
       </div>
