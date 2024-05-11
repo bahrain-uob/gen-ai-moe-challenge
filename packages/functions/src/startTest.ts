@@ -58,12 +58,12 @@ export const main = async (
     const _Questions = testSections.map(async (PK: string) => {
       return await getQuestion(PK);
     });
-    const QuestionsArray = Promise.all(_Questions);
+    const QuestionsArray = await Promise.all(_Questions);
     questions = {
-      writing: (await QuestionsArray)[0],
-      reading: (await QuestionsArray)[1],
-      listening: (await QuestionsArray)[2],
-      speaking: (await QuestionsArray)[3],
+      writing: QuestionsArray[0],
+      reading: QuestionsArray[1],
+      listening: QuestionsArray[2],
+      speaking: QuestionsArray[3],
     };
     // } else {
     //   questions = await getQuestion(PK);
