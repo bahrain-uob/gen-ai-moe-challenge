@@ -25,18 +25,28 @@ export default function SignIn() {
 
   return (
     <main className='flex justify-center'>
-    <div className="login flex flex-col bg-blue-4 w-2/3 rounded-xl">
-      <input
-        type="email"
-        placeholder="email"
-        autoComplete="off"
-        onChange={e => setEmail(e.target.value)}
-      />
+    <div className="login flex flex-col bg-blue-4 w-[750px] rounded-xl max-md:w-full">
+      <div className='SignIn w-full flex justify-center pb-7'>
+        <h1 className='text-4xl font-bold text-white'>Sign In</h1>
+      </div>
+
+      <div className=' flex flex-col px-24 pb-3'>
+        <h2 className='text-xl font-semibold text-white'>Email</h2>
+        <input
+          type="email"
+          placeholder="email"
+          autoComplete="off"
+          onChange={e => setEmail(e.target.value)}
+        />
+      </div>
+      <div className=' flex flex-col px-24'>
+      <h2 className='text-xl font-semibold text-white'>Password</h2>
       <input
         type="password"
         placeholder="password"
         onChange={e => setPassword(e.target.value)}
       />
+      </div>
 
       <button onClick={handleSignIn}>Login</button>
       <Link to="/sign-up">Don't have an account? Sign up</Link>
