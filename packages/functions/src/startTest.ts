@@ -55,9 +55,7 @@ export const main = async (
     // Get the index of the questions
     let questions;
     // if (PK === 'fullTest') {
-    const _Questions = testSections.map(async (PK: string) => {
-      return await getQuestion(PK);
-    });
+    const _Questions = testSections.map(async (PK: string) => getQuestion(PK));
     const QuestionsArray = await Promise.all(_Questions);
     questions = {
       writing: QuestionsArray[0],
