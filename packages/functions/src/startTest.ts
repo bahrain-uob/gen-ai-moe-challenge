@@ -3,6 +3,7 @@ import {
   DynamoDBDocumentClient,
   GetCommand,
   PutCommand,
+  UpdateCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
@@ -18,64 +19,97 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
 export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
-  const PK = event.pathParameters?.questionType;
-  const possibleQuestionTypes = [
-    'writing',
-    'reading',
-    'listening',
-    'speaking',
-    'fullTest',
-  ];
+  //   const PK = event.pathParameters?.questionType;
+  //   const possibleTestTypes = [
+  //     'writing',
+  //     'reading',
+  //     'listening',
+  //     'speaking',
+  //     'fullTest',
+  //   ];
 
   // Test sections
   const testSections = ['writing', 'reading', 'listening', 'speaking'];
 
-  const userID = event.requestContext.authorizer;
-  console.log(userID);
-
-  //validate the question type
-  if (!PK || !possibleQuestionTypes.includes(PK)) {
+  const userID = event.requestContext.authorizer!.jwt.claims.sub;
+  if (!userID) {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: 'Invalid question type',
+        message: 'Invalid user ID',
       }),
     };
   }
 
+  //validate the question type
+  //   if (!PK || !possibleTestTypes.includes(PK)) {
+  //     return {
+  //       statusCode: 400,
+  //       body: JSON.stringify({
+  //         message: 'Invalid question type',
+  //       }),
+  //     };
+  //   }
+
   try {
     // Get the index of the questions
-    let Questions;
-    if (PK === 'FullTest') {
-      const _Questions = testSections.map(async (PK: string) => {
-        return await getQuestion(PK);
-      });
-      const QuestionsArray = Promise.all(_Questions);
-      Questions = {
-        ...(await QuestionsArray)[0],
-        ...(await QuestionsArray)[1],
-        ...(await QuestionsArray)[2],
-        ...(await QuestionsArray)[3],
-      };
-    } else {
-      Questions = await getQuestion(PK);
-    }
+    let questions;
+    // if (PK === 'fullTest') {
+    const _Questions = testSections.map(async (PK: string) => {
+      return await getQuestion(PK);
+    });
+    const QuestionsArray = Promise.all(_Questions);
+    questions = {
+      writing: (await QuestionsArray)[0],
+      reading: (await QuestionsArray)[1],
+      listening: (await QuestionsArray)[2],
+      speaking: (await QuestionsArray)[3],
+    };
+    // } else {
+    //   questions = await getQuestion(PK);
+    // }
+
+    const start_time = Date.now();
+    const testID = `${start_time.toString()}#${uuidv4()}`;
 
     // Store the question in the user's record
     const putCommand = new PutCommand({
       TableName: Table.Records.tableName,
       Item: {
         PK: userID,
-        SK: Date.now().toString + uuidv4(),
-        ...Questions,
+        SK: testID,
+        questions,
+        listeningAnswers: {
+          start_time: start_time,
+          status: 'In progress',
+        },
+      },
+    });
+
+    // Add the test ID to the list of previous tests
+    const updatePreviousTestsCommand = new UpdateCommand({
+      TableName: Table.Records.tableName,
+      Key: {
+        PK: userID,
+        SK: 'previousTests',
+      },
+      UpdateExpression:
+        'SET #testType = list_append(if_not_exists(#testType, :init), :testID)',
+      ExpressionAttributeNames: {
+        '#testType': 'fullTests',
+      },
+      ExpressionAttributeValues: {
+        ':testID': [testID],
+        ':init': [],
       },
     });
 
     await dynamoDb.send(putCommand);
+    await dynamoDb.send(updatePreviousTestsCommand);
 
     return {
       statusCode: 200,
-      body: JSON.stringify(Questions),
+      body: JSON.stringify({ questions, testID }),
     };
   } catch (err) {
     console.log(err);
