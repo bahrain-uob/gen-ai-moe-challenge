@@ -66,10 +66,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
-        Component: App,
-      },
-      {
         path: '/speaking',
         Component: Speaking,
       },
@@ -149,6 +145,10 @@ const router = createBrowserRouter([
     ],
   },
   // These pages don't use `Layout` yet
+  {
+    path: '/',
+    Component: App,
+  },
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,

@@ -2,10 +2,15 @@ import Describe from './sections/toolDescribe';
 import Features from './sections/features';
 import './index.css';
 import { Link } from 'react-router-dom';
+import Nav from './components/landingNav'
 
 const App = () => {
   return (
     <>
+    <main className='bg-grey-1'>
+      <section>
+        <Nav/>
+      </section>
       <section className="xl:padding-1 wide:padding-r">
         <Describe />
 
@@ -24,6 +29,7 @@ const App = () => {
           <button> Sign out </button>
         </Link>
       </section>
+    </main>
     </>
   );
 };
