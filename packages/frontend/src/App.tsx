@@ -1,4 +1,3 @@
-import Nav from './components/landingNav';
 import Describe from './sections/toolDescribe';
 import Features from './sections/features';
 import './index.css';
@@ -16,9 +15,8 @@ const App = () => {
   };
 
   return (
-    <main>
-      <Nav />
-      <section className="px-10 py-12">
+    <>
+      <section className="xl:padding-1 wide:padding-r">
         <Describe />
 
         <div className="pt-16 flex flex-col justify-start pl-3">
@@ -34,7 +32,7 @@ const App = () => {
 
         <button onClick={signOutHandler}> Sign out </button>
       </section>
-    </main>
+    </>
   );
 };
 
