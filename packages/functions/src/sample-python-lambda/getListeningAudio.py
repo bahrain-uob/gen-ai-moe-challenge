@@ -20,11 +20,11 @@ def generate_presigned_url(s3_url):
             'get_object',
             Params={
                 'Bucket': s3_bucket,
-                'Key': f'{key}.mp3',
+                'Key': f'{key}',
             },
             ExpiresIn=300  # URL expiration time in seconds (300 seconds = 5 minutes)
         )
-        
+        print(url)
         return {
             'statusCode': 200,
             'body': json.dumps({'url': url}),
@@ -40,5 +40,5 @@ def generate_presigned_url(s3_url):
     
 
 def main(event,context):
-    s3_url="https://kyte-codecatalyst-sst-app-dbst-pollybucket368908e5-ck1mpmepcjmq.s3.amazonaws.com/6f0eec70-458e-4cd2-8448-d4baf2fe4c46.mp3"
+    s3_url="https://gigabyte-codecatalyst-sst-listeningaudiosbucket6bb-ayblkasqnqeb.s3.amazonaws.com/02add475-3c2a-43ef-9e6c-bb4edb97ec24.mp3"
     return generate_presigned_url(s3_url)
