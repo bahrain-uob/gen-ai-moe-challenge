@@ -4,7 +4,8 @@ import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
 import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
-import { readingParts } from '../utilities/readingUtilities';
+//import { readingParts } from '../utilities/readingUtilities';
+import { ListeningParts } from '../utilities/ListeningUtilities';
 
 async function _getCurrentUser() {
   try {
@@ -53,7 +54,7 @@ function TestPage() {
       <Link to="/"> Back </Link>
 
       <ColorPalette />
-      <QuestionsComponent questions={readingParts[0].Questions} />
+      <QuestionsComponent questions={ListeningParts[1].Questions} />
     </>
   );
 }
