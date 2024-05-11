@@ -34,9 +34,12 @@ const ListeningQuestionsPage = () => {
   const [parts, setParts] = useState<ListeningPart[]>([]);
   const [activePart, setActivePart] = useState<string>('part1');
   const [audioUrl, setAudioUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
+  const [audioFinished, setAudioFinished] = useState<boolean>(false); // State to track if audio has finished playing
   const { section, sk } = useParams();
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchAudio = async () => {
       try {
         const data = await toJSON(
@@ -46,10 +49,9 @@ const ListeningQuestionsPage = () => {
           }),
         );
         setAudioUrl(data.url);
-        console.log(data.url);
-        
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        console.error('Error fetching audio:', error);
       }
     };
 
@@ -61,7 +63,6 @@ const ListeningQuestionsPage = () => {
             path: `/${section}/${sk}`,
           }),
         );
-
         setParts(data);
         setActivePart('part1');
       } catch (error) {
@@ -125,6 +126,18 @@ const ListeningQuestionsPage = () => {
     });
   };
 
+  const handlePlayButtonClick = () => {
+    const audio = document.getElementById('audio') as HTMLAudioElement;
+    if (audio) {
+      audio.play();
+      setAudioPlaying(true);
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setAudioFinished(true);
+  };
+
   const handleSubmit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -161,11 +174,6 @@ const ListeningQuestionsPage = () => {
 
       console.log('Scores:', result.scores);
       console.log(result.europeanFrameworkGrade);
-
-      // console.error(
-      //   'Error submitting answers or scores not returned:',
-      //   result,
-      // );
     } catch (error) {
       console.error('Error submitting answers:', error);
     }
@@ -178,16 +186,28 @@ const ListeningQuestionsPage = () => {
 
   return (
     <>
+      <p hidden>{audioUrl}</p>
       <ExamsHeader duration={60} />
       <div className="Listening-part-container">
-        {audioUrl && (
+        {loading ? (
+          <div>Loading...</div>
+        ) : audioUrl && (
           <div className="audio-container">
             <div>
-              <h1>Audio</h1>
-              <audio controls>
+              <audio
+                id="audio"
+                onPlay={() => setAudioPlaying(true)}
+                onPause={() => setAudioPlaying(false)}
+                onEnded={handleAudioEnded} // Handle audio ended event
+              >
                 <source src={audioUrl} type="audio/mpeg" />
                 {audioUrl}
               </audio>
+              {!audioFinished && !audioPlaying && (
+                <button onClick={handlePlayButtonClick}>
+                  Click to play listening audio
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -204,8 +224,6 @@ const ListeningQuestionsPage = () => {
                   }`}</h2>
                   <p className="question">{question.Question}</p>
                   {question.QuestionType === 'Summary Completion' ? (
-                    // Render Summary Completion UI
-
                     <ul className="summary-completion">
                       {question.SubQuestions.map(
                         (
@@ -302,7 +320,6 @@ const ListeningQuestionsPage = () => {
                     question.QuestionType === 'Choosing a Title' ||
                     question.QuestionType === 'Classification' ||
                     question.QuestionType === 'Matching Sentence Endings' ? (
-                    // Render Yes No Not Given Choice UI
                     <ul className="choices">
                       {question.SubQuestions.map(
                         (
@@ -355,8 +372,6 @@ const ListeningQuestionsPage = () => {
                       )}
                     </ul>
                   ) : question.QuestionType === 'Table Completion' ? (
-                    // Render Yes No Not Given Choice UI
-
                     <div className="table-container">
                       <table>
                         <tbody>
@@ -406,7 +421,6 @@ const ListeningQuestionsPage = () => {
                       </table>
                     </div>
                   ) : (
-                    // Handle other question types here
                     <p>Unsupported question type</p>
                   )}
                 </div>
