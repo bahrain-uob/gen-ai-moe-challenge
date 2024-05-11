@@ -26,6 +26,7 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
 
 Amplify.configure(
   {
@@ -61,24 +62,15 @@ Amplify.configure(
 
 // Place pages here
 const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: App,
-  },
-  // Note that home page doesn't need a padding, because of the slider
-  {
-    element: <Layout noPadding />,
-    children: [
-      {
-        path: '/home',
-        Component: Home,
-      },
-    ],
-  },
   // All routes inside `children` use the default layout
   {
     Component: Layout,
+    errorElement: <ErrorPage />,
     children: [
+      {
+        path: '/',
+        Component: App,
+      },
       {
         path: '/speaking',
         Component: Speaking,
@@ -146,6 +138,17 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Note that home page doesn't need a padding, because of the slider
+  {
+    element: <Layout noPadding />,
+    children: [
+      {
+        path: '/home',
+        Component: Home,
+      },
+    ],
+  },
+  // These pages don't use `Layout` yet
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
