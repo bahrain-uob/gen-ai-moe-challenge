@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
 import { Link } from 'react-router-dom';
+import Button from '../components/FButton';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -48,7 +49,10 @@ export default function SignIn() {
       />
       </div>
 
-      <button onClick={handleSignIn}>Login</button>
+      <div className='flex justify-center py-5'>
+        <button onClick={handleSignIn} className='bg-[#AFA8A0] w-1/3 text-white font-bold rounded-md h-8'>Login</button>
+      </div>
+      
       <Link to="/sign-up">Don't have an account? Sign up</Link>
 
       <div>
