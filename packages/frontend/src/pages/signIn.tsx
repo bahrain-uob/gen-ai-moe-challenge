@@ -24,7 +24,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="login">
+    <main className='flex justify-center'>
+    <div className="login flex flex-col bg-blue-4 w-2/3 rounded-xl">
       <input
         type="email"
         placeholder="email"
@@ -44,5 +45,6 @@ export default function SignIn() {
         <Link to="/"> Back </Link>
       </div>
     </div>
+    </main>
   );
 }
