@@ -16,7 +16,7 @@ const toolDescribe = () => {
           <br />
           Exams and Exercises
         </h1>
-        <Link to="/Home">
+        <Link to="/sign-in">
           <Button label="Get Started" />
         </Link>
       </div>
