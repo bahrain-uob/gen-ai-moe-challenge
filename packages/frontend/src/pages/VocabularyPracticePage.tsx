@@ -10,8 +10,6 @@ interface Question {
   explanation: string;
 }
 
-// make the all white border font and make sure the button turn red or green based on right or wrong
-
 const VocabularyPracticePage: React.FC = () => {
   const [questionType, setQuestionType] = useState<string>('vocabA1');
   const [question, setQuestion] = useState<Question | null>(null);
@@ -40,18 +38,28 @@ const VocabularyPracticePage: React.FC = () => {
 
   const handleAnswer = (choice: string) => {
     setSelectedAnswer(choice);
-    setShowExplanation(choice !== question?.right_choice);
+    setShowExplanation(true);
+  };
+
+  const getButtonClass = (choice: string) => {
+    if (!selectedAnswer) return 'bg-blue-4 hover:bg-blue-2';
+    if (choice === selectedAnswer) {
+      return choice === question?.right_choice ? 'bg-green-400' : 'bg-red-500';
+    }
+    return choice === question?.right_choice
+      ? 'bg-gray-400'
+      : 'bg-blue-4 hover:bg-blue-2';
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <h1 className="text-6xl font-bold text-center mb-6 mt-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+      <h1 className="text-6xl font-bold text-center mb-6 mt-4 text-black">
         Vocabulary Practice
       </h1>
       <div className="w-full max-w-3xl p-5 bg-gray-200 shadow-2xl rounded-lg">
         <div className="grid grid-cols-2 gap-4 mb-6">
           <select
-            className="w-full p-4 bg-blue-4 text-black text-2xl rounded-md"
+            className="w-full p-4 bg-blue-4 text-white text-2xl rounded-md shadow"
             value={questionType}
             onChange={e => setQuestionType(e.target.value)}
             disabled={error !== ''}
@@ -64,7 +72,7 @@ const VocabularyPracticePage: React.FC = () => {
             <option value="vocabC2">C2</option>
           </select>
           <button
-            className="w-full px-8 py-4 rounded-md bg-blue-4 text-black text-2xl hover:bg-blue-2 transition"
+            className="w-full px-8 py-4 rounded-md bg-blue-4 text-white text-2xl hover:bg-blue-3 transition shadow"
             onClick={fetchQuestion}
           >
             {initialFetch ? 'Get Question' : 'Next Question'}
@@ -73,12 +81,17 @@ const VocabularyPracticePage: React.FC = () => {
         {error && <p className="text-red-500">{error}</p>}
         {question && (
           <div className="text-center mt-4">
-            <h3 className="text-3xl font-bold mb-4">{question.question}</h3>
+            <h3 className="text-3xl font-bold mb-4 text-black">
+              {question.question}
+            </h3>
             <div className="grid grid-cols-2 gap-4 mt-6">
               {question.choices.map((choice, index) => (
                 <button
                   key={index}
-                  className={`p-4 border transition-colors rounded-md bg-blue-4 text-white text-lg hover:bg-blue-2 cursor-pointer`}
+                  style={{ textShadow: '1px 1px 2px black' }}
+                  className={`p-4 border transition-colors rounded-md text-xl cursor-pointer shadow ${getButtonClass(
+                    choice,
+                  )}`}
                   onClick={() => handleAnswer(choice)}
                   disabled={selectedAnswer !== ''}
                 >
@@ -88,10 +101,9 @@ const VocabularyPracticePage: React.FC = () => {
             </div>
             {showExplanation && (
               <div
-                className="bg-blue-4 p-4 mt-4 rounded-md shadow-lg text-lg text-white"
+                className="bg-blue-4 p-4 mt-4 rounded-md shadow-lg text-g text-white"
                 style={{ textShadow: '1px 1px 2px black' }}
               >
-                {' '}
                 <p className="text-xl">{question.explanation}</p>
               </div>
             )}
