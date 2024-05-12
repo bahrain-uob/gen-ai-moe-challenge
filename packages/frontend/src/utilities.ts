@@ -10,20 +10,6 @@ export const toJSON = async (request: any) => {
 };
 
 /**
- * This is the format of the response sent by the `'POST /grade-writing'`.
- */
-export interface WritingGrading {
-  'Coherence & Cohesion': string;
-  'Grammatical Range & Accuracy': string;
-  'Lexical Resource': string;
-  'Task Responce': string;
-  'Grammer Tool Feedback'?: Array<{message: string,
-                                   context:{text:string, offset:number, length:number, }
-                                   [key: string] : any}>;
-  'Combined Feedback': string;
-}
-
-/**
  * This is the format of writing section questions
  */
 export type WritingSection = {
@@ -54,6 +40,34 @@ export const writingSection: WritingSection = {
     // answer:
     //   'There is an argument that exploring space is a waste of money and that there are more urgent needs to be addressed on earth, such as reducing poverty and preventing environmental destruction. However, I completely disagree with this opinion for two reasons.\n\nFirst of all, many of the technologies we take for granted today were originated thanks to space research. Take satellite technology, for example, which we depend on for broadcasting and weather forecasting. Without satellites, we would not be able to follow global events as they happen, nor give populations any warning of approaching storms. Space research has also led to the development of new lightweight materials that offer us heat protection and enable food preservation. Therefore, the challenge of sending human beings into space has often driven the development of new technologies that benefit our everyday lives.\n\nSecond, we cannot foresee the distant future, so we ought to develop the capability to escape from the earth. Gradually, we are learning how humans can survive for long periods in space and even travel to other planets in the future. If space exploration is halted, this valuable knowledge will never be acquired. It is true that environmental destruction is also a serious issue, but it is also true that we remain dependent on our environment if we never accept the challenge of exploring other worlds.\n\nIn conclusion, while we undoubtedly face serious problems on our own planet, it is imperative that we continue to explore space. This will promote further technological advances as well as provide a possible means of escape should earth become uninhabitable in future. Ideally, all nations should cooperate in the advancement of space research.',
   },
+};
+
+////// Feedback related types //////
+
+export type Feedback = { score: number; text: string };
+/**
+ * This is the format of the response sent by the `'POST /grade-writing'`.
+ */
+export interface WritingFeedback {
+  'Coherence & Cohesion': Feedback;
+  'Grammatical Range & Accuracy': Feedback;
+  'Lexical Resource': Feedback;
+  'Task Responce': Feedback;
+  'Grammer Tool Feedback'?: Array<{
+    message: string;
+    context: { text: string; offset: number; length: number };
+    [key: string]: any;
+  }>;
+  'Combined Feedback': string;
+  score: number;
+}
+
+export type SpeakingFeedback = {
+  score: number;
+  'Fluency & Coherence': Feedback;
+  'Lexical Resource': Feedback;
+  'Grammatical Range & Accuracy': Feedback;
+  Pronunciation: Feedback;
 };
 
 /** Get authenticated socket url, returns undefined if not signed in, or there
