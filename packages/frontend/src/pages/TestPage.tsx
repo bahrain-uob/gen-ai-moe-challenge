@@ -3,10 +3,6 @@ import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
-import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
-import { readingParts } from '../utilities/readingUtilities';
-import { PassageComponent } from '../components/Reading/PassageComponent';
-//import { ListeningParts } from '../utilities/ListeningUtilities';
 
 async function _getCurrentUser() {
   try {
@@ -55,8 +51,6 @@ function TestPage() {
       <Link to="/"> Back </Link>
 
       <ColorPalette />
-      <PassageComponent readingPart={readingParts[0]} PartIndex={1} />
-      <QuestionsComponent questions={readingParts[0].Questions} />
     </>
   );
 }
