@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { PointsBadge } from '../components/PointsBadge';
-import { WritingFeedbackContainer } from '../components/WritingFeedback';
 import { WritingFeedback, WritingSection, getSocketUrl } from '../utilities';
 import useWebSocket from 'react-use-websocket';
+import { WSFeedbackComponent } from '../components/WSFeedback';
 
 export function WritingPage({
   task,
@@ -132,7 +132,7 @@ export function WritingPage({
       {grading && (
         <section id="feedback">
           <h2 className="font-bold mb-6">Feedback:</h2>
-          <WritingFeedbackContainer feedback={grading} />
+          <WSFeedbackComponent feedback={grading} />
         </section>
       )}
     </div>
