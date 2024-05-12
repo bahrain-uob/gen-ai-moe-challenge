@@ -52,7 +52,7 @@ const entryTitle = (title: string, score: number) => (
       <div className="bg-blue-1 flex w-1/2 max-md:w-full rounded-xl">
         <div
           className="bg-blue-4 inline-block h-4 rounded-xl"
-          style={{ width: (score / 9) * 100 + '%' }}
+          style={{ width: ((score / 9) * 100).toFixed(2) + '%' }}
         ></div>
       </div>
       {/* <div className="w-1/2 bg-blue-1">
