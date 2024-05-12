@@ -72,10 +72,12 @@ export const main: APIGatewayProxyHandler = async event => {
 
       if (totalTime > examTiming[section]) {
         //should be auto-submitted
-        console.log('Auto-submitting exam');
+        submit(dynamoDb, userId, testId, section, answer, true);
+        console.log('Auto-submitting ', section);
       } else {
         // auto - save
         autoSave(dynamoDb, userId, testId, section, answer);
+        console.log('Auto-Submitting exam', section);
       }
     }
   }
@@ -107,6 +109,36 @@ const autoSave = async (
     UpdateExpression: `SET ${section}.answer = :answer`,
     ExpressionAttributeValues: {
       ':answer': answer,
+    },
+  });
+
+  return await DBClient.send(updateExam);
+};
+
+const submit = async (
+  DBClient: DynamoDBDocumentClient,
+  userId: string,
+  testId: string,
+  section: string,
+  answer: any,
+  autoSubmitted: boolean = false,
+) => {
+  const updateExam = new UpdateCommand({
+    TableName: Table.Records.tableName,
+    Key: {
+      PK: userId,
+      SK: testId,
+    },
+    UpdateExpression:
+      'SET #section.answer = :answer, #section.#stu = :status, #section.end_time = :end_time',
+    ExpressionAttributeValues: {
+      ':answer': answer,
+      ':status': autoSubmitted ? 'Auto-submitted' : 'Submitted',
+      ':end_time': Date.now(),
+    },
+    ExpressionAttributeNames: {
+      '#section': section,
+      '#stu': 'status',
     },
   });
 
