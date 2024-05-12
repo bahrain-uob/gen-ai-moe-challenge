@@ -38,6 +38,20 @@ const ReadingQuestions = () => {
         answers={answers[index]}
         setAnswers={indexSet(index)}
       />
+      <ul>
+        {answers.map((a1, i) => (
+          <li key={i} className="ml-2">
+            {i + 1}-
+            <ul>
+              {a1.map((a2, j) => (
+                <li key={j} className="ml-2">
+                  {j + 1}- {JSON.stringify(a2)}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </React.Fragment>
   ));
 
