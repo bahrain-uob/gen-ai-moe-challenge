@@ -6,18 +6,19 @@ import { TableCompletionQuestionComponent } from './TableCompletionQuestionCompo
 import { SummaryCompletionQuestionComponent } from './SummaryCompletionQuestionComponent';
 import { MultipleAnswersQuestionComponent } from './MultipleAnswersQuestionComponent';
 import { DiagramCompletionQuestionComponent } from './DiagramCompletionQuestionComponent';
-import { useState } from 'react';
 
 export type Answer = string[] | string[][];
 export type SetAnswer = (answer: Answer) => void;
 
 export const QuestionsComponent = ({
   questions,
+  answers,
+  setAnswers,
 }: {
   questions: ReadingQuestion[];
+  answers: Answer[];
+  setAnswers: (arg: Answer[]) => void;
 }) => {
-  const [answers, setAnswers] = useState<Answer[]>(initialAnswer(questions));
-
   const indexSetAnswer = function (i: number): SetAnswer {
     return (value: Answer) => {
       // console.log('Triggered with', { i, value });
@@ -40,11 +41,6 @@ export const QuestionsComponent = ({
             indexSetAnswer(index),
           )}
         </div>
-      ))}
-      {answers.map((v, i) => (
-        <p>
-          {i + 1}- {JSON.stringify(v)}
-        </p>
       ))}
     </>
   );
@@ -120,7 +116,7 @@ const renderQuestionComponent = (
 };
 
 /** Returns the correct initial answer array for each question */
-function initialAnswer(questions: ReadingQuestion[]): Answer[] {
+export function initialAnswer(questions: ReadingQuestion[]): Answer[] {
   return questions.map(q => {
     switch (q.QuestionType) {
       case 'Table Completion':
