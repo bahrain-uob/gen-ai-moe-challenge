@@ -121,7 +121,7 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
-      'GET /startTest/{testType}' : 'packages/functions/src/startTest.main',
+      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
@@ -163,6 +163,15 @@ export function ApiStack({ stack }: StackContext) {
       gradeWriting: {
         function: {
           handler: 'packages/functions/src/gradingWriting.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTest: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest.main',
           timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
