@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import { QuestionListSelection } from '../../utilities/readingUtilities';
 import { QuestionListSelection } from '../../utilities/readingUtilities';
+import React from 'react';
+import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const ListSelectionQuestionComponent = ({
   question,
+  answer,
+  set,
 }: {
   question: QuestionListSelection;
+  answer: Answer;
+  set: SetAnswer;
 }) => {
-  const [selections, setSelections] = useState<string[]>(
-    Array(question.SubQuestions.length).fill(''),
-  );
-
   const handleSelectionChange = (index: number, value: string) => {
-    const newSelections = [...selections];
+    const newSelections = [...answer] as string[];
     newSelections[index] = value;
-    setSelections(newSelections);
+    // setSelections(newSelections);
+    set(newSelections);
   };
 
   const renderQuestionTextWithSelects = (text: string, index: number) => {
@@ -22,7 +26,7 @@ export const ListSelectionQuestionComponent = ({
       <React.Fragment>
         {textBeforeAnswer}
         <select
-          value={selections[index]}
+          value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
         >
           <option value="">Select an answer</option>
@@ -36,7 +40,7 @@ export const ListSelectionQuestionComponent = ({
     );
   };
 
-  console.log(selections);
+  console.log(answer);
   return (
     <div>
       <p>{question.Question}</p>

@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QuestionDiagramCompletion } from '../../utilities/readingUtilities';
+import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const DiagramCompletionQuestionComponent = ({
   question,
+  answer,
+  set,
 }: {
   question: QuestionDiagramCompletion;
+  answer: Answer;
+  set: SetAnswer;
 }) => {
-  // Initialize state as a 2D array to hold the input values for each answer within each sub-question
-  const [inputValues, setInputValues] = useState<string[][]>(
-    question.SubQuestions.map(subQuestion =>
-      (subQuestion.QuestionText.match(/-answer-/g) || []).map(() => ''),
-    ),
-  );
-
   const handleInputChange = (
     subQuestionIndex: number,
     answerIndex: number,
     value: string,
   ) => {
-    const newInputValues = [...inputValues];
+    const newInputValues = [...answer] as string[][];
     newInputValues[subQuestionIndex] = [...newInputValues[subQuestionIndex]];
     newInputValues[subQuestionIndex][answerIndex] = value;
-    setInputValues(newInputValues);
+    set(newInputValues);
   };
 
   // Render question text with text inputs replacing '-answer-'
@@ -36,7 +34,7 @@ export const DiagramCompletionQuestionComponent = ({
         {partIndex < parts.length - 1 && (
           <input
             type="text"
-            value={inputValues[subQuestionIndex][partIndex]}
+            value={answer[subQuestionIndex][partIndex]}
             onChange={e =>
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
@@ -46,7 +44,7 @@ export const DiagramCompletionQuestionComponent = ({
       </React.Fragment>
     ));
   };
-  console.log(inputValues);
+  console.log(answer);
   return (
     <div>
       <p>{question.Question}</p>
