@@ -17,17 +17,17 @@ export default function CollapsableCard({
     <>
       <div className="shadow-lg rounded-xl mb-1">
         <button
-          className={`w-full p-3 text-left bg-gray-200  
+          className={`w-full p-4 text-left bg-gray-200
                      ${isOpen ? 'rounded-t-xl' : 'rounded-xl'}
                      flex flex-row justify-between items-center
                      hover:bg-gray-300 focus:bg-gray-300 outline-none
                      transition-all duration-300`}
           onClick={toggle}
         >
-          <span>{title}</span>
+          <div className="w-full">{title}</div>
           {/* <BsArrowDownCircleFill */}
           <BsCaretDownFill
-            className={`h-full transform ${
+            className={`h-full transform ml-4 ${
               isOpen ? 'rotate-180' : 'rotate-0'
             } transition-transform duration-300`}
           />
