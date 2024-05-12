@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QuestionMultipleChoice } from '../../utilities/readingUtilities';
+import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const McqQuestionsComponent = ({
   question,
+  answer,
+  set,
 }: {
   question: QuestionMultipleChoice;
+  answer: Answer;
+  set: SetAnswer;
 }) => {
-  const [selections, setSelections] = useState<string[]>(
-    Array(question.SubQuestions.length).fill(''),
-  );
-
   const handleSelectionChange = (subQuestionIndex: number, value: string) => {
-    const newSelections = [...selections];
+    const newSelections = [...answer] as string[];
     newSelections[subQuestionIndex] = value;
-    setSelections(newSelections);
+    // setSelections(newSelections);
+    set(newSelections);
   };
   // Render choices as radio buttons, each on a new line
   const renderRadioButtons = (choices: string[], index: number) => (
@@ -25,7 +27,7 @@ export const McqQuestionsComponent = ({
               type="radio"
               name={`question-${index}`}
               value={choice}
-              checked={selections[index] === choice}
+              checked={answer[index] === choice}
               onChange={e => handleSelectionChange(index, e.target.value)}
             />
             {choice}
@@ -43,7 +45,7 @@ export const McqQuestionsComponent = ({
       <React.Fragment>
         {textBeforeAnswer}
         <select
-          value={selections[index]}
+          value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
         >
           <option value="">Select an answer</option>
@@ -56,7 +58,7 @@ export const McqQuestionsComponent = ({
       </React.Fragment>
     );
   };
-  console.log(selections);
+  console.log(answer);
   return (
     <div>
       <p>{question.Question}</p>

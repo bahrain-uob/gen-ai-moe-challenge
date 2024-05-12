@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QuestionTableCompletion } from '../../utilities/readingUtilities';
+import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const TableCompletionQuestionComponent = ({
   question,
+  answer,
+  set,
 }: {
   question: QuestionTableCompletion;
+  answer: Answer;
+  set: SetAnswer;
 }) => {
-  // initialize inputValues as an array of arrays, where each inner array corresponds to a row of input fields (a subQuestion) and it is filled with '' as an intital value for each input field.
-  const [inputValues, setInputValues] = useState<string[][]>(
-    question.SubQuestions.map(subQuestion => {
-      // Calculate the number of input fields within the row
-      const numInputs = (subQuestion.QuestionText.match(/-answer-/g) || [])
-        .length;
-      // Initialize the inner array with empty strings
-      return Array(numInputs).fill('');
-    }),
-  );
-
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     rowIndex: number,
     columnIndex: number,
   ) => {
-    const newInputValues = [...inputValues];
+    const newInputValues = [...answer] as string[][];
     newInputValues[rowIndex][columnIndex] = event.target.value;
-    setInputValues(newInputValues);
+    set(newInputValues);
   };
 
   const renderQuestionTextWithInputs = (text: string, rowIndex: number) => {
@@ -38,14 +32,14 @@ export const TableCompletionQuestionComponent = ({
           {part}
           <input
             type="text"
-            value={inputValues[rowIndex][index] || ''} // Bind input value to state
+            value={answer[rowIndex][index] || ''} // Bind input value to state
             onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
           />
         </React.Fragment>
       );
     });
   };
-  console.log(inputValues);
+  console.log(answer);
   return (
     <div>
       <p>{question.Question}</p>
