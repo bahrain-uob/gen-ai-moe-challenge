@@ -25,6 +25,8 @@ import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
+import { WritingPage } from './pages/WritingPage.tsx';
+import { writingSection } from './utilities.ts';
 
 Amplify.configure(
   {
@@ -100,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: '/_writing-task2',
         Component: WritingTask2Page_,
+      },
+      {
+        path: '/writing',
+        element: <WritingPage task={writingSection.task2} />,
       },
       {
         path: '/Listening/addQuestion',
