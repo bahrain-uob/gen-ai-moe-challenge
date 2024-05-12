@@ -113,14 +113,15 @@ export function ApiStack({ stack }: StackContext) {
       // Listening to convert script to audio (for now)
       'POST /Listening/AddQuestion': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/addListeningQ.main',
+          handler:
+            'packages/functions/src/sample-python-lambda/addListeningQ.main',
           runtime: 'python3.11',
           permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
           timeout: '60 seconds',
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
-      'GET /startTest/{testType}' : 'packages/functions/src/startTest.main',
+      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
@@ -146,15 +147,14 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
     authorizer: {
-      type: "lambda",
+      type: 'lambda',
       identitySource: [`route.request.querystring.idToken`],
       function: new Function(stack, 'Authorizer', {
         handler: 'packages/functions/src/websockets/authorizer.handler',
         environment: {
           userPool: auth.userPoolId,
-          userPoolClient: auth.userPoolClientId
+          userPoolClient: auth.userPoolClientId,
         },
-        
       }),
     },
     routes: {
@@ -167,9 +167,17 @@ export function ApiStack({ stack }: StackContext) {
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
-
-        }
         },
+      },
+      fullTest: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
       speaking: {
         function: {
           handler: 'packages/functions/src/speaking.main',
@@ -197,7 +205,6 @@ export function ApiStack({ stack }: StackContext) {
 
   // Allowing authenticated users to access API
   auth.attachPermissionsForAuthUsers(stack, [api, webSocket]);
-
 
   return { api, apiCachePolicy, webSocket };
 }

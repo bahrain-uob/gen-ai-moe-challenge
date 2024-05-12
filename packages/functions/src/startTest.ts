@@ -77,7 +77,7 @@ export const main = async (
         PK: userID,
         SK: testID,
         questions,
-        listeningAnswers: {
+        listeningAnswer: {
           start_time: start_time,
           status: 'In progress',
         },
