@@ -17,8 +17,6 @@ import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
-import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
-import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
@@ -94,14 +92,6 @@ const router = createBrowserRouter([
       {
         path: '/SpeakingConversation',
         Component: SpeakingConversationPage,
-      },
-      {
-        path: '/_writing-task1',
-        Component: WritingTask1Page_,
-      },
-      {
-        path: '/_writing-task2',
-        Component: WritingTask2Page_,
       },
       {
         path: '/writing',

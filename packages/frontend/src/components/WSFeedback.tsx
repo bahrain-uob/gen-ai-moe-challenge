@@ -35,7 +35,7 @@ export const WSFeedbackComponent = ({
     : null;
 
   return entries.map(([title, { score, text }]) => (
-    <CollapsableCard title={entryTitle(title, score)}>
+    <CollapsableCard key={title} title={entryTitle(title, score)}>
       <p className={pClassname}>{text}</p>
 
       {/* Display grammar mistakes under grammatical range */}
