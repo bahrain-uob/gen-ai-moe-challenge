@@ -58,12 +58,6 @@ export const main: APIGatewayProxyHandler = async event => {
   }
   console.log('Exam:', exam);
 
-  // Get the current section
-  //   const currentSection = getCurrentSection(exam);
-
-  //   console.log('Current section:', currentSection);
-  //   const totalTime = Date.now() - exam!.[currentSection].start_time;
-
   const examTiming: examTiming = {
     listeningAnswer: 60 * 60 * 1000,
     readingAnswer: 60 * 60 * 1000,
@@ -79,45 +73,42 @@ export const main: APIGatewayProxyHandler = async event => {
       if (totalTime > examTiming[section]) {
         //should be auto-submitted
         console.log('Auto-submitting exam');
+      } else {
+        // auto - save
+        autoSave(dynamoDb, userId, testId, section, answer);
       }
-      // auto - save
-      const updateExam = new UpdateCommand({
-        TableName: Table.Records.tableName,
-        Key: {
-          PK: userId,
-          SK: testId,
-        },
-        UpdateExpression: `SET ${section}.answer = :answer`,
-        ExpressionAttributeValues: {
-          ':answer': answer,
-        },
-      });
-
-      const response = await dynamoDb.send(updateExam);
-      console.log(response);
     }
   }
 
   return { statusCode: 200, body: 'Connected' };
 };
-// const getCurrentSection = exam => {
-//   const examSections = [
-//     'listeningAnswers',
-//     'readingAnswer',
-//     'writingAnswer',
-//     'speakingAnswer',
-//   ];
 
-//   for (const section of examSections) {
-//     if (exam[section] && exam[section].status === 'In progress') {
-//       return section;
-//     }
-//   }
-// };
 type examTiming = {
   listeningAnswer: number;
   readingAnswer: number;
   writingAnswer: number;
   speakingAnswer: number;
   [key: string]: number;
+};
+
+const autoSave = async (
+  DBClient: DynamoDBDocumentClient,
+  userId: string,
+  testId: string,
+  section: string,
+  answer: any,
+) => {
+  const updateExam = new UpdateCommand({
+    TableName: Table.Records.tableName,
+    Key: {
+      PK: userId,
+      SK: testId,
+    },
+    UpdateExpression: `SET ${section}.answer = :answer`,
+    ExpressionAttributeValues: {
+      ':answer': answer,
+    },
+  });
+
+  return await DBClient.send(updateExam);
 };
