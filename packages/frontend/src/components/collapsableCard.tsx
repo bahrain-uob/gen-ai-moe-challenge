@@ -20,7 +20,8 @@ export default function CollapsableCard({
           className={`w-full p-3 text-left bg-gray-200  
                      ${isOpen ? 'rounded-t-xl' : 'rounded-xl'}
                      flex flex-row justify-between items-center
-                     hover:bg-gray-300 transition-all duration-300`}
+                     hover:bg-gray-300 focus:bg-gray-300 outline-none
+                     transition-all duration-300`}
           onClick={toggle}
         >
           <span>{title}</span>
