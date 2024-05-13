@@ -31,7 +31,7 @@ const Nav = () => {
             <img className="w-11" src="assets/User.png" />
           </Link>
 
-          <MobileMenu className={_linkStyling + 'md:hiddent ml-auto'} />
+          <MobileMenu className={_linkStyling + 'md:hidden ml-auto'} />
         </div>
       </nav>
     </header>
