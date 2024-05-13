@@ -28,7 +28,7 @@ const Nav = () => {
             <div>Exercises</div>
           </Link>
           <Link className={linkStyling + 'ml-auto'} to="">
-            <img className="w-11" src="assets/User.png" />
+            <BsPersonCircle size="28" />
           </Link>
 
           <MobileMenu className={_linkStyling + 'md:hidden ml-auto'} />
