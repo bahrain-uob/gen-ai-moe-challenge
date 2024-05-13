@@ -73,12 +73,13 @@ export const main: APIGatewayProxyHandler = async event => {
       if (totalTime > examTiming[section]) {
         //should be auto-submitted
         submit(dynamoDb, userId, testId, section, answer, true);
-        console.log('Auto-submitting ', section);
+        console.log('Auto-Submitting ', section);
       } else {
         // auto - save
         autoSave(dynamoDb, userId, testId, section, answer);
-        console.log('Auto-Submitting exam', section);
+        console.log('Auto-Saving exam', section);
       }
+      break;
     }
   }
 
