@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { readingParts } from '../utilities/readingUtilities';
@@ -30,34 +30,26 @@ const ReadingQuestions = () => {
     };
   };
 
-  const x = parts.map((part, index) => (
-    <React.Fragment key={index}>
-      <PassageComponent readingPart={part} PartIndex={1} />
-      <QuestionsComponent
-        questions={part.Questions}
-        answers={answers[index]}
-        setAnswers={indexSet(index)}
-      />
-    </React.Fragment>
-  ));
+  const containerStyles =
+    'h-[46vh] w-screen lg:w-1/2 lg:h-[92vh] p-10 overflow-y-scroll';
+  const linkStyling =
+    'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
 
   return (
     <>
-      {x}
-      <ul>
-        {answers.map((a1, i) => (
-          <li key={i} className="ml-2">
-            {i + 1}-
-            <ul>
-              {a1.map((a2, j) => (
-                <li key={j} className="ml-2">
-                  {j + 1}- {JSON.stringify(a2)}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+      <div className="h-[6vh] bg-blue-4"></div>
+      <div className="flex flex-col lg:flex-row">
+        <div className={containerStyles}>
+          <PassageComponent readingPart={parts[0]} PartIndex={1} />
+        </div>
+        <div className={containerStyles + ' bg-white rounded-3xl'}>
+          <QuestionsComponent
+            questions={parts[0].Questions}
+            answers={answers[0]}
+            setAnswers={indexSet(0)}
+          />
+        </div>
+      </div>
     </>
   );
 };
