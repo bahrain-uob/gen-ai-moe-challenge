@@ -17,6 +17,8 @@ const ReadingQuestions = () => {
   // TODO: this should be a parameter
   const parts = readingParts;
 
+  const [partIndex, setPartIndex] = useState(0);
+
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
   );
@@ -32,21 +34,44 @@ const ReadingQuestions = () => {
 
   const containerStyles =
     'h-[46vh] w-screen lg:w-1/2 lg:h-[92vh] p-10 overflow-y-scroll';
+
+  /* Bar */
   const linkStyling =
-    'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
+    'px-5 transition-colors duration-200 flex items-center leading-normal ';
+  const barContent = (
+    <div className="flex flex-1 h-full font-montserrat text-md font-bold text-white">
+      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      {parts.map((_, i) => (
+        <button
+          className={
+            linkStyling +
+            (i === partIndex
+              ? 'bg-black bg-opacity-40'
+              : 'hover:bg-black hover:bg-opacity-10')
+          }
+          onClick={() => setPartIndex(i)}
+        >
+          Part {i + 1}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <>
-      <div className="h-[6vh] bg-blue-4"></div>
+      <div className="h-[6vh] bg-blue-4">{barContent}</div>
       <div className="flex flex-col lg:flex-row">
         <div className={containerStyles}>
-          <PassageComponent readingPart={parts[0]} PartIndex={1} />
+          <PassageComponent
+            readingPart={parts[partIndex]}
+            PartIndex={partIndex}
+          />
         </div>
         <div className={containerStyles + ' bg-white rounded-3xl'}>
           <QuestionsComponent
-            questions={parts[0].Questions}
-            answers={answers[0]}
-            setAnswers={indexSet(0)}
+            questions={parts[partIndex].Questions}
+            answers={answers[partIndex]}
+            setAnswers={indexSet(partIndex)}
           />
         </div>
       </div>
