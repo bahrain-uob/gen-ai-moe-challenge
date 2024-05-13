@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BsArrowRightCircleFill, BsList } from 'react-icons/bs';
+import { BsArrowRight, BsBoxArrowRight, BsList } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const _linkStyling =
@@ -57,18 +57,30 @@ const MobileMenu = ({ className = '' }) => {
       >
         <div className={_containerStyling + 'flex-col w-[40vw] h-screen'}>
           <button className={linkStyling} onClick={() => toggleMenu()}>
-            <BsArrowRightCircleFill className="mr-3" />
             <span>Back</span>
+            <BsArrowRight className="ml-auto" />
           </button>
+
+          <Link className={linkStyling} to="/Full-Exam" onClick={toggleMenu}>
+            <div>Full Exams</div>
+          </Link>
+          <Link className={linkStyling} to="/Sections" onClick={toggleMenu}>
+            <div>Section Exams</div>
+          </Link>
+          <Link className={linkStyling} to="/Exercises" onClick={toggleMenu}>
+            <div>Exercises</div>
+          </Link>
+
           <button className={linkStyling + 'mt-auto'}>
             <span>Sign out</span>
+            <BsBoxArrowRight className="ml-auto" />
           </button>
         </div>
       </div>
       <div
         className={`bg-black ${
           isOpen ? 'bg-opacity-55 z-20' : 'bg-opacity-0 -z-10'
-        } h-screen w-screen fixed top-0 left-0 transition-all duration-300`}
+        } h-screen w-screen fixed top-0 left-0 transition-all duration-300 ease-linear`}
       ></div>
     </>
   );
