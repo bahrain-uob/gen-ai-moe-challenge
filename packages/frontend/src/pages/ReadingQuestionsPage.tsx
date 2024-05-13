@@ -38,6 +38,12 @@ const ReadingQuestions = () => {
         answers={answers[index]}
         setAnswers={indexSet(index)}
       />
+    </React.Fragment>
+  ));
+
+  return (
+    <>
+      {x}
       <ul>
         {answers.map((a1, i) => (
           <li key={i} className="ml-2">
@@ -52,10 +58,8 @@ const ReadingQuestions = () => {
           </li>
         ))}
       </ul>
-    </React.Fragment>
-  ));
-
-  return x;
+    </>
+  );
 };
 
 export default ReadingQuestions;
