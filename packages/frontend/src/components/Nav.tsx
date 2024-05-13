@@ -2,34 +2,36 @@ import { useState } from 'react';
 import { BsArrowRightCircleFill, BsList } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const linkStyling =
+const _linkStyling =
   'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
-const containerStyling =
+const _containerStyling =
   'flex flex-1 font-montserrat text-lg font-bold text-white ';
 
 const Nav = () => {
+  const linkStyling = _linkStyling + 'max-md:hidden ';
+
   return (
     <header className="z-10 w-full">
       <nav className="bg-blue-4 h-20">
-        <div className={containerStyling + 'h-full'}>
-          <Link className={linkStyling} to="">
+        <div className={_containerStyling + 'h-full'}>
+          <Link className={_linkStyling} to="">
             <img className="w-16" src="assets/Logo.png" />
           </Link>
 
-          <Link className={linkStyling + 'max-md:hidden'} to="/Full-Exam">
+          <Link className={linkStyling} to="/Full-Exam">
             <div>Full Exams</div>
           </Link>
-          <Link className={linkStyling + 'max-md:hidden'} to="/Sections">
+          <Link className={linkStyling} to="/Sections">
             <div>Section Exams</div>
           </Link>
-          <Link className={linkStyling + 'max-md:hidden'} to="/Exercises">
+          <Link className={linkStyling} to="/Exercises">
             <div>Exercises</div>
           </Link>
-          <Link className={linkStyling + 'max-md:hidden ml-auto'} to="">
+          <Link className={linkStyling + 'ml-auto'} to="">
             <img className="w-11" src="assets/User.png" />
           </Link>
 
-          <MobileMenu className={linkStyling + 'md:hiddent ml-auto'} />
+          <MobileMenu className={_linkStyling + 'md:hiddent ml-auto'} />
         </div>
       </nav>
     </header>
@@ -37,8 +39,9 @@ const Nav = () => {
 };
 
 const MobileMenu = ({ className = '' }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const linkStyling = _linkStyling + 'py-3 flex-row text-gray-700 ';
 
+  const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
 
   return (
@@ -52,17 +55,12 @@ const MobileMenu = ({ className = '' }) => {
             isOpen ? 'max-w-[40vw] ' : 'max-w-0'
           } transition-all duration-300 overflow-hidden`}
       >
-        <div className={containerStyling + 'flex-col w-[40vw] h-screen'}>
-          <button
-            className={linkStyling + 'py-3 flex-row text-gray-700'}
-            onClick={() => toggleMenu()}
-          >
+        <div className={_containerStyling + 'flex-col w-[40vw] h-screen'}>
+          <button className={linkStyling} onClick={() => toggleMenu()}>
             <BsArrowRightCircleFill className="mr-3" />
             <span>Back</span>
           </button>
-          <button
-            className={linkStyling + 'py-3 flex-row text-gray-700 mt-auto'}
-          >
+          <button className={linkStyling + 'mt-auto'}>
             <span>Sign out</span>
           </button>
         </div>
