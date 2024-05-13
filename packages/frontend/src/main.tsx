@@ -17,14 +17,14 @@ import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import FeedbackPage from './pages/FeedbackPage.tsx';
-import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
-import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
+import { WritingPage } from './pages/WritingPage.tsx';
+import { writingSection } from './utilities.ts';
 
 Amplify.configure(
   {
@@ -94,12 +94,8 @@ const router = createBrowserRouter([
         Component: SpeakingConversationPage,
       },
       {
-        path: '/_writing-task1',
-        Component: WritingTask1Page_,
-      },
-      {
-        path: '/_writing-task2',
-        Component: WritingTask2Page_,
+        path: '/writing',
+        element: <WritingPage task={writingSection.task2} />,
       },
       {
         path: '/Listening/addQuestion',
