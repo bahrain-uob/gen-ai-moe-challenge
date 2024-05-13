@@ -1,3 +1,4 @@
+import { BsList } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const Nav = () => {
@@ -26,7 +27,7 @@ const Nav = () => {
           </Link>
 
           <Link className={linkStyling + 'md:hidden ml-auto'} to="">
-            <img className="w-6" src="assets/hamburger.svg" />
+            <BsList size="35" />
           </Link>
         </div>
       </nav>
