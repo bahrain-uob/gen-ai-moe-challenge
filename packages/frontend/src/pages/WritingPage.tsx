@@ -91,7 +91,7 @@ export function WritingPage({
   return (
     <div className="max-w-screen-lg mx-auto">
       <h1 className="text-2xl text-blue-4 font-bold text-center mb-12">
-        Writing 1
+        Writing {'graphUrl' in task ? '1' : '2'}
       </h1>
 
       <section id="question" className="mb-12">
