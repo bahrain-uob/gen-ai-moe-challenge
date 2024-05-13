@@ -1,7 +1,9 @@
 import { Feedback, SpeakingFeedback, WritingFeedback } from '../utilities';
 import CollapsableCard from './collapsableCard';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbarStyles } from 'react-circular-progressbar/dist/types';
 
-/** Display feedback for both writing and speaking questions */
+/** Display feedback for both writing and speaking */
 export const WSFeedbackComponent = ({
   feedback,
 }: {
@@ -9,6 +11,53 @@ export const WSFeedbackComponent = ({
 }) => {
   const pClassname = 'whitespace-pre-line ml-4 mb-8';
 
+  /* Circular Progress */
+  const cpStyles: CircularProgressbarStyles = {
+    // Customize the root svg element
+    root: {},
+    // Customize the path, i.e. the "completed progress"
+    path: {
+      stroke: '#3B828E',
+      strokeWidth: 8,
+    },
+    // Customize the circle behind the path, i.e. the "total progress"
+    trail: {
+      // Trail color
+      stroke: '#AAD7D9',
+      strokeWidth: 8,
+    },
+    // Customize the text
+    text: {
+      // Text size
+      fontSize: '0.95rem',
+    },
+  };
+
+  const circularFeedback = (
+    <div className="flex justify-evenly mb-20">
+      <div className="w-1/6 max-md:w-1/3">
+        <p className="text-center mb-6">Band Score</p>
+        <CircularProgressbar
+          value={feedback.score * 4}
+          maxValue={36}
+          // TODO Don't hard-code a band score
+          text={'B1'}
+          styles={cpStyles}
+        />
+      </div>
+      <div className="w-1/6 max-md:w-1/3">
+        <p className="text-center mb-6">Total Score</p>
+        <CircularProgressbar
+          value={feedback.score * 4}
+          maxValue={36}
+          text={(feedback.score * 4).toFixed() + ' / 36'}
+          styles={cpStyles}
+        />
+      </div>
+    </div>
+  );
+
+  /* Text Progress */
   // Contains header and feedback in correct order
   const entries: [string, Feedback][] = isWritingFeedback(feedback)
     ? [
@@ -34,7 +83,7 @@ export const WSFeedbackComponent = ({
     ? displayGrammarMistakes(feedback['Grammer Tool Feedback'])
     : null;
 
-  return entries.map(([title, { score, text }]) => (
+  const textFeedback = entries.map(([title, { score, text }]) => (
     <CollapsableCard key={title} title={entryTitle(title, score)}>
       <p className={pClassname}>{text}</p>
 
@@ -42,6 +91,13 @@ export const WSFeedbackComponent = ({
       {title === 'Grammatical Range & Accuracy' && grammarMistakes}
     </CollapsableCard>
   ));
+
+  return (
+    <>
+      {circularFeedback}
+      {textFeedback}
+    </>
+  );
 };
 
 const entryTitle = (title: string, score: number) => (
