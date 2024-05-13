@@ -1,14 +1,16 @@
 import { BsList } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
-  const linkStyling =
-    'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
+const linkStyling =
+  'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
+const containerStyling =
+  'flex flex-1 font-montserrat text-lg font-bold text-white ';
 
+const Nav = () => {
   return (
     <header className="z-10 w-full">
       <nav className="bg-blue-4 h-20">
-        <div className="flex flex-1 h-full font-montserrat text-lg font-bold text-white">
+        <div className={containerStyling + 'h-full'}>
           <Link className={linkStyling} to="">
             <img className="w-16" src="assets/Logo.png" />
           </Link>
