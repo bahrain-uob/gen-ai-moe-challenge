@@ -1,21 +1,26 @@
 import { useState } from 'react';
-import { BsArrowRight, BsBoxArrowRight, BsList } from 'react-icons/bs';
+import {
+  BsArrowRight,
+  BsBoxArrowRight,
+  BsList,
+  BsPersonCircle,
+} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const _linkStyling =
   'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
 const _containerStyling =
-  'flex flex-1 font-montserrat text-lg font-bold text-white ';
+  'flex flex-1 font-montserrat text-md font-bold text-white ';
 
 const Nav = () => {
   const linkStyling = _linkStyling + 'max-md:hidden ';
 
   return (
     <header className="z-10 w-full">
-      <nav className="bg-blue-4 h-20">
+      <nav className="bg-blue-4 h-14">
         <div className={_containerStyling + 'h-full'}>
           <Link className={_linkStyling} to="">
-            <img className="w-16" src="assets/Logo.png" />
+            <img className="w-12" src="assets/Logo.png" />
           </Link>
 
           <Link className={linkStyling} to="/Full-Exam">
