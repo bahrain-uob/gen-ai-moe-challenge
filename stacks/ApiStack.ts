@@ -91,6 +91,14 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '120 seconds',
         },
       },
+      'POST /addVocabQuestion': {
+        function: {
+          handler: 'packages/functions/src/addVocabQuestion.main',
+          permissions: ['dynamodb:PutItem'],
+          timeout: '15 seconds',
+        },
+      },
+
       // Grade both writing tasks
       'POST /grade-writing': {
         function: {

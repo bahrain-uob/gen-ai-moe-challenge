@@ -27,6 +27,7 @@ import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import VocabularyPracticePage from './pages/VocabularyPracticePage';
+import addVocabQuestionsPage from './pages/AddVocabQuestionsPage.tsx';
 
 Amplify.configure(
   {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: '/VocabularyPracticePage',
         Component: VocabularyPracticePage,
+      },
+      {
+        path: '/addVocabQuestionsPage',
+        Component: addVocabQuestionsPage,
       },
       {
         path: '/writing-task2',
