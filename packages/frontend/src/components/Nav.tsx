@@ -52,7 +52,7 @@ const MobileMenu = ({ className = '' }) => {
             isOpen ? 'max-w-[40vw] ' : 'max-w-0'
           } transition-all duration-300 overflow-hidden`}
       >
-        <div className={containerStyling + 'flex-col w-[40vw]'}>
+        <div className={containerStyling + 'flex-col w-[40vw] h-screen'}>
           <button
             className={linkStyling + 'py-3 flex-row text-gray-700'}
             onClick={() => toggleMenu()}
@@ -60,7 +60,9 @@ const MobileMenu = ({ className = '' }) => {
             <BsArrowRightCircleFill className="mr-3" />
             <span>Back</span>
           </button>
-          <button className={linkStyling + 'py-3 flex-row text-gray-700'}>
+          <button
+            className={linkStyling + 'py-3 flex-row text-gray-700 mt-auto'}
+          >
             <span>Sign out</span>
           </button>
         </div>
