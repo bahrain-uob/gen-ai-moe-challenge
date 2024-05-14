@@ -5,19 +5,20 @@ import { readingParts } from '../utilities/readingUtilities';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
-
 import {
   Answer,
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 type setType = (arg: Answer[]) => void;
 
 const ReadingQuestions = () => {
   const { sk } = useParams();
   if (!sk) return;
+
+  const navigate = useNavigate();
 
   // TODO: this should be a parameter
   const parts = readingParts;
@@ -54,6 +55,7 @@ const ReadingQuestions = () => {
       );
       console.log('Submit response:', response);
       alert('Answers submitted successfully!');
+      navigate(`/scores/reading/${sk}`);
     } catch (error) {
       console.error('Error submitting answers:', error);
       alert('Failed to submit answers.');
