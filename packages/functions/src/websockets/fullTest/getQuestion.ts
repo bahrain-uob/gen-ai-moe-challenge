@@ -67,18 +67,18 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
       // calculate total time
-      const totalTime = Date.now() - exam![section].start_time;
+      const totalTime = Date.now() - sectionAnswer.start_time;
       console.log('Total time:', totalTime / (1000 * 60));
 
       // if the time is up auto submit the section
       if (totalTime > examSections[section].time) {
-        //should be auto-submitted
+        //auto-submitted
         submit(
           dynamoDb,
           userId,
           testId,
           examSections[section].answer,
-          exam![examSections[section].answer].answer,
+          sectionAnswer.answer,
           true,
         );
         console.log('Auto-Submitting ', examSections[section].type);
@@ -113,6 +113,7 @@ export const main: APIGatewayProxyHandler = async event => {
       nextSctionAnswer === undefined
     ) {
       // start the next section
+      console.log(examSections[section + 1].answer);
 
       // set the start time and status
       const updateExam = new UpdateCommand({
@@ -121,15 +122,18 @@ export const main: APIGatewayProxyHandler = async event => {
           PK: userId,
           SK: testId,
         },
-        UpdateExpression:
-          'SET #section.start_time = :start_time, #section.#stu = :status',
+        UpdateExpression: 'SET #section = :newSection',
         ExpressionAttributeValues: {
-          ':start_time': Date.now(),
-          ':status': 'In progress',
+          // ':start_time': Date.now(),
+          // ':status': 'In progress',
+          ':newSection': {
+            start_time: Date.now(),
+            status: 'In progress',
+          },
         },
         ExpressionAttributeNames: {
           '#section': examSections[section + 1].answer,
-          '#stu': 'status',
+          // '#stu': 'status',
         },
       });
       await dynamoDb.send(updateExam);
