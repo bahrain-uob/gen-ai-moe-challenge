@@ -13,6 +13,32 @@ import {
 } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 
+/**
+ * This funciton should be called when the user needs the questions for the test.
+ * In both cases of completeing when quitting or starting a new section.
+ * The input should be as follows:
+ * {
+ *  action:'fullTestGetQuestion',
+ *  testId: 'testId',
+ * }
+ *
+ * It will return the following:
+ * {
+ *  type: 'sectionType', // listening, reading, writing, speaking
+ *  data: {
+ *    question: 'question', // this will be based on the section question schema
+ *                          // the same as the item in DB
+ *    answer: 'answer', // this will get returned only when returning after quitting
+ * }
+ *
+ * It will output the following only when the
+ * current section in progress is auto-submitted:
+ * {
+ *     type: 'sectionType',  // listening, reading, writing, speaking
+ *     data: "Auto-Submitted",
+ * }
+ */
+
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
   const { stage, domainName, authorizer } = event.requestContext;
@@ -81,6 +107,14 @@ export const main: APIGatewayProxyHandler = async event => {
           sectionAnswer.answer,
           true,
         );
+        const autoSubmittedCommand = new PostToConnectionCommand({
+          ConnectionId: connectionId,
+          Data: JSON.stringify({
+            type: examSections[section].type,
+            data: 'Auto-Submitted',
+          }),
+        });
+        await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
       }
       // else return the question and saved answer to continue
