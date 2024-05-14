@@ -3,16 +3,21 @@ import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { readingParts } from '../utilities/readingUtilities';
 import { PassageComponent } from '../components/Reading/PassageComponent';
+import { post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
+
 import {
   Answer,
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
+import { useParams } from 'react-router-dom';
 
 type setType = (arg: Answer[]) => void;
 
 const ReadingQuestions = () => {
-  // const { section, sk } = useParams();
+  const { sk } = useParams();
+  if (!sk) return;
 
   // TODO: this should be a parameter
   const parts = readingParts;
@@ -28,6 +33,31 @@ const ReadingQuestions = () => {
       arrCopy[i] = value;
       setAnswers(arrCopy);
     };
+  };
+
+  const submitAnswers = async (sk: string) => {
+    try {
+      const payload = {
+        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
+      };
+      const response = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: `/answers/reading/${sk}`,
+          options: {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: payload,
+          },
+        }),
+      );
+      console.log('Submit response:', response);
+      alert('Answers submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting answers:', error);
+      alert('Failed to submit answers.');
+    }
   };
 
   const x = parts.map((part, index) => (
@@ -52,6 +82,7 @@ const ReadingQuestions = () => {
           </li>
         ))}
       </ul>
+      <button onClick={() => submitAnswers(sk)}>Submit Answers</button>
     </React.Fragment>
   ));
 
