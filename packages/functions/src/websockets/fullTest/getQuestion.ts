@@ -92,7 +92,7 @@ export const main: APIGatewayProxyHandler = async event => {
             type: examSections[section].type,
             data: {
               question: exam!.questions[examSections[section].type],
-              answer: examSections[section].answer,
+              answer: sectionAnswer,
             },
           }),
         });
@@ -124,8 +124,6 @@ export const main: APIGatewayProxyHandler = async event => {
         },
         UpdateExpression: 'SET #section = :newSection',
         ExpressionAttributeValues: {
-          // ':start_time': Date.now(),
-          // ':status': 'In progress',
           ':newSection': {
             start_time: Date.now(),
             status: 'In progress',
@@ -133,7 +131,6 @@ export const main: APIGatewayProxyHandler = async event => {
         },
         ExpressionAttributeNames: {
           '#section': examSections[section + 1].answer,
-          // '#stu': 'status',
         },
       });
       await dynamoDb.send(updateExam);
