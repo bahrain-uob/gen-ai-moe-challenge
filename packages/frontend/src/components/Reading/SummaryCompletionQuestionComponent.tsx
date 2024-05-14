@@ -39,7 +39,8 @@ export const SummaryCompletionQuestionComponent = ({
             onChange={e =>
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
-            placeholder="Type your answer here"
+           
+            className="border border-blue-4 rounded  rounded-full"
           />
         )}
       </React.Fragment>
@@ -52,7 +53,7 @@ export const SummaryCompletionQuestionComponent = ({
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
-            <p>
+            <p className='text-justify mt-5 leading-loose'>
               {renderQuestionTextWithInputs(subQuestion.QuestionText, index)}
             </p>
           </li>

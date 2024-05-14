@@ -32,7 +32,7 @@ export const QuestionsComponent = ({
     <>
       {questions.map((question, index) => (
         <div key={index} className="mb-10">
-          <p>
+          <p className='mb-3'>
             Question {index + 1}, {question.QuestionType}:
           </p>
           {renderQuestionComponent(

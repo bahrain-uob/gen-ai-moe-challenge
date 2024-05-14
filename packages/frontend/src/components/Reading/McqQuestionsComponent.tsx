@@ -47,8 +47,9 @@ export const McqQuestionsComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
+          className="border border-blue-4 rounded-full text-blue-4 text-center  py-1 px-8"
         >
-          <option value="">Select an answer</option>
+          <option value="">{index+1}</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
             <option key={choiceIndex} value={choice}>
               {choice}
@@ -63,11 +64,15 @@ export const McqQuestionsComponent = ({
     <div>
       <p>{question.Question}</p>
       <ul>
+
         {question.SubQuestions.map((subQuestion, index) => (
-          <li key={index}>
+          <li key={index} className='mt-5'>
+            
             {question.QuestionType === 'Multiple Choice' ? (
               <p>{subQuestion.QuestionText}</p> // Text for Multiple Choice
             ) : null}
+              
+
             {question.QuestionType === 'Multiple Choice'
               ? renderRadioButtons(subQuestion.Choices, index)
               : renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
