@@ -33,7 +33,7 @@ const ReadingQuestions = () => {
   };
 
   const containerStyles =
-    'h-[47vh] w-screen lg:w-1/2 lg:h-[94vh] p-10 overflow-y-scroll';
+    'h-1/2 w-full lg:w-1/2 lg:h-full p-10 overflow-y-scroll';
 
   /* Bar */
   const linkStyling =
@@ -60,7 +60,7 @@ const ReadingQuestions = () => {
   return (
     <>
       <div className="h-[6vh] bg-blue-4">{barContent}</div>
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row h-[94vh] w-screen">
         <div className={containerStyles}>
           <PassageComponent
             readingPart={parts[partIndex]}
