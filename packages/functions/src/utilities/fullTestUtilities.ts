@@ -1,13 +1,12 @@
 import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 
-export type examTiming = {
-  listeningAnswer: number;
-  readingAnswer: number;
-  writingAnswer: number;
-  speakingAnswer: number;
-  [key: string]: number;
-};
+export const examSections = [
+  { type: 'listening', answer: 'listeningAnswer', time: 60 * 60 * 1000 },
+  { type: 'reading', answer: 'readingAnswer', time: 60 * 60 * 1000 },
+  { type: 'writing', answer: 'writingAnswer', time: 60 * 60 * 1000 },
+  { type: 'speaking', answer: 'speakingAnswer', time: 60 * 60 * 1000 },
+];
 
 export const autoSave = async (
   DBClient: DynamoDBDocumentClient,
