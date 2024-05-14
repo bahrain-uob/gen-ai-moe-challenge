@@ -13,6 +13,27 @@ import {
   submit,
 } from 'src/utilities/fullTestUtilities';
 
+/**
+ * This funciton should be called periodically to auto save the user's answer and
+ * auto submit if the time is up for the section.
+ * The input should be as follows:
+ * {
+ *  action:'fullTestAutoSave',
+ *  testId: 'testId',
+ *  data: {
+ *      type: 'sectionType', // listening, reading, writing, speaking
+ *      answer: 'answer', // this will be based on the section answer schema
+ *    }
+ * }
+ *
+ *
+ * It will output the following only when the time is up and auto-submitted
+ * {
+ *     type: 'sectionType',  // listening, reading, writing, speaking
+ *     data: "Auto-Submitted",
+ * }
+ */
+
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
   const { stage, domainName, authorizer } = event.requestContext;
@@ -77,6 +98,14 @@ export const main: APIGatewayProxyHandler = async event => {
           answer,
           true,
         );
+        const autoSubmittedCommand = new PostToConnectionCommand({
+          ConnectionId: connectionId,
+          Data: JSON.stringify({
+            type: examSections[section].type,
+            data: 'Auto-Submitted',
+          }),
+        });
+        await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
       }
       // make sure the provided answer is for the right section
