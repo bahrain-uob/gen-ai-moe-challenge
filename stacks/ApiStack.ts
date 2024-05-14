@@ -171,7 +171,7 @@ export function ApiStack({ stack }: StackContext) {
       },
       fullTestAutoSave: {
         function: {
-          handler: 'packages/functions/src/websockets/fullTest/AutoSave.main',
+          handler: 'packages/functions/src/websockets/fullTest/autoSave.main',
           timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
@@ -181,7 +181,7 @@ export function ApiStack({ stack }: StackContext) {
       fullTestGetQuestion: {
         function: {
           handler:
-            'packages/functions/src/websockets/fullTest/GetQuestion.main',
+            'packages/functions/src/websockets/fullTest/getQuestion.main',
           timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,

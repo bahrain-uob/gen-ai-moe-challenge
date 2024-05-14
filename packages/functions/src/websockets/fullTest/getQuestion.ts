@@ -4,7 +4,7 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../../utilities';
-import { examSections } from '../../utilities/fullTestUtilities';
+import { examSections, submit } from '../../utilities/fullTestUtilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -73,7 +73,14 @@ export const main: APIGatewayProxyHandler = async event => {
       // if the time is up auto submit the section
       if (totalTime > examSections[section].time) {
         //should be auto-submitted
-        // submit(dynamoDb, userId, testId, section, answer, true);
+        submit(
+          dynamoDb,
+          userId,
+          testId,
+          examSections[section].answer,
+          exam![examSections[section].answer].answer,
+          true,
+        );
         console.log('Auto-Submitting ', examSections[section].type);
       }
       // else return the question and saved answer to continue
