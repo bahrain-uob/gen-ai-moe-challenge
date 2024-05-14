@@ -5,12 +5,9 @@ import {
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../utilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import {
-  DynamoDBDocumentClient,
-  GetCommand,
-  UpdateCommand,
-} from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
+import { examTiming, autoSave, submit } from 'src/utilities/fullTestUtilities';
 
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
@@ -30,7 +27,7 @@ export const main: APIGatewayProxyHandler = async event => {
   if (!userId) {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
-  const answer = body.data;
+  const answer = body.data.answer;
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -84,64 +81,4 @@ export const main: APIGatewayProxyHandler = async event => {
   }
 
   return { statusCode: 200, body: 'Connected' };
-};
-
-type examTiming = {
-  listeningAnswer: number;
-  readingAnswer: number;
-  writingAnswer: number;
-  speakingAnswer: number;
-  [key: string]: number;
-};
-
-const autoSave = async (
-  DBClient: DynamoDBDocumentClient,
-  userId: string,
-  testId: string,
-  section: string,
-  answer: any,
-) => {
-  const updateExam = new UpdateCommand({
-    TableName: Table.Records.tableName,
-    Key: {
-      PK: userId,
-      SK: testId,
-    },
-    UpdateExpression: `SET ${section}.answer = :answer`,
-    ExpressionAttributeValues: {
-      ':answer': answer,
-    },
-  });
-
-  return await DBClient.send(updateExam);
-};
-
-const submit = async (
-  DBClient: DynamoDBDocumentClient,
-  userId: string,
-  testId: string,
-  section: string,
-  answer: any,
-  autoSubmitted: boolean = false,
-) => {
-  const updateExam = new UpdateCommand({
-    TableName: Table.Records.tableName,
-    Key: {
-      PK: userId,
-      SK: testId,
-    },
-    UpdateExpression:
-      'SET #section.answer = :answer, #section.#stu = :status, #section.end_time = :end_time',
-    ExpressionAttributeValues: {
-      ':answer': answer,
-      ':status': autoSubmitted ? 'Auto-submitted' : 'Submitted',
-      ':end_time': Date.now(),
-    },
-    ExpressionAttributeNames: {
-      '#section': section,
-      '#stu': 'status',
-    },
-  });
-
-  return await DBClient.send(updateExam);
 };
