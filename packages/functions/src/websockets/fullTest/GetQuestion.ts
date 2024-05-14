@@ -3,8 +3,8 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import { wsError } from '../utilities';
-import { examSections } from '../utilities/fullTestUtilities';
+import { wsError } from '../../utilities';
+import { examSections } from '../../utilities/fullTestUtilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
