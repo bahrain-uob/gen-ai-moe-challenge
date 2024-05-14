@@ -33,7 +33,7 @@ const ReadingQuestions = () => {
   };
 
   const containerStyles =
-    'h-[46vh] w-screen lg:w-1/2 lg:h-[92vh] p-10 overflow-y-scroll';
+    'h-[47vh] w-screen lg:w-1/2 lg:h-[94vh] p-10 overflow-y-scroll';
 
   /* Bar */
   const linkStyling =
