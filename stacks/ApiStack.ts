@@ -188,6 +188,15 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
+      fullTestSubmit: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/submit.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
       speaking: {
         function: {
           handler: 'packages/functions/src/speaking.main',
