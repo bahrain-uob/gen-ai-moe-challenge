@@ -1,21 +1,21 @@
-import { ReadingQuestion } from '../../utilities/readingUtilities';
-import { ListeningQuestion } from '../../utilities/ListeningUtilities';
 import { ListSelectionQuestionComponent } from './ListSelectionQuestionComponent';
 import { McqQuestionsComponent } from './McqQuestionsComponent';
 import { TableCompletionQuestionComponent } from './TableCompletionQuestionComponent';
 import { SummaryCompletionQuestionComponent } from './SummaryCompletionQuestionComponent';
 import { MultipleAnswersQuestionComponent } from './MultipleAnswersQuestionComponent';
 import { DiagramCompletionQuestionComponent } from './DiagramCompletionQuestionComponent';
-
-export type Answer = string[] | string[][];
-export type SetAnswer = (answer: Answer) => void;
+import {
+  Answer,
+  LRQuestion,
+  SetAnswer,
+} from '../../utilities/readingUtilities';
 
 export const QuestionsComponent = ({
   questions,
   answers,
   setAnswers,
 }: {
-  questions: ReadingQuestion[];
+  questions: LRQuestion[];
   answers: Answer[];
   setAnswers: (arg: Answer[]) => void;
 }) => {
@@ -52,7 +52,7 @@ export const QuestionsComponent = ({
  * state
  */
 const renderQuestionComponent = (
-  question: ReadingQuestion | ListeningQuestion,
+  question: LRQuestion,
   answer: Answer,
   setAnswer: SetAnswer,
 ) => {
@@ -116,7 +116,7 @@ const renderQuestionComponent = (
 };
 
 /** Returns the correct initial answer array for each question */
-export function initialAnswer(questions: ReadingQuestion[]): Answer[] {
+export function initialAnswer(questions: LRQuestion[]): Answer[] {
   return questions.map(q => {
     switch (q.QuestionType) {
       case 'Table Completion':

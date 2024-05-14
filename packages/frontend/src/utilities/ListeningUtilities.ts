@@ -1,28 +1,6 @@
-import {
-  QuestionTableCompletion,
-  QuestionListSelection,
-  QuestionMultipleChoice,
-  QuestionSummaryCompletion,
-  QuestionMultipleAnswers,
-  QuestionDiagramCompletion,
-} from './readingUtilities';
+import { ListeningPart } from './readingUtilities';
 
-export interface ListeningPart {
-  MyPartitionKey: string;
-  MySortKey: string;
-  NumOfQuestions: number;
-  ScriptKey: string;
-  Questions: ListeningQuestion[];
-}
-export type ListeningQuestion =
-  | QuestionTableCompletion
-  | QuestionListSelection
-  | QuestionMultipleChoice
-  | QuestionSummaryCompletion
-  | QuestionMultipleAnswers
-  | QuestionDiagramCompletion;
-
-export const ListeningParts: ListeningPart[] = [
+export const listeningParts: ListeningPart[] = [
   {
     MyPartitionKey: 'ListeningP1',
     MySortKey: '1',

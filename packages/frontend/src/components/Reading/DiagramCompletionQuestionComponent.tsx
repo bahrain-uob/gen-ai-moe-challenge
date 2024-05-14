@@ -1,16 +1,14 @@
 import React from 'react';
-import { QuestionDiagramCompletion } from '../../utilities/readingUtilities';
-import { Answer, SetAnswer } from './QuestionsComponent';
+import {
+  QuestionComponentInput,
+  QuestionDiagramCompletion,
+} from '../../utilities/readingUtilities';
 
 export const DiagramCompletionQuestionComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionDiagramCompletion;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionDiagramCompletion>) => {
   const handleInputChange = (
     subQuestionIndex: number,
     answerIndex: number,

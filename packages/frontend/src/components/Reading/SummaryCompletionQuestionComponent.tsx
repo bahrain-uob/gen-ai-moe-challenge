@@ -1,16 +1,14 @@
-import { QuestionSummaryCompletion } from '../../utilities/readingUtilities';
+import {
+  QuestionComponentInput,
+  QuestionSummaryCompletion,
+} from '../../utilities/readingUtilities';
 import React from 'react';
-import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const SummaryCompletionQuestionComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionSummaryCompletion;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionSummaryCompletion>) => {
   const handleInputChange = (
     subQuestionIndex: number,
     answerIndex: number,

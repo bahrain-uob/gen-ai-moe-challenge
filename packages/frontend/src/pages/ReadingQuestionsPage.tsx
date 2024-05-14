@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
-import { readingParts } from '../utilities/readingUtilities';
+import { Answer, readingParts } from '../utilities/readingUtilities';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
 import {
-  Answer,
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';

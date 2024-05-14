@@ -1,18 +1,16 @@
 // import React, { useState } from 'react';
 // import { QuestionListSelection } from '../../utilities/readingUtilities';
-import { QuestionListSelection } from '../../utilities/readingUtilities';
+import {
+  QuestionComponentInput,
+  QuestionListSelection,
+} from '../../utilities/readingUtilities';
 import React from 'react';
-import { Answer, SetAnswer } from './QuestionsComponent';
 
 export const ListSelectionQuestionComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionListSelection;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionListSelection>) => {
   const handleSelectionChange = (index: number, value: string) => {
     const newSelections = [...answer] as string[];
     newSelections[index] = value;

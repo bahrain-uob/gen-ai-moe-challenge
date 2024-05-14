@@ -1,16 +1,14 @@
 import React from 'react';
-import { QuestionMultipleChoice } from '../../utilities/readingUtilities';
-import { Answer, SetAnswer } from './QuestionsComponent';
+import {
+  QuestionComponentInput,
+  QuestionMultipleChoice,
+} from '../../utilities/readingUtilities';
 
 export const McqQuestionsComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionMultipleChoice;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionMultipleChoice>) => {
   const handleSelectionChange = (subQuestionIndex: number, value: string) => {
     const newSelections = [...answer] as string[];
     newSelections[subQuestionIndex] = value;

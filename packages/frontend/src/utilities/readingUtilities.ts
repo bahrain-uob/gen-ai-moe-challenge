@@ -1,12 +1,38 @@
+export type QuestionComponentInput<T> = {
+  question: T;
+  answer: Answer;
+  set: SetAnswer;
+  /**
+   * If true the component will show the correct answers alongside the student
+   * answers and will indicate whether his answers are true or not (used for
+   * showing feedback).
+   *
+   * If false the component will allow the student to input his answers (used
+   * for tests).
+   */
+  showCorrectAnswer?: boolean;
+};
+
+export type Answer = string[] | string[][];
+export type SetAnswer = (answer: Answer) => void;
+
+export interface ListeningPart {
+  MyPartitionKey: string;
+  MySortKey: string;
+  NumOfQuestions: number;
+  ScriptKey: string;
+  Questions: LRQuestion[];
+}
+
 export interface ReadingPart {
   MyPartitionKey: string;
   MySortKey: string;
   NumOfQuestions: number;
   PassageTitle: string;
   Passage: string;
-  Questions: ReadingQuestion[];
+  Questions: LRQuestion[];
 }
-export type ReadingQuestion =
+export type LRQuestion =
   | QuestionTableCompletion
   | QuestionListSelection
   | QuestionMultipleChoice

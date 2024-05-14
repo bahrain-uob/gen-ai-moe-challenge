@@ -1,15 +1,13 @@
-import { QuestionMultipleAnswers } from '../../utilities/readingUtilities';
-import { Answer, SetAnswer } from './QuestionsComponent';
+import {
+  QuestionComponentInput,
+  QuestionMultipleAnswers,
+} from '../../utilities/readingUtilities';
 
 export const MultipleAnswersQuestionComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionMultipleAnswers;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionMultipleAnswers>) => {
   const handleCheckboxChange = (subQuestionIndex: number, choice: string) => {
     const newSelections = answer.map((selectedChoices, index) => {
       if (index === subQuestionIndex) {

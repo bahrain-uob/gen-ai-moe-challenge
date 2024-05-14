@@ -1,16 +1,14 @@
 import React from 'react';
-import { QuestionTableCompletion } from '../../utilities/readingUtilities';
-import { Answer, SetAnswer } from './QuestionsComponent';
+import {
+  QuestionComponentInput,
+  QuestionTableCompletion,
+} from '../../utilities/readingUtilities';
 
 export const TableCompletionQuestionComponent = ({
   question,
   answer,
   set,
-}: {
-  question: QuestionTableCompletion;
-  answer: Answer;
-  set: SetAnswer;
-}) => {
+}: QuestionComponentInput<QuestionTableCompletion>) => {
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     rowIndex: number,
