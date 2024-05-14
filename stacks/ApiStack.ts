@@ -169,9 +169,19 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
-      fullTest: {
+      fullTestAutoSave: {
         function: {
-          handler: 'packages/functions/src/websockets/fullTest.main',
+          handler: 'packages/functions/src/websockets/fullTest/AutoSave.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestGetQuestion: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/fullTest/GetQuestion.main',
           timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
