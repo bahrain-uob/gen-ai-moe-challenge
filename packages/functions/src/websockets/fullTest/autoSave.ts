@@ -3,11 +3,15 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import { wsError } from '../utilities';
+import { wsError } from '../../utilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
-import { examTiming, autoSave, submit } from 'src/utilities/fullTestUtilities';
+import {
+  examSections,
+  autoSave,
+  submit,
+} from 'src/utilities/fullTestUtilities';
 
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
@@ -28,6 +32,7 @@ export const main: APIGatewayProxyHandler = async event => {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
   const answer = body.data.answer;
+  const type = body.data.type;
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -40,13 +45,6 @@ export const main: APIGatewayProxyHandler = async event => {
     },
   });
 
-  const examSections = [
-    'listeningAnswer',
-    'readingAnswer',
-    'writingAnswer',
-    'speakingAnswer',
-  ];
-
   let exam;
   try {
     exam = (await dynamoDb.send(getExam)).Item;
@@ -55,26 +53,50 @@ export const main: APIGatewayProxyHandler = async event => {
   }
   console.log('Exam:', exam);
 
-  const examTiming: examTiming = {
-    listeningAnswer: 60 * 60 * 1000,
-    readingAnswer: 60 * 60 * 1000,
-    writingAnswer: 60 * 60 * 1000,
-    speakingAnswer: 60 * 60 * 1000,
-  };
+  for (let section = 0; section < examSections.length; section++) {
+    const sectionAnswer = exam![examSections[section].answer];
 
-  for (let section of examSections) {
-    if (exam![section] && exam![section].status === 'In progress') {
+    if (sectionAnswer === undefined) {
+      break;
+    }
+
+    // if the section is in progress
+    if (sectionAnswer.status === 'In progress') {
+      // calculate total time
       const totalTime = Date.now() - exam![section].start_time;
-      console.log('Total time:', totalTime);
+      console.log('Total time:', totalTime / (1000 * 60));
 
-      if (totalTime > examTiming[section]) {
+      // if the time is up auto submit the section
+      if (totalTime > examSections[section].time) {
         //should be auto-submitted
-        submit(dynamoDb, userId, testId, section, answer, true);
-        console.log('Auto-Submitting ', section);
-      } else {
+        submit(
+          dynamoDb,
+          userId,
+          testId,
+          examSections[section].answer,
+          answer,
+          true,
+        );
+        console.log('Auto-Submitting ', examSections[section].type);
+      }
+      // make sure the provided answer is for the right section
+      else if (type === examSections[section].type) {
         // auto - save
-        autoSave(dynamoDb, userId, testId, section, answer);
-        console.log('Auto-Saving exam', section);
+        autoSave(
+          dynamoDb,
+          userId,
+          testId,
+          examSections[section].answer,
+          answer,
+        );
+        console.log('Auto-Saving exam', examSections[section].type);
+      } else {
+        return wsError(
+          apiClient,
+          connectionId,
+          400,
+          'Wrong section you are in: ' + examSections[section].type,
+        );
       }
       break;
     }
