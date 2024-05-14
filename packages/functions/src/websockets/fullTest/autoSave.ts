@@ -63,7 +63,7 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
       // calculate total time
-      const totalTime = Date.now() - exam![section].start_time;
+      const totalTime = Date.now() - sectionAnswer.start_time;
       console.log('Total time:', totalTime / (1000 * 60));
 
       // if the time is up auto submit the section
