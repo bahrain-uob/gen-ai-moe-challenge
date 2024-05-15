@@ -32,6 +32,7 @@ export const TableCompletionQuestionComponent = ({
             type="text"
             value={answer[rowIndex][index] || ''} // Bind input value to state
             onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
+            className="lr-input"
           />
         </React.Fragment>
       );
