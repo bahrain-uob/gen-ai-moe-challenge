@@ -195,7 +195,7 @@ export const SpeakingLongQuestionPage: React.FC = () => {
          */
         sendMessage(
           JSON.stringify({
-            action: 'speaking',
+            action: 'gradeSpeakingP2',
             data: {
               audioFileName: `${audioFileName}`,
               question: `${question}`,

@@ -198,12 +198,16 @@ export const SpeakingConversationPage: React.FC = () => {
           },
         });
 
+        const audioFileNames: string[] = [];
+        const questions: string[] = [];
+        console.log(question);
+
         sendMessage(
           JSON.stringify({
-            action: 'speaking',
+            action: 'gradeSpeakingP1',
             data: {
-              audioFileName: `${audioFileName}`,
-              question: `${question}`,
+              audioFileNames: audioFileNames,
+              questions: questions,
             },
           }),
         );
