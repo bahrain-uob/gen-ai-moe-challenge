@@ -2,6 +2,7 @@ import React from 'react';
 import {
   QuestionComponentInput,
   QuestionMultipleChoice,
+  SQMultipleChoice,
 } from '../../utilities/LRUtilities';
 
 export const McqQuestionsComponent = ({
@@ -20,26 +21,47 @@ export const McqQuestionsComponent = ({
     }
   };
   // Render choices as radio buttons, each on a new line
-  const renderRadioButtons = (choices: string[], index: number) => (
-    <div>
-      {choices.map((choice, choiceIndex) => (
+  const renderRadioButtons = (subQuestion: SQMultipleChoice, index: number) => {
+    const choices = subQuestion.Choices;
+    const correctAnswer = subQuestion.CorrectAnswer;
+
+    const out = choices.map((choice, choiceIndex) => {
+      console.log('>>>', { choice, correctAnswer }, choice === correctAnswer);
+      let style;
+      if (showCorrectAnswer && answer[index] === choice) {
+        style =
+          correctAnswer === choice
+            ? 'text-green-700'
+            : 'text-red-700 line-through';
+      } else {
+        style = '';
+      }
+
+      const input = (
+        <input
+          type="radio"
+          name={`question-${index}`}
+          value={choice}
+          checked={answer[index] === choice}
+          onChange={e => handleSelectionChange(index, e.target.value)}
+          disabled={showCorrectAnswer} // Disable when showCorrectAnswer is true
+          className="mr-2"
+          // className={`mr-2 ${style}`}
+        />
+      );
+
+      return (
         <div key={choiceIndex} style={{ marginBottom: '5px' }}>
-          <label className="cursor-pointer">
-            <input
-              type="radio"
-              name={`question-${index}`}
-              value={choice}
-              checked={answer[index] === choice}
-              onChange={e => handleSelectionChange(index, e.target.value)}
-              disabled={showCorrectAnswer} // Disable when showCorrectAnswer is true
-              className="mr-2"
-            />
-            {choice}
+          <label className={`cursor-pointer ${style}`}>
+            {input}
+            <span>{choice}</span>
           </label>
         </div>
-      ))}
-    </div>
-  );
+      );
+    });
+
+    return <div>{out}</div>;
+  };
 
   // Render choices as a select list that replaces '-answer-'
   const renderQuestionTextWithSelects = (text: string, index: number) => {
@@ -75,7 +97,7 @@ export const McqQuestionsComponent = ({
               <p>{subQuestion.QuestionText}</p> // Text for Multiple Choice
             ) : null}
             {question.QuestionType === 'Multiple Choice'
-              ? renderRadioButtons(subQuestion.Choices, index)
+              ? renderRadioButtons(subQuestion, index)
               : renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
           </li>
         ))}
