@@ -34,9 +34,6 @@ const ReadingQuestions = () => {
     };
   };
 
-  const containerStyles =
-    'w-full lg:w-1/2 lg:h-full transition-all duration-300';
-
   /* Bar */
   const linkStyling =
     'px-5 transition-colors duration-200 flex items-center leading-normal ';
@@ -60,6 +57,7 @@ const ReadingQuestions = () => {
     </div>
   );
 
+  /* Maximize */
   const maximizeButton = (
     <div className="flex flex-row-reverse h-full items-center px-4">
       <button onClick={() => setIsMaximized(max => !max)}>
@@ -73,47 +71,50 @@ const ReadingQuestions = () => {
     </div>
   );
 
+  /* Screens */
+  const passageScreen = (
+    <div className="h-full">
+      <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
+        <PassageComponent
+          readingPart={parts[partIndex]}
+          PartIndex={partIndex}
+        />
+      </div>
+      {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+      <div className="h-[10%] lg:hidden">{maximizeButton}</div>
+    </div>
+  );
+
+  const questionsScreen = (
+    <div className="h-full">
+      {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+      <div className="h-[10%] lg:hidden"></div>
+      <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
+        <QuestionsComponent
+          questions={parts[partIndex].Questions}
+          answers={answers[partIndex]}
+          setAnswers={indexSet(partIndex)}
+        />
+      </div>
+    </div>
+  );
+
+  /* Split Screen containers */
+  const containerStyles =
+    'w-full lg:w-1/2 lg:h-full transition-all duration-300';
+  const passageContainerStyle =
+    containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
+  const questionsContainerStyle =
+    containerStyles +
+    ' bg-white rounded-3xl ' +
+    (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]');
+
   return (
     <>
       <div className="h-[6vh] bg-blue-4">{barContent}</div>
       <div className="flex flex-col lg:flex-row h-[94vh] w-screen overflow-y-hidden">
-        <div
-          className={
-            containerStyles +
-            ' ' +
-            (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]')
-          }
-        >
-          <div className="h-full">
-            <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
-              <PassageComponent
-                readingPart={parts[partIndex]}
-                PartIndex={partIndex}
-              />
-            </div>
-            {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
-            <div className="h-[10%] lg:hidden">{maximizeButton}</div>
-          </div>
-        </div>
-        <div
-          className={
-            containerStyles +
-            ' bg-white rounded-3xl ' +
-            (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]')
-          }
-        >
-          <div className="h-full">
-            {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
-            <div className="h-[10%] lg:hidden"></div>
-            <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
-              <QuestionsComponent
-                questions={parts[partIndex].Questions}
-                answers={answers[partIndex]}
-                setAnswers={indexSet(partIndex)}
-              />
-            </div>
-          </div>
-        </div>
+        <div className={passageContainerStyle}>{passageScreen}</div>
+        <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>
     </>
   );
