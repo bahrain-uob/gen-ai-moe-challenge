@@ -28,11 +28,16 @@ export const McqQuestionsComponent = ({
     const out = choices.map((choice, choiceIndex) => {
       console.log('>>>', { choice, correctAnswer }, choice === correctAnswer);
       let style;
+      // Student's answer
       if (showCorrectAnswer && answer[index] === choice) {
         style =
           correctAnswer === choice
             ? 'text-green-700'
             : 'text-red-700 line-through';
+      }
+      // Correct Answer
+      else if (showCorrectAnswer && correctAnswer === choice) {
+        style = 'text-green-700';
       } else {
         style = '';
       }
