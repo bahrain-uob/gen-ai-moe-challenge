@@ -47,11 +47,12 @@ export const MultipleAnswersQuestionComponent = ({
             <p>{subQuestion.QuestionText}</p>
             {subQuestion.Choices.map((choice, choiceIndex) => (
               <div key={choiceIndex}>
-                <label>
+                <label className="cursor-pointer">
                   <input
                     type="checkbox"
                     checked={answer[subIndex].includes(choice)}
                     onChange={() => handleCheckboxChange(subIndex, choice)}
+                    className="mr-2"
                   />
                   {choice}
                 </label>
