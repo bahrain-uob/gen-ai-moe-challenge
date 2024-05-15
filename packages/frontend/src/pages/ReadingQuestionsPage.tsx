@@ -61,17 +61,17 @@ const ReadingQuestions = () => {
       <div className="h-[6vh] bg-blue-4">{barContent}</div>
       <div className="flex flex-col lg:flex-row h-[94vh] w-screen">
         <div className={containerStyles}>
-          <div className="h-[90%] overflow-y-scroll p-8 pb-0">
+          <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
             <PassageComponent
               readingPart={parts[partIndex]}
               PartIndex={partIndex}
             />
           </div>
-          <div className="h-[10%]"></div>
+          <div className="h-[10%] lg:hidden"></div>
         </div>
         <div className={containerStyles + ' bg-white rounded-3xl'}>
-          <div className="h-[10%]"></div>
-          <div className="h-[90%] overflow-y-scroll p-8 pt-0">
+          <div className="h-[10%] lg:hidden"></div>
+          <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
             <QuestionsComponent
               questions={parts[partIndex].Questions}
               answers={answers[partIndex]}
