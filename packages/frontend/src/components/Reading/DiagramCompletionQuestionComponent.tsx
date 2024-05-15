@@ -39,6 +39,7 @@ export const DiagramCompletionQuestionComponent = ({
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
             placeholder="answer"
+            className="lr-input"
           />
         )}
       </React.Fragment>

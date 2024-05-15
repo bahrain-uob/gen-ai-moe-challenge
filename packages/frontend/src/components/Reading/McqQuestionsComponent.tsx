@@ -22,13 +22,14 @@ export const McqQuestionsComponent = ({
     <div>
       {choices.map((choice, choiceIndex) => (
         <div key={choiceIndex} style={{ marginBottom: '5px' }}>
-          <label>
+          <label className="cursor-pointer">
             <input
               type="radio"
               name={`question-${index}`}
               value={choice}
               checked={answer[index] === choice}
               onChange={e => handleSelectionChange(index, e.target.value)}
+              className="mr-2"
             />
             {choice}
           </label>
@@ -47,8 +48,9 @@ export const McqQuestionsComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
+          className="lr-select"
         >
-          <option value="">Select an answer</option>
+          <option value="">{index+1}</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
             <option key={choiceIndex} value={choice}>
               {choice}
@@ -63,11 +65,15 @@ export const McqQuestionsComponent = ({
     <div>
       <p>{question.Question}</p>
       <ul>
+
         {question.SubQuestions.map((subQuestion, index) => (
-          <li key={index}>
+          <li key={index} className='mt-5'>
+            
             {question.QuestionType === 'Multiple Choice' ? (
               <p>{subQuestion.QuestionText}</p> // Text for Multiple Choice
             ) : null}
+              
+
             {question.QuestionType === 'Multiple Choice'
               ? renderRadioButtons(subQuestion.Choices, index)
               : renderQuestionTextWithSelects(subQuestion.QuestionText, index)}

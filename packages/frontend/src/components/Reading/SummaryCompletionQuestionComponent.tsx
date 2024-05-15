@@ -31,7 +31,7 @@ export const SummaryCompletionQuestionComponent = ({
     const parts = text.split('-answer-');
     return parts.map((part, partIndex) => (
       <React.Fragment key={partIndex}>
-        {part}
+        <span className="leading-relaxed">{part}</span>
         {partIndex < parts.length - 1 && (
           <input
             type="text"
@@ -39,7 +39,9 @@ export const SummaryCompletionQuestionComponent = ({
             onChange={e =>
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
-            placeholder="Type your answer here"
+            className="lr-input"
+            // className="border border-blue-4 px-2 rounded-md w-52 leading-tight"
+            // className="border border-blue-4 rounded-md leading-tight"
           />
         )}
       </React.Fragment>
@@ -52,7 +54,7 @@ export const SummaryCompletionQuestionComponent = ({
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
-            <p>
+            <p className="text-justify mt-5">
               {renderQuestionTextWithInputs(subQuestion.QuestionText, index)}
             </p>
           </li>

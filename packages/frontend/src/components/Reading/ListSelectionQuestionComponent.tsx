@@ -28,8 +28,9 @@ export const ListSelectionQuestionComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
+          className="lr-select"
         >
-          <option value="">Select an answer</option>
+          <option value="" >{index+1}</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
             <option key={choiceIndex} value={choice}>
               {choice}
@@ -45,10 +46,11 @@ export const ListSelectionQuestionComponent = ({
     <div>
       <p>{question.Question}</p>
       <h4>{question.ListTitle}</h4>
-      <p className="whitespace-pre-line">{question.List}</p>
+      <p className="whitespace-pre-line mb-2" >{question.List}</p>
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
-          <li key={index}>
+          <li key={index} className="mb-4">
+             <span className="font-semibold"> {index + 1}. </span> 
             {renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
           </li>
         ))}

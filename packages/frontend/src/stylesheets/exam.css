@@ -355,10 +355,6 @@ body {
     text-align: left;
   }
    
-  tr:hover {
-    background-color: #ddd;
-  }
-   
   .PracticeModalContainer {
     padding: 20px;
     width: 35%;

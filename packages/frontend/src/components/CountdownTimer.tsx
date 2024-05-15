@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 interface Props {
   minutes: number; // Number of minutes for countdown
-  onTimeUp: () => void;
+ 
 }
 
-const CountdownTimer: React.FC<Props> = ({ minutes, onTimeUp }) => {
+const CountdownTimer: React.FC<Props> = ({ minutes }) => {
   const [remainingTime, setRemainingTime] = useState<number>(minutes * 60); // Convert minutes to seconds
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const CountdownTimer: React.FC<Props> = ({ minutes, onTimeUp }) => {
       setRemainingTime(prevTime => {
         if (prevTime <= 0) {
           clearInterval(timer);
-          onTimeUp();
+          
           return 0;
         } else {
           return prevTime - 1;
@@ -22,7 +22,7 @@ const CountdownTimer: React.FC<Props> = ({ minutes, onTimeUp }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes, onTimeUp]);
+  }, [minutes]);
 
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60);
@@ -36,7 +36,7 @@ const CountdownTimer: React.FC<Props> = ({ minutes, onTimeUp }) => {
 
   return (
     <div className="remaining-time">
-      Remaining Time: {formatTime(remainingTime)}
+      {formatTime(remainingTime)} min
     </div>
   );
 };

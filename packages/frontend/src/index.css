@@ -17,6 +17,14 @@
     max-width: 1440px;
     margin: 0 auto;
   }
+
+  .lr-input {
+    @apply border bg-gray-200 px-2 rounded-md w-48 leading-tight outline-blue-3 outline-1 outline-offset-2;
+  }
+
+  .lr-select {
+    @apply bg-gray-200 rounded-md text-center py-1 px-4 h-7  outline-blue-3 outline-1 outline-offset-1;
+  }
 }
 
 @layer utilities {
@@ -56,7 +64,8 @@
 .progress-ring__circle {
   transition: stroke-dashoffset 0.35s;
   transform: rotate(-90deg);
-  transform-origin: 50% 50%;}
+  transform-origin: 50% 50%;
+}
 /* Customize scrollbar */
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
