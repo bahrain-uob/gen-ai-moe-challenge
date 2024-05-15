@@ -67,9 +67,11 @@ const ReadingQuestions = () => {
               PartIndex={partIndex}
             />
           </div>
+          {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
           <div className="h-[10%] lg:hidden"></div>
         </div>
         <div className={containerStyles + ' bg-white rounded-3xl'}>
+          {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
           <div className="h-[10%] lg:hidden"></div>
           <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
             <QuestionsComponent
