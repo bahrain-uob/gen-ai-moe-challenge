@@ -37,7 +37,6 @@ export const SummaryCompletionQuestionComponent = ({
             onChange={e =>
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
-            placeholder="Type your answer here"
             className="lr-input"
           />
         )}
