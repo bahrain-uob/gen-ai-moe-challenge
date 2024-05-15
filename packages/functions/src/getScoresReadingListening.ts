@@ -5,6 +5,7 @@ const dynamoDb = new DynamoDB.DocumentClient();
 
 export const handler: APIGatewayProxyHandlerV2 = async event => {
   const { section, sk } = event.pathParameters || {};
+  console.log('reached');
   if (!section || !sk) {
     return {
       statusCode: 400,
@@ -27,7 +28,7 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
     const results = await dynamoDb.query(params).promise();
     const items = results.Items;
     console.log('items: ', items);
-    if (!items) {
+    if (!items || items.length === 0) {
       return {
         statusCode: 404,
         body: JSON.stringify({ error: 'No scores found' }),
