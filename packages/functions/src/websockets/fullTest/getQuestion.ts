@@ -42,10 +42,11 @@ import { Table } from 'sst/node/table';
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
   const { stage, domainName, authorizer } = event.requestContext;
+  const endpoint = `https://${domainName}/${stage}`;
   const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: `https://${domainName}/${stage}`,
+    endpoint: endpoint,
   });
-  const connectionId = event.requestContext.connectionId;
+  const connectionId = event.requestContext.connectionId!;
 
   // Ensure message has a body
   if (event.body == undefined) {
@@ -105,6 +106,8 @@ export const main: APIGatewayProxyHandler = async event => {
           testId,
           examSections[section].answer,
           sectionAnswer.answer,
+          connectionId,
+          endpoint,
           true,
         );
         const autoSubmittedCommand = new PostToConnectionCommand({
