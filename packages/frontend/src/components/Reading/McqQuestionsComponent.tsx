@@ -22,13 +22,14 @@ export const McqQuestionsComponent = ({
     <div>
       {choices.map((choice, choiceIndex) => (
         <div key={choiceIndex} style={{ marginBottom: '5px' }}>
-          <label>
+          <label className="cursor-pointer">
             <input
               type="radio"
               name={`question-${index}`}
               value={choice}
               checked={answer[index] === choice}
               onChange={e => handleSelectionChange(index, e.target.value)}
+              className="mr-2"
             />
             {choice}
           </label>
