@@ -8,6 +8,13 @@ import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
+import {
+  BsArrowUp,
+  BsChevronBarUp,
+  BsChevronCompactUp,
+  BsChevronDoubleUp,
+  BsChevronUp,
+} from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
@@ -18,6 +25,7 @@ const ReadingQuestions = () => {
   const parts = readingParts;
 
   const [partIndex, setPartIndex] = useState(0);
+  const [maximize, setMax] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -32,7 +40,8 @@ const ReadingQuestions = () => {
     };
   };
 
-  const containerStyles = 'h-1/2 w-full lg:w-1/2 lg:h-full';
+  const containerStyles =
+    'w-full lg:w-1/2 lg:h-full transition-all duration-300';
 
   /* Bar */
   const linkStyling =
@@ -57,29 +66,56 @@ const ReadingQuestions = () => {
     </div>
   );
 
+  const maximizeButton = (
+    <div className="flex flex-row-reverse h-full items-center px-4">
+      <button onClick={() => setMax(max => !max)}>
+        <BsChevronUp
+          className={`transition-all duration-500 ${
+            maximize ? 'rotate-0' : 'rotate-180'
+          }`}
+          size={21}
+        />
+      </button>
+    </div>
+  );
+
   return (
     <>
       <div className="h-[6vh] bg-blue-4">{barContent}</div>
-      <div className="flex flex-col lg:flex-row h-[94vh] w-screen">
-        <div className={containerStyles}>
-          <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
-            <PassageComponent
-              readingPart={parts[partIndex]}
-              PartIndex={partIndex}
-            />
+      <div className="flex flex-col lg:flex-row h-[94vh] w-screen overflow-y-hidden">
+        <div
+          className={
+            containerStyles + ' ' + (maximize ? 'max-h-[100%]' : 'max-h-[50%]')
+          }
+        >
+          <div className="h-full">
+            <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
+              <PassageComponent
+                readingPart={parts[partIndex]}
+                PartIndex={partIndex}
+              />
+            </div>
+            {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+            <div className="h-[10%] lg:hidden">{maximizeButton}</div>
           </div>
-          {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
-          <div className="h-[10%] lg:hidden"></div>
         </div>
-        <div className={containerStyles + ' bg-white rounded-3xl'}>
-          {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
-          <div className="h-[10%] lg:hidden"></div>
-          <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
-            <QuestionsComponent
-              questions={parts[partIndex].Questions}
-              answers={answers[partIndex]}
-              setAnswers={indexSet(partIndex)}
-            />
+        <div
+          className={
+            containerStyles +
+            ' bg-white rounded-3xl ' +
+            (maximize ? 'max-h-[0%]' : 'max-h-[50%]')
+          }
+        >
+          <div className="h-full">
+            {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+            <div className="h-[10%] lg:hidden"></div>
+            <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
+              <QuestionsComponent
+                questions={parts[partIndex].Questions}
+                answers={answers[partIndex]}
+                setAnswers={indexSet(partIndex)}
+              />
+            </div>
           </div>
         </div>
       </div>
