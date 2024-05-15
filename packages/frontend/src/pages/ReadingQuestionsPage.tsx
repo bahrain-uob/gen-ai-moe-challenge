@@ -32,8 +32,7 @@ const ReadingQuestions = () => {
     };
   };
 
-  const containerStyles =
-    'h-1/2 w-full lg:w-1/2 lg:h-full p-10 overflow-y-scroll';
+  const containerStyles = 'h-1/2 w-full lg:w-1/2 lg:h-full';
 
   /* Bar */
   const linkStyling =
@@ -62,17 +61,23 @@ const ReadingQuestions = () => {
       <div className="h-[6vh] bg-blue-4">{barContent}</div>
       <div className="flex flex-col lg:flex-row h-[94vh] w-screen">
         <div className={containerStyles}>
-          <PassageComponent
-            readingPart={parts[partIndex]}
-            PartIndex={partIndex}
-          />
+          <div className="h-[90%] overflow-y-scroll p-8 pb-0">
+            <PassageComponent
+              readingPart={parts[partIndex]}
+              PartIndex={partIndex}
+            />
+          </div>
+          <div className="h-[10%]"></div>
         </div>
         <div className={containerStyles + ' bg-white rounded-3xl'}>
-          <QuestionsComponent
-            questions={parts[partIndex].Questions}
-            answers={answers[partIndex]}
-            setAnswers={indexSet(partIndex)}
-          />
+          <div className="h-[10%]"></div>
+          <div className="h-[90%] overflow-y-scroll p-8 pt-0">
+            <QuestionsComponent
+              questions={parts[partIndex].Questions}
+              answers={answers[partIndex]}
+              setAnswers={indexSet(partIndex)}
+            />
+          </div>
         </div>
       </div>
     </>
