@@ -3,7 +3,7 @@
 import {
   QuestionComponentInput,
   QuestionListSelection,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 import React from 'react';
 
 export const ListSelectionQuestionComponent = ({

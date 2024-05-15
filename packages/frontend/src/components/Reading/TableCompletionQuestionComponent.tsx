@@ -2,7 +2,7 @@ import React from 'react';
 import {
   QuestionComponentInput,
   QuestionTableCompletion,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 
 export const TableCompletionQuestionComponent = ({
   question,

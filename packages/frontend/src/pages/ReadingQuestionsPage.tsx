@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
-import { Answer, readingParts } from '../utilities/readingUtilities';
+import { Answer } from '../utilities/LRUtilities';
+import { readingParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';

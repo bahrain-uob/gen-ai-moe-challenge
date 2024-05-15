@@ -4,11 +4,7 @@ import { TableCompletionQuestionComponent } from './TableCompletionQuestionCompo
 import { SummaryCompletionQuestionComponent } from './SummaryCompletionQuestionComponent';
 import { MultipleAnswersQuestionComponent } from './MultipleAnswersQuestionComponent';
 import { DiagramCompletionQuestionComponent } from './DiagramCompletionQuestionComponent';
-import {
-  Answer,
-  LRQuestion,
-  SetAnswer,
-} from '../../utilities/readingUtilities';
+import { Answer, LRQuestion, SetAnswer } from '../../utilities/LRUtilities';
 
 export const QuestionsComponent = ({
   questions,

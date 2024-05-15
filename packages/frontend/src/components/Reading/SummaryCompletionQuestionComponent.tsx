@@ -1,7 +1,7 @@
 import {
   QuestionComponentInput,
   QuestionSummaryCompletion,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 import React from 'react';
 
 export const SummaryCompletionQuestionComponent = ({

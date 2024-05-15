@@ -1,7 +1,7 @@
 import {
   QuestionComponentInput,
   QuestionMultipleAnswers,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 
 export const MultipleAnswersQuestionComponent = ({
   question,

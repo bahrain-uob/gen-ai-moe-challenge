@@ -2,7 +2,7 @@ import React from 'react';
 import {
   QuestionComponentInput,
   QuestionDiagramCompletion,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 
 export const DiagramCompletionQuestionComponent = ({
   question,

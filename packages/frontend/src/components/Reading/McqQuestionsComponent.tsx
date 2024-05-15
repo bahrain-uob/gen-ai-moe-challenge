@@ -2,7 +2,7 @@ import React from 'react';
 import {
   QuestionComponentInput,
   QuestionMultipleChoice,
-} from '../../utilities/readingUtilities';
+} from '../../utilities/LRUtilities';
 
 export const McqQuestionsComponent = ({
   question,
