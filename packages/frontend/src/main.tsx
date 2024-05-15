@@ -16,7 +16,7 @@ import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import FeedbackPage from './pages/FeedbackPage.tsx';
+import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
@@ -25,6 +25,7 @@ import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
+import LRAnswersPage from './pages/LRAnswersPage.tsx';
 
 Amplify.configure(
   {
@@ -151,7 +152,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
-    Component: FeedbackPage,
+    Component: LRFeedbackPage,
+  },
+  {
+    path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: LRAnswersPage,
   },
   {
     path: '/PlacementTest',
