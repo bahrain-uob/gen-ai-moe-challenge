@@ -33,6 +33,7 @@ type CFRLevel = (typeof CFRLevels)[number];
 
 export const PLTestPage = () => {
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
+  const [questionCount, setQuestionCount] = useState(0);
   const selectedLevel = selectLevel(cf);
   const [level, question] = getRandomQuestion(selectedLevel);
 
@@ -51,12 +52,23 @@ export const PLTestPage = () => {
     );
 
     setCf(cfCopy);
+    setQuestionCount(prevCount => prevCount + 1);
   };
 
   return (
     <>
-      <DevPanel cf={cf} question={question} level={level} />
-      <RenderQuestion question={question} handleClick={handleClick} />
+      {questionCount < 20 ? (
+        <>
+          <DevPanel cf={cf} question={question} level={level} />
+          <RenderQuestion question={question} handleClick={handleClick} />
+        </>
+      ) : (
+        <div className="w-1/2 flex flex-col items-center rounded-xl">
+          <h3 className="font-bold text-4xl pb-12">
+            Congrats you have completed the placement test!
+          </h3>
+        </div>
+      )}
     </>
   );
 };
