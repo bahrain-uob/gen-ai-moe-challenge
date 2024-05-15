@@ -8,17 +8,21 @@ export const SummaryCompletionQuestionComponent = ({
   question,
   answer,
   set,
+  showCorrectAnswer,
 }: QuestionComponentInput<QuestionSummaryCompletion>) => {
   const handleInputChange = (
     subQuestionIndex: number,
     answerIndex: number,
     value: string,
   ) => {
-    const newInputValues = [...answer] as string[][];
-    newInputValues[subQuestionIndex] = [...newInputValues[subQuestionIndex]];
-    newInputValues[subQuestionIndex][answerIndex] = value;
-    // setInputValues(newInputValues);
-    set(newInputValues);
+    // added an if statement that prevents changing the input values when showCorrectAnswer is true
+    if (!showCorrectAnswer) {
+      const newInputValues = [...answer] as string[][];
+      newInputValues[subQuestionIndex] = [...newInputValues[subQuestionIndex]];
+      newInputValues[subQuestionIndex][answerIndex] = value;
+      // setInputValues(newInputValues);
+      set(newInputValues);
+    }
   };
 
   // Render question text with text inputs replacing '-answer-'
@@ -38,6 +42,7 @@ export const SummaryCompletionQuestionComponent = ({
               handleInputChange(subQuestionIndex, partIndex, e.target.value)
             }
             className="lr-input"
+            disabled={showCorrectAnswer} // disable the input field when showCorrectAnswer is true
           />
         )}
       </React.Fragment>

@@ -69,6 +69,7 @@ const ReadingQuestions = () => {
         questions={part.Questions}
         answers={answers[index]}
         setAnswers={indexSet(index)}
+        showCorrectAnswer={false}
       />
       <ul>
         {answers.map((a1, i) => (

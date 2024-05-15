@@ -10,10 +10,12 @@ export const QuestionsComponent = ({
   questions,
   answers,
   setAnswers,
+  showCorrectAnswer,
 }: {
   questions: LRQuestion[];
   answers: Answer[];
   setAnswers: (arg: Answer[]) => void;
+  showCorrectAnswer: boolean;
 }) => {
   const indexSetAnswer = function (i: number): SetAnswer {
     return (value: Answer) => {
@@ -35,6 +37,7 @@ export const QuestionsComponent = ({
             question,
             answers[index],
             indexSetAnswer(index),
+            showCorrectAnswer,
           )}
         </div>
       ))}
@@ -51,6 +54,7 @@ const renderQuestionComponent = (
   question: LRQuestion,
   answer: Answer,
   setAnswer: SetAnswer,
+  showCorrectAnswer: boolean,
 ) => {
   switch (question.QuestionType) {
     case 'Table Completion':
@@ -59,6 +63,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          //showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'List Selection':
@@ -67,6 +72,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          //showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Multiple Choice':
@@ -79,6 +85,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Summary Completion':
@@ -88,6 +95,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Multiple Answers':
@@ -96,6 +104,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          //showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Diagram Completion':
@@ -104,6 +113,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          //showCorrectAnswer={showCorrectAnswer}
         />
       );
     default:

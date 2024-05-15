@@ -8,12 +8,16 @@ export const McqQuestionsComponent = ({
   question,
   answer,
   set,
+  showCorrectAnswer,
 }: QuestionComponentInput<QuestionMultipleChoice>) => {
   const handleSelectionChange = (subQuestionIndex: number, value: string) => {
-    const newSelections = [...answer] as string[];
-    newSelections[subQuestionIndex] = value;
-    // setSelections(newSelections);
-    set(newSelections);
+    if (!showCorrectAnswer) {
+      // Prevent changes when answers are being shown
+      const newSelections = [...answer] as string[];
+      newSelections[subQuestionIndex] = value;
+      // setSelections(newSelections);
+      set(newSelections);
+    }
   };
   // Render choices as radio buttons, each on a new line
   const renderRadioButtons = (choices: string[], index: number) => (
@@ -27,6 +31,7 @@ export const McqQuestionsComponent = ({
               value={choice}
               checked={answer[index] === choice}
               onChange={e => handleSelectionChange(index, e.target.value)}
+              disabled={showCorrectAnswer} // Disable when showCorrectAnswer is true
               className="mr-2"
             />
             {choice}
@@ -46,6 +51,7 @@ export const McqQuestionsComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
+          disabled={showCorrectAnswer} // Disable when showCorrectAnswer is true
           className="lr-select"
         >
           <option value="">{index + 1}</option>
