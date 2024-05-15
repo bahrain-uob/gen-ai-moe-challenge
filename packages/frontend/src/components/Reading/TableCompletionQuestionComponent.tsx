@@ -31,11 +31,10 @@ export const TableCompletionQuestionComponent = ({
         <React.Fragment key={index}>
           {part}
           <input
-         
             type="text"
             value={answer[rowIndex][index] || ''} // Bind input value to state
             onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
-            className="border border-blue-4 rounded-full p-1"
+            className="lr-input"
           />
         </React.Fragment>
       );
