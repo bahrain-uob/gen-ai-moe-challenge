@@ -14,7 +14,7 @@ export const main: APIGatewayProxyHandler = async event => {
 
   function createPrompt(level: string): string {
     return `Create a vocabulary question that has 4 mcq's with an explanation based on the level ${level}
-        which represents Common European Framework of Reference for Languages, where
+        which represents Common European Framework of Reference for Languages, ${/*where
         English Basic User (A1, A2)
         A1 (Beginner)
         A2 (Elementary English)
@@ -23,7 +23,7 @@ export const main: APIGatewayProxyHandler = async event => {
         B2 (Upper-Intermediate English)
         Proficient English User (C1, C2)
         C1 (Advanced English)
-        C2 (Proficiency English)
+        C2 (Proficiency English)*/''}
         NOTE: your response must be in JSON always. Don't add any other information just response with the json.
         An example of what I'm expecting for level A2:
         {
