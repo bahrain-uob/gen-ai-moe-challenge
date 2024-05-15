@@ -71,25 +71,30 @@ const ReadingQuestions = () => {
     </div>
   );
 
-  /* Screens */
+  /* Screens
+   * Note that I addded a separator so that will only be shown in mobile and
+   * tablet views, so height had to be adjusted accordingly
+   *
+   * Also note that both screens take full available height and width.  Parent
+   * of screen will set the correct height and width.
+   */
   const passageScreen = (
     <div className="h-full">
-      <div className="h-[90%] overflow-y-scroll p-8 max-lg:pb-0">
+      <div className="h-[90%] lg:h-full overflow-y-scroll p-8 max-lg:pb-0">
         <PassageComponent
           readingPart={parts[partIndex]}
           PartIndex={partIndex}
         />
       </div>
-      {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+      {/* This is a separator so that content doesn't reach the divider */}
       <div className="h-[10%] lg:hidden">{maximizeButton}</div>
     </div>
   );
-
   const questionsScreen = (
     <div className="h-full">
-      {/* This is a separator so that content doesn't go till the divider on mobile and tablet view */}
+      {/* This is a separator so that content doesn't reach the divider */}
       <div className="h-[10%] lg:hidden"></div>
-      <div className="h-[90%] overflow-y-scroll p-8 max-lg:pt-0">
+      <div className="h-[90%] lg:h-full overflow-y-scroll p-8 max-lg:pt-0">
         <QuestionsComponent
           questions={parts[partIndex].Questions}
           answers={answers[partIndex]}
@@ -99,9 +104,16 @@ const ReadingQuestions = () => {
     </div>
   );
 
-  /* Split Screen containers */
+  /* Split Screen containers
+   *
+   * Note that I'm using max height instead of height, to animate maximizing and
+   * minimizing passage screen, in mobile and table view.
+   *
+   * In mobile view, height is dependent on wether the passage is maximised or
+   * not, while in laptop screens always take full height.
+   */
   const containerStyles =
-    'w-full lg:w-1/2 lg:h-full transition-all duration-300';
+    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300';
   const passageContainerStyle =
     containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
   const questionsContainerStyle =
@@ -111,8 +123,8 @@ const ReadingQuestions = () => {
 
   return (
     <>
-      <div className="h-[6vh] bg-blue-4">{barContent}</div>
-      <div className="flex flex-col lg:flex-row h-[94vh] w-screen overflow-y-hidden">
+      <div className="h-[6svh] bg-blue-4">{barContent}</div>
+      <div className="flex flex-col lg:flex-row h-[94svh] w-screen overflow-y-hidden">
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>
