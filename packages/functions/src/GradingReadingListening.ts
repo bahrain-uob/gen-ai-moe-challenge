@@ -172,6 +172,8 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
 
     const europeanFrameworkGrade = getEuropeanFrameworkGrade(totalScore);
     const bandScore = calculateBandScore(totalScore);
+    console.log('student answers: ', studentAnswers);
+    console.log('answers: ', allCorrectAnswers);
 
     // Store the student response in the table
     const putParams = {
@@ -180,7 +182,7 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
         MyPartitionKey: 'student8',
         MySortKey: studentSk,
         CorrectAnswers: allCorrectAnswers,
-        studentAnswers: flattenedStudentAnswers,
+        studentAnswers: studentAnswers,
         scores: allScores,
         totalScore: totalScore,
         BandScore: bandScore,
