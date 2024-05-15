@@ -19,17 +19,19 @@ const knowledgeBase = {
     C2: [-0.1, -0.1, -0.1, -0.1, -0.1, 0.1],
   },
   incorrect: {
-    A1: [0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
-    A2: [0.1, 0.1, -0.1, -0.1, -0.1, -0.1],
-    B1: [0.1, 0.1, 0.1, -0.1, -0.1, -0.1],
-    B2: [0.1, 0.1, 0.1, 0.1, -0.1, -0.1],
+    A1: [0.1, -0.1, -0.15, -0.15, -0.2, -0.2],
+    A2: [0.1, 0.1, -0.1, -0.15, -0.2, -0.2],
+    B1: [0.1, 0.1, 0.1, -0.1, -0.15, -0.2],
+    B2: [0.1, 0.1, 0.1, 0.1, -0.1, -0.15],
     C1: [0.1, 0.1, 0.1, 0.1, 0.1, -0.1],
     C2: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
   },
 };
 
+const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
+type CFRLevel = (typeof CFRLevels)[number];
+
 export const PLTestPage = () => {
-  // console.log(level, question);
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
   const selectedLevel = selectLevel(cf);
   const [level, question] = getRandomQuestion(selectedLevel);
@@ -38,12 +40,11 @@ export const PLTestPage = () => {
 
   const handleClick = (option: Option) => {
     console.log(`correct: ${option.isCorrect}`);
-    const CFRL = CFRLevels[selectedLevel];
+    const CFRL = CFRLevels[selectedLevel] as CFRLevel;
     const t1 = option.isCorrect
       ? knowledgeBase.correct
       : knowledgeBase.incorrect;
-    const increments = t1[CFRL] as number[];
-    // console.log('inc', increments);
+    const increments = t1[CFRL];
 
     const cfCopy = increments.map((value, index) =>
       combineCf(value, cf[index]),
@@ -55,19 +56,19 @@ export const PLTestPage = () => {
   return (
     <>
       <DevPanel cf={cf} question={question} level={level} />
-      <RenederQuestion question={question} handleClick={handleClick} />
+      <RenderQuestion question={question} handleClick={handleClick} />
     </>
   );
 };
 
 const optionsStyle =
   'bg-[#3B828E] rounded-md p-2 text-white text-xl font-semibold w-1/3 mx-10 my-1 h-16 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
-const RenederQuestion = ({
+const RenderQuestion = ({
   question,
   handleClick,
 }: {
   question: Question;
-  handleClick: (option: Option, question: Question) => void;
+  handleClick: (option: Option) => void;
 }) => (
   <div className="w-1/2 flex flex-col items-center rounded-xl">
     <h3 className="font-bold text-4xl pb-12">{question.text}</h3>
@@ -78,7 +79,7 @@ const RenederQuestion = ({
           <div
             key={option.id}
             className={optionsStyle}
-            onClick={() => handleClick(option, question)}
+            onClick={() => handleClick(option)}
           >
             {option.text}
           </div>
@@ -88,14 +89,8 @@ const RenederQuestion = ({
   </div>
 );
 
-// function optionClicked(text: any): void {
-//   throw new Error('Function not implemented.');
-// }
-
-const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-
 const getRandomQuestion = (level?: number): [number, Question] => {
-  if (!level) {
+  if (level === undefined) {
     level = Math.floor(Math.random() * questions.length);
   }
   const qArray = questions[level];
@@ -159,26 +154,7 @@ const selectLevel = (cf: number[]): number => {
   });
 
   const topCf = cfObj.slice(0, 3);
-  // console.log(topCf.map(v => `${CFRLevels[v[0]]} - ${v[1]}`));
   console.log(topCf);
   const level = topCf[Math.floor(Math.random() * topCf.length)][0];
   return Number(level);
-
-  // const topCf = cfObj.filter(([_index, value]) => value === cfObj[0][1]);
-  // // console.log(topCf);
-  // return topCf
-
-  // console.log(cfObj.map(v => v[1]));
-  // // const randomIndex = Math.random() * cfObj.length
-  // console.log(Math.log(1 - Math.random()));
-
-  // let max = cf[0],
-  //   ind = 0;
-  // cf.forEach((value, index) => {
-  //   if (value > max) {
-  //     max = value;
-  //     ind = index;
-  //   }
-  // });
-  // return ind;
 };
