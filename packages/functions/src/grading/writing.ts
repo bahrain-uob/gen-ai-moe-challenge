@@ -4,7 +4,6 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import { wsError } from '../utilities';
 import {
   WritingSection,
   WritingAnswer,
