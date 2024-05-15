@@ -78,7 +78,7 @@ export const submit = async (
   });
 
   const updatedExam: FullTestItem = (await DBClient.send(updateExam))
-    .Attributes;
+    .Attributes as FullTestItem;
 
   triggerGrading(updatedExam, section, connectionId, endpoint);
 
