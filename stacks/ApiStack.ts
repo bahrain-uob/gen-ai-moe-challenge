@@ -95,7 +95,14 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/addVocabQuestion.main',
           permissions: ['dynamodb:PutItem', 'dynamodb:UpdateItem'],
-          timeout: '15 seconds',
+          timeout: '35 seconds',
+        },
+      },
+      'get /generateVocabQuestion/{level}': {
+        function: {
+          handler: 'packages/functions/src/generateVocabQuestion.main',
+          permissions: ['bedrock:InvokeModel'],
+          timeout: '35 seconds',
         },
       },
 

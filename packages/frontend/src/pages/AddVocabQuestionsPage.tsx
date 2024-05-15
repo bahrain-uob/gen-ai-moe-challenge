@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
+import { get, post } from 'aws-amplify/api';
 
 interface ChoiceInput {
   text: string;
@@ -32,6 +32,45 @@ const AddVocabQuestionsPage: React.FC = () => {
       isRight: i === index,
     }));
     setChoices(newChoices);
+  };
+
+  const generateQuestion = async () => {
+    try {
+      const apiResponse = await toJSON(
+        get({
+          apiName: 'myAPI',
+          path: `/generateVocabQuestion/${level}`,
+        }),
+      );
+      console.log('API Response:', apiResponse); // Log to see what you receive
+
+      if (
+        apiResponse &&
+        apiResponse.choices &&
+        Array.isArray(apiResponse.choices) &&
+        typeof apiResponse.question === 'string' &&
+        typeof apiResponse.explanation === 'string'
+      ) {
+        setQuestionText(apiResponse.question);
+        setChoices(apiResponse.choices);
+        setExplanation(apiResponse.explanation);
+        setResponse('Generated question successfully!');
+        setIsError(false);
+      } else {
+        // Handle unexpected format
+        console.error('Invalid response format:', apiResponse); // More detailed logging for invalid format
+        throw new Error('Invalid response format from API.');
+      }
+    } catch (error) {
+      console.error('Error generating question:', error);
+      if (error instanceof Error) {
+        setResponse(error.message);
+        setIsError(true);
+      } else {
+        setResponse('An unknown error occurred');
+        setIsError(true);
+      }
+    }
   };
 
   const submitQuestion = async () => {
@@ -105,17 +144,25 @@ const AddVocabQuestionsPage: React.FC = () => {
             {response}
           </p>
         )}
-        <select
-          className="w-1/2 p-4 bg-blue-4 text-white text-xl rounded-md shadow mx-auto"
-          value={level}
-          onChange={e => setLevel(e.target.value)}
-        >
-          {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
-            <option key={lvl} value={lvl}>
-              {lvl}
-            </option>
-          ))}
-        </select>
+        <div className="flex justify-between items-center">
+          <select
+            className="w-1/2 p-4 bg-blue-4 text-white text-xl rounded-md shadow mx-auto"
+            value={level}
+            onChange={e => setLevel(e.target.value)}
+          >
+            {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
+              <option key={lvl} value={lvl}>
+                {lvl}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={generateQuestion}
+            className="px-8 py-4 rounded-md bg-blue-4 text-white text-2xl hover:bg-blue-3 transition shadow"
+          >
+            Generate
+          </button>
+        </div>
         <input
           type="text"
           value={questionText}
