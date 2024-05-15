@@ -37,10 +37,11 @@ import {
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
   const { stage, domainName, authorizer } = event.requestContext;
+  const endpoint = `https://${domainName}/${stage}`;
   const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: `https://${domainName}/${stage}`,
+    endpoint: endpoint,
   });
-  const connectionId = event.requestContext.connectionId;
+  const connectionId = event.requestContext.connectionId!;
 
   const body = JSON.parse(event.body!);
   const testId = body.testId;
@@ -96,6 +97,8 @@ export const main: APIGatewayProxyHandler = async event => {
           testId,
           examSections[section].answer,
           answer,
+          connectionId,
+          endpoint,
           true,
         );
         const autoSubmittedCommand = new PostToConnectionCommand({

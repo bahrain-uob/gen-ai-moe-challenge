@@ -36,10 +36,11 @@ import {
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
   const { stage, domainName, authorizer } = event.requestContext;
+  const endpoint = `https://${domainName}/${stage}`;
   const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: `https://${domainName}/${stage}`,
+    endpoint: endpoint,
   });
-  const connectionId = event.requestContext.connectionId;
+  const connectionId = event.requestContext.connectionId!;
 
   const body = JSON.parse(event.body!);
   const testId = body.testId;
@@ -88,7 +89,15 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
       if (type === examSections[section].type) {
-        submit(dynamoDb, userId, testId, examSections[section].answer, answer);
+        submit(
+          dynamoDb,
+          userId,
+          testId,
+          examSections[section].answer,
+          answer,
+          connectionId,
+          endpoint,
+        );
         console.log('Submitting ', examSections[section].type);
 
         const autoSubmittedCommand = new PostToConnectionCommand({

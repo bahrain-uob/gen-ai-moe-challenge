@@ -19,14 +19,14 @@ export const gradeWriting = async (
   endpoint: string,
 ) => {
   const P1feedback = await gradeWritingPart(
-    questions.P1.question,
-    answer.answer.P1,
-    questions.P1.graphDescription,
+    questions.P1.Question,
+    answer.answer.P1.answer,
+    questions.P1.GraphDescription,
     'Task 1',
   );
   const P2feedback = await gradeWritingPart(
-    questions.P2.question,
-    answer.answer.P2,
+    questions.P2.Question,
+    answer.answer.P2.answer,
     '',
     'Task 2',
   );
@@ -72,6 +72,7 @@ export const gradeWritingPart = async (
       error: 'Unexpected graph descreption',
     };
   }
+  console.log('grading writing part');
 
   const criterias = [
     'Coherence & Cohesion',

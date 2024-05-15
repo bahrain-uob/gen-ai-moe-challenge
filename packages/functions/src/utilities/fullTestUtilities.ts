@@ -53,6 +53,8 @@ export const submit = async (
   testId: string,
   section: testSectionAnswer,
   answer: any,
+  connectionId: string,
+  endpoint: string,
   autoSubmitted: boolean = false,
 ) => {
   const updateExam = new UpdateCommand({
@@ -75,7 +77,10 @@ export const submit = async (
     ReturnValues: 'ALL_NEW',
   });
 
-  const updatedExam = (await DBClient.send(updateExam)).Attributes;
+  const updatedExam: FullTestItem = (await DBClient.send(updateExam))
+    .Attributes;
+
+  triggerGrading(updatedExam, section, connectionId, endpoint);
 
   return;
 };
@@ -165,12 +170,12 @@ type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
 
 export interface WritingSection {
   P1: {
-    question: string;
-    graphDescription: string;
-    graphS3Key: string;
+    Question: string;
+    GraphDescription: string;
+    GraphKey: string;
   };
   P2: {
-    question: string;
+    Question: string;
   };
 }
 export interface WritingAnswer {
