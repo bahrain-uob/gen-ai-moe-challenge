@@ -76,7 +76,7 @@ export const main: APIGatewayProxyHandler = async event => {
   } catch (e) {
     return wsError(apiClient, connectionId, 500, `Exam not found: ${e}`);
   }
-  console.log('Exam:', exam);
+  // console.log('Exam:', exam);
 
   for (let section = 0; section < examSections.length; section++) {
     const sectionAnswer = exam![examSections[section].answer];
@@ -99,6 +99,7 @@ export const main: APIGatewayProxyHandler = async event => {
           }),
         });
         await apiClient.send(autoSubmittedCommand);
+        return { statusCode: 200, body: 'Submitted' };
       } else {
         return wsError(
           apiClient,
@@ -112,5 +113,5 @@ export const main: APIGatewayProxyHandler = async event => {
     }
   }
 
-  return { statusCode: 200, body: 'Connected' };
+  return wsError(apiClient, connectionId, 400, 'No section in progress');
 };
