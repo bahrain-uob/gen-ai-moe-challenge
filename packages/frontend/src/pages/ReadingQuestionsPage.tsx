@@ -49,6 +49,7 @@ const ReadingQuestions = () => {
               : 'hover:bg-black hover:bg-opacity-10')
           }
           onClick={() => setPartIndex(i)}
+          key={i}
         >
           Part {i + 1}
         </button>
