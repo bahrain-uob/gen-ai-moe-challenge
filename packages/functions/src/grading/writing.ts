@@ -20,7 +20,7 @@ export const gradeWriting = async (
 ) => {
   const P1feedback = await gradeWritingPart(
     questions.P1.Question,
-    answer.answer.P1.answer,
+    answer.answer.P1.answer, // the final .answer may change based on the final schema
     questions.P1.GraphDescription,
     'Task 1',
   );
