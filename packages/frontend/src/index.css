@@ -21,6 +21,10 @@
   .lr-input {
     @apply border bg-gray-200 px-2 rounded-md w-48 leading-tight outline-blue-3 outline-1 outline-offset-2;
   }
+
+  .lr-select {
+    @apply bg-gray-200 rounded-md text-center py-1 px-4 h-7  outline-blue-3 outline-1 outline-offset-1;
+  }
 }
 
 @layer utilities {

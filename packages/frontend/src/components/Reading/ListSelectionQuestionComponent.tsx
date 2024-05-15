@@ -28,7 +28,7 @@ export const ListSelectionQuestionComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
-          className="border border-blue-4 rounded-full text-blue-4 text-center  py-1 px-10"
+          className="lr-select"
         >
           <option value="" >{index+1}</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
