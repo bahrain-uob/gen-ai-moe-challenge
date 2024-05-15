@@ -8,13 +8,7 @@ import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
-import {
-  BsArrowUp,
-  BsChevronBarUp,
-  BsChevronCompactUp,
-  BsChevronDoubleUp,
-  BsChevronUp,
-} from 'react-icons/bs';
+import { BsChevronUp } from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
@@ -25,7 +19,7 @@ const ReadingQuestions = () => {
   const parts = readingParts;
 
   const [partIndex, setPartIndex] = useState(0);
-  const [maximize, setMax] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -68,10 +62,10 @@ const ReadingQuestions = () => {
 
   const maximizeButton = (
     <div className="flex flex-row-reverse h-full items-center px-4">
-      <button onClick={() => setMax(max => !max)}>
+      <button onClick={() => setIsMaximized(max => !max)}>
         <BsChevronUp
           className={`transition-all duration-500 ${
-            maximize ? 'rotate-0' : 'rotate-180'
+            isMaximized ? 'rotate-0' : 'rotate-180'
           }`}
           size={21}
         />
@@ -85,7 +79,9 @@ const ReadingQuestions = () => {
       <div className="flex flex-col lg:flex-row h-[94vh] w-screen overflow-y-hidden">
         <div
           className={
-            containerStyles + ' ' + (maximize ? 'max-h-[100%]' : 'max-h-[50%]')
+            containerStyles +
+            ' ' +
+            (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]')
           }
         >
           <div className="h-full">
@@ -103,7 +99,7 @@ const ReadingQuestions = () => {
           className={
             containerStyles +
             ' bg-white rounded-3xl ' +
-            (maximize ? 'max-h-[0%]' : 'max-h-[50%]')
+            (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]')
           }
         >
           <div className="h-full">
