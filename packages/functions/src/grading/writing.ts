@@ -1,4 +1,3 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import { runModel, Rubric } from '../utilities';
 import { runLangTool } from '../utilities/writingUtilities';
 import {
@@ -6,15 +5,56 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../utilities';
+import {
+  WritingSection,
+  WritingAnswer,
+  saveFeedback,
+} from '../utilities/fullTestUtilities';
 
 export const gradeWriting = async (
+  PK: string,
+  SK: string,
+  questions: WritingSection,
+  answer: WritingAnswer,
+  connectionId: string,
+  endpoint: string,
+) => {
+  const P1feedback = await gradeWritingPart(
+    questions.P1.question,
+    answer.answer.P1,
+    questions.P1.graphDescription,
+    'Task 1',
+  );
+  const P2feedback = await gradeWritingPart(
+    questions.P2.question,
+    answer.answer.P2,
+    '',
+    'Task 2',
+  );
+
+  const feedback = {
+    P1: P1feedback,
+    P2: P2feedback,
+  };
+
+  // Save feedback to the DB
+  await saveFeedback(PK, SK, 'writingAnswer', feedback);
+  // Send feedback to the client
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: endpoint,
+  });
+  const command = new PostToConnectionCommand({
+    ConnectionId: connectionId,
+    Data: JSON.stringify(feedback),
+  });
+  const response = await apiClient.send(command);
+};
+
+export const gradeWritingPart = async (
   question: string,
   answer: string,
   graphDescription: string,
   writingTask: 'Task 1' | 'Task 2',
-  testId: string,
-  connectionId = null,
-  WebSocketEndpoint = null,
 ) => {
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
