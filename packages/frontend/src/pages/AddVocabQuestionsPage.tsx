@@ -18,6 +18,7 @@ const AddVocabQuestionsPage: React.FC = () => {
   ]);
   const [explanation, setExplanation] = useState('');
   const [response, setResponse] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleChoiceTextChange = (index: number, text: string) => {
     const newChoices = [...choices];
@@ -32,14 +33,16 @@ const AddVocabQuestionsPage: React.FC = () => {
     }));
     setChoices(newChoices);
   };
+
   const submitQuestion = async () => {
-    // Validation before sending
     if (!questionText || !explanation || choices.some(choice => !choice.text)) {
       setResponse('Please fill in all fields.');
+      setIsError(true);
       return;
     }
     if (!choices.some(choice => choice.isRight)) {
       setResponse('Please select the correct answer.');
+      setIsError(true);
       return;
     }
 
@@ -55,9 +58,6 @@ const AddVocabQuestionsPage: React.FC = () => {
       explanation: { S: explanation },
     };
 
-    // Log the final JSON data to be sent
-    console.log('Final JSON data to be sent:', JSON.stringify(questionData));
-
     try {
       const apiResponse = await toJSON(
         post({
@@ -71,19 +71,19 @@ const AddVocabQuestionsPage: React.FC = () => {
           },
         }),
       );
-      setResponse(apiResponse.message);
+      setResponse('Question added successfully!');
+      setIsError(false);
     } catch (error) {
-      // Check if the error is an instance of Error and thus has a message property
       if (error instanceof Error) {
-        setResponse(error.message); // Now it's safe to access error.message
+        setResponse(error.message);
+        setIsError(true);
       } else {
-        // If the error is not an Error object, handle it as an unknown error
         setResponse('An unknown error occurred');
+        setIsError(true);
       }
     }
   };
 
-  // Check if all inputs are filled and at least one choice is marked as the correct answer
   const allFieldsFilled =
     questionText &&
     explanation &&
@@ -91,66 +91,73 @@ const AddVocabQuestionsPage: React.FC = () => {
     choices.some(choice => choice.isRight);
 
   return (
-    <div style={{ margin: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ color: '#333' }}>Add Vocabulary Question</h1>
-      <select
-        value={level}
-        onChange={e => setLevel(e.target.value)}
-        style={{ marginBottom: '10px', padding: '10px', width: '100%' }}
-      >
-        {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
-          <option key={lvl} value={lvl}>
-            {lvl}
-          </option>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+      <h1 className="text-6xl font-bold text-center mb-6 mt-4 text-black">
+        Add Vocabulary Questions
+      </h1>
+      <div className="w-full max-w-3xl p-5 bg-gray-200 shadow-2xl rounded-lg">
+        {response && (
+          <p
+            className={`text-xl mb-4 ${
+              isError ? 'text-red-500' : 'text-green-500 font-bold'
+            }`}
+          >
+            {response}
+          </p>
+        )}
+        <select
+          className="w-1/2 p-4 bg-blue-4 text-white text-xl rounded-md shadow mx-auto"
+          value={level}
+          onChange={e => setLevel(e.target.value)}
+        >
+          {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          value={questionText}
+          onChange={e => setQuestionText(e.target.value)}
+          placeholder="Enter the question"
+          className="w-full p-4 bg-blue-4 text-white text-xl rounded-md shadow my-6"
+        />
+        {choices.map((choice, index) => (
+          <div key={index} className="grid grid-cols-5 gap-4 mb-6 items-center">
+            <input
+              type="text"
+              value={choice.text}
+              onChange={e => handleChoiceTextChange(index, e.target.value)}
+              placeholder={`Choice ${index + 1}`}
+              className="col-span-4 p-4 bg-blue-4 text-white text-xl rounded-md shadow"
+            />
+            <input
+              type="radio"
+              name="rightAnswer"
+              checked={choice.isRight}
+              onChange={() => handleRightAnswerChange(index)}
+              className="form-radio h-5 w-5 text-blue-600"
+            />
+          </div>
         ))}
-      </select>
-      <input
-        type="text"
-        value={questionText}
-        onChange={e => setQuestionText(e.target.value)}
-        placeholder="Enter the question"
-        style={{ marginBottom: '10px', padding: '10px', width: '100%' }}
-      />
-      {choices.map((choice, index) => (
-        <div key={index} style={{ marginBottom: '10px' }}>
-          <input
-            type="text"
-            value={choice.text}
-            onChange={e => handleChoiceTextChange(index, e.target.value)}
-            placeholder={`Choice ${index + 1}`}
-            style={{ padding: '10px', width: 'calc(100% - 30px)' }}
-          />
-          <input
-            type="radio"
-            name="rightAnswer"
-            checked={choice.isRight}
-            onChange={() => handleRightAnswerChange(index)}
-            style={{ marginLeft: '10px' }}
-          />
-        </div>
-      ))}
-      <textarea
-        value={explanation}
-        onChange={e => setExplanation(e.target.value)}
-        placeholder="Enter the explanation"
-        rows={4}
-        style={{ marginBottom: '10px', padding: '10px', width: '100%' }}
-      />
-      <button
-        onClick={submitQuestion}
-        disabled={!allFieldsFilled}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: allFieldsFilled ? 'pointer' : 'not-allowed',
-        }}
-      >
-        Submit Question
-      </button>
-      <p>Response: {response}</p>
+        <textarea
+          value={explanation}
+          onChange={e => setExplanation(e.target.value)}
+          placeholder="Enter the explanation"
+          rows={4}
+          className="w-full p-4 bg-blue-4 text-white text-xl rounded-md shadow mb-6"
+        />
+        <button
+          onClick={submitQuestion}
+          disabled={!allFieldsFilled}
+          className={`w-full px-8 py-4 rounded-md bg-blue-4 text-white text-2xl hover:bg-blue-3 transition shadow ${
+            !allFieldsFilled ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          Submit Question
+        </button>
+      </div>
     </div>
   );
 };

@@ -94,7 +94,7 @@ export function ApiStack({ stack }: StackContext) {
       'POST /addVocabQuestion': {
         function: {
           handler: 'packages/functions/src/addVocabQuestion.main',
-          permissions: ['dynamodb:PutItem'],
+          permissions: ['dynamodb:PutItem', 'dynamodb:UpdateItem'],
           timeout: '15 seconds',
         },
       },

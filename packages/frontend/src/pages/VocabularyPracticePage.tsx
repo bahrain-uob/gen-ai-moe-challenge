@@ -101,7 +101,7 @@ const VocabularyPracticePage: React.FC = () => {
               ))}
             </div>
             {showExplanation && (
-              <div className="bg-gray-700 p-4 mt-4 rounded-md shadow-lg text-g text-white">
+              <div className="bg-gray-500 p-4 mt-4 rounded-md shadow-lg text-g text-white">
                 {' '}
                 <p
                   className="text-xl"
