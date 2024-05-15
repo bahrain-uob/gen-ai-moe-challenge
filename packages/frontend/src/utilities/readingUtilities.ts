@@ -1,4 +1,7 @@
-export type QuestionComponentInput<T> = {
+/**
+ * Common type for the inputs of question components
+ */
+export type QuestionComponentInput<T extends LRQuestion> = {
   question: T;
   answer: Answer;
   set: SetAnswer;
