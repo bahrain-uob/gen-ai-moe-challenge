@@ -46,6 +46,7 @@ export const McqQuestionsComponent = ({
         <select
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
+          className="lr-select"
         >
           <option value="">Select an answer</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
