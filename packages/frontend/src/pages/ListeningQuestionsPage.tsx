@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import ExamsHeader from '../components/examsHeader';
 import { get, post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
+import WaveSurfer from 'wavesurfer.js';
+import WaveSurferParams from 'wavesurfer.js';
 
 interface ListeningPart {
   MyPartitionKey: string;
@@ -36,8 +38,10 @@ const ListeningQuestionsPage = () => {
   const [audioUrl, setAudioUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
-  const [audioFinished, setAudioFinished] = useState<boolean>(false); // State to track if audio has finished playing
+  const [audioFinished, setAudioFinished] = useState<boolean>(false);
   const { section, sk } = useParams();
+  const [wavesurfer, setWavesurfer] = useState<any>(null);
+  const waveformRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchAudio = async () => {
@@ -50,6 +54,7 @@ const ListeningQuestionsPage = () => {
         );
         setAudioUrl(data.url);
         setLoading(false);
+        initWavesurfer();
       } catch (error) {
         console.error('Error fetching audio:', error);
       }
@@ -74,6 +79,37 @@ const ListeningQuestionsPage = () => {
     fetchParts();
   }, [sk]);
 
+  const initWavesurfer = () => {
+    if (waveformRef.current) {
+      const waveformOptions: WaveSurferParams = {
+        container: waveformRef.current,
+        waveColor: 'violet',
+        progressColor: 'purple',
+        barWidth: 3,
+        barGap: 3,
+        height: 100,
+        responsive: true,
+        plugins: [
+          // Add any desired plugins here
+        ],
+      };
+
+      const ws = WaveSurfer.create(waveformOptions);
+      ws.load(audioUrl);
+      ws.on('play', () => {
+        setAudioPlaying(true);
+      });
+      ws.on('pause', () => {
+        setAudioPlaying(false);
+      });
+      ws.on('finish', () => {
+        setAudioFinished(true);
+      });
+      setWavesurfer(ws);
+    } else {
+      console.error('Waveform container not found.');
+    }
+  };
   const handlePartClick = (part: string) => {
     setActivePart(part);
   };
@@ -124,18 +160,6 @@ const ListeningQuestionsPage = () => {
       ].selectedAnswer = selectedValue;
       return updatedParts;
     });
-  };
-
-  const handlePlayButtonClick = () => {
-    const audio = document.getElementById('audio') as HTMLAudioElement;
-    if (audio) {
-      audio.play();
-      setAudioPlaying(true);
-    }
-  };
-
-  const handleAudioEnded = () => {
-    setAudioFinished(true);
   };
 
   const handleSubmit = async (
@@ -191,25 +215,17 @@ const ListeningQuestionsPage = () => {
       <div className="Listening-part-container">
         {loading ? (
           <div>Loading...</div>
-        ) : audioUrl && (
-          <div className="audio-container">
-            <div>
-              <audio
-                id="audio"
-                onPlay={() => setAudioPlaying(true)}
-                onPause={() => setAudioPlaying(false)}
-                onEnded={handleAudioEnded} // Handle audio ended event
-              >
-                <source src={audioUrl} type="audio/mpeg" />
-                {audioUrl}
-              </audio>
+        ) : (
+          audioUrl && (
+            <div className="audio-container">
+              <div ref={waveformRef}></div>
               {!audioFinished && !audioPlaying && (
-                <button onClick={handlePlayButtonClick}>
+                <button onClick={() => wavesurfer.play()}>
                   Click to play listening audio
                 </button>
               )}
             </div>
-          </div>
+          )
         )}
         <div className="Listening-Questions-Part">
           <h1 className="part-number">{`Part ${parseInt(

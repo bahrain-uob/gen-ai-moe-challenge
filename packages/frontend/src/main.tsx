@@ -129,15 +129,14 @@ const router = createBrowserRouter([
         Component: SignIn,
       },
       {
-    path: '/Listening/addQuestion',
-    Component: AddListeningQPage,
-  },
-  {
-    path: '/Listening/addQuestion/success',
-    Component: SuccessAddListeningQPage,
-  },
-
-  {
+        path: '/Listening/addQuestion',
+        Component: AddListeningQPage,
+      },
+      {
+        path: '/Listening/addQuestion/success',
+        Component: SuccessAddListeningQPage,
+      },
+      {
         path: '/full-exam',
         Component: FullExam,
       },
