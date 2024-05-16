@@ -119,10 +119,10 @@ const ProfileMenu = () => {
   const menuContent = (
     <>
       <Link className={linkStyling} to="">
-        <div>Example</div>
+        <div>View Profile</div>
       </Link>
       <Link className={linkStyling} to="">
-        <div>Example</div>
+        <div>Sign Out</div>
       </Link>
     </>
   );
