@@ -108,8 +108,9 @@ export const saveFeedback = async (
     ExpressionAttributeNames: {
       '#section': section,
     },
+    ReturnValues: 'ALL_NEW',
   });
-  return await dynamoDb.send(updateExam);
+  return (await dynamoDb.send(updateExam)).Attributes as FullTestItem;
 };
 
 const triggerGrading = (

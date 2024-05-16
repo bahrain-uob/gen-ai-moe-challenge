@@ -17,34 +17,34 @@ export const gradeWriting = async (
   answer: WritingAnswer,
   connectionId: string,
   endpoint: string,
+  publish: boolean = false,
 ) => {
-  const P1feedback = await gradeWritingPart(
-    questions.P1.Question,
-    answer.answer.P1.answer, // the final .answer may change based on the final schema
-    questions.P1.GraphDescription,
-    'Task 1',
-  );
-  const P2feedback = await gradeWritingPart(
-    questions.P2.Question,
-    answer.answer.P2.answer,
-    '',
-    'Task 2',
-  );
+  const grading = [
+    gradeWritingPart(
+      questions.P1.Question,
+      answer.answer.P1.answer, // the final .answer may change based on the final schema
+      'Task 1',
+      questions.P1.GraphDescription,
+    ),
+    gradeWritingPart(questions.P2.Question, answer.answer.P2.answer, 'Task 2'),
+  ];
+  const _feedbacks = await Promise.all(grading);
 
   const feedback = {
-    P1: P1feedback,
-    P2: P2feedback,
+    P1: _feedbacks[0],
+    P2: _feedbacks[1],
   };
 
   // Save feedback to the DB
-  await saveFeedback(PK, SK, 'writingAnswer', feedback);
+  const newTestItem = await saveFeedback(PK, SK, 'writingAnswer', feedback);
   // Send feedback to the client
   const apiClient = new ApiGatewayManagementApiClient({
     endpoint: endpoint,
   });
+
   const command = new PostToConnectionCommand({
     ConnectionId: connectionId,
-    Data: JSON.stringify(feedback),
+    Data: JSON.stringify(publish ? newTestItem : 'Writing graded'),
   });
   const response = await apiClient.send(command);
 };
@@ -52,8 +52,8 @@ export const gradeWriting = async (
 export const gradeWritingPart = async (
   question: string,
   answer: string,
-  graphDescription: string,
   writingTask: 'Task 1' | 'Task 2',
+  graphDescription: string | undefined = undefined,
 ) => {
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
