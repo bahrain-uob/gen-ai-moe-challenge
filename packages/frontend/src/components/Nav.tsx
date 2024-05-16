@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   BsArrowRight,
   BsBoxArrowRight,
@@ -6,32 +6,44 @@ import {
   BsPersonCircle,
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import type { To } from 'react-router-dom';
 
+type NavProps = {
+  showLogo?: boolean;
+  entries?: Entry[];
+};
+type Entry = { text: string; to: To };
+
+// Common styles
 const _linkStyling =
   'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
 const _containerStyling =
   'flex flex-1 font-montserrat text-md font-bold text-white ';
 
-const Nav = () => {
+const Nav: React.FC<NavProps> = props => {
+  const { showLogo = true, entries = [] } = props;
+
+  // Hide on mobile
   const linkStyling = _linkStyling + 'max-md:hidden ';
+
+  const logo = showLogo ? (
+    <Link className={_linkStyling} to="">
+      <img className="w-12" src="assets/Logo.png" />
+    </Link>
+  ) : null;
+
+  const links = entries.map(({ text, to }, index) => (
+    <Link className={linkStyling} to={to} key={index}>
+      <div>{text}</div>
+    </Link>
+  ));
 
   return (
     <header className="z-10 w-full">
       <nav className="bg-blue-4 h-14">
         <div className={_containerStyling + 'h-full'}>
-          <Link className={_linkStyling} to="">
-            <img className="w-12" src="assets/Logo.png" />
-          </Link>
-
-          <Link className={linkStyling} to="/Full-Exam">
-            <div>Full Exams</div>
-          </Link>
-          <Link className={linkStyling} to="/Sections">
-            <div>Section Exams</div>
-          </Link>
-          <Link className={linkStyling} to="/Exercises">
-            <div>Exercises</div>
-          </Link>
+          {logo}
+          {links}
           <Link className={linkStyling + 'ml-auto'} to="">
             <BsPersonCircle size="28" />
           </Link>
