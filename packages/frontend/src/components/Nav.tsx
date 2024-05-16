@@ -20,7 +20,7 @@ const _linkStyling =
 const _containerStyling =
   'flex flex-1 font-montserrat text-md font-bold text-white ';
 
-const Nav: React.FC<NavProps> = props => {
+export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [] } = props;
 
   // Hide on mobile
@@ -112,5 +112,3 @@ const MobileMenu = ({
     </>
   );
 };
-
-export default Nav;

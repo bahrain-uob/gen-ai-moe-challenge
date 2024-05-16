@@ -1,5 +1,5 @@
 import { useOutlet } from 'react-router-dom';
-import Nav from './components/Nav';
+import { Nav } from './components/Nav';
 import { AuthInfoProvider } from './AuthContext';
 
 /**
