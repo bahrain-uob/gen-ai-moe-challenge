@@ -42,7 +42,7 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={_containerStyling + 'h-full'}>
           {logo}
           {links}
-          <ProfileMenu className={`${itemStyle} max-md:hidden ml-auto`} />
+          <ProfileMenu />
 
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}
@@ -109,7 +109,7 @@ const MobileMenu = ({
   );
 };
 
-const ProfileMenu = ({ className = '' }) => {
+const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
 
@@ -129,8 +129,8 @@ const ProfileMenu = ({ className = '' }) => {
 
   return (
     <>
-      <span className={className + ' relative'}>
-        <button onClick={() => toggleMenu()}>
+      <span className={'flex ml-auto max-md:hidden relative'}>
+        <button className="nav-item hover-darken" onClick={() => toggleMenu()}>
           <BsPersonCircle size="28" />
         </button>
         <div
