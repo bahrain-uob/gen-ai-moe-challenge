@@ -72,6 +72,24 @@ export const McqQuestionsComponent = ({
   const renderQuestionTextWithSelects = (text: string, index: number) => {
     const textBeforeAnswer = text.slice(0, text.indexOf('-answer-'));
 
+    // Determine the correct answer for the current sub-question
+    const correctAnswer = question.SubQuestions[index].CorrectAnswer;
+
+    // Determine the style for the select based on the selected answer
+    let selectStyle;
+
+    if (
+      showCorrectAnswer &&
+      question.SubQuestions[index].Choices.includes(answer[index].toString()) //if the default option is selected (the student did not select anything) no styling must be done
+    ) {
+      selectStyle =
+        correctAnswer === answer[index]
+          ? 'text-green-700'
+          : 'text-red-700 line-through';
+    } else {
+      selectStyle = '';
+    }
+
     return (
       <React.Fragment>
         {textBeforeAnswer}
@@ -79,7 +97,7 @@ export const McqQuestionsComponent = ({
           value={answer[index]}
           onChange={e => handleSelectionChange(index, e.target.value)}
           disabled={showCorrectAnswer} // Disable when showCorrectAnswer is true
-          className="lr-select"
+          className={`lr-select ${selectStyle}`}
         >
           <option value="">{index + 1}</option>
           {question.SubQuestions[index].Choices.map((choice, choiceIndex) => (
@@ -88,9 +106,14 @@ export const McqQuestionsComponent = ({
             </option>
           ))}
         </select>
+        {showCorrectAnswer &&
+          correctAnswer !== answer[index] && ( //display the correct answer in green beside the select list for subquestions that the student answered wrong or not answered at all
+            <span className="text-green-700 ml-2">{correctAnswer}</span>
+          )}
       </React.Fragment>
     );
   };
+
   console.log(answer);
   return (
     <div>
