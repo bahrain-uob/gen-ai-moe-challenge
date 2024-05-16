@@ -3,6 +3,9 @@ import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { gradeWriting } from 'src/grading/writing';
 import { Table } from 'sst/node/table';
+import { Bucket } from 'sst/node/bucket';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export const examSections: examSection[] = [
   { type: 'listening', answer: 'listeningAnswer', time: 60 * 60 * 1000 },
@@ -131,6 +134,73 @@ const triggerGrading = (
   }
 };
 
+// this function removes the answers from the question and replaces
+// the S3 Keys with presigned URLs
+export const filterQuestion = (question: any) => {
+  const newQuestion = structuredClone(question);
+  const client = new S3Client();
+
+  if (newQuestion.PK === 'writing') {
+    // remove the graph description
+    delete newQuestion.P1.GraphDescription;
+    // get the presigned URL of the graph
+    newQuestion.P1.GraphKey = generatePresignedUrl(
+      question.P1.GraphKey,
+      client,
+    );
+  } else if (newQuestion.PK === 'reading') {
+    newQuestion.map((part: any) => {
+      part.Questions.map((question: any) => {
+        question.SubQuestions.map((subQuestion: any) => {
+          if (subQuestion.CorrectAnswers) {
+            delete subQuestion.CorrectAnswers;
+          } else if (subQuestion.CorrectAnswer) {
+            delete subQuestion.CorrectAnswer;
+          }
+        });
+      });
+    });
+  } else if (newQuestion.PK === 'listening') {
+    newQuestion.map((part: any) => {
+      part.ScriptKey = generatePresignedUrl(part.ScriptKey, client);
+      part.Questions.map((question: any) => {
+        question.SubQuestions.map((subQuestion: any) => {
+          if (subQuestion.CorrectAnswers) {
+            delete subQuestion.CorrectAnswers;
+          } else if (subQuestion.CorrectAnswer) {
+            delete subQuestion.CorrectAnswer;
+          }
+        });
+      });
+    });
+  } else if (newQuestion.PK === 'speaking') {
+    newQuestion.map((part: any) => {
+      part.Task.S3Key = generatePresignedUrl(part.Task.S3Key, client);
+      part.Questions.map((question: any) => {
+        if (question.S3Key) {
+          question.S3Key = generatePresignedUrl(question.S3Key, client);
+        }
+      });
+    });
+  }
+};
+
+const generatePresignedUrl = async (key: string, client: S3Client) => {
+  const bucket = Bucket.Uploads.bucketName;
+
+  const input = {
+    Bucket: bucket,
+    Key: key,
+  };
+
+  const command = new GetObjectCommand(input);
+  const response = await getSignedUrl(client, command, {
+    expiresIn: 60 * 60,
+  });
+
+  return response;
+};
+
 export interface FullTestItem {
   PK: string;
   SK: string;
@@ -171,6 +241,8 @@ export type questions = {
 };
 
 export interface WritingSection {
+  PK: string;
+  SK: string;
   P1: {
     Question: string;
     GraphDescription: string;

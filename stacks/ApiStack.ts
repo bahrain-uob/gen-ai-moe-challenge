@@ -142,7 +142,7 @@ export function ApiStack({ stack }: StackContext) {
   const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
-        bind: [table],
+        bind: [table, uploads_bucket],
         permissions: ['bedrock:InvokeModel'],
       },
     },
