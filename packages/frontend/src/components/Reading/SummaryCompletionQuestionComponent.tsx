@@ -31,23 +31,46 @@ export const SummaryCompletionQuestionComponent = ({
     subQuestionIndex: number,
   ) => {
     const parts = text.split('-answer-');
-    return parts.map((part, partIndex) => (
-      <React.Fragment key={partIndex}>
-        <span className="leading-relaxed">{part}</span>
-        {partIndex < parts.length - 1 && (
-          <input
-            type="text"
-            value={answer[subQuestionIndex][partIndex]}
-            onChange={e =>
-              handleInputChange(subQuestionIndex, partIndex, e.target.value)
-            }
-            className="lr-input"
-            disabled={showCorrectAnswer} // disable the input field when showCorrectAnswer is true
-          />
-        )}
-      </React.Fragment>
-    ));
+    return parts.map((part, partIndex) => {
+      const correctAnswers =
+        question.SubQuestions[subQuestionIndex].CorrectAnswers[partIndex] || [];
+
+      const studentAnswer = answer[subQuestionIndex][partIndex]?.trim() || '';
+
+      // Determine the style for the input based on the selected answer
+      let inputStyle = '';
+      if (showCorrectAnswer && studentAnswer !== '') {
+        inputStyle = correctAnswers.includes(studentAnswer)
+          ? 'text-green-700'
+          : 'text-red-700 line-through';
+      }
+
+      return (
+        <React.Fragment key={partIndex}>
+          <span className="leading-relaxed">{part}</span>
+          {partIndex < parts.length - 1 && (
+            <>
+              <input
+                type="text"
+                value={answer[subQuestionIndex][partIndex]}
+                onChange={e =>
+                  handleInputChange(subQuestionIndex, partIndex, e.target.value)
+                }
+                className={`lr-input ${inputStyle}`}
+                disabled={showCorrectAnswer} // Disable the input field when showCorrectAnswer is true
+              />
+              {showCorrectAnswer && !correctAnswers.includes(studentAnswer) && (
+                <span className="text-green-700 ml-2">
+                  {correctAnswers.join(' / ')}
+                </span>
+              )}
+            </>
+          )}
+        </React.Fragment>
+      );
+    });
   };
+
   console.log(answer);
   return (
     <div>
