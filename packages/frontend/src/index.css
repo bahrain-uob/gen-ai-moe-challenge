@@ -17,6 +17,13 @@
     max-width: 1440px;
     margin: 0 auto;
   }
+
+  .hover-darken {
+    @apply hover:bg-black hover:bg-opacity-10 transition-colors duration-200;
+  }
+  .nav-item {
+    @apply px-5 flex items-center leading-normal;
+  }
 }
 
 @layer utilities {

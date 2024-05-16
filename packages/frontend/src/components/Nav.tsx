@@ -15,25 +15,23 @@ type NavProps = {
 type Entry = { text: string; to: To };
 
 // Common styles
-const _linkStyling =
-  'px-5 hover:bg-black hover:bg-opacity-10 transition-colors duration-200 flex items-center leading-normal ';
 const _containerStyling =
   'flex flex-1 font-montserrat text-md font-bold text-white ';
 
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [] } = props;
 
-  // Hide on mobile
-  const linkStyling = _linkStyling + 'max-md:hidden ';
+  const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
-    <Link className={_linkStyling} to="">
+    <Link className={itemStyle} to="">
       <img className="w-12" src="assets/Logo.png" />
     </Link>
   ) : null;
 
+  // Nav content (hidden on mobile)
   const links = entries.map(({ text, to }, index) => (
-    <Link className={linkStyling} to={to} key={index}>
+    <Link className={itemStyle + ' max-md:hidden'} to={to} key={index}>
       <div>{text}</div>
     </Link>
   ));
@@ -44,10 +42,10 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={_containerStyling + 'h-full'}>
           {logo}
           {links}
-          <ProfileMenu className={linkStyling + 'ml-auto'} />
+          <ProfileMenu className={`${itemStyle} max-md:hidden ml-auto`} />
 
           <MobileMenu
-            className={_linkStyling + 'md:hidden ml-auto'}
+            className={`${itemStyle} md:hidden ml-auto`}
             entries={entries}
           />
         </div>
@@ -63,14 +61,14 @@ const MobileMenu = ({
   className: string;
   entries: Entry[];
 }) => {
-  const linkStyling = _linkStyling + 'py-3 flex-row text-gray-700 ';
+  const itemStyle = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
 
   const links = entries.map(({ text, to }, index) => (
     <button key={index} onClick={toggleMenu}>
-      <Link className={linkStyling} to={to}>
+      <Link className={itemStyle} to={to}>
         <div>{text}</div>
       </Link>
     </button>
@@ -88,7 +86,7 @@ const MobileMenu = ({
           } transition-all duration-300 overflow-hidden`}
       >
         <div className={_containerStyling + 'flex-col w-[40vw] h-screen'}>
-          <button className={linkStyling} onClick={() => toggleMenu()}>
+          <button className={itemStyle} onClick={() => toggleMenu()}>
             <span>Back</span>
             <BsArrowRight className="ml-auto" />
           </button>
@@ -96,7 +94,7 @@ const MobileMenu = ({
           {links}
 
           {/* TODO: change sign or sign out based on whether the user login */}
-          <button className={linkStyling + 'mt-auto'}>
+          <button className={`${itemStyle} mt-auto`}>
             <span>Sign out</span>
             <BsBoxArrowRight className="ml-auto" />
           </button>
@@ -116,7 +114,7 @@ const ProfileMenu = ({ className = '' }) => {
   const toggleMenu = () => setIsOpen(s => !s);
 
   // Same as mobile menu
-  const linkStyling = _linkStyling + 'py-3 flex-row text-gray-700 ';
+  const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
   const menuContent = (
     <>
