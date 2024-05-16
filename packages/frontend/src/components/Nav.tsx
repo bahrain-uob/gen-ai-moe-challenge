@@ -48,18 +48,35 @@ const Nav: React.FC<NavProps> = props => {
             <BsPersonCircle size="28" />
           </Link>
 
-          <MobileMenu className={_linkStyling + 'md:hidden ml-auto'} />
+          <MobileMenu
+            className={_linkStyling + 'md:hidden ml-auto'}
+            entries={entries}
+          />
         </div>
       </nav>
     </header>
   );
 };
 
-const MobileMenu = ({ className = '' }) => {
+const MobileMenu = ({
+  className = '',
+  entries,
+}: {
+  className: string;
+  entries: Entry[];
+}) => {
   const linkStyling = _linkStyling + 'py-3 flex-row text-gray-700 ';
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
+
+  const links = entries.map(({ text, to }, index) => (
+    <button key={index} onClick={toggleMenu}>
+      <Link className={linkStyling} to={to}>
+        <div>{text}</div>
+      </Link>
+    </button>
+  ));
 
   return (
     <>
@@ -78,15 +95,7 @@ const MobileMenu = ({ className = '' }) => {
             <BsArrowRight className="ml-auto" />
           </button>
 
-          <Link className={linkStyling} to="/Full-Exam" onClick={toggleMenu}>
-            <div>Full Exams</div>
-          </Link>
-          <Link className={linkStyling} to="/Sections" onClick={toggleMenu}>
-            <div>Section Exams</div>
-          </Link>
-          <Link className={linkStyling} to="/Exercises" onClick={toggleMenu}>
-            <div>Exercises</div>
-          </Link>
+          {links}
 
           <button className={linkStyling + 'mt-auto'}>
             <span>Sign out</span>
