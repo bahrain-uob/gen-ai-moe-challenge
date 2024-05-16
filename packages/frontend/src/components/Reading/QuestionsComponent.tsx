@@ -72,7 +72,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
-          //showCorrectAnswer={showCorrectAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Multiple Choice':
