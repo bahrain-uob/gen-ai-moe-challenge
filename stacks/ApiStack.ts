@@ -169,6 +169,11 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
+      fullTestStart: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/start.main',
+        },
+      },
       fullTestAutoSave: {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/autoSave.main',

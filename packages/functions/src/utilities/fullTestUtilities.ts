@@ -134,12 +134,7 @@ const triggerGrading = (
 export interface FullTestItem {
   PK: string;
   SK: string;
-  questions: {
-    reading: any; // ReadingSection;
-    writing: WritingSection;
-    listening: any; // ListeningSection;
-    speaking: any; // SpeakingSection;
-  };
+  questions: questions;
 
   speakingAnswer?: {
     start_time: string;
@@ -168,6 +163,12 @@ export interface FullTestItem {
 type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
 
 // type ReadingSection = [ReadingPart, ReadingPart, ReadingPart];
+export type questions = {
+  reading: any; // ReadingSection;
+  writing: WritingSection;
+  listening: any; // ListeningSection;
+  speaking: any; // SpeakingSection;
+};
 
 export interface WritingSection {
   P1: {
