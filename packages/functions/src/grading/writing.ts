@@ -89,7 +89,7 @@ export const gradeWritingPart = async (
         criteria,
         rubricTask1[criteria],
         question,
-        graphDescription,
+        graphDescription ?? '',
         answer,
       );
     } else {
