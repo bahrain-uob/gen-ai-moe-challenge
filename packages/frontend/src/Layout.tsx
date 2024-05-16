@@ -24,10 +24,15 @@ export const Layout = ({
   if (!children) {
     children = useOutlet();
   }
+  const navEntries = [
+    { text: 'Full Exams', to: '/Full-Exam' },
+    { text: 'Section Exams', to: '/Sections' },
+    { text: 'Exercises', to: '/Exercises' },
+  ];
 
   const out = (
     <main className="bg-grey-1 min-h-screen">
-      <Nav />
+      <Nav entries={navEntries} />
       <div className={containerClasses}>{children}</div>
     </main>
   );
