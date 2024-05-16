@@ -104,6 +104,7 @@ const MobileMenu = ({
         className={`bg-black ${
           isOpen ? 'bg-opacity-55 z-20' : 'bg-opacity-0 -z-10'
         } h-screen w-screen fixed top-0 left-0 transition-all duration-300 ease-linear`}
+        onClick={() => toggleMenu()}
       ></div>
     </>
   );
@@ -135,11 +136,17 @@ const ProfileMenu = () => {
         </button>
         <div
           className={`fixed right-10 top-10 w-48 bg-grey-3 shadow-2xl rounded-lg ${
-            isOpen ? 'opacity-100 z-20' : 'opacity-0 -z-10'
+            isOpen ? 'opacity-100 z-30' : 'opacity-0 -z-10'
           } transition-all duration-300 flex flex-col`}
         >
           {menuContent}
         </div>
+        <div
+          className={`bg-black ${
+            isOpen ? 'bg-opacity-10 z-20' : 'bg-opacity-0 -z-10'
+          } h-screen w-screen fixed top-0 left-0 transition-all duration-300 ease-linear`}
+          onClick={() => toggleMenu()}
+        ></div>
       </span>
     </>
   );
