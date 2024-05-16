@@ -44,9 +44,7 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={_containerStyling + 'h-full'}>
           {logo}
           {links}
-          <Link className={linkStyling + 'ml-auto'} to="">
-            <BsPersonCircle size="28" />
-          </Link>
+          <ProfileMenu className={linkStyling + 'ml-auto'} />
 
           <MobileMenu
             className={_linkStyling + 'md:hidden ml-auto'}
@@ -109,6 +107,42 @@ const MobileMenu = ({
           isOpen ? 'bg-opacity-55 z-20' : 'bg-opacity-0 -z-10'
         } h-screen w-screen fixed top-0 left-0 transition-all duration-300 ease-linear`}
       ></div>
+    </>
+  );
+};
+
+const ProfileMenu = ({ className = '' }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(s => !s);
+
+  // Same as mobile menu
+  const linkStyling = _linkStyling + 'py-3 flex-row text-gray-700 ';
+
+  const menuContent = (
+    <>
+      <Link className={linkStyling} to="">
+        <div>Example</div>
+      </Link>
+      <Link className={linkStyling} to="">
+        <div>Example</div>
+      </Link>
+    </>
+  );
+
+  return (
+    <>
+      <span className={className + ' relative'}>
+        <button onClick={() => toggleMenu()}>
+          <BsPersonCircle size="28" />
+        </button>
+        <div
+          className={`fixed right-10 top-10 w-48 bg-grey-3 shadow-2xl rounded-lg ${
+            isOpen ? 'opacity-100 z-20' : 'opacity-0 -z-10'
+          } transition-all duration-300 flex flex-col`}
+        >
+          {menuContent}
+        </div>
+      </span>
     </>
   );
 };
