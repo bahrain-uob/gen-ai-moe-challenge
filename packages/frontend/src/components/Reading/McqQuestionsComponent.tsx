@@ -80,7 +80,7 @@ export const McqQuestionsComponent = ({
 
     if (
       showCorrectAnswer &&
-      question.SubQuestions[index].Choices.includes(answer[index].toString()) //if the default option is selected (the student did not select anything) no styling must be done
+      answer[index].toString().trim() !== '' //if the default option is selected (the student did not select anything) no styling must be done
     ) {
       selectStyle =
         correctAnswer === answer[index]
