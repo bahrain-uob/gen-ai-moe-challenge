@@ -27,6 +27,8 @@ import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
 import LRAnswersPage from './pages/LRAnswersPage.tsx';
 import React from 'react';
+import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
+import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 
 Amplify.configure(
   {
@@ -158,6 +160,14 @@ const router = createBrowserRouter([
   {
     path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
     Component: LRAnswersPage,
+  },
+  {
+    path: '/test-speaking-card-ui',
+    Component: SpeakingCardPage,
+  },
+  {
+    path: '/test-speaking-audio-ui',
+    Component: SpeakingAudioPage,
   },
   {
     path: '/PlacementTest',
