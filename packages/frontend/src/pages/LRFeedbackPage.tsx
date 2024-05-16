@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import { CircularProgressbarStyles } from 'react-circular-progressbar/dist/types';
 //import { FaTimes, FaCheck } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toJSON } from '../utilities';
 import { get } from 'aws-amplify/api';
+import { DoubleCircles } from '../components/DoubleCirclesComponent';
 
 export default function LRFeedbackPage() {
   const { section, sk } = useParams<{
@@ -37,51 +36,20 @@ export default function LRFeedbackPage() {
       <div className="text-lg px-10 text-center mb-8 mt-6">Loading...</div>
     );
   }
-  /* Circular Progress */
-  const cpStyles: CircularProgressbarStyles = {
-    // Customize the root svg element
-    root: {},
-    // Customize the path, i.e. the "completed progress"
-    path: {
-      stroke: '#3B828E',
-      strokeWidth: 8,
-    },
-    // Customize the circle behind the path, i.e. the "total progress"
-    trail: {
-      // Trail color
-      stroke: '#AAD7D9',
-      strokeWidth: 8,
-    },
-    // Customize the text
-    text: {
-      // Text size
-      fontSize: '0.95rem',
-      textAnchor: 'middle', // Center horizontally
-      dominantBaseline: 'middle', // Center vertically
-    },
-  };
 
   const circularFeedback = (
-    <div className="flex justify-around items-center w-full md:flex-row flex-wrap mb-10">
-      <div className="w-full md:w-1/6 p-3 text-center">
-        <p className="text-lg font-semibold mb-2">CEFR Level</p>
-        <CircularProgressbar
-          value={data.BandScore}
-          maxValue={9}
-          text={data.europeanFrameworkGrade}
-          styles={cpStyles}
-        />
-      </div>
-      <div className="w-full md:w-1/6 p-3 text-center ">
-        <p className="text-lg font-semibold mb-2">Band Score</p>
-        <CircularProgressbar
-          value={data.BandScore}
-          maxValue={9}
-          text={`${data.BandScore}/9`}
-          styles={cpStyles}
-        />
-      </div>
-    </div>
+    <DoubleCircles
+      leftCircleProps={{
+        value: data.BandScore,
+        maxValue: 9,
+        text: data.europeanFrameworkGrade,
+      }}
+      rightCircleProps={{
+        value: data.BandScore,
+        maxValue: 9,
+        text: `${data.BandScore}/9`,
+      }}
+    />
   );
 
   const handleViewAnswers = () => {
