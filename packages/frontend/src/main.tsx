@@ -62,7 +62,7 @@ Amplify.configure(
 const router = createBrowserRouter([
   // All routes inside `children` use the default layout
   {
-    Component: Layout,
+    element: <Layout isLanding={true} />,
     errorElement: <ErrorPage />,
     children: [
       {

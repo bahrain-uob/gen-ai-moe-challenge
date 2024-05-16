@@ -97,6 +97,7 @@ const MobileMenu = ({
 
           {links}
 
+          {/* TODO: change sign or sign out based on whether the user login */}
           <button className={linkStyling + 'mt-auto'}>
             <span>Sign out</span>
             <BsBoxArrowRight className="ml-auto" />
