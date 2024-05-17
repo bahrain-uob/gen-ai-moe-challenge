@@ -21,12 +21,12 @@ import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
-import ListeningQuestionsPage from './pages/ListeningQuestionsPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
 import React from 'react';
+import ListeningQuestionsPage from './pages/ListeningQuestionsPage.tsx';
 
 Amplify.configure(
   {
@@ -135,21 +135,6 @@ const router = createBrowserRouter([
         Component: SignIn,
       },
       {
-        path: '/Listening/addQuestion',
-        Component: AddListeningQPage,
-      },
-      {
-        path: '/Listening/addQuestion/success',
-        Component: SuccessAddListeningQPage,
-      },
-      {
-        path: '/full-exam',
-        Component: FullExam,
-      },
-      {
-        path: '/writing-task1',
-        Component: WritingTask1Page,
-      },
         path: '/sign-out',
         Component: SignOutPage,
       },
