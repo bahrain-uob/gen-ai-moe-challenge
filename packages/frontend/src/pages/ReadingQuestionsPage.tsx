@@ -12,7 +12,7 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useParams, useNavigate } from 'react-router-dom';
-import { BsChevronUp } from 'react-icons/bs';
+import { BsArrowLeft, BsCheckLg, BsChevronUp } from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
@@ -71,10 +71,10 @@ const ReadingQuestions = () => {
   const linkStyling =
     'px-5 transition-colors duration-200 flex items-center leading-normal ';
   const barContent = (
-    <div className="flex flex-1 h-full font-montserrat text-md font-bold text-white">
+    <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       <button
-        className={linkStyling + 'hover:bg-black hover:bg-opacity-10'}
+        className={'nav-item hover-darken'}
         onClick={() => submitAnswers(sk)}
       >
         Submit Answers
@@ -83,9 +83,7 @@ const ReadingQuestions = () => {
         <button
           className={
             linkStyling +
-            (i === partIndex
-              ? 'bg-black bg-opacity-40'
-              : 'hover:bg-black hover:bg-opacity-10')
+            (i === partIndex ? 'bg-black bg-opacity-40' : 'hover-darken')
           }
           onClick={() => setPartIndex(i)}
           key={i}
@@ -95,6 +93,24 @@ const ReadingQuestions = () => {
       ))}
     </div>
   );
+
+  const titleRow = (
+    <div className="w-full h-full flex items-center">
+      <div className="w-1/3 h-full nav-item">
+        <button className="hover:text-gray-700">
+          <BsArrowLeft className="inline mr-2" />
+          <span>Back</span>
+        </button>
+      </div>
+      <div className="w-1/3 text-center font-light text-lg">Reading Test</div>
+      <div className="w-1/3 nav-item flex-row-reverse">
+        <button>
+          Submit <BsCheckLg className="inline" />
+        </button>
+      </div>
+    </div>
+  );
+  // const titleRow = null;
 
   /* Maximize */
   const maximizeButton = (
@@ -164,7 +180,8 @@ const ReadingQuestions = () => {
   return (
     <>
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
-      <div className="flex flex-col lg:flex-row h-[94svh] w-screen overflow-y-hidden">
+      <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
+      <div className="flex flex-col lg:flex-row h-[88svh] lg:h-[86svh] w-screen overflow-y-hidden">
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>
