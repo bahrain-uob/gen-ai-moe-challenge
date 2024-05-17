@@ -50,6 +50,5 @@ export function FrontendStack({ stack, app }: StackContext) {
   // Show the URLs in the output
   stack.addOutputs({
     SiteUrl: site.url,
-    ApiEndpoint: api.url,
   });
 }

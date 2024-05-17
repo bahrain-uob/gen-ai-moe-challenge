@@ -1,34 +1,51 @@
 import React, { useState } from 'react';
+import { BsCaretDownFill } from 'react-icons/bs';
 
-export default function CollapsableCard({ title, children }: { title: string | React.ReactNode , children: React.ReactNode }) {
+export default function CollapsableCard({
+  title,
+  children,
+}: {
+  title: string | React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggle = () => { 
-        setIsOpen((prev) => !prev); 
-    }; 
-    return (
-        <>
-            <div className="border rounded-md mb-1 w-5/6"> 
-                <button 
-                    className="w-full p-4 text-left bg-gray-200  
-                               hover:bg-gray-300 transition duration-300"
-                    onClick={toggle} 
-                > 
-                    {title} 
-                    <span className={`float-right transform ${isOpen ?  
-                                     'rotate-180' : 'rotate-0'}  
-                                     transition-transform duration-300`}> 
-                        &#9660; 
-                    </span> 
-                </button> 
-                {isOpen && ( 
-                    <div className="p-4 bg-white"> 
-                        {children} 
-                    </div> 
-                )} 
-            </div> 
-            <br/>
-        </>
-    ); 
-}; 
+  const toggle = () => {
+    setIsOpen(prev => !prev);
+  };
+  return (
+    <>
+      <div className="shadow-lg rounded-xl mb-1">
+        <button
+          className={`w-full p-4 text-left bg-gray-200
+                     ${isOpen ? 'rounded-t-xl' : 'rounded-xl'}
+                     flex flex-row justify-between items-center
+                     hover:bg-gray-300 focus:bg-gray-300 outline-none
+                     transition-all duration-300`}
+          onClick={toggle}
+        >
+          <div className="w-full">{title}</div>
+          {/* <BsArrowDownCircleFill */}
+          <BsCaretDownFill
+            className={`h-full transform ml-4 ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            } transition-transform duration-300`}
+          />
+          {/* <span
+            className={`float-right transform ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            } transition-transform duration-300`}
+          ></span> */}
+        </button>
+        <div
+          className={`bg-white overflow-hidden ${
+            isOpen ? 'max-h-screen' : 'max-h-0'
+          } transition-all duration-500 rounded-b-xl`}
+        >
+          <div className="p-4">{children}</div>
+        </div>
+      </div>
+      <br />
+    </>
+  );
+}
