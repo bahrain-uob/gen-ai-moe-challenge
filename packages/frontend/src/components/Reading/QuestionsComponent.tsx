@@ -1,23 +1,21 @@
-import { ReadingQuestion } from '../../utilities/readingUtilities';
-import { ListeningQuestion } from '../../utilities/ListeningUtilities';
 import { ListSelectionQuestionComponent } from './ListSelectionQuestionComponent';
 import { McqQuestionsComponent } from './McqQuestionsComponent';
 import { TableCompletionQuestionComponent } from './TableCompletionQuestionComponent';
 import { SummaryCompletionQuestionComponent } from './SummaryCompletionQuestionComponent';
 import { MultipleAnswersQuestionComponent } from './MultipleAnswersQuestionComponent';
 import { DiagramCompletionQuestionComponent } from './DiagramCompletionQuestionComponent';
-
-export type Answer = string[] | string[][];
-export type SetAnswer = (answer: Answer) => void;
+import { Answer, LRQuestion, SetAnswer } from '../../utilities/LRUtilities';
 
 export const QuestionsComponent = ({
   questions,
   answers,
   setAnswers,
+  showCorrectAnswer,
 }: {
-  questions: ReadingQuestion[];
+  questions: LRQuestion[];
   answers: Answer[];
   setAnswers: (arg: Answer[]) => void;
+  showCorrectAnswer: boolean;
 }) => {
   const indexSetAnswer = function (i: number): SetAnswer {
     return (value: Answer) => {
@@ -39,6 +37,7 @@ export const QuestionsComponent = ({
             question,
             answers[index],
             indexSetAnswer(index),
+            showCorrectAnswer,
           )}
         </div>
       ))}
@@ -52,9 +51,10 @@ export const QuestionsComponent = ({
  * state
  */
 const renderQuestionComponent = (
-  question: ReadingQuestion | ListeningQuestion,
+  question: LRQuestion,
   answer: Answer,
   setAnswer: SetAnswer,
+  showCorrectAnswer: boolean,
 ) => {
   switch (question.QuestionType) {
     case 'Table Completion':
@@ -63,6 +63,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'List Selection':
@@ -71,6 +72,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Multiple Choice':
@@ -83,6 +85,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Summary Completion':
@@ -92,6 +95,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Multiple Answers':
@@ -100,6 +104,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     case 'Diagram Completion':
@@ -108,6 +113,7 @@ const renderQuestionComponent = (
           question={question}
           answer={answer}
           set={setAnswer}
+          showCorrectAnswer={showCorrectAnswer}
         />
       );
     default:
@@ -116,7 +122,7 @@ const renderQuestionComponent = (
 };
 
 /** Returns the correct initial answer array for each question */
-export function initialAnswer(questions: ReadingQuestion[]): Answer[] {
+export function initialAnswer(questions: LRQuestion[]): Answer[] {
   return questions.map(q => {
     switch (q.QuestionType) {
       case 'Table Completion':

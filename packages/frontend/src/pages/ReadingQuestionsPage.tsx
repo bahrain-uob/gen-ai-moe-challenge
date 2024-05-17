@@ -1,22 +1,29 @@
 import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
-import { readingParts } from '../utilities/readingUtilities';
+import { Answer } from '../utilities/LRUtilities';
+import { readingParts } from '../utilities/LRSampleQuestions';
+//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
+import { post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 import {
-  Answer,
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BsChevronUp } from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
 const ReadingQuestions = () => {
-  // const { section, sk } = useParams();
+  const { sk } = useParams();
+  if (!sk) return;
+
+  const navigate = useNavigate();
 
   // TODO: this should be a parameter
-  const parts = readingParts;
+  const parts = readingParts; //listeningParts
 
   const [partIndex, setPartIndex] = useState(0);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -34,12 +41,44 @@ const ReadingQuestions = () => {
     };
   };
 
+  const submitAnswers = async (sk: string) => {
+    try {
+      const payload = {
+        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
+      };
+      const response = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: `/answers/reading/${sk}`,
+          options: {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: payload,
+          },
+        }),
+      );
+      console.log('Submit response:', response);
+      alert('Answers submitted successfully!');
+      navigate(`/scores/reading/${sk}`);
+    } catch (error) {
+      console.error('Error submitting answers:', error);
+      alert('Failed to submit answers.');
+    }
+  };
+
   /* Bar */
   const linkStyling =
     'px-5 transition-colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-md font-bold text-white">
       <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <button
+        className={linkStyling + 'hover:bg-black hover:bg-opacity-10'}
+        onClick={() => submitAnswers(sk)}
+      >
+        Submit Answers
+      </button>
       {parts.map((_, i) => (
         <button
           className={
@@ -99,6 +138,7 @@ const ReadingQuestions = () => {
           questions={parts[partIndex].Questions}
           answers={answers[partIndex]}
           setAnswers={indexSet(partIndex)}
+          showCorrectAnswer={false}
         />
       </div>
     </div>

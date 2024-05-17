@@ -1,4 +1,4 @@
-import { ReadingPart } from '../../utilities/readingUtilities'; // Adjust the import path as necessary
+import { ReadingPart } from '../../utilities/LRUtilities'; // Adjust the import path as necessary
 
 export const PassageComponent = ({
   readingPart,
