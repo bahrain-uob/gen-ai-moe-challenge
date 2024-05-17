@@ -138,6 +138,7 @@ const ReadingQuestions = () => {
           questions={parts[partIndex].Questions}
           answers={answers[partIndex]}
           setAnswers={indexSet(partIndex)}
+          showCorrectAnswer={false}
         />
       </div>
     </div>
