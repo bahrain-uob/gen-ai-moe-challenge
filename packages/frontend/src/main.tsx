@@ -26,6 +26,7 @@ import ErrorPage from './pages/ErrorPage.tsx';
 import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
 import LRAnswersPage from './pages/LRAnswersPage.tsx';
+import React from 'react';
 
 Amplify.configure(
   {
@@ -63,7 +64,7 @@ Amplify.configure(
 const router = createBrowserRouter([
   // All routes inside `children` use the default layout
   {
-    Component: Layout,
+    element: <Layout isLanding={true} />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -165,6 +166,9 @@ const router = createBrowserRouter([
 ]);
 // TODO: handle not found pages
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />,
+const root = (
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
+ReactDOM.createRoot(document.getElementById('root')!).render(root);

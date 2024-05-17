@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
@@ -12,6 +12,7 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useParams, useNavigate } from 'react-router-dom';
+import { BsChevronUp } from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
@@ -23,6 +24,9 @@ const ReadingQuestions = () => {
 
   // TODO: this should be a parameter
   const parts = readingParts; //listeningParts
+
+  const [partIndex, setPartIndex] = useState(0);
+  const [isMaximized, setIsMaximized] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -45,7 +49,7 @@ const ReadingQuestions = () => {
       const response = await toJSON(
         post({
           apiName: 'myAPI',
-          path: `/answers/reading/${sk}`, //listening
+          path: `/answers/reading/${sk}`,
           options: {
             headers: {
               'Content-Type': 'application/json',
@@ -56,42 +60,115 @@ const ReadingQuestions = () => {
       );
       console.log('Submit response:', response);
       alert('Answers submitted successfully!');
-      navigate(`/scores/reading/${sk}`); //listening
+      navigate(`/scores/reading/${sk}`);
     } catch (error) {
       console.error('Error submitting answers:', error);
       alert('Failed to submit answers.');
     }
   };
 
-  const x = parts.map((part, index) => (
-    <React.Fragment key={index}>
-      {/* comment the line below for listening */}
-      <PassageComponent readingPart={part} PartIndex={1} />{' '}
-      <QuestionsComponent
-        questions={part.Questions}
-        answers={answers[index]}
-        setAnswers={indexSet(index)}
-        showCorrectAnswer={false}
-      />
-      <ul>
-        {answers.map((a1, i) => (
-          <li key={i} className="ml-2">
-            {i + 1}-
-            <ul>
-              {a1.map((a2, j) => (
-                <li key={j} className="ml-2">
-                  {j + 1}- {JSON.stringify(a2)}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => submitAnswers(sk)}>Submit Answers</button>
-    </React.Fragment>
-  ));
+  /* Bar */
+  const linkStyling =
+    'px-5 transition-colors duration-200 flex items-center leading-normal ';
+  const barContent = (
+    <div className="flex flex-1 h-full font-montserrat text-md font-bold text-white">
+      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <button
+        className={linkStyling + 'hover:bg-black hover:bg-opacity-10'}
+        onClick={() => submitAnswers(sk)}
+      >
+        Submit Answers
+      </button>
+      {parts.map((_, i) => (
+        <button
+          className={
+            linkStyling +
+            (i === partIndex
+              ? 'bg-black bg-opacity-40'
+              : 'hover:bg-black hover:bg-opacity-10')
+          }
+          onClick={() => setPartIndex(i)}
+          key={i}
+        >
+          Part {i + 1}
+        </button>
+      ))}
+    </div>
+  );
 
-  return x;
+  /* Maximize */
+  const maximizeButton = (
+    <div className="flex flex-row-reverse h-full items-center px-4">
+      <button onClick={() => setIsMaximized(max => !max)}>
+        <BsChevronUp
+          className={`transition-all duration-500 ${
+            isMaximized ? 'rotate-0' : 'rotate-180'
+          }`}
+          size={21}
+        />
+      </button>
+    </div>
+  );
+
+  /* Screens
+   * Note that I addded a separator so that will only be shown in mobile and
+   * tablet views, so height had to be adjusted accordingly
+   *
+   * Also note that both screens take full available height and width.  Parent
+   * of screen will set the correct height and width.
+   */
+  const passageScreen = (
+    <div className="h-full">
+      <div className="h-[90%] lg:h-full overflow-y-scroll p-8 max-lg:pb-0">
+        <PassageComponent
+          readingPart={parts[partIndex]}
+          PartIndex={partIndex}
+        />
+      </div>
+      {/* This is a separator so that content doesn't reach the divider */}
+      <div className="h-[10%] lg:hidden">{maximizeButton}</div>
+    </div>
+  );
+  const questionsScreen = (
+    <div className="h-full">
+      {/* This is a separator so that content doesn't reach the divider */}
+      <div className="h-[10%] lg:hidden"></div>
+      <div className="h-[90%] lg:h-full overflow-y-scroll p-8 max-lg:pt-0">
+        <QuestionsComponent
+          questions={parts[partIndex].Questions}
+          answers={answers[partIndex]}
+          setAnswers={indexSet(partIndex)}
+        />
+      </div>
+    </div>
+  );
+
+  /* Split Screen containers
+   *
+   * Note that I'm using max height instead of height, to animate maximizing and
+   * minimizing passage screen, in mobile and table view.
+   *
+   * In mobile view, height is dependent on wether the passage is maximised or
+   * not, while in laptop screens always take full height.
+   */
+  const containerStyles =
+    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300';
+  const passageContainerStyle =
+    containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
+  const questionsContainerStyle =
+    containerStyles +
+    ' bg-white rounded-3xl ' +
+    (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]');
+
+  return (
+    <>
+      <div className="h-[6svh] bg-blue-4">{barContent}</div>
+      <div className="flex flex-col lg:flex-row h-[94svh] w-screen overflow-y-hidden">
+        <div className={passageContainerStyle}>{passageScreen}</div>
+        <div className={questionsContainerStyle}>{questionsScreen}</div>
+      </div>
+    </>
+  );
 };
 
 export default ReadingQuestions;
