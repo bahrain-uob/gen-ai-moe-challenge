@@ -74,8 +74,14 @@ export const listeningParts: ListeningPart[] = [
               'E-  Extra seats have been put on.',
             ],
             CorrectAnswers: [
-              ['A', 'B'],
-              ['A', 'B'],
+              [
+                'A- Few rooms now have a different purpose of use.',
+                'B- A different kind of seating arrangement has been installed.',
+              ],
+              [
+                'A- Few rooms now have a different purpose of use.',
+                'B- A different kind of seating arrangement has been installed.',
+              ],
             ],
             QuestionText:
               'Which TWO alterations have been made so far during the restoration of the theatre?',
@@ -90,8 +96,8 @@ export const listeningParts: ListeningPart[] = [
               'E-  a café',
             ],
             CorrectAnswers: [
-              ['D', 'B'],
-              ['D', 'B'],
+              ['D- a bookshop', 'B- backstage tours'],
+              ['D- a bookshop', 'B- backstage tours'],
             ],
             QuestionText:
               'Which TWO amenities does the theatre currently offer to the citizens?',
@@ -106,8 +112,8 @@ export const listeningParts: ListeningPart[] = [
               'E- lighting',
             ],
             CorrectAnswers: [
-              ['C', 'E'],
-              ['C', 'E'],
+              ['C- making puppets', 'E- lighting'],
+              ['C- making puppets', 'E- lighting'],
             ],
             QuestionText:
               'Which TWO workshops does the theatre currently offer?',
@@ -162,13 +168,13 @@ export const listeningParts: ListeningPart[] = [
               'B- the requirements to conserve species at risk',
               'C- techniques for ranking different organisms',
             ],
-            CorrectAnswer: 'A',
+            CorrectAnswer: 'A- elements affecting where beings live',
             QuestionText:
               'What are the students consent which should be included in their aims?',
           },
           {
             Choices: ['A- string', 'B- a compass', 'C- a ruler'],
-            CorrectAnswer: 'A',
+            CorrectAnswer: 'A- string',
             QuestionText:
               'What tools did they not remember to take on the Field Trip?',
           },
@@ -178,16 +184,16 @@ export const listeningParts: ListeningPart[] = [
               'B- the way the information is bifurcated.',
               'C- the amount of information given.',
             ],
-            CorrectAnswer: 'C',
-            QuestionText: 'In Helen’s section, Colin suggests a change in',
+            CorrectAnswer: 'C- the amount of information given.',
+            QuestionText: "In Helen's section, Colin suggests a change in",
           },
           {
             Choices: [
               'A- It provided precise results.',
               'B- It was easy to carry out.',
-              'C-  It required special equipment.',
+              'C- It required special equipment.',
             ],
-            CorrectAnswer: 'B',
+            CorrectAnswer: 'B- It was easy to carry out.',
             QuestionText:
               'What do they say about the technique they used to measure wave speed?',
           },
@@ -197,7 +203,7 @@ export const listeningParts: ListeningPart[] = [
               'B-  She stood in the wrong place.',
               'C- She did it at the wrong time.',
             ],
-            CorrectAnswer: 'B',
+            CorrectAnswer: 'B-  She stood in the wrong place.',
             QuestionText:
               'What error did Helen make when first drawing the map?',
           },
@@ -207,7 +213,7 @@ export const listeningParts: ListeningPart[] = [
               'B- check it using photographs',
               'C- add information from the internet',
             ],
-            CorrectAnswer: 'B',
+            CorrectAnswer: 'B- check it using photographs',
             QuestionText: 'What do they decide to do next with their map?',
           },
         ],
@@ -226,8 +232,8 @@ export const listeningParts: ListeningPart[] = [
               'E- large waves',
             ],
             CorrectAnswers: [
-              ['A', 'D'],
-              ['A', 'D'],
+              ['A- lack of water', 'D- high temperatures'],
+              ['A- lack of water', 'D- high temperatures'],
             ],
             QuestionText:
               'Which TWO problems affecting organisms in the splash zone are mentioned?',
@@ -242,8 +248,14 @@ export const listeningParts: ListeningPart[] = [
               'E- missing some organisms when calculating',
             ],
             CorrectAnswers: [
-              ['C', 'E'],
-              ['C', 'E'],
+              [
+                'C- wrong identification of few organisms',
+                'E- missing some organisms when calculating',
+              ],
+              [
+                'C- wrong identification of few organisms',
+                'E- missing some organisms when calculating',
+              ],
             ],
             QuestionText:
               'Which TWO reasons for possible error will they include in their report?',
