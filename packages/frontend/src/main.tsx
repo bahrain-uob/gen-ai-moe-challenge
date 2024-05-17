@@ -104,10 +104,6 @@ const router = createBrowserRouter([
         Component: ListeningQuestionsPage,
       },
       {
-        path: '/_writing-task1',
-        Component: WritingTask1Page_,
-       },
-      {
         path: '/Listening/addQuestion',
         Component: AddListeningQPage,
       },
