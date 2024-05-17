@@ -73,12 +73,6 @@ const ReadingQuestions = () => {
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
       <span className={linkStyling + ' mr-auto'}>00:10</span>
-      <button
-        className={'nav-item hover-darken'}
-        onClick={() => submitAnswers(sk)}
-      >
-        Submit Answers
-      </button>
       {parts.map((_, i) => (
         <button
           className={
@@ -95,16 +89,16 @@ const ReadingQuestions = () => {
   );
 
   const titleRow = (
-    <div className="w-full h-full flex items-center">
+    <div className="w-full h-full flex items-center max-md:border-b-2">
       <div className="w-1/3 h-full nav-item">
         <button className="hover:text-gray-700">
           <BsArrowLeft className="inline mr-2" />
           <span>Back</span>
         </button>
       </div>
-      <div className="w-1/3 text-center font-light text-lg">Reading Test</div>
+      <div className="w-1/3 text-center font-light text-xl">Reading Test</div>
       <div className="w-1/3 nav-item flex-row-reverse">
-        <button>
+        <button onClick={() => submitAnswers(sk)}>
           Submit <BsCheckLg className="inline" />
         </button>
       </div>
