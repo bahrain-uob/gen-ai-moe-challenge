@@ -136,7 +136,7 @@ export const main: APIGatewayProxyHandler = async event => {
   const speechSum = answers.reduce((acc, answer) => {
     return acc + speechDuration(answer.items);
   }, 0);
-  const expectedLength = 15 * questions.length;
+  const expectedLength = 8 * questions.length;
   const speechPercentage =
     speechSum < expectedLength ? speechSum / expectedLength : 1;
 
