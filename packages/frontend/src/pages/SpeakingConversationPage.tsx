@@ -3,7 +3,7 @@ import axios from 'axios';
 import RecordRTC from 'recordrtc';
 import agentImage from '../assets/agent.jpeg';
 import { get, post } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
+import { getSocketUrl, toJSON } from '../utilities';
 import useWebSocket from 'react-use-websocket';
 
 interface Response {
@@ -60,8 +60,7 @@ export const SpeakingConversationPage: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  //get the websocket url from the environment
-  const socketUrl = import.meta.env.VITE_WEBSOCKET_URL as string;
+  const socketUrl = getSocketUrl() as string;
 
   //initialize the websocket
   const { sendMessage } = useWebSocket(socketUrl, {
@@ -199,12 +198,16 @@ export const SpeakingConversationPage: React.FC = () => {
           },
         });
 
+        const audioFileNames: string[] = [];
+        const questions: string[] = [];
+        console.log(question);
+
         sendMessage(
           JSON.stringify({
-            action: 'speaking',
+            action: 'gradeSpeakingP1',
             data: {
-              audioFileName: `${audioFileName}`,
-              question: `${question}`,
+              audioFileNames: audioFileNames,
+              questions: questions,
             },
           }),
         );

@@ -23,12 +23,6 @@ const sections = () => (
       <Link to="/speaking">
         <Button label="Speaking" />
       </Link>
-      <Link to="/writing-task1">
-        <Button label="Writing Task 1" />
-      </Link>
-      <Link to="/writing-task2">
-        <Button label="Writing Task 2" />
-      </Link>
     </div>
   </>
 );
