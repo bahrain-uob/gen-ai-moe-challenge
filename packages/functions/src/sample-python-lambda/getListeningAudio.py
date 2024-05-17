@@ -40,5 +40,5 @@ def generate_presigned_url(s3_url):
     
 
 def main(event,context):
-    s3_url="https://kyte-codecatalyst-sst-app-dbst-pollybucket368908e5-azhk0xyarriv.s3.amazonaws.com/ffd325b9-3832-4c0d-89fc-c9f89a61148a.mp3"
+    s3_url="https://kyte-codecatalyst-sst-app-listeningaudiosbucket6bb-elz5inctthgr.s3.amazonaws.com/497f7698-1249-4658-98a7-861b947cfe86.mp3"
     return generate_presigned_url(s3_url)

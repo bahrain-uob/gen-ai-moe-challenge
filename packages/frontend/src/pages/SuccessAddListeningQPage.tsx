@@ -28,8 +28,8 @@ export const SuccessAddListeningQPage: React.FC = () => {
     if (audioUrl && wavesurferRef.current) {
       const wavesurfer = WaveSurfer.create({
         container: wavesurferRef.current,
-        waveColor: 'rgb(200, 0, 200)',
-        progressColor: 'rgb(100, 0, 100)',
+        waveColor: 'rgb(59, 130, 142)',
+        progressColor: 'rgb(59, 200, 200)',
         height: 200,
         interact: false,
       });
