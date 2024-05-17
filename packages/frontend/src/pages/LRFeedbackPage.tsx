@@ -53,7 +53,7 @@ export default function LRFeedbackPage() {
   );
 
   const handleViewAnswers = () => {
-    navigate(`/answers/reading/${sk}`); // Navigate to the answers page
+    navigate(`/answers/${section}/${sk}`); // Navigate to the answers page
   };
 
   return (
