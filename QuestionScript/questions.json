@@ -1,4 +1,1055 @@
 {
+  "vocabA1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "elated"
+          },
+          {
+            "S": "devastated"
+          },
+          {
+            "S": "destroyed"
+          },
+          {
+            "S": "angered"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Elated' means very happy and excited, which fits the context of someone being happy about their success."
+      },
+      "question": {
+        "S": "Choose the word that best fits the sentence: 'She was ___ by the news of her success.'"
+      },
+      "right_choice": {
+        "S": "elated"
+      }
+    }
+  ],
+  "vocabA1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "He have a new bike."
+          },
+          {
+            "S": "He has a new bike."
+          },
+          {
+            "S": "He having a new bike."
+          },
+          {
+            "S": "He had a new bike."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct form is 'He has a new bike.' because 'has' is the correct present tense form for 'he'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "He has a new bike."
+      }
+    }
+  ],
+  "vocabA1": [
+    {
+      "PK": {
+        "S": "vocabA1"
+      },
+      "SK": {
+        "S": "ZNPAb491"
+      },
+      "choices": {
+        "L": [
+          {
+            "S": "elated"
+          },
+          {
+            "S": "sad"
+          },
+          {
+            "S": "depressed"
+          },
+          {
+            "S": "unhappy"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Elated' is a synonym for 'happy'. The other choices represent opposite feelings."
+      },
+      "question": {
+        "S": "Which word means the same as 'happy'?"
+      },
+      "right_choice": {
+        "S": "elated"
+      }
+    }
+  ],
+  "vocabA1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "crucials"
+          },
+          {
+            "S": "unnecessary"
+          },
+          {
+            "S": "insignificant"
+          },
+          {
+            "S": "trivial"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Crucial' means extremely important or essential, making it a synonym for 'important'."
+      },
+      "question": {
+        "S": "What is the synonym of 'important'?"
+      },
+      "right_choice": {
+        "S": "crucials"
+      }
+    }
+  ],
+  "vocabA1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "I am going to the store."
+          },
+          {
+            "S": "I goes to the store."
+          },
+          {
+            "S": "I going to the store."
+          },
+          {
+            "S": "I gone to the store."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence structure is 'I am going to the store.' as it properly uses the present continuous tense."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "I am going to the store."
+      }
+    }
+  ],
+  "vocabA1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "They is playing football."
+          },
+          {
+            "S": "They are playing football."
+          },
+          {
+            "S": "They was playing football."
+          },
+          {
+            "S": "They playing football."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'They are playing football.' because 'are' is the proper form for the plural subject 'they'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "They are playing football."
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "Out of date"
+          },
+          {
+            "S": "New and modern"
+          },
+          {
+            "S": "Highly complicated"
+          },
+          {
+            "S": "Essential and necessary"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Obsolete' means something that is out of date and no longer in use, typically replaced by something newer."
+      },
+      "question": {
+        "S": "What does 'obsolete' mean?"
+      },
+      "right_choice": {
+        "S": "Out of date"
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "His interest in the project was transient."
+          },
+          {
+            "S": "She has a transient for traveling."
+          },
+          {
+            "S": "The book was rather transient."
+          },
+          {
+            "S": "They live a transient lifestyle."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Transient' means lasting only for a short time; describing his interest as transient suggests it was temporary."
+      },
+      "question": {
+        "S": "Which sentence correctly uses the word 'transient'?"
+      },
+      "right_choice": {
+        "S": "His interest in the project was transient."
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "They was going to the park."
+          },
+          {
+            "S": "They were going to the park."
+          },
+          {
+            "S": "They is going to the park."
+          },
+          {
+            "S": "They be going to the park."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'They were going to the park.' because 'were' is the proper form for the plural subject 'they'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "They were going to the park."
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "She are very happy today."
+          },
+          {
+            "S": "She is very happy today."
+          },
+          {
+            "S": "She am very happy today."
+          },
+          {
+            "S": "She were very happy today."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'She is very happy today.' because 'is' is the proper form for the singular subject 'she'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "She is very happy today."
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The dog has ate its food."
+          },
+          {
+            "S": "The dog has eaten its food."
+          },
+          {
+            "S": "The dog has eating its food."
+          },
+          {
+            "S": "The dog has eats its food."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'The dog has eaten its food.' because 'eaten' is the proper past participle form."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "The dog has eaten its food."
+      }
+    }
+  ],
+  "vocabA2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The quality of being open to more than one interpretation"
+          },
+          {
+            "S": "Clarity in presentation"
+          },
+          {
+            "S": "A break in continuity"
+          },
+          {
+            "S": "The state of being certain"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Ambiguity' refers to something that can be understood in more than one way."
+      },
+      "question": {
+        "S": "Select the correct definition of 'ambiguity'."
+      },
+      "right_choice": {
+        "S": "The quality of being open to more than one interpretation"
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The beauty of the sunset was ephemeral."
+          },
+          {
+            "S": "He has an ephemeral object in his collection."
+          },
+          {
+            "S": "She made an ephemeral decision yesterday."
+          },
+          {
+            "S": "Their project was too ephemeral to consider."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Ephemeral' means lasting for a very short time, fitting the description of a sunset's temporary beauty."
+      },
+      "question": {
+        "S": "Which sentence uses 'ephemeral' correctly?"
+      },
+      "right_choice": {
+        "S": "The beauty of the sunset was ephemeral."
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "Neither of the options is good."
+          },
+          {
+            "S": "Neither of the options are good."
+          },
+          {
+            "S": "Neither of the options be good."
+          },
+          {
+            "S": "Neither of the options being good."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'Neither of the options is good.' because 'neither' is singular and takes a singular verb."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "Neither of the options is good."
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "He said that he would of gone if he had known."
+          },
+          {
+            "S": "He said that he would have gone if he had known."
+          },
+          {
+            "S": "He said that he would has gone if he had known."
+          },
+          {
+            "S": "He said that he would have go if he had known."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'He said that he would have gone if he had known.' because 'would have gone' is the correct conditional perfect tense."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "He said that he would have gone if he had known."
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "careless"
+          },
+          {
+            "S": "thorough"
+          },
+          {
+            "S": "negligent"
+          },
+          {
+            "S": "hasty"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Meticulous' means showing great attention to detail, which is similar to 'thorough'."
+      },
+      "question": {
+        "S": "Find the synonym for 'meticulous'."
+      },
+      "right_choice": {
+        "S": "thorough"
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "A straightforward solution"
+          },
+          {
+            "S": "A confusing and difficult problem"
+          },
+          {
+            "S": "An easy task"
+          },
+          {
+            "S": "A stable situation"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Conundrum' refers to a confusing and difficult problem or dilemma."
+      },
+      "question": {
+        "S": "What does 'conundrum' mean?"
+      },
+      "right_choice": {
+        "S": "A confusing and difficult problem"
+      }
+    }
+  ],
+  "vocabB1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "She suggested him to go to the doctor."
+          },
+          {
+            "S": "She suggested that he go to the doctor."
+          },
+          {
+            "S": "She suggested him that he goes to the doctor."
+          },
+          {
+            "S": "She suggested him going to the doctor."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'She suggested that he go to the doctor.' because 'suggested that he go' is the correct subjunctive form."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "She suggested that he go to the doctor."
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "If I was you, I would apologize."
+          },
+          {
+            "S": "If I were you, I would apologize."
+          },
+          {
+            "S": "If I am you, I would apologize."
+          },
+          {
+            "S": "If I be you, I would apologize."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'If I were you, I would apologize.' because 'were' is the correct form for the subjunctive mood."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "If I were you, I would apologize."
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The ink left an indelible mark on the shirt."
+          },
+          {
+            "S": "The speech was indelibly boring."
+          },
+          {
+            "S": "He has an indelible personality."
+          },
+          {
+            "S": "The recipe was indelible."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Indelible' means something that cannot be removed or forgotten, especially ink marks."
+      },
+      "question": {
+        "S": "Which sentence correctly uses the word 'indelible'?"
+      },
+      "right_choice": {
+        "S": "The ink left an indelible mark on the shirt."
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "clear"
+          },
+          {
+            "S": "confusing"
+          },
+          {
+            "S": "simple"
+          },
+          {
+            "S": "boring"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Perplexing' means something that is confusing or difficult to understand."
+      },
+      "question": {
+        "S": "What is the synonym of 'perplexing'?"
+      },
+      "right_choice": {
+        "S": "confusing"
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The committee has reached its decision."
+          },
+          {
+            "S": "The committee have reached its decision."
+          },
+          {
+            "S": "The committee has reach its decision."
+          },
+          {
+            "S": "The committee have reaches its decision."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'The committee has reached its decision.' because 'committee' is a collective noun and takes a singular verb."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "The committee has reached its decision."
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "fastidious"
+          },
+          {
+            "S": "sloppy"
+          },
+          {
+            "S": "generous"
+          },
+          {
+            "S": "indifferent"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Fastidious' means very attentive to and concerned about accuracy and detail."
+      },
+      "question": {
+        "S": "Choose the word that best matches the definition: 'excessively concerned with minor details or rules; overly precise.'"
+      },
+      "right_choice": {
+        "S": "fastidious"
+      }
+    }
+  ],
+  "vocabB2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "She insists on that he goes to the meeting."
+          },
+          {
+            "S": "She insists that he go to the meeting."
+          },
+          {
+            "S": "She insists on he goes to the meeting."
+          },
+          {
+            "S": "She insists to that he go to the meeting."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'She insists that he go to the meeting.' because 'insists that he go' is the correct subjunctive form."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "She insists that he go to the meeting."
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The professor's lecture was replete with information."
+          },
+          {
+            "S": "The professor's lecture was replete of information."
+          },
+          {
+            "S": "The professor's lecture was repleted with information."
+          },
+          {
+            "S": "The professor's lecture was repleted of information."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'The professor's lecture was replete with information.' because 'replete' means filled or well-supplied with something and is followed by 'with'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "The professor's lecture was replete with information."
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "I will be there unless something more important will come up."
+          },
+          {
+            "S": "I will be there unless something more important comes up."
+          },
+          {
+            "S": "I will be there unless something more important came up."
+          },
+          {
+            "S": "I will be there unless something more important come up."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'I will be there unless something more important comes up.' because 'comes up' is the correct present tense form to follow 'unless'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "I will be there unless something more important comes up."
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "flexible"
+          },
+          {
+            "S": "uncompromising"
+          },
+          {
+            "S": "yielding"
+          },
+          {
+            "S": "agreeable"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Intransigent' means unwilling to change one's views or to agree about something, synonymous with 'uncompromising'."
+      },
+      "question": {
+        "S": "Find the synonym for 'intransigent'."
+      },
+      "right_choice": {
+        "S": "uncompromising"
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "Causing an increase in intensity"
+          },
+          {
+            "S": "Curative and healing"
+          },
+          {
+            "S": "Relieving pain without dealing with the cause of the condition"
+          },
+          {
+            "S": "Creating further complications"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Palliative' care is aimed at alleviating pain without curing the underlying causes."
+      },
+      "question": {
+        "S": "What does 'palliative' mean?"
+      },
+      "right_choice": {
+        "S": "Relieving pain without dealing with the cause of the condition"
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "Despite of the rain, they went for a walk."
+          },
+          {
+            "S": "Despite the rain, they went for a walk."
+          },
+          {
+            "S": "In despite of the rain, they went for a walk."
+          },
+          {
+            "S": "In spite the rain, they went for a walk."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'Despite the rain, they went for a walk.' because 'despite' does not require 'of'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "Despite the rain, they went for a walk."
+      }
+    }
+  ],
+  "vocabC1": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "He is too gregarious to live alone."
+          },
+          {
+            "S": "The gregarious landscape captivated everyone."
+          },
+          {
+            "S": "Her gregarious skills are improving."
+          },
+          {
+            "S": "The gregarious answer was not expected."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Gregarious' means fond of company; sociable, which suits the context of someone not wanting to live alone."
+      },
+      "question": {
+        "S": "Which sentence correctly uses 'gregarious'?"
+      },
+      "right_choice": {
+        "S": "He is too gregarious to live alone."
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "Her explanation was too implicit to understand."
+          },
+          {
+            "S": "Her explanation was too implicit for understanding."
+          },
+          {
+            "S": "Her explanation was too implicit in understanding."
+          },
+          {
+            "S": "Her explanation was too implicit on understanding."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'Her explanation was too implicit to understand.' because 'to understand' is the correct infinitive form following 'too implicit'."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "Her explanation was too implicit to understand."
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The situation requires us to be prudent."
+          },
+          {
+            "S": "The situation requires us to be prudential."
+          },
+          {
+            "S": "The situation requires us to be prudence."
+          },
+          {
+            "S": "The situation requires us to be prudently."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'The situation requires us to be prudent.' because 'prudent' is the correct adjective form meaning showing care and thought for the future."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "The situation requires us to be prudent."
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "abdicate"
+          },
+          {
+            "S": "ascend"
+          },
+          {
+            "S": "claim"
+          },
+          {
+            "S": "delegate"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Abdicate' means to step down from a position of power or to renounce a responsibility."
+      },
+      "question": {
+        "S": "Select the word that best fits the definition: 'to renounce a throne, fail to fulfill or undertake a responsibility or duty.'"
+      },
+      "right_choice": {
+        "S": "abdicate"
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "The findings were highly correlated with the initial hypothesis."
+          },
+          {
+            "S": "The findings were highly correlated to the initial hypothesis."
+          },
+          {
+            "S": "The findings were highly correlated in the initial hypothesis."
+          },
+          {
+            "S": "The findings were highly correlated on the initial hypothesis."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "The correct sentence is 'The findings were highly correlated with the initial hypothesis.' because 'correlated with' is the correct phrase."
+      },
+      "question": {
+        "S": "Which sentence is grammatically correct?"
+      },
+      "right_choice": {
+        "S": "The findings were highly correlated with the initial hypothesis."
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "obvious"
+          },
+          {
+            "S": "stealthy"
+          },
+          {
+            "S": "loud"
+          },
+          {
+            "S": "honest"
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Insidious' describes something proceeding in a gradual, subtle way, but with harmful effects, akin to being stealthy."
+      },
+      "question": {
+        "S": "What is the synonym of 'insidious'?"
+      },
+      "right_choice": {
+        "S": "stealthy"
+      }
+    }
+  ],
+  "vocabC2": [
+    {
+      "choices": {
+        "L": [
+          {
+            "S": "His veracity was questioned after the incident."
+          },
+          {
+            "S": "The veracity of the book made it enjoyable."
+          },
+          {
+            "S": "She displayed her veracity through dance."
+          },
+          {
+            "S": "Their veracity was loud and clear."
+          }
+        ]
+      },
+      "explanation": {
+        "S": "'Veracity' means conformity to facts; accuracy, which fits the context of questioning someone's truthfulness."
+      },
+      "question": {
+        "S": "Which sentence correctly uses 'veracity'?"
+      },
+      "right_choice": {
+        "S": "His veracity was questioned after the incident."
+      }
+    }
+  ],
+
   "WritingP1": [],
 
   "WritingP2": [
