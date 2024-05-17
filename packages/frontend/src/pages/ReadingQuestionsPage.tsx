@@ -12,7 +12,12 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useParams, useNavigate } from 'react-router-dom';
-import { BsArrowLeft, BsCheckLg, BsChevronUp } from 'react-icons/bs';
+import {
+  BsArrowLeft,
+  BsCheckLg,
+  BsChevronUp,
+  BsQuestionLg,
+} from 'react-icons/bs';
 
 type setType = (arg: Answer[]) => void;
 
@@ -69,9 +74,13 @@ const ReadingQuestions = () => {
 
   /* Bar */
   const linkStyling =
-    'px-5 transition-colors duration-200 flex items-center leading-normal ';
+    'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
+      <span className={linkStyling + ' hover-darken'}>
+        <span>Help</span>
+        <BsQuestionLg className="inline ml-2" size={16} />
+      </span>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
