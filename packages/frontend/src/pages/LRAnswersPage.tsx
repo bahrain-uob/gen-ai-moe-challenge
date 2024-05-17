@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { readingParts } from '../utilities/LRSampleQuestions';
+//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { get } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
@@ -45,6 +46,7 @@ const LRAnswersPage = () => {
 
   const x = parts.map((part, index) => (
     <React.Fragment key={index}>
+      {/* comment the line below for listening */}
       <PassageComponent readingPart={part} PartIndex={1} />
       <QuestionsComponent
         questions={part.Questions}

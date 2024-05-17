@@ -3,6 +3,7 @@ import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
 import { readingParts } from '../utilities/LRSampleQuestions';
+//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
@@ -21,7 +22,7 @@ const ReadingQuestions = () => {
   const navigate = useNavigate();
 
   // TODO: this should be a parameter
-  const parts = readingParts;
+  const parts = readingParts; //listeningParts
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -44,7 +45,7 @@ const ReadingQuestions = () => {
       const response = await toJSON(
         post({
           apiName: 'myAPI',
-          path: `/answers/reading/${sk}`,
+          path: `/answers/reading/${sk}`, //listening
           options: {
             headers: {
               'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const ReadingQuestions = () => {
       );
       console.log('Submit response:', response);
       alert('Answers submitted successfully!');
-      navigate(`/scores/reading/${sk}`);
+      navigate(`/scores/reading/${sk}`); //listening
     } catch (error) {
       console.error('Error submitting answers:', error);
       alert('Failed to submit answers.');
@@ -64,7 +65,8 @@ const ReadingQuestions = () => {
 
   const x = parts.map((part, index) => (
     <React.Fragment key={index}>
-      <PassageComponent readingPart={part} PartIndex={1} />
+      {/* comment the line below for listening */}
+      <PassageComponent readingPart={part} PartIndex={1} />{' '}
       <QuestionsComponent
         questions={part.Questions}
         answers={answers[index]}
