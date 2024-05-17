@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getSocketUrl } from '../utilities';
 import useWebSocket from 'react-use-websocket';
-
 import {
   fetchQuestion,
   narrateQuestion,
@@ -16,11 +15,6 @@ type questionType = {
   questionText: string;
 };
 
-// type responseType = {
-//   fileName: string;
-//   questionText: string;
-// };
-
 export function SpeakingConversationPage() {
   const [questions, setQuestions] = useState<questionType[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<questionType>();
@@ -29,7 +23,6 @@ export function SpeakingConversationPage() {
 
   const allQuestions: string[] = [];
   const allResponses: string[] = [];
-  //const responses: responseType[] = [];
 
   const socketUrl = getSocketUrl() as string;
 
@@ -70,18 +63,17 @@ export function SpeakingConversationPage() {
   const handleStopRecording = () => {
     const audioFileName = generateFileName();
     setFileName(audioFileName);
-    stopRecording(recorder, audioFileName);
+    if (recorder) stopRecording(recorder, audioFileName);
     handleNextQuestion();
   };
 
   const handleNextQuestion = () => {
     allResponses.push(fileName);
-    allQuestions.push(currentQuestion.questionText);
+    if (currentQuestion) allQuestions.push(currentQuestion.questionText);
     if (questions.length > 0) {
       const nextQuestion: questionType | undefined = questions.shift();
       if (nextQuestion !== undefined) {
         setCurrentQuestion(nextQuestion);
-        narrateQuestion(nextQuestion.S3key);
       }
     } else {
       setCurrentQuestion(undefined);
