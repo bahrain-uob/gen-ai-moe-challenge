@@ -98,13 +98,6 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '35 seconds',
         },
       },
-      'get /generateVocabQuestion/{level}': {
-        function: {
-          handler: 'packages/functions/src/generateVocabQuestion.main',
-          permissions: ['bedrock:InvokeModel'],
-          timeout: '35 seconds',
-        },
-      },
 
       // Grade both writing tasks
       'POST /grade-writing': {

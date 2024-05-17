@@ -38,8 +38,7 @@ const VocabularyPracticePage: React.FC = () => {
 
   const handleAnswer = (choice: string) => {
     setSelectedAnswer(choice);
-    // Show explanation only if the chosen answer is not the right one
-    setShowExplanation(choice !== question?.right_choice);
+    setShowExplanation(true); // Show explanation regardless of the chosen answer
   };
 
   const getButtonClass = (choice: string) => {
@@ -53,7 +52,10 @@ const VocabularyPracticePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center p-4 text-white"
+      style={{ marginTop: '-200px' }}
+    >
       <h1 className="text-6xl font-bold text-center mb-6 mt-4 text-black">
         Vocabulary Practice
       </h1>
@@ -101,17 +103,24 @@ const VocabularyPracticePage: React.FC = () => {
               ))}
             </div>
             {showExplanation && (
-              <div className="bg-gray-500 p-4 mt-4 rounded-md shadow-lg text-g text-white">
-                {' '}
+              <div className="bg-gray-400 p-4 mt-4 rounded-md shadow-lg text-g text-white">
                 <p
                   className="text-xl"
                   style={{ textShadow: '1px 1px 2px black' }}
                 >
                   <span
-                    style={{ color: 'red', fontSize: '1.4em', border: 'none' }}
+                    style={{
+                      color:
+                        selectedAnswer === question?.right_choice
+                          ? '#90EE90'
+                          : 'red',
+                      fontSize: '1.4em',
+                      border: 'none',
+                    }}
                   >
-                    {' '}
-                    Incorrect:
+                    {selectedAnswer === question?.right_choice
+                      ? 'Correct:'
+                      : 'Incorrect:'}
                   </span>{' '}
                   {question.explanation}
                 </p>

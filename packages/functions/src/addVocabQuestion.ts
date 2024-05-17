@@ -8,11 +8,29 @@ import {
 import { Table } from 'sst/node/table';
 
 const dynamoDBClient = new DynamoDBClient({});
-
 export const main: APIGatewayProxyHandlerV2 = async event => {
   try {
-    const item = JSON.parse(event.body || '{}');
+    if (event.body == undefined) {
+      return { statusCode: 400, body: 'No valid input' };
+    }
+
+    const validValues = [
+      'vocabA1',
+      'vocabA2',
+      'vocabB1',
+      'vocabB2',
+      'vocabC1',
+      'vocabC2',
+    ];
+
+    const item = JSON.parse(event.body);
+    const Pk = item.PK.S;
+    const Sk = item.SK.S;
     const tableName = Table.Records.tableName;
+
+    if (!validValues.includes(item.PK.S)) {
+      return { statusCode: 400, body: 'Value does not exist' };
+    }
 
     // Add item to DynamoDB
     const putCommand = new PutItemCommand({
@@ -25,7 +43,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     const getIndexCommand = new GetItemCommand({
       TableName: tableName,
       Key: {
-        PK: { S: item.PK.S },
+        PK: { S: Pk },
         SK: { S: 'index' },
       },
     });
@@ -33,13 +51,13 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     let currentIndex = indexResult.Item?.index?.L || [];
 
     // Append new SK to the current index
-    currentIndex.push({ S: item.SK.S });
+    currentIndex.push({ S: Sk });
 
     // Update the index record with new index list
     const updateIndexCommand = new UpdateItemCommand({
       TableName: tableName,
       Key: {
-        PK: { S: item.PK.S },
+        PK: { S: Pk },
         SK: { S: 'index' },
       },
       UpdateExpression: 'SET #index = :newIndex',

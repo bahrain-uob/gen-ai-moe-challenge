@@ -34,45 +34,6 @@ const AddVocabQuestionsPage: React.FC = () => {
     setChoices(newChoices);
   };
 
-  const generateQuestion = async () => {
-    try {
-      const apiResponse = await toJSON(
-        get({
-          apiName: 'myAPI',
-          path: `/generateVocabQuestion/${level}`,
-        }),
-      );
-      console.log('API Response:', apiResponse); // Log to see what you receive
-
-      if (
-        apiResponse &&
-        apiResponse.choices &&
-        Array.isArray(apiResponse.choices) &&
-        typeof apiResponse.question === 'string' &&
-        typeof apiResponse.explanation === 'string'
-      ) {
-        setQuestionText(apiResponse.question);
-        setChoices(apiResponse.choices);
-        setExplanation(apiResponse.explanation);
-        setResponse('Generated question successfully!');
-        setIsError(false);
-      } else {
-        // Handle unexpected format
-        console.error('Invalid response format:', apiResponse); // More detailed logging for invalid format
-        throw new Error('Invalid response format from API.');
-      }
-    } catch (error) {
-      console.error('Error generating question:', error);
-      if (error instanceof Error) {
-        setResponse(error.message);
-        setIsError(true);
-      } else {
-        setResponse('An unknown error occurred');
-        setIsError(true);
-      }
-    }
-  };
-
   const submitQuestion = async () => {
     if (!questionText || !explanation || choices.some(choice => !choice.text)) {
       setResponse('Please fill in all fields.');
@@ -86,7 +47,7 @@ const AddVocabQuestionsPage: React.FC = () => {
     }
 
     const rightChoice = choices.find(choice => choice.isRight)?.text;
-    const sk = Math.floor(1000 + Math.random() * 9000).toString(); // Random four-digit number as string
+    const sk = Math.random().toString(36).substr(2, 8); // Random eight-character mix of digits and letters
 
     const questionData = {
       PK: { S: `vocab${level}` },
@@ -156,12 +117,6 @@ const AddVocabQuestionsPage: React.FC = () => {
               </option>
             ))}
           </select>
-          <button
-            onClick={generateQuestion}
-            className="px-8 py-4 rounded-md bg-blue-4 text-white text-2xl hover:bg-blue-3 transition shadow"
-          >
-            Generate
-          </button>
         </div>
         <input
           type="text"
