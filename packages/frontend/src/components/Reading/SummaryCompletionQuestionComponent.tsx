@@ -47,11 +47,14 @@ export const SummaryCompletionQuestionComponent = ({
 
       return (
         <React.Fragment key={partIndex}>
-          <span className="leading-relaxed">{part}</span>
+          <span className="leading-relaxed" style={{ whiteSpace: 'pre-line' }}>
+            {part}
+          </span>
           {partIndex < parts.length - 1 && (
             <>
               <input
                 type="text"
+                placeholder="answer"
                 value={answer[subQuestionIndex][partIndex]}
                 onChange={e =>
                   handleInputChange(subQuestionIndex, partIndex, e.target.value)

@@ -40,11 +40,12 @@ export const TableCompletionQuestionComponent = ({
 
       return (
         <React.Fragment key={index}>
-          {part}
+          <span style={{ whiteSpace: 'pre-line' }}>{part}</span>
           {index < parts.length - 1 && (
             <>
               <input
                 type="text"
+                placeholder="answer"
                 value={studentAnswer}
                 onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
                 className={`lr-input ${inputStyle}`}
