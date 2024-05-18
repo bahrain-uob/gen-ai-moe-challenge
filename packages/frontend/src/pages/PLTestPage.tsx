@@ -5,7 +5,7 @@ import { sections as questions } from './Questions';
 /**
  * What increments to use for each level
  *
- * First key specifies whether the student answered correctly or not.  Second key specifies the quetsion level.
+ * First key specifies whether the student answered correctly or not. Second key specifies the question level.
  *
  *
  */
@@ -42,14 +42,10 @@ export const PLTestPage = () => {
   const handleClick = (option: Option) => {
     console.log(`correct: ${option.isCorrect}`);
     const CFRL = CFRLevels[selectedLevel] as CFRLevel;
-    const t1 = option.isCorrect
-      ? knowledgeBase.correct
-      : knowledgeBase.incorrect;
+    const t1 = option.isCorrect ? knowledgeBase.correct : knowledgeBase.incorrect;
     const increments = t1[CFRL];
 
-    const cfCopy = increments.map((value, index) =>
-      combineCf(value, cf[index]),
-    );
+    const cfCopy = increments.map((value, index) => combineCf(value, cf[index]));
 
     setCf(cfCopy);
     setQuestionCount(prevCount => prevCount + 1);
@@ -59,24 +55,24 @@ export const PLTestPage = () => {
     <>
       {questionCount < 20 ? (
         <>
-          <main className='w-full h-full flex items-center flex-col'>
-          <div className=''><DevPanel cf={cf} question={question} level={level} /></div>
-          <div className='w-full flex justify-center pb-44'>
-            <h1 className='text-5xl font-bold text-[#363534]'>Placement Test</h1>
-          </div>
-          <RenderQuestion question={question} handleClick={handleClick} />
+          <main className="w-full h-full flex items-center flex-col">
+            <div className="">
+              <DevPanel cf={cf} question={question} level={level} />
+            </div>
+            <div className="w-full flex justify-center pb-44">
+              <h1 className="text-5xl font-bold text-[#363534]">Placement Test</h1>
+            </div>
+            <RenderQuestion question={question} handleClick={handleClick} />
           </main>
         </>
       ) : (
-        <main className='w-full h-full flex items-center flex-col'>
-        <div className="w-1/2 flex flex-col items-center bg-red-800">
-          <h3 className="font-bold text-4xl pb-12">
-            You are all set!
-          </h3>
-        </div>
-        <div className='w-1/2 text-2xl font-semibold'>
-          <h4>You are currently on Level</h4>
-        </div>
+        <main className="w-full h-full flex items-center flex-col">
+          <div className="w-1/2 flex flex-col items-center bg-red-800">
+            <h3 className="font-bold text-4xl pb-12">You are all set!</h3>
+          </div>
+          <div className="w-1/2 text-2xl font-semibold">
+            <h4>You are currently on Level {getHighestScoringLevel(cf)}</h4>
+          </div>
         </main>
       )}
     </>
@@ -93,7 +89,7 @@ const RenderQuestion = ({
   handleClick: (option: Option) => void;
 }) => (
   <div className="w-1/2 flex flex-col items-center">
-    <div className='w-full'>
+    <div className="w-full">
       <h3 className="font-bold text-4xl pb-12 mx-10">{question.text}</h3>
       <h5 className="font-bold text-2xl pb-12 mx-10">{question.sub}</h5>
     </div>
@@ -136,9 +132,7 @@ const DevPanel = ({
   question: Question;
   level: number;
 }) => {
-  const correctAnswer = question.options.findIndex(
-    ({ isCorrect }) => isCorrect,
-  );
+  const correctAnswer = question.options.findIndex(({ isCorrect }) => isCorrect);
 
   return (
     <>
@@ -181,6 +175,12 @@ const selectLevel = (cf: number[]): number => {
   console.log(topCf);
   const level = topCf[Math.floor(Math.random() * topCf.length)][0];
   return Number(level);
+};
+
+const getHighestScoringLevel = (cf: number[]): CFRLevel => {
+  const maxScore = Math.max(...cf);
+  const maxIndex = cf.indexOf(maxScore);
+  return CFRLevels[maxIndex];
 };
 
 export default PLTestPage;
