@@ -116,6 +116,10 @@ const router = createBrowserRouter([
         path: '/test',
         Component: TestPage,
       },
+      {
+        path: '/PlacementTest',
+        Component: PlacementTest,
+      },
     ],
   },
   /* Include all the routes that may affect authentication info here */
@@ -158,10 +162,6 @@ const router = createBrowserRouter([
   {
     path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
     Component: LRAnswersPage,
-  },
-  {
-    path: '/PlacementTest',
-    Component: PlacementTest,
   },
 ]);
 // TODO: handle not found pages
