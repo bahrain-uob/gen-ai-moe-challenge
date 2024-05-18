@@ -170,3 +170,5 @@ const selectLevel = (cf: number[]): number => {
   const level = topCf[Math.floor(Math.random() * topCf.length)][0];
   return Number(level);
 };
+
+export default PLTestPage;

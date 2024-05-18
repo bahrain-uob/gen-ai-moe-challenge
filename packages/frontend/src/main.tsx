@@ -17,7 +17,6 @@ import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -27,6 +26,7 @@ import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
 import LRAnswersPage from './pages/LRAnswersPage.tsx';
 import React from 'react';
+import PlacementTest from './pages/PLTestPage.tsx';
 
 Amplify.configure(
   {
@@ -162,10 +162,6 @@ const router = createBrowserRouter([
   {
     path: '/PlacementTest',
     Component: PlacementTest,
-  },
-  {
-    path: '/pl-test',
-    Component: PLTestPage,
   },
 ]);
 // TODO: handle not found pages
