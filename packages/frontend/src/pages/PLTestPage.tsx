@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
+import { Link } from 'react-router-dom';
+import FButton from '../components/FButton';
+import TButton from '../components/TButton';
 
 /**
  * What increments to use for each level
@@ -58,7 +61,7 @@ export const PLTestPage = () => {
       {questionCount < 20 ? (
         <>
           <main className="w-full h-full flex items-center flex-col">
-            <div className="">
+            <div className="hidden">
               <DevPanel cf={cf} question={question} level={level} />
             </div>
             <div className="w-full flex justify-center pb-44">
@@ -69,15 +72,20 @@ export const PLTestPage = () => {
         </>
       ) : (
         <main className="w-full h-full flex items-center flex-col">
-          <div className="w-1/2 flex flex-col items-center bg-red-800">
+          <div className="w-1/2 flex flex-col items-center">
             <h3 className="font-bold text-4xl pb-12">You are all set!</h3>
           </div>
-          <div className="w-1/2 ">
-            <h4 className='text-2xl font-semibold'>You are currently on Level</h4>
+          <div className="w-1/2 flex flex-col items-center">
+            <div className='w-full'><h4 className='text-2xl font-semibold'>Your current level is</h4></div>
             <img
-              src={`${highestScoringLevel}.png`}
+              src={`assets/Levels/${highestScoringLevel}.png`}
               alt={highestScoringLevel}
+              className='w-60 pt-8'
             />
+          </div>
+          <div className='flex flex-row w-full justify-center items-center pt-36 gap-x-14'>
+            <Link to="/home"><FButton label="View Plan" tag="3B828E"/></Link>
+            <Link to="/home"><TButton label='Return Home'/></Link>
           </div>
         </main>
       )}
