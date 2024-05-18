@@ -59,8 +59,10 @@ export const PLTestPage = () => {
     <>
       {questionCount < 20 ? (
         <>
+          <main className='w-full h-full flex justify-center'>
           <div className='hidden'><DevPanel cf={cf} question={question} level={level} /></div>
-          <div className='w-full flex justify-center'><RenderQuestion question={question} handleClick={handleClick} /></div>
+          <RenderQuestion question={question} handleClick={handleClick} />
+          </main>
         </>
       ) : (
         <div className="w-1/2 flex flex-col items-center rounded-xl">
@@ -82,9 +84,11 @@ const RenderQuestion = ({
   question: Question;
   handleClick: (option: Option) => void;
 }) => (
-  <div className="w-1/2 flex flex-col items-center rounded-xl">
-    <h3 className="font-bold text-4xl pb-12">{question.text}</h3>
-    <h5 className="font-bold text-2xl pb-12">{question.sub}</h5>
+  <div className="w-1/2 flex flex-col items-center">
+    <div className='w-full'>
+      <h3 className="font-bold text-4xl pb-12 mx-10">{question.text}</h3>
+      <h5 className="font-bold text-2xl pb-12 mx-10">{question.sub}</h5>
+    </div>
     <div className="flex flex-row w-full flex-wrap justify-between">
       {question.options.map(option => {
         return (
