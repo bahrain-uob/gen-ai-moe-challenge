@@ -51,6 +51,8 @@ export const PLTestPage = () => {
     setQuestionCount(prevCount => prevCount + 1);
   };
 
+  const highestScoringLevel = getHighestScoringLevel(cf);
+
   return (
     <>
       {questionCount < 20 ? (
@@ -70,8 +72,12 @@ export const PLTestPage = () => {
           <div className="w-1/2 flex flex-col items-center bg-red-800">
             <h3 className="font-bold text-4xl pb-12">You are all set!</h3>
           </div>
-          <div className="w-1/2 text-2xl font-semibold">
-            <h4>You are currently on Level {getHighestScoringLevel(cf)}</h4>
+          <div className="w-1/2 ">
+            <h4 className='text-2xl font-semibold'>You are currently on Level</h4>
+            <img
+              src={`${highestScoringLevel}.png`}
+              alt={highestScoringLevel}
+            />
           </div>
         </main>
       )}
