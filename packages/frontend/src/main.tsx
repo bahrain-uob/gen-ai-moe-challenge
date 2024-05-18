@@ -30,6 +30,7 @@ import React from 'react';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import { ProfilePage } from './pages/ProfilePage.tsx';
 
 Amplify.configure(
   {
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: '/test',
         Component: TestPage,
+      },
+      {
+        path: '/profilePage',
+        Component: ProfilePage,
       },
     ],
   },

@@ -119,7 +119,7 @@ const ProfileMenu = () => {
 
   const menuContent = (
     <>
-      <Link className={linkStyling} to="">
+      <Link className={linkStyling} to="../profilePage">
         <div>View Profile</div>
       </Link>
       <Link className={linkStyling} to="">
