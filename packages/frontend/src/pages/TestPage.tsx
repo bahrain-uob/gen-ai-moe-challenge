@@ -3,7 +3,7 @@ import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
-import WaveSurferComponent from './waveformComponent';
+import { WaveSurferComponent } from './waveformComponent';
 
 async function _getCurrentUser() {
   try {

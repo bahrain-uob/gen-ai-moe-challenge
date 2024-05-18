@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
 interface WaveSurferComponentProps {
@@ -8,11 +8,11 @@ interface WaveSurferComponentProps {
   height?: number;
 }
 
-const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
+export const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
   audioUrl,
 }) => {
   const wavesurferRef = useRef<HTMLDivElement | null>(null);
-  const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
+  // const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
 
   useEffect(() => {
     if (wavesurferRef.current) {
@@ -20,10 +20,16 @@ const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
         container: wavesurferRef.current,
         waveColor: 'rgb(59, 130, 142)',
         progressColor: 'rgb(59, 200, 200)',
+        // Bar look
+        barWidth: 5,
+        barRadius: 4,
+        barGap: 2,
+        // Don't allow modifications
+        interact: false,
       });
 
       ws.load(audioUrl);
-      setWavesurfer(ws);
+      // setWavesurfer(ws);
       const id = setTimeout(() => ws.play(), 5000);
 
       return () => {
@@ -39,7 +45,3 @@ const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
     </div>
   );
 };
-
-export default WaveSurferComponent;
-
-//check wavesurferComponentExample
