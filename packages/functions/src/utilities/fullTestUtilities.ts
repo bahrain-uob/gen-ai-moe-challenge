@@ -1,4 +1,6 @@
 ///  <reference path="../../../frontend/src/utilities.ts" />
+///  <reference path="../../../frontend/src/utilities/LRUtilities.ts" />
+
 import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { gradeWriting } from 'src/grading/writing';
@@ -6,6 +8,8 @@ import { Table } from 'sst/node/table';
 import { Bucket } from 'sst/node/bucket';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { gradeReadingListening } from 'src/grading/readingListening';
+import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
 
 export const examSections: examSection[] = [
   { type: 'listening', answer: 'listeningAnswer', time: 60 * 60 * 1000 },
@@ -131,6 +135,15 @@ const triggerGrading = (
       connectionId,
       endpoint,
     );
+  } else if (section === 'listeningAnswer' && test.listeningAnswer) {
+    gradeReadingListening(
+      test.PK,
+      test.SK,
+      test.questions.listening,
+      test.listeningAnswer,
+      connectionId,
+      endpoint,
+    );
   }
 };
 
@@ -214,20 +227,8 @@ export interface FullTestItem {
     status: FeedbackStatus;
   };
   writingAnswer?: WritingAnswer;
-  listeningAnswer?: {
-    start_time: string;
-    end_time?: string;
-    answer?: any; // ListeningAnswer;
-    feedback?: any; // ListeningFeedback;
-    status: FeedbackStatus;
-  };
-  readingAnswer?: {
-    start_time: string;
-    end_time?: string;
-    answer?: any; // readingAnswer;
-    feedback?: any; // readingFeedback;
-    status: FeedbackStatus;
-  };
+  listeningAnswer?: RLAnswer;
+  readingAnswer?: RLAnswer;
 }
 
 type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
@@ -238,6 +239,36 @@ export type questions = {
   writing: WritingSection;
   listening: any; // ListeningSection;
   speaking: any; // SpeakingSection;
+};
+
+export type ListeningSection = {
+  PK: string;
+  SK: string;
+  P1: ListeningPart;
+  P2: ListeningPart;
+  P3: ListeningPart;
+  P4: ListeningPart;
+};
+
+type ListeningPart = {
+  NumOfQuestions: number;
+  ScriptKey: string;
+  Questions: LRQuestion[];
+};
+
+export type ReadingSection = {
+  PK: string;
+  SK: string;
+  P1: ReadingPart;
+  P2: ReadingPart;
+  P3: ReadingPart;
+};
+
+type ReadingPart = {
+  NumOfQuestions: number;
+  PassageTitle: string;
+  Passage: string;
+  Questions: LRQuestion[];
 };
 
 export interface WritingSection {
@@ -257,5 +288,13 @@ export interface WritingAnswer {
   end_time?: string;
   answer?: any; // WritingAnswer;
   feedback?: any; // WritingFeedback;
+  status: FeedbackStatus;
+}
+
+export interface RLAnswer {
+  start_time: string;
+  end_time?: string;
+  answer?: string[] | string[][];
+  feedback?: any; // ListeningFeedback | ReadingFeedback;
   status: FeedbackStatus;
 }
