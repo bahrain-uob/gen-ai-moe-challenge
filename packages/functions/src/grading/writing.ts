@@ -22,11 +22,11 @@ export const gradeWriting = async (
   const grading = [
     gradeWritingPart(
       questions.P1.Question,
-      answer.answer.P1.answer, // the final .answer may change based on the final schema
+      answer.answer!.P1,
       'Task 1',
       questions.P1.GraphDescription,
     ),
-    gradeWritingPart(questions.P2.Question, answer.answer.P2.answer, 'Task 2'),
+    gradeWritingPart(questions.P2.Question, answer.answer!.P2, 'Task 2'),
   ];
   const _feedbacks = await Promise.all(grading);
 

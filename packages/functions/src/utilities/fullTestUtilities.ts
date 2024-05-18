@@ -144,6 +144,15 @@ const triggerGrading = (
       connectionId,
       endpoint,
     );
+  } else if (section === 'readingAnswer' && test.readingAnswer) {
+    gradeReadingListening(
+      test.PK,
+      test.SK,
+      test.questions.reading,
+      test.readingAnswer,
+      connectionId,
+      endpoint,
+    );
   }
 };
 
@@ -286,7 +295,10 @@ export interface WritingSection {
 export interface WritingAnswer {
   start_time: string;
   end_time?: string;
-  answer?: any; // WritingAnswer;
+  answer?: {
+    P1: string;
+    P2: string;
+  }; // WritingAnswer;
   feedback?: any; // WritingFeedback;
   status: FeedbackStatus;
 }
