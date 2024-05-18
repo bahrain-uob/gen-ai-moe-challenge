@@ -45,7 +45,6 @@ export const TableCompletionQuestionComponent = ({
             <>
               <input
                 type="text"
-                placeholder="answer"
                 value={studentAnswer}
                 onChange={event => handleInputChange(event, rowIndex, index)} // Handle input change
                 className={`lr-input ${inputStyle}`}

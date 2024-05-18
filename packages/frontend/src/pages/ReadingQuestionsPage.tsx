@@ -12,7 +12,8 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useParams, useNavigate } from 'react-router-dom';
-import { BsChevronUp } from 'react-icons/bs';
+import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
+import { TitleRow } from '../components/TestComponents';
 
 type setType = (arg: Answer[]) => void;
 
@@ -69,23 +70,19 @@ const ReadingQuestions = () => {
 
   /* Bar */
   const linkStyling =
-    'px-5 transition-colors duration-200 flex items-center leading-normal ';
+    'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
-    <div className="flex flex-1 h-full font-montserrat text-md font-bold text-white">
+    <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
+      <span className={linkStyling + ' hover-darken'}>
+        <span>Help</span>
+        <BsQuestionLg className="inline ml-2" size={16} />
+      </span>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
-      <button
-        className={linkStyling + 'hover:bg-black hover:bg-opacity-10'}
-        onClick={() => submitAnswers(sk)}
-      >
-        Submit Answers
-      </button>
       {parts.map((_, i) => (
         <button
           className={
             linkStyling +
-            (i === partIndex
-              ? 'bg-black bg-opacity-40'
-              : 'hover:bg-black hover:bg-opacity-10')
+            (i === partIndex ? 'bg-black bg-opacity-40' : 'hover-darken')
           }
           onClick={() => setPartIndex(i)}
           key={i}
@@ -94,6 +91,10 @@ const ReadingQuestions = () => {
         </button>
       ))}
     </div>
+  );
+
+  const titleRow = (
+    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(sk)} />
   );
 
   /* Maximize */
@@ -158,13 +159,14 @@ const ReadingQuestions = () => {
     containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
   const questionsContainerStyle =
     containerStyles +
-    ' bg-white rounded-3xl ' +
+    ' bg-white ' +
     (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]');
 
   return (
     <>
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
-      <div className="flex flex-col lg:flex-row h-[94svh] w-screen overflow-y-hidden">
+      <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
+      <div className="flex flex-col lg:flex-row h-[88svh] lg:h-[86svh] w-screen overflow-y-hidden">
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>

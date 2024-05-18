@@ -54,7 +54,6 @@ export const SummaryCompletionQuestionComponent = ({
             <>
               <input
                 type="text"
-                placeholder="answer"
                 value={answer[subQuestionIndex][partIndex]}
                 onChange={e =>
                   handleInputChange(subQuestionIndex, partIndex, e.target.value)
