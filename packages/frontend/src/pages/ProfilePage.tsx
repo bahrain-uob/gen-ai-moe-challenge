@@ -3,14 +3,14 @@ import { BsPersonCircle } from 'react-icons/bs';
 
 export const ProfilePage: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-grow p-8">
-        <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl mx-auto">
-          <div className="flex items-center space-x-4">
+    <div className="min-h-screen h-full flex flex-col items-center p-4">
+      <main className="flex-grow w-full h-full">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full md:max-w-2xl mx-auto">
+          <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0 md:space-x-4">
             <div className="rounded-full bg-gray-300 p-2">
               <BsPersonCircle size="80" />
             </div>
-            <div>
+            <div className="text-center md:text-left">
               <h1 className="text-3xl font-semibold">Hello Hasan Ali,</h1>
               <button className="mt-2 px-3 py-1 bg-[#418291] text-white font-bold rounded-lg hover:bg-teal-700">
                 Edit Profile
