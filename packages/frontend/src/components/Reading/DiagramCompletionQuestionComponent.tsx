@@ -54,7 +54,6 @@ export const DiagramCompletionQuestionComponent = ({
                 onChange={e =>
                   handleInputChange(subQuestionIndex, partIndex, e.target.value)
                 }
-                placeholder="answer"
                 className={`lr-input ${inputStyle}`}
                 disabled={showCorrectAnswer}
               />
