@@ -29,6 +29,7 @@ import LRAnswersPage from './pages/LRAnswersPage.tsx';
 import React from 'react';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
+import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 
 Amplify.configure(
   {
@@ -150,8 +151,12 @@ const router = createBrowserRouter([
   },
   // These pages don't use `Layout` yet
   {
-    path: '/:section/:sk', // Updated route with path parameters
+    path: '/reading/:sk',
     Component: ReadingQuestions,
+  },
+  {
+    path: '/listening/:sk',
+    Component: ListeningQuestionsPage,
   },
   {
     path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
