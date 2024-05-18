@@ -5,7 +5,7 @@ import '../stylesheets/exam.css';
 import ExamsHeader from '../components/examsHeader';
 import { get, post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
-import WaveSurfer from 'wavesurfer.js';
+import WaveSurferPlayer from './waveformListeningTest';
 
 interface ListeningPart {
   MyPartitionKey: string;
@@ -37,9 +37,6 @@ const ListeningQuestionsPage = () => {
   const [audioUrl, setAudioUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const { section, sk } = useParams();
-  const wavesurferRef = useRef<HTMLDivElement>(null);
-  const wavesurferInstanceRef = useRef<WaveSurfer | null>(null);
-  const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
     const fetchAudio = async () => {
@@ -76,33 +73,6 @@ const ListeningQuestionsPage = () => {
     fetchAudio();
     fetchParts();
   }, [sk]);
-
-  useEffect(() => {
-    if (audioUrl && wavesurferRef.current) {
-      const wavesurfer = WaveSurfer.create({
-        container: wavesurferRef.current,
-        waveColor: 'rgb(59, 130, 142)',
-        progressColor: 'rgb(59, 200, 200)',
-        height: 200,
-        interact: false,
-      });
-      wavesurfer.load(audioUrl);
-      wavesurferInstanceRef.current = wavesurfer;
-
-      return () => {
-        if (wavesurferInstanceRef.current) {
-          wavesurferInstanceRef.current.destroy();
-        }
-      };
-    }
-  }, [audioUrl]);
-
-  const handlePlay = () => {
-    if (wavesurferInstanceRef.current) {
-      wavesurferInstanceRef.current.play();
-      setAudioPlayed(true);
-    }
-  };
 
   const handlePartClick = (part: string) => {
     setActivePart(part);
@@ -213,11 +183,7 @@ const ListeningQuestionsPage = () => {
           audioUrl && (
             <div className="audio-container">
               <h1>Audio</h1>
-              <div
-                ref={wavesurferRef}
-                style={{ width: '100%', height: '200px' }}
-              />
-              {!audioPlayed && <button onClick={handlePlay}>Play</button>}{' '}
+              <WaveSurferPlayer audioUrl={audioUrl} />
             </div>
           )
         )}
