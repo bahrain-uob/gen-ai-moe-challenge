@@ -64,7 +64,7 @@ export const PLTestPage = () => {
             <div className="hidden">
               <DevPanel cf={cf} question={question} level={level} />
             </div>
-            <div className="w-full flex justify-center pb-44">
+            <div className="w-full flex justify-center pb-36">
               <h1 className="text-5xl font-bold text-[#363534]">Placement Test</h1>
             </div>
             <RenderQuestion question={question} handleClick={handleClick} />
@@ -94,7 +94,7 @@ export const PLTestPage = () => {
 };
 
 const optionsStyle =
-  'bg-[#3B828E] rounded-md p-2 text-white text-xl font-semibold w-1/3 mx-10 my-1 h-16 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
+  'bg-[#3B828E] rounded-md p-2 text-white text-xl font-semibold w-1/3 mx-10 my-1 h-16 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300 max-sm:w-full';
 const RenderQuestion = ({
   question,
   handleClick,
@@ -102,10 +102,10 @@ const RenderQuestion = ({
   question: Question;
   handleClick: (option: Option) => void;
 }) => (
-  <div className="w-1/2 flex flex-col items-center">
+  <div className="w-3/4 flex flex-col items-center max-sm:w-full">
     <div className="w-full">
-      <h3 className="font-bold text-4xl pb-12 mx-10">{question.text}</h3>
-      <h5 className="font-bold text-2xl pb-12 mx-10">{question.sub}</h5>
+      <h3 className="font-bold text-4xl pb-12 mx-10 max-sm:text-2xl">{question.text}</h3>
+      <h5 className="font-bold text-2xl pb-12 mx-10 max-sm:text-lg">{question.sub}</h5>
     </div>
     <div className="flex flex-row w-full flex-wrap justify-between">
       {question.options.map(option => {
