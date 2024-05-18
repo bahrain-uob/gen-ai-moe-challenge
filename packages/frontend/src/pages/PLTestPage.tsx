@@ -59,8 +59,11 @@ export const PLTestPage = () => {
     <>
       {questionCount < 20 ? (
         <>
-          <main className='w-full h-full flex justify-center'>
+          <main className='w-full h-full flex items-center flex-col'>
           <div className='hidden'><DevPanel cf={cf} question={question} level={level} /></div>
+          <div className='w-full flex justify-center pb-44'>
+            <h1 className='text-5xl font-bold text-[#363534]'>Placement Test</h1>
+          </div>
           <RenderQuestion question={question} handleClick={handleClick} />
           </main>
         </>
