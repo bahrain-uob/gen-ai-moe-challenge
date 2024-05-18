@@ -60,7 +60,7 @@ export const PLTestPage = () => {
       {questionCount < 20 ? (
         <>
           <main className='w-full h-full flex items-center flex-col'>
-          <div className='hidden'><DevPanel cf={cf} question={question} level={level} /></div>
+          <div className=''><DevPanel cf={cf} question={question} level={level} /></div>
           <div className='w-full flex justify-center pb-44'>
             <h1 className='text-5xl font-bold text-[#363534]'>Placement Test</h1>
           </div>
@@ -68,11 +68,16 @@ export const PLTestPage = () => {
           </main>
         </>
       ) : (
-        <div className="w-1/2 flex flex-col items-center rounded-xl">
+        <main className='w-full h-full flex items-center flex-col'>
+        <div className="w-1/2 flex flex-col items-center bg-red-800">
           <h3 className="font-bold text-4xl pb-12">
-            Congrats you have completed the placement test!
+            You are all set!
           </h3>
         </div>
+        <div className='w-1/2 text-2xl font-semibold'>
+          <h4>You are currently on Level</h4>
+        </div>
+        </main>
       )}
     </>
   );
