@@ -58,7 +58,7 @@ export function SpeakingLongQuestionPage() {
       const questionSet = questions
         .map(question => question.questionText)
         .join('\n');
-      if (recorder) stopRecording(recorder, audioFileName);
+      if (recorder) await stopRecording(recorder, audioFileName);
       sendMessage(
         JSON.stringify({
           action: 'gradeSpeakingP2',

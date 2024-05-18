@@ -51,30 +51,37 @@ export async function startRecording(): Promise<RecordRTC> {
 }
 
 export function stopRecording(recorder: RecordRTC, audioFileName: string) {
-  recorder.stopRecording(async () => {
-    const blob = recorder.getBlob();
-    const response = await toJSON(
-      post({
-        apiName: 'myAPI',
-        path: '/generate-presigned-url',
-        options: {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            fileName: audioFileName,
-            fileType: blob.type,
-          },
-        },
-      }),
-    );
-    const presignedUrl = response.url;
+  return new Promise<void>((resolve, reject) => {
+    recorder.stopRecording(async () => {
+      try {
+        const blob = recorder.getBlob();
+        const response = await toJSON(
+          post({
+            apiName: 'myAPI',
+            path: '/generate-presigned-url',
+            options: {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: {
+                fileName: audioFileName,
+                fileType: blob.type,
+              },
+            },
+          }),
+        );
+        const presignedUrl = response.url;
 
-    await axios.put(presignedUrl, blob, {
-      headers: {
-        'Content-Type': blob.type,
-      },
+        await axios.put(presignedUrl, blob, {
+          headers: {
+            'Content-Type': blob.type,
+          },
+        });
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
     });
   });
 }
