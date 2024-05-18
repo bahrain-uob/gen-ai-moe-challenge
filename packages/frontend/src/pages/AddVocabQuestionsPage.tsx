@@ -34,6 +34,22 @@ const AddVocabQuestionsPage: React.FC = () => {
     setChoices(newChoices);
   };
 
+  const handleLevelChange = (newLevel: string) => {
+    setLevel(newLevel);
+    setResponse('');
+  };
+
+  const clearFields = () => {
+    setQuestionText('');
+    setChoices([
+      { text: '', isRight: false },
+      { text: '', isRight: false },
+      { text: '', isRight: false },
+      { text: '', isRight: false },
+    ]);
+    setExplanation('');
+  };
+
   const submitQuestion = async () => {
     if (!questionText || !explanation || choices.some(choice => !choice.text)) {
       setResponse('Please fill in all fields.');
@@ -73,6 +89,7 @@ const AddVocabQuestionsPage: React.FC = () => {
       );
       setResponse('Question added successfully!');
       setIsError(false);
+      clearFields();
     } catch (error) {
       if (error instanceof Error) {
         setResponse(error.message);
@@ -109,7 +126,7 @@ const AddVocabQuestionsPage: React.FC = () => {
           <select
             className="w-1/2 p-4 bg-blue-4 text-white text-xl rounded-md shadow mx-auto"
             value={level}
-            onChange={e => setLevel(e.target.value)}
+            onChange={e => handleLevelChange(e.target.value)}
           >
             {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(lvl => (
               <option key={lvl} value={lvl}>
