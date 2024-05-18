@@ -12,12 +12,8 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  BsArrowLeft,
-  BsCheckLg,
-  BsChevronUp,
-  BsQuestionLg,
-} from 'react-icons/bs';
+import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
+import { TitleRow } from '../components/TestComponents';
 
 type setType = (arg: Answer[]) => void;
 
@@ -98,22 +94,8 @@ const ReadingQuestions = () => {
   );
 
   const titleRow = (
-    <div className="w-full h-full flex items-center max-md:border-b-2">
-      <div className="w-1/3 h-full nav-item">
-        <button className="hover:text-gray-700">
-          <BsArrowLeft className="inline mr-2" />
-          <span>Back</span>
-        </button>
-      </div>
-      <div className="w-1/3 text-center font-light text-xl">Reading Test</div>
-      <div className="w-1/3 nav-item flex-row-reverse">
-        <button onClick={() => submitAnswers(sk)}>
-          Submit <BsCheckLg className="inline" />
-        </button>
-      </div>
-    </div>
+    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(sk)} />
   );
-  // const titleRow = null;
 
   /* Maximize */
   const maximizeButton = (
@@ -177,7 +159,7 @@ const ReadingQuestions = () => {
     containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
   const questionsContainerStyle =
     containerStyles +
-    ' bg-white rounded-3xl ' +
+    ' bg-white ' +
     (isMaximized ? 'max-h-[0%]' : 'max-h-[50%]');
 
   return (
