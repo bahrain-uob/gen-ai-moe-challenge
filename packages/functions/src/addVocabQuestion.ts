@@ -28,7 +28,7 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     const Sk = item.SK.S;
     const tableName = Table.Records.tableName;
 
-    if (!validValues.includes(item.PK.S)) {
+    if (!validValues.includes(Pk)) {
       return { statusCode: 400, body: 'Value does not exist' };
     }
 
@@ -39,36 +39,42 @@ export const main: APIGatewayProxyHandlerV2 = async event => {
     });
     await dynamoDBClient.send(putCommand);
 
-    // Retrieve the current index
-    const getIndexCommand = new GetItemCommand({
-      TableName: tableName,
-      Key: {
-        PK: { S: Pk },
-        SK: { S: 'index' },
-      },
-    });
-    const indexResult = await dynamoDBClient.send(getIndexCommand);
-    let currentIndex = indexResult.Item?.index?.L || [];
+    // Function to update the index in DynamoDB with a single request
+    const updateIndex = async (
+      dynamoDBClient: DynamoDBClient,
+      tableName: string,
+      Pk: string,
+      Sk: string,
+    ): Promise<void> => {
+      const updateIndexCommand = new UpdateItemCommand({
+        TableName: tableName,
+        Key: {
+          PK: { S: Pk }, // Partition key
+          SK: { S: 'index' }, // Sort key for the index record
+        },
+        UpdateExpression:
+          'SET #index = list_append(if_not_exists(#index, :init), :newSk)',
+        ExpressionAttributeNames: {
+          '#index': 'index', // Attribute name for the index list
+        },
+        ExpressionAttributeValues: {
+          ':init': { L: [] }, // Initial empty list if the index does not exist
+          ':newSk': { L: [{ S: Sk }] }, // New SK to append to the index list
+        },
+        ReturnValues: 'UPDATED_NEW', // Return the updated attributes
+      });
 
-    // Append new SK to the current index
-    currentIndex.push({ S: Sk });
+      // console.log(
+      //   'Command to be sent:',
+      //   JSON.stringify(updateIndexCommand, null, 2),
+      // );
 
-    // Update the index record with new index list
-    const updateIndexCommand = new UpdateItemCommand({
-      TableName: tableName,
-      Key: {
-        PK: { S: Pk },
-        SK: { S: 'index' },
-      },
-      UpdateExpression: 'SET #index = :newIndex',
-      ExpressionAttributeNames: {
-        '#index': 'index',
-      },
-      ExpressionAttributeValues: {
-        ':newIndex': { L: currentIndex },
-      },
-    });
-    await dynamoDBClient.send(updateIndexCommand);
+      const result = await dynamoDBClient.send(updateIndexCommand);
+      // console.log('Update result:', result);
+    };
+
+    // Call the updateIndex function
+    await updateIndex(dynamoDBClient, tableName, Pk, Sk);
 
     return response(200, 'Question added and index updated successfully');
   } catch (error) {
