@@ -73,10 +73,10 @@ export const PLTestPage = () => {
       ) : (
         <main className="w-full h-full flex items-center flex-col">
           <div className="w-1/2 flex flex-col items-center">
-            <h3 className="font-bold text-4xl pb-12">You are all set!</h3>
+            <h3 className="font-bold text-4xl pb-12 max-sm:text-2xl">You are all set!</h3>
           </div>
           <div className="w-1/2 flex flex-col items-center">
-            <div className='w-full'><h4 className='text-2xl font-semibold'>Your current level is</h4></div>
+            <div className='w-full'><h4 className='text-2xl font-semibold max-sm:text-lg'>Your current level is</h4></div>
             <img
               src={`assets/Levels/${highestScoringLevel}.png`}
               alt={highestScoringLevel}
