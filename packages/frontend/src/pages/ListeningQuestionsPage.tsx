@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
-import { ListeningAudioPlayer } from '../components/ListeningAudioPlayer';
+import  WaveSurferPlayerProps  from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
@@ -23,8 +23,7 @@ export const ListeningQuestionsPage = () => {
   // TODO: this should be a parameter
   const parts = listeningParts; //listeningParts
   const urls = [
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-5-matching.mp3',
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-3-short-answer-questions.mp3',
+    "https://prod-codecatalyst-sst-app-dbst-pollybucket368908e5-ftpqzamr2lpy.s3.amazonaws.com/bf180405-52f0-489a-9f9e-e2c62ad075c9.mp3?AWSAccessKeyId=ASIA47CRUO22TP66VNBR&Signature=nZ4y%2FahJZoMnBi%2BnaenqHagoEvM%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEI3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIB4%2FVpS3z1Nnhw2dZwuoZuZj1zU8SWjd9Y%2FhcQU73HUpAiA9ZqOEeqaWNkfiQNI8fs%2BrPVw%2BAkdrxEl8fMPTOVTrkircAwj2%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDg5MTM3NjkyNDM0MSIMmJVNOEHQwxV%2BBmh2KrADvoHnZA3WTDqcmYE9tCJ6BCQkTQPcB0KnrO13ndzQdzlHAHinO3StLx4Ua6oTQznAem08VI4nCVtcf2eQwwH0SVDG9W%2B%2BP%2F3QuyQS9y1GLf6zrh3l5SToAbYfTPDIGUZtXfEAnfkZCi8f%2FRSyNqPKG0vETLgMm25hxnTVJZvHSuxoj6%2FlH9MW9i4HRdrVzHg69ADiS7ShzTqGAXyXL4JIXiLwvZ5ShPHRKWHKKmk%2FgLIjuAlHgcm%2BdOHzcUPsOwBlnoxrMsgCKijDJVt3xd0kjv2uyMRbPC6RhUKc0Br5wlWlMV4u%2FHaUoxDLTw%2B%2BXRpsIByNyzuFTaelysS6WonG1N0sxBl85mHC6VAFRwbyMMueunk98D7lFuPZp3RD5c6qA3TYgX17RUJqN3jyLAwywmMtS40xLUSX11KKi5tBudPokCnJ38cSUq6UTMNI3m1tcVB5MTjJ9foJ1I%2Bw%2FCi%2FQOFCTzMOowLjULLox%2B2ce5kkDdjbL%2FbhG0QrrJTulxsbLe2qmiZQxJ9lqC1VXXNDE0QM504IZKXsnxkElcTt4LNFOeZqRQISi9T97%2Fm7uVS%2BMK6npLIGOp8BHV9hKCtT%2B%2BnDDXaHIfMYdr4M0dqIdeLekQSYGuux04ljY9M38sQI9Ye6RfOehKFjjyY4MFukhNzdQhH0JxGiQgNfDcAWMBymKJeKobiKLzjevkyQUEcX%2Fs0Zu%2FR20%2B2vxTm49d1Uwu7IwwJPzfsnOtR4%2F7JSUOVCOU4C%2BGywz3e5u2YKRw40v9yGAF6w6dw33Fe1l1YLegp7HoHQoQ4I&Expires=1716065889",
     'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-1-form-completion.mp3',
     'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-8-note-completion.mp3',
   ];
@@ -100,7 +99,7 @@ export const ListeningQuestionsPage = () => {
   );
 
   /* Listening Audio */
-  const audioPlayer = <ListeningAudioPlayer urls={urls} />;
+  const audioPlayer = <WaveSurferPlayerProps urls={urls} />;
 
   const questionsScreen = (
     <div className="w-full h-full p-8 overflow-y-scroll">
