@@ -1,4 +1,4 @@
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 import Button from '../components/FButton';
 import { useState } from 'react';
 import { sections } from './Questions';

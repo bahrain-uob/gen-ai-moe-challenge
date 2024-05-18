@@ -56,6 +56,12 @@ function calculateBandScore(score: number): number {
 }
 
 export const handler: APIGatewayProxyHandlerV2 = async event => {
+  if (!event.body || !event.pathParameters) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Missing body or path parameters' }),
+    };
+  }
   const { section, sk } = event.pathParameters || {};
   const { studentAnswers } = JSON.parse(event.body || '');
   if (!sk || !section)
@@ -64,8 +70,8 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
       body: JSON.stringify({ error: 'Invalid request' }),
     };
 
-  const flattenedAnswers = studentAnswers.flat();
-  const flattenedStudentAnswers = flattenedAnswers.flat();
+  const flattenedStudentAnswers = studentAnswers.flat(3);
+  let counter = 0;
 
   console.log('Endpoint received the request:', event);
   console.log('Received student answers:', studentAnswers);
@@ -87,7 +93,6 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
 
     for (let index = 0; index < pks.length; index++) {
       const pk = pks[index];
-      const answersForPart = studentAnswers[index];
 
       const getItemParams = {
         TableName: process.env.TABLE1_NAME,
@@ -122,10 +127,12 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
           ) {
             for (let j = 0; j < NumOfSubQuestions; j++) {
               const correctAnswer = questions[i].SubQuestions[j].CorrectAnswer;
-              const isCorrect = answersForPart[i][j] === correctAnswer;
+              const isCorrect =
+                flattenedStudentAnswers[counter] === correctAnswer;
               const score = isCorrect ? 1 : 0;
               allScores.push(score);
               allCorrectAnswers.push(correctAnswer);
+              counter++;
             }
           } else {
             //for other question types: summary completion, table completion, graph completion, multiple select...
@@ -135,17 +142,18 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
             for (let j = 0; j < NumOfSubQuestions; j++) {
               const questionWeight =
                 questions[i].SubQuestions[j].QuestionWeight;
-
               for (let k = 0; k < questionWeight; k++) {
                 correctAnswers.push(
                   questions[i].SubQuestions[j].CorrectAnswers[k],
                 );
-                const studentAnswer = answersForPart[i][qIndex];
-                const isCorrect = correctAnswers[qIndex].includes(studentAnswer);
+                const studentAnswer = flattenedStudentAnswers[counter].trim();
+                const isCorrect =
+                  correctAnswers[qIndex].includes(studentAnswer);
                 const score = isCorrect ? 1 : 0;
                 allScores.push(score);
                 allCorrectAnswers.push(correctAnswers[qIndex]);
                 qIndex++;
+                counter++;
               }
             }
           }
@@ -164,15 +172,17 @@ export const handler: APIGatewayProxyHandlerV2 = async event => {
 
     const europeanFrameworkGrade = getEuropeanFrameworkGrade(totalScore);
     const bandScore = calculateBandScore(totalScore);
+    console.log('student answers: ', studentAnswers);
+    console.log('answers: ', allCorrectAnswers);
 
     // Store the student response in the table
     const putParams = {
       TableName: process.env.TABLE1_NAME,
       Item: {
-        MyPartitionKey: 'student4',
+        MyPartitionKey: 'student8',
         MySortKey: studentSk,
         CorrectAnswers: allCorrectAnswers,
-        studentAnswers: flattenedStudentAnswers,
+        studentAnswers: studentAnswers,
         scores: allScores,
         totalScore: totalScore,
         BandScore: bandScore,

@@ -1,12 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Amplify } from 'aws-amplify';
 import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import TestPage from './pages/TestPage.tsx';
-import WritingTask1Page from './pages/writingTask1.tsx';
-import WritingTask2Page from './pages/writingTask2.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
@@ -19,11 +16,17 @@ import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import FeedbackPage from './pages/FeedbackPage.tsx';
-import { WritingTask2Page_ } from './pages/WritingTask2_.tsx';
-import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
+import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
 import PlacementTest from './pages/PlacementTest.tsx';
-import { PLTestPage } from './pages/PLTestPage.tsx';
+import { Layout } from './Layout.tsx';
+import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
+import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
+import { SignOutPage } from './pages/signOut.tsx';
+import ErrorPage from './pages/ErrorPage.tsx';
+import { WritingPage } from './pages/WritingPage.tsx';
+import { writingSection } from './utilities.ts';
+import LRAnswersPage from './pages/LRAnswersPage.tsx';
+import React from 'react';
 
 Amplify.configure(
   {
@@ -59,78 +62,102 @@ Amplify.configure(
 
 // Place pages here
 const router = createBrowserRouter([
+  // All routes inside `children` use the default layout
   {
-    path: '/',
-    Component: App,
+    element: <Layout isLanding={true} />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        Component: App,
+      },
+      {
+        path: '/speaking',
+        Component: Speaking,
+      },
+      {
+        path: '/Exercises',
+        Component: Exercises,
+      },
+      {
+        path: '/sections',
+        Component: Sections,
+      },
+      {
+        path: '/SpeakingExercises',
+        Component: SpeakingExercisesPage,
+      },
+      {
+        path: '/SpeakingLongQuestion',
+        Component: SpeakingLongQuestionPage,
+      },
+      {
+        path: '/SpeakingConversation',
+        Component: SpeakingConversationPage,
+      },
+      {
+        path: '/writing',
+        element: <WritingPage task={writingSection.task2} />,
+      },
+      {
+        path: '/Listening/addQuestion',
+        Component: AddListeningQPage,
+      },
+      {
+        path: '/Listening/addQuestion/success',
+        Component: SuccessAddListeningQPage,
+      },
+
+      {
+        path: '/full-exam',
+        Component: FullExam,
+      },
+      {
+        path: '/test',
+        Component: TestPage,
+      },
+    ],
   },
+  /* Include all the routes that may affect authentication info here */
   {
-    path: '/test',
-    Component: TestPage,
+    element: <Layout hasAuthContext={false} />,
+    children: [
+      {
+        path: '/sign-up',
+        Component: SignUp,
+      },
+      {
+        path: '/sign-in',
+        Component: SignIn,
+      },
+      {
+        path: '/sign-out',
+        Component: SignOutPage,
+      },
+    ],
   },
+  // Note that home page doesn't need a padding, because of the slider
   {
-    path: '/writing-task1',
-    Component: WritingTask1Page,
+    element: <Layout noPadding />,
+    children: [
+      {
+        path: '/home',
+        Component: Home,
+      },
+    ],
   },
+  // These pages don't use `Layout` yet
   {
     path: '/:section/:sk', // Updated route with path parameters
     Component: ReadingQuestions,
   },
   {
     path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
-    Component: FeedbackPage,
+    Component: LRFeedbackPage,
   },
   {
-    path: '/speaking',
-    Component: Speaking,
-  },
-  {
-    path: '/Exercises',
-    Component: Exercises,
-  },
-  {
-    path: '/home',
-    Component: Home,
-  },
-  {
-    path: '/sections',
-    Component: Sections,
-  },
-  {
-    path: '/SpeakingExercises',
-    Component: SpeakingExercisesPage,
-  },
-  {
-    path: '/SpeakingLongQuestion',
-    Component: SpeakingLongQuestionPage,
-  },
-  {
-    path: '/SpeakingConversation',
-    Component: SpeakingConversationPage,
-  },
-
-  {
-    path: '/writing-task2',
-    Component: WritingTask2Page,
-  },
-  {
-    path: '/_writing-task1',
-    Component: WritingTask1Page_,
-  },
-  {
-    path: '/_writing-task2',
-    Component: WritingTask2Page_,
-  },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
-  {
-    path: '/full-exam',
-    Component: FullExam,
+    path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    Component: LRAnswersPage,
   },
   {
     path: '/PlacementTest',
@@ -143,8 +170,9 @@ const router = createBrowserRouter([
 ]);
 // TODO: handle not found pages
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = (
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
+ReactDOM.createRoot(document.getElementById('root')!).render(root);

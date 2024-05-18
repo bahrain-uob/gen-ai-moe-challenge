@@ -1,4 +1,4 @@
-import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
+import { Api, StackContext, use, WebSocketApi, Function } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
@@ -6,8 +6,14 @@ import { AuthStack } from './AuthStack';
 import { GrammarToolStack } from './GrammarToolStack';
 
 export function ApiStack({ stack }: StackContext) {
-  const { table, uploads_bucket, feedback_table, myTable, speakingPollyBucket } =
-    use(DBStack);
+  const {
+    table,
+    uploads_bucket,
+    feedback_table,
+    myTable,
+    speakingPollyBucket,
+    Polly_bucket,
+  } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
 
@@ -104,15 +110,18 @@ export function ApiStack({ stack }: StackContext) {
       'GET /scores/{section}/{sk}':
         'packages/functions/src/getScoresReadingListening.handler',
 
-      // Sample Pyhton lambda function
-      'GET /': {
+      // Listening to convert script to audio (for now)
+      'POST /Listening/AddQuestion': {
         function: {
-          handler: 'packages/functions/src/sample-python-lambda/lambda.main',
+          handler:
+            'packages/functions/src/sample-python-lambda/addListeningQ.main',
           runtime: 'python3.11',
+          permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
           timeout: '60 seconds',
+          environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
-        authorizer: 'none',
       },
+      'GET /startTest/{testType}' : 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
@@ -130,34 +139,80 @@ export function ApiStack({ stack }: StackContext) {
     ),
   });
 
-  const webSocket = new WebSocketApi(stack, "WebSocketApi", {
+  const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
         bind: [table],
         permissions: ['bedrock:InvokeModel'],
       },
     },
+    authorizer: {
+      type: 'lambda',
+      identitySource: [`route.request.querystring.idToken`],
+      function: new Function(stack, 'Authorizer', {
+        handler: 'packages/functions/src/websockets/authorizer.handler',
+        environment: {
+          userPool: auth.userPoolId,
+          userPoolClient: auth.userPoolClientId,
+        },
+      }),
+    },
     routes: {
-      $connect: "packages/functions/src/connect.main",
-      $disconnect: "packages/functions/src/disconnect.main",
+      $connect: 'packages/functions/src/websockets/connect.main',
+      $disconnect: 'packages/functions/src/websockets/disconnect.main',
       gradeWriting: {
         function: {
-          handler:"packages/functions/src/gradingWriting.main",
-          timeout: "120 seconds",
+          handler: 'packages/functions/src/gradingWriting.main',
+          timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,
           },
-        }
+        },
+      },
+      gradeSpeakingP1: {
+        function: {
+          handler: 'packages/functions/src/speakingP1Grading.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
+      },
+      gradeSpeakingP2: {
+        function: {
+          handler: 'packages/functions/src/speakingP2Grading.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
       },
     },
   });
 
   stack.addOutputs({
+    ApiEndpoint: api.url,
     WebSocketEndpoint: webSocket.url,
   });
 
   // Allowing authenticated users to access API
-  auth.attachPermissionsForAuthUsers(stack, [api]);
+  auth.attachPermissionsForAuthUsers(stack, [api, webSocket]);
 
   return { api, apiCachePolicy, webSocket };
 }
