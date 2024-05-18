@@ -59,8 +59,8 @@ export const PLTestPage = () => {
     <>
       {questionCount < 20 ? (
         <>
-          <DevPanel cf={cf} question={question} level={level} />
-          <RenderQuestion question={question} handleClick={handleClick} />
+          <div className='hidden'><DevPanel cf={cf} question={question} level={level} /></div>
+          <div className='w-full flex justify-center'><RenderQuestion question={question} handleClick={handleClick} /></div>
         </>
       ) : (
         <div className="w-1/2 flex flex-col items-center rounded-xl">
