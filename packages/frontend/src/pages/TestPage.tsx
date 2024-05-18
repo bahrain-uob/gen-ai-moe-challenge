@@ -3,7 +3,7 @@ import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
-import { WaveSurferComponent } from './waveformComponent';
+import  WaveSurferPlayer  from './waveformListeningTest';
 
 async function _getCurrentUser() {
   try {
@@ -53,7 +53,7 @@ function TestPage() {
 
       <ColorPalette />
       <div className="mt-8 px-4">
-        <WaveSurferComponent audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
+        <WaveSurferPlayer audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
       </div>
     </>
   );

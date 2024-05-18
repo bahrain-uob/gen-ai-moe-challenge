@@ -1,0 +1,61 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-genaimoechallenge-dev-0c6ff-authRole",
+      "UnauthRoleArn": "arn:aws:iam::891376924341:role/amplify-genaimoechallenge-dev-0c6ff-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::891376924341:role/amplify-genaimoechallenge-dev-0c6ff-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-genaimoechallenge-dev-0c6ff-deployment",
+      "UnauthRoleName": "amplify-genaimoechallenge-dev-0c6ff-unauthRole",
+      "StackName": "amplify-genaimoechallenge-dev-0c6ff",
+      "StackId": "arn:aws:cloudformation:us-east-1:891376924341:stack/amplify-genaimoechallenge-dev-0c6ff/27ae7d60-125d-11ef-a952-0affea32bfe1",
+      "AmplifyAppId": "d243xc2oh4tsgl"
+    }
+  },
+  "auth": {
+    "genaimoechallenge": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-genaimoechallenge-dev-0c6ff-deployment/amplify-cfn-templates/auth/genaimoechallenge-cloudformation-template.json",
+        "logicalId": "authgenaimoechallenge"
+      },
+      "lastPushTimeStamp": "2024-05-15T01:59:17.925Z",
+      "output": {
+        "UserPoolId": "us-east-1_1TRpduoJm",
+        "AppClientIDWeb": "5a5hlih165stufcmbu5flq8p5s",
+        "AppClientID": "5bfs1brgcs2cpbtktvsfi8h1nv",
+        "IdentityPoolId": "us-east-1:e18d6512-7e93-46a3-bc9e-fa2c62d59a35",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:891376924341:userpool/us-east-1_1TRpduoJm",
+        "IdentityPoolName": "testAuthIdentityPool__dev",
+        "UserPoolName": "genaimoechallenge"
+      },
+      "lastPushDirHash": "xjt28galAjiBBho5wqKSrvGjsc0="
+    }
+  }
+}

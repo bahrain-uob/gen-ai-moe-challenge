@@ -112,6 +112,7 @@ const router = createBrowserRouter([
         path: '/full-exam',
         Component: FullExam,
       },
+      
       {
         path: '/test',
         Component: TestPage,

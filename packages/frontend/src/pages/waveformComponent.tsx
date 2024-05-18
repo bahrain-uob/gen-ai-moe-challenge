@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
 interface WaveSurferComponentProps {
@@ -8,40 +8,50 @@ interface WaveSurferComponentProps {
   height?: number;
 }
 
-export const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
+const WaveSurferComponent: React.FC<WaveSurferComponentProps> = ({
   audioUrl,
+  waveColor = 'rgb(59, 130, 142)',
+  progressColor = 'rgb(59, 200, 200)',
+  height = 200,
 }) => {
   const wavesurferRef = useRef<HTMLDivElement | null>(null);
-  // const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
+  const [wavesurfer, setWavesurfer] = useState<WaveSurfer | null>(null);
 
   useEffect(() => {
     if (wavesurferRef.current) {
       const ws = WaveSurfer.create({
         container: wavesurferRef.current,
-        waveColor: 'rgb(59, 130, 142)',
-        progressColor: 'rgb(59, 200, 200)',
-        // Bar look
-        barWidth: 5,
-        barRadius: 4,
-        barGap: 2,
-        // Don't allow modifications
-        interact: false,
+        waveColor,
+        progressColor,
+        height,
       });
 
       ws.load(audioUrl);
-      // setWavesurfer(ws);
-      const id = setTimeout(() => ws.play(), 5000);
+      setWavesurfer(ws);
 
       return () => {
         ws.destroy();
-        clearTimeout(id);
       };
     }
-  }, [audioUrl]);
+  }, [audioUrl, waveColor, progressColor, height]);
+
+  const handlePlay = () => {
+    if (wavesurfer) {
+      wavesurfer.play();
+    }
+  };
 
   return (
     <div>
-      <div ref={wavesurferRef} style={{ width: '100%', height: '100%' }} />
+      <div
+        ref={wavesurferRef}
+        style={{ width: '100%', height: `${height}px` }}
+      />
+      <button onClick={handlePlay}>Play</button>
     </div>
   );
 };
+
+export default WaveSurferComponent;
+
+//check wavesurferComponentExample
