@@ -27,6 +27,7 @@ import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
 import React from 'react';
 import ListeningQuestionsPage from './pages/ListeningQuestionsPage.tsx';
+import wavesurferComponentExample from './pages/wavesurferComponentExample.tsx';
 
 Amplify.configure(
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: '/writing',
         element: <WritingPage task={writingSection.task2} />,
+      },
+      {
+        path: '/wavesurfer',
+        Component: wavesurferComponentExample,
       },
       {
         path: '/Listening/audio',
