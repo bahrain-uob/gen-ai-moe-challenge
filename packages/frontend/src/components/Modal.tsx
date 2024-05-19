@@ -1,12 +1,20 @@
 import { MouseEventHandler } from 'react';
 import { BsQuestionLg } from 'react-icons/bs';
 
-type ModalProps = { isOpen: boolean; onCancel?: MouseEventHandler };
+type ModalProps = {
+  isOpen: boolean;
+  onCancel: MouseEventHandler;
+  modalMessage: string;
+};
 
 /*
  * Adapted from https://tailwindui.com/components/application-ui/overlays/dialogs
  */
-export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
+export const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onCancel,
+  modalMessage,
+}) => {
   const backdropStyle = isOpen ? 'opacity-100 visible' : 'opacity-0 invisible';
   const modalContainerStyle = isOpen
     ? 'opacity-100 visible'
@@ -49,10 +57,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
                     Instructions
                   </h3>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Are you sure you want to deactivate your account? All of
-                      your data will be permanently removed. This action cannot
-                      be undone.
+                    <p className="text-sm text-gray-500 whitespace-pre-line">
+                      {modalMessage}
                     </p>
                   </div>
                 </div>
