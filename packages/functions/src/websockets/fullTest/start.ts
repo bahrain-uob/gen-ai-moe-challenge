@@ -21,6 +21,19 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * This function is called when the user starts a test.
  * It retrieves a random question from the database based on the test type.
  * Then it stores the question in the database in the user's record.
+ * The input should be as follows:
+ * {
+ *  action:'fullTestGetQuestion',
+ * }
+ *
+ * It will return the following:
+ * {
+ *  testID: 'testID',
+ *  type: 'listening',
+ *  data: {
+ *    question: 'question', // this will be based on the section question schema
+ *                          // the same as the item in DB
+ * }
  */
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
@@ -94,7 +107,9 @@ export const main: APIGatewayProxyHandler = async event => {
     const success = new PostToConnectionCommand({
       ConnectionId: connectionId,
       Data: JSON.stringify({
-        data: { listeningQuestion, testID },
+        testID,
+        type: 'listening',
+        data: { question: listeningQuestion },
       }),
     });
     await apiClient.send(success);
