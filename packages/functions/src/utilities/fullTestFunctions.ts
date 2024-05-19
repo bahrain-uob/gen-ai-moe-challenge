@@ -172,6 +172,9 @@ export const filterQuestion = (question: any) => {
     newQuestion.map((part: any) => {
       part.ScriptKey = generatePresignedUrl(part.ScriptKey, client);
       part.Questions.map((question: any) => {
+        if (question.QuestionType === 'Diagram Completion') {
+          question.Diagram = generatePresignedUrl(question.Diagram, client);
+        }
         question.SubQuestions.map((subQuestion: any) => {
           if (subQuestion.CorrectAnswers) {
             delete subQuestion.CorrectAnswers;
@@ -191,6 +194,8 @@ export const filterQuestion = (question: any) => {
       });
     });
   }
+
+  return newQuestion;
 };
 
 const generatePresignedUrl = async (key: string, client: S3Client) => {
