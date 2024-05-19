@@ -148,4 +148,3 @@ export const routes = createBrowserRouter([
   },
   ...noLayoutRoutes,
 ]);
-// TODO: handle not found pages
