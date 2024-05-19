@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { ConfirmFullTestStart } from '../components/ConfirmFullTestStart';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
@@ -10,15 +10,20 @@ export const FullTestPage = () => {
   const { testId } = useParams();
 
   const socketUrl = useSocketUrl() ?? '';
+  const navigate = useNavigate();
+  console.log({ state });
 
-  const { readyState } = useWebSocket(socketUrl, {
+  const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
     onClose: event => console.log('closed', event),
     onMessage: e => {
       console.log('event', e);
       const response = JSON.parse(e.data);
       console.log('message', response);
-      setState(response);
+      if ('testID' in response) {
+        setState(response);
+        navigate(`/full-test/${response.testID}`);
+      }
     },
     shouldReconnect: () => true,
   });
@@ -35,7 +40,9 @@ export const FullTestPage = () => {
     );
 
   if (!testId) {
-    const startTest = () => {};
+    const startTest = () => {
+      sendJsonMessage({ action: 'fullTestStart' });
+    };
 
     return (
       <Layout>
