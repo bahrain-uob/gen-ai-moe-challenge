@@ -3,9 +3,13 @@ import WaveSurfer from 'wavesurfer.js';
 
 interface WaveSurferPlayerProps {
   urls: string[];
+  height: number;
 }
 
-const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({ urls }) => {
+const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
+  urls,
+  height,
+}) => {
   const wavesurferContainerRef = useRef<HTMLDivElement | null>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const [trackIndex, setTrackIndex] = useState(0);
@@ -21,7 +25,7 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({ urls }) => {
         container: wavesurferContainerRef.current,
         waveColor: '#9ca3af',
         progressColor: '#92C7CF',
-        height: 200,
+        height: height,
         interact: false,
       });
 
@@ -29,7 +33,7 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({ urls }) => {
 
       wavesurferRef.current.on('finish', () => {
         if (trackIndex < urls.length - 1) {
-          setTrackIndex((prevIndex) => prevIndex + 1);
+          setTrackIndex(prevIndex => prevIndex + 1);
           setAudioPlayed(false); // Reset audioPlayed for the next track
         }
       });
@@ -51,17 +55,25 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({ urls }) => {
   };
 
   return (
-    <div>
+    <div className="flex w-full items-center">
+      <span className="px-4">Part {trackIndex + 1}</span>
       <div
         ref={wavesurferContainerRef}
-        style={{ width: '100%', height: '200px' }}
+        style={{ height: height }}
+        className="flex-grow"
       />
-      {!audioPlayed && <button onClick={handlePlay}>Play</button>}
-      <div className="h-full w-full flex flex-row items-center px-4">
-        <span className="px-4">
-          Part {trackIndex + 1}
-        </span>
-      </div>
+      {!audioPlayed && (
+        <button
+          type="button"
+          className="focus:outline-none text-white bg-green-600
+            hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium
+            rounded-lg text-sm px-3 h-10 ml-2 dark:bg-green-600
+            dark:hover:bg-green-700 dark:focus:ring-green-800"
+          onClick={handlePlay}
+        >
+          Play
+        </button>
+      )}
     </div>
   );
 };
