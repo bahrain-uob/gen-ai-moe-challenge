@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import React from 'react';
 import { routes } from './routes';
+import { AuthInfoProvider } from './AuthContext';
 
 Amplify.configure(
   {
@@ -40,7 +41,9 @@ Amplify.configure(
 
 const root = (
   <React.StrictMode>
-    <RouterProvider router={routes} />
+    <AuthInfoProvider>
+      <RouterProvider router={routes} />
+    </AuthInfoProvider>
   </React.StrictMode>
 );
 ReactDOM.createRoot(document.getElementById('root')!).render(root);

@@ -79,6 +79,21 @@ const landingRoutes: RouteObject[] = [
   },
 ];
 
+const notLandingRoutes: RouteObject[] = [
+  {
+    path: '/sign-up',
+    Component: SignUp,
+  },
+  {
+    path: '/sign-in',
+    Component: SignIn,
+  },
+  {
+    path: '/sign-out',
+    Component: SignOutPage,
+  },
+];
+
 const noLayoutRoutes: RouteObject[] = [
   // These pages don't use `Layout` yet
   {
@@ -120,21 +135,8 @@ export const routes = createBrowserRouter([
   },
   /* Include all the routes that may affect authentication info here */
   {
-    element: <Layout hasAuthContext={false} />,
-    children: [
-      {
-        path: '/sign-up',
-        Component: SignUp,
-      },
-      {
-        path: '/sign-in',
-        Component: SignIn,
-      },
-      {
-        path: '/sign-out',
-        Component: SignOutPage,
-      },
-    ],
+    element: <Layout />,
+    children: notLandingRoutes,
   },
   // Note that home page doesn't need a padding, because of the slider
   {
