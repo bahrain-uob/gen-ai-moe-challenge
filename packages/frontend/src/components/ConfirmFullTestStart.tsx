@@ -1,28 +1,26 @@
-import { useState } from 'react';
+import { MouseEventHandler } from 'react';
 
-const ConfirmFullTestStart = () => {
-  const [showModal] = useState(true);
-  const handleConfirm = () => {
-    // Handle the confirmation logic
-  };
+interface ConfirmFullTestStartProps {
+  onConfirm: MouseEventHandler;
+}
 
-  if (!showModal) {
-    return null;
-  }
-  
-
+export const ConfirmFullTestStart: React.FC<ConfirmFullTestStartProps> = ({
+  onConfirm,
+}) => {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-opacity-75 z-50">
-      <div className="bg-white p-8 rounded w-90 h-100 text-center">
+      <div className="p-8 rounded w-90 h-100">
         <h2 className="text-2xl font-bold mb-4">IELTS Exam Instructions</h2>
         <p className="mb-4">
-          The IELTS exam consists of four sections. Please read the instructions carefully before starting the exam.
+          The IELTS exam consists of four sections. Please read the instructions
+          carefully before starting the exam.
         </p>
 
         <div className="mb-6">
           <h3 className="text-lg font-bold mb-2">Listening Section</h3>
           <p className="text-left">
-            <span className="font-semibold">Total time:</span> approximately 30 minutes (including review time).
+            <span className="font-semibold">Total time:</span> approximately 30
+            minutes (including review time).
           </p>
         </div>
 
@@ -31,7 +29,9 @@ const ConfirmFullTestStart = () => {
           <p className="text-left">
             <span className="font-semibold">Total time:</span> 60 minutes.
           </p>
-          <p className="text-left">Allocate approximately 20 minutes for each passage.</p>
+          <p className="text-left">
+            Allocate approximately 20 minutes for each passage.
+          </p>
         </div>
 
         <div className="mb-6">
@@ -39,19 +39,28 @@ const ConfirmFullTestStart = () => {
           <p className="text-left">
             <span className="font-semibold">Total time:</span> 60 minutes.
           </p>
-          <p className="text-left">Allocate approximately 20 minutes for Task 1 and 40 minutes for Task 2.</p>
+          <p className="text-left">
+            Allocate approximately 20 minutes for Task 1 and 40 minutes for Task
+            2.
+          </p>
         </div>
 
         <div className="mb-6">
           <h3 className="text-lg font-bold mb-2">Speaking Section</h3>
           <p className="text-left">
-            <span className="font-semibold">Total duration:</span> approximately 11-14 minutes.
+            <span className="font-semibold">Total duration:</span> approximately
+            11-14 minutes.
           </p>
         </div>
 
         <div>
-        <h3 className="text-lg font-bold mb-2">Are you sure you want to start?</h3>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleConfirm}>
+          <h3 className="text-lg font-bold mb-2 inline mr-4">
+            Are you sure you want to start?
+          </h3>
+          <button
+            className="bg-blue-3 hover:bg-blue-4 text-white font-bold py-2 px-4 rounded"
+            onClick={onConfirm}
+          >
             Yes
           </button>
         </div>
@@ -59,5 +68,3 @@ const ConfirmFullTestStart = () => {
     </div>
   );
 };
-
-export default ConfirmFullTestStart;
