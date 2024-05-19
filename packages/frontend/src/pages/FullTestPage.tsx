@@ -4,6 +4,7 @@ import { ConfirmFullTestStart } from '../components/ConfirmFullTestStart';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { useSocketUrl } from '../utilities';
 import { useState } from 'react';
+import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 
 export const FullTestPage = () => {
   const [state, setState] = useState<any>(null);
@@ -49,6 +50,12 @@ export const FullTestPage = () => {
         <ConfirmFullTestStart onConfirm={() => startTest()} />
       </Layout>
     );
+  }
+
+  switch (state.type) {
+    case 'listening':
+      console.log('executed w/', state.data.question);
+      return <ListeningQuestionsPage listeningSection={state.data.question} />;
   }
 };
 

@@ -1,6 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Answer } from '../utilities/LRUtilities';
-import { listeningParts } from '../utilities/LRSampleQuestions';
 import { TitleRow } from '../components/TestComponents';
 import {
   QuestionsComponent,
@@ -11,17 +10,28 @@ import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
 import { ListeningAudioPlayer } from '../components/ListeningAudioPlayer';
+import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 
 type setType = (arg: Answer[]) => void;
 
-export const ListeningQuestionsPage = () => {
-  const { sk } = useParams();
-  if (!sk) return;
+interface ListeningQuestionsPageProps {
+  listeningSection: ListeningSection;
+}
 
+export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
+  listeningSection,
+}) => {
   const navigate = useNavigate();
 
-  // TODO: this should be a parameter
-  const parts = listeningParts; //listeningParts
+  const parts = [
+    listeningSection.P1,
+    listeningSection.P2,
+    listeningSection.P3,
+    listeningSection.P4,
+  ];
+  const sk = listeningSection.SK;
+
+  // TODO: don't hard-code urls
   const urls = [
     'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-5-matching.mp3',
     'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-3-short-answer-questions.mp3',
