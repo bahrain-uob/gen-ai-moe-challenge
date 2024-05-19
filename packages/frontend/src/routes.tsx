@@ -25,6 +25,7 @@ import LRAnswersPage from './pages/LRAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import { FullTestPage } from './pages/FullTestPage.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -95,6 +96,14 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
+  {
+    path: '/full-test/:testId',
+    Component: FullTestPage,
+  },
+  {
+    path: '/full-test',
+    Component: FullTestPage,
+  },
   // These pages don't use `Layout` yet
   {
     path: '/reading/:sk',
