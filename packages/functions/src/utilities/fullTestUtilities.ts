@@ -208,7 +208,7 @@ export const filterQuestion = (question: any) => {
 };
 
 const generatePresignedUrl = async (key: string, client: S3Client) => {
-  const bucket = Bucket.Uploads.bucketName;
+  const bucket = process.env.speakingPollyBucket;
 
   const input = {
     Bucket: bucket,

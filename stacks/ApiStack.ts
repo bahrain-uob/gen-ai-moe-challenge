@@ -144,6 +144,9 @@ export function ApiStack({ stack }: StackContext) {
       function: {
         bind: [table, uploads_bucket],
         permissions: ['bedrock:InvokeModel'],
+        environment: {
+          speakingPollyBucket: speakingPollyBucket.bucketName,
+        },
       },
     },
     authorizer: {
