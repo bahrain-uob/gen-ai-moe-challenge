@@ -24,7 +24,7 @@ import { writingSection } from './utilities.ts';
 import LRAnswersPage from './pages/LRAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
-import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+// import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 
 // These routes will have the landing nav bar
@@ -109,10 +109,10 @@ const noLayoutRoutes: RouteObject[] = [
     path: '/reading/:sk',
     Component: ReadingQuestions,
   },
-  {
-    path: '/listening/:sk',
-    Component: ListeningQuestionsPage,
-  },
+  // {
+  //   path: '/listening/:sk',
+  //   Component: ListeningQuestionsPage,
+  // },
   {
     path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
     Component: LRFeedbackPage,
