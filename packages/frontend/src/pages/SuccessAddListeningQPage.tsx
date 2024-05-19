@@ -17,6 +17,7 @@ export const SuccessAddListeningQPage: React.FC = () => {
       setIsLoading(false);
     }
   }, [location.state]);
+
   const handlePlay = () => {
     if (wavesurferRef.current) {
       wavesurferRef.current.play();
@@ -25,23 +26,20 @@ export const SuccessAddListeningQPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (audioUrl && wavesurferRef.current) {
-      const wavesurfer = WaveSurfer.create({
-        container: wavesurferRef.current,
+    if (audioUrl && wavesurferContainerRef.current) {
+      wavesurferRef.current = WaveSurfer.create({
+        container: wavesurferContainerRef.current,
         waveColor: 'rgb(59, 130, 142)',
         progressColor: 'rgb(59, 200, 200)',
         height: 200,
         interact: false,
       });
-      wavesurfer.load(audioUrl);
-      wavesurfer.on('ready', () => {});
-      wavesurferRef.current = wavesurfer;
       wavesurferRef.current.load(audioUrl);
+
       wavesurferRef.current.on('ready', () => {});
     }
 
     return () => {
-      // Clean up the wavesurfer instance on component unmount
       if (wavesurferRef.current) {
         wavesurferRef.current.destroy();
         wavesurferRef.current = null;
@@ -52,11 +50,10 @@ export const SuccessAddListeningQPage: React.FC = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <div>
       <h1>Audio</h1>
-      <div ref={wavesurferRef} style={{ width: '100%', height: '200px' }} />
-      {!audioPlayed && <button onClick={handlePlay}>Play</button>}{' '}
       <div
         ref={wavesurferContainerRef}
         style={{ width: '100%', height: '200px' }}
