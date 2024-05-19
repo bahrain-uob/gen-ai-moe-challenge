@@ -12,10 +12,10 @@ import {
   speechDuration,
 } from '../utilities/speakingUtilities';
 import {
-  saveFeedback,
   SpeakingAnswer,
   SpeakingSection,
 } from 'src/utilities/fullTestUtilities';
+import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
