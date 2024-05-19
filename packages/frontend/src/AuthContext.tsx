@@ -24,7 +24,9 @@ type AuthInfo = PartialAuthInfo & {
  *
  * Note that we later bind state in `AuthInfoProvider` to the `AuthInfo` value provided
  */
-export const AuthContext = createContext<AuthInfo | undefined>(undefined);
+export const AuthContext = createContext<AuthInfo>({
+  update: () => Promise.resolve(),
+});
 
 /** Retrieve the current `AuthInfo` */
 const getAuthInfo = async () => {
