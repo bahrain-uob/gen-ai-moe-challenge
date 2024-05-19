@@ -28,10 +28,17 @@ export const AuthContext = createContext<AuthInfo | undefined>(undefined);
 
 /** Retrieve the current `AuthInfo` */
 const getAuthInfo = async () => {
-  const authSession = await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
-  const user = await getCurrentUser();
+  try {
+    const authSession = await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
+    const user = await getCurrentUser();
 
-  return { authSession, user };
+    return { authSession, user };
+  } catch (err: any) {
+    if (err?.name === 'UserUnAuthenticatedException') {
+      return {};
+    }
+    throw err;
+  }
 };
 
 export const AuthInfoProvider = ({ children }: { children: any }) => {
