@@ -65,7 +65,7 @@ export const SpeakingCardPage = () => {
 
   const pageBody = (
     <div className="flex flex-col h-full justify-evenly items-center px-6">
-      <div className="w-full max-w-xl h-60 bg-white rounded-xl shadow-backdrop py-4 px-6">
+      <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
         {cardContent}
       </div>
       <MicButton className="shadow-backdrop" />
