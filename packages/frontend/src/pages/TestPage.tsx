@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
+import { AuthContext } from '../AuthContext';
 
 async function _getCurrentUser() {
   try {
@@ -39,10 +40,24 @@ function TestPage() {
     });
   }, []);
 
+  const userInfo = useContext(AuthContext);
+
   return (
     <>
       <h2> This is a test page</h2>
       <p>{user ? JSON.stringify(user) : 'No current User'}</p>
+
+      <p className="mt-4 font-light text-lg">Get info using Auth Stack</p>
+      {userInfo ? (
+        <>
+          <p className="mb-3">
+            Auth Session = {JSON.stringify(userInfo.authSession)}
+          </p>
+          <p className="mb-3">User info = {JSON.stringify(userInfo.user)}</p>
+        </>
+      ) : (
+        <p>No Current User</p>
+      )}
 
       <br />
       <button onClick={testAPIAccess}>POST /</button>
