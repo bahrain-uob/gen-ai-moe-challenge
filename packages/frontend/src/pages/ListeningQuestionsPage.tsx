@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
-import { ListeningAudioPlayer } from '../components/ListeningAudioPlayer';
+import  WaveSurferPlayerProps  from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
@@ -100,7 +100,7 @@ export const ListeningQuestionsPage = () => {
   );
 
   /* Listening Audio */
-  const audioPlayer = <ListeningAudioPlayer urls={urls} />;
+  const audioPlayer = <WaveSurferPlayerProps urls={urls} />;
 
   const questionsScreen = (
     <div className="w-full h-full p-8 overflow-y-scroll">
