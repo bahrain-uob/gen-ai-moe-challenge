@@ -32,6 +32,9 @@ const sections = () => (
         <Button label="Speaking Card UI" />
       </Link>
     </div>
+    <Link to="/test">
+      <Button label="/test" />
+    </Link>
   </>
 );
 
