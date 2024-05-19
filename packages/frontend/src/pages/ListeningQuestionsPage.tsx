@@ -11,6 +11,7 @@ import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
 import { ListeningAudioPlayer } from '../components/ListeningAudioPlayer';
+import { Modal } from '../components/Modal';
 
 type setType = (arg: Answer[]) => void;
 
@@ -30,6 +31,7 @@ export const ListeningQuestionsPage = () => {
   ];
 
   const [partIndex, setPartIndex] = useState(0);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -75,10 +77,13 @@ export const ListeningQuestionsPage = () => {
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -121,6 +126,11 @@ export const ListeningQuestionsPage = () => {
         {questionsScreen}
       </div>
       <div className="h-[6svh] bg-gray-200">{audioPlayer}</div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage="This is help"
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };
