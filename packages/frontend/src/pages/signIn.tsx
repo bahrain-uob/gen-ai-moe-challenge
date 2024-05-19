@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthContext';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const authInfo = useContext(AuthContext);
 
   const handleSignIn = () => {
     signIn({ username: email, password })
@@ -20,7 +22,10 @@ export default function SignIn() {
           );
         }
       })
-      .catch(e => alert(e));
+      .catch(e => alert(e))
+      .finally(() => {
+        authInfo.update();
+      });
   };
 
   return (
