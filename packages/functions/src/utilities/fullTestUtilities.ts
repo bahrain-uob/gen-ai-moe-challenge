@@ -10,6 +10,7 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { gradeReadingListening } from 'src/grading/readingListening';
 import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
+import { gradeSpeaking } from 'src/grading/speaking';
 
 export const examSections: examSection[] = [
   { type: 'listening', answer: 'listeningAnswer', time: 60 * 60 * 1000 },
@@ -153,6 +154,15 @@ const triggerGrading = (
       connectionId,
       endpoint,
     );
+  } else if (section === 'speakingAnswer' && test.speakingAnswer) {
+    gradeSpeaking(
+      test.PK,
+      test.SK,
+      test.questions.speaking,
+      test.speakingAnswer,
+      connectionId,
+      endpoint,
+    );
   }
 };
 
@@ -280,6 +290,25 @@ type ReadingPart = {
   Questions: LRQuestion[];
 };
 
+export type SpeakingSection = {
+  PK: string;
+  SK: string;
+  P1: SpeakingPart;
+  P2: SpeakingPart;
+  P3: SpeakingPart;
+};
+
+type SpeakingPart = {
+  Task: {
+    S3key: string;
+    text: number;
+  };
+  Questions: {
+    text: string;
+    S3Key?: string;
+  }[];
+};
+
 export interface WritingSection {
   PK: string;
   SK: string;
@@ -303,10 +332,32 @@ export interface WritingAnswer {
   status: FeedbackStatus;
 }
 
+//Reading and listening answer
 export interface RLAnswer {
   start_time: string;
   end_time?: string;
   answer?: string[] | string[][];
   feedback?: any; // ListeningFeedback | ReadingFeedback;
+  status: FeedbackStatus;
+}
+
+export interface SpeakingAnswer {
+  start_time: string;
+  end_time?: string;
+  answer?: {
+    P1: {
+      audioFileName: string;
+      question: string;
+    };
+    P2: {
+      audioFileNames: string[];
+      questions: string[];
+    };
+    P3: {
+      audioFileNames: string[];
+      questions: string[];
+    };
+  };
+  feedback?: any; // SpeakingFeedback
   status: FeedbackStatus;
 }
