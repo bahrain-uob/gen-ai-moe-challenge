@@ -27,6 +27,10 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
         progressColor: '#92C7CF',
         height: height,
         interact: false,
+        // Bar look
+        barWidth: 5,
+        barRadius: 4,
+        barGap: 3,
       });
 
       wavesurferRef.current.load(urls[trackIndex]);
