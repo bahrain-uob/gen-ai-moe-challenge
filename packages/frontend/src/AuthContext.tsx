@@ -8,19 +8,26 @@ import { createContext, useEffect, useState } from 'react';
 
 let __authInterval: string | number | NodeJS.Timeout | undefined;
 
-type AuthInfo = {
-  authSession: AuthSession;
-  user: AuthUser;
+// This will be our authentication state
+type PartialAuthInfo = {
+  authSession?: AuthSession;
+  user?: AuthUser;
+};
+
+// This is the exported object.  It has an additional update, so that any
+// component can trigger an update.
+type AuthInfo = PartialAuthInfo & {
+  update: () => Promise<void>;
 };
 
 /** Stores `AuthInfo` for the current session
  *
- * Note that we later bind the state to the `AuthInfo` value provided
+ * Note that we later bind state in `AuthInfoProvider` to the `AuthInfo` value provided
  */
 export const AuthContext = createContext<AuthInfo | undefined>(undefined);
 
 /** Retrieve the current `AuthInfo` */
-const getAuthInfo = async (): Promise<AuthInfo> => {
+const getAuthInfo = async () => {
   const authSession = await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
   const user = await getCurrentUser();
 
@@ -28,11 +35,15 @@ const getAuthInfo = async (): Promise<AuthInfo> => {
 };
 
 export const AuthInfoProvider = ({ children }: { children: any }) => {
-  /** This is used to update the `AuthInfo` */
-  const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>(undefined);
+  const [authInfo, setAuthInfo] = useState<PartialAuthInfo>({});
+
+  const updateAuthInfo = async () => {
+    const newAuthInfo = await getAuthInfo();
+    setAuthInfo(newAuthInfo);
+  };
 
   useEffect(() => {
-    getAuthInfo().then(authInfo => setAuthInfo(authInfo));
+    updateAuthInfo();
   }, []);
 
   // Set update interval
@@ -43,7 +54,11 @@ export const AuthInfoProvider = ({ children }: { children: any }) => {
   //   getAuthInfo().then(authInfo => setAuthInfo(authInfo));
   // }, 30000);
 
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+  const value: AuthInfo = {
+    authSession: authInfo.authSession,
+    user: authInfo.user,
+    update: updateAuthInfo,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
