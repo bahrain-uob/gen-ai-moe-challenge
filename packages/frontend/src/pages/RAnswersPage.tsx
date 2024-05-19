@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { readingParts } from '../utilities/LRSampleQuestions';
-//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { get } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
@@ -10,20 +9,19 @@ import { toJSON } from '../utilities';
 import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
 import { useParams } from 'react-router-dom';
 
-const LRAnswersPage = () => {
-  const { section, sk } = useParams<{
-    section: string | undefined;
+const RAnswersPage = () => {
+  const { sk } = useParams<{
     sk: string | undefined;
   }>();
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    if (!section || !sk) return;
-
+    if (!sk) return;
+    console.log(' sk: ', sk);
     toJSON(
       get({
         apiName: 'myAPI',
-        path: `/scores/${section}/${sk}`,
+        path: `/scores/reading/${sk}`,
       }),
     )
       .then(data => {
@@ -33,7 +31,7 @@ const LRAnswersPage = () => {
       .catch(error => {
         console.error(error);
       });
-  }, [section, sk]);
+  }, [sk]);
 
   if (!data) {
     return (
@@ -46,8 +44,7 @@ const LRAnswersPage = () => {
 
   const x = parts.map((part, index) => (
     <React.Fragment key={index}>
-      {/* comment the line below for listening */}
-      <PassageComponent readingPart={part} PartIndex={1} />
+      <PassageComponent readingPart={part} PartIndex={index} />
       <QuestionsComponent
         questions={part.Questions}
         answers={data.studentAnswers[index]}
@@ -60,4 +57,4 @@ const LRAnswersPage = () => {
   return x;
 };
 
-export default LRAnswersPage;
+export default RAnswersPage;

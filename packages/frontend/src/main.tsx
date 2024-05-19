@@ -25,11 +25,12 @@ import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
-import LRAnswersPage from './pages/LRAnswersPage.tsx';
+import RAnswersPage from './pages/RAnswersPage.tsx';
 import React from 'react';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import LAnswersPage from './pages/LAnswersPage.tsx';
 
 Amplify.configure(
   {
@@ -159,12 +160,16 @@ const router = createBrowserRouter([
     Component: ListeningQuestionsPage,
   },
   {
-    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    path: '/scores/:section/:sk',
     Component: LRFeedbackPage,
   },
   {
-    path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
-    Component: LRAnswersPage,
+    path: '/answers/reading/:sk',
+    Component: RAnswersPage,
+  },
+  {
+    path: '/answers/listening/:sk',
+    Component: LAnswersPage,
   },
   {
     path: '/test-speaking-card-ui',
