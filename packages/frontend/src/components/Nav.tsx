@@ -82,10 +82,10 @@ const MobileMenu = ({
       <div
         className={`
           h-dvh bg-grey-1 fixed top-0 right-0 z-50 ${
-            isOpen ? 'max-w-[40vw] ' : 'max-w-0'
+            isOpen ? 'max-w-[60vw] ' : 'max-w-0'
           } transition-all duration-300 overflow-hidden`}
       >
-        <div className={_containerStyling + 'flex-col w-[40vw] h-dvh'}>
+        <div className={_containerStyling + 'flex-col w-[60vw] h-dvh'}>
           <button className={itemStyle} onClick={() => toggleMenu()}>
             <span>Back</span>
             <BsArrowRight className="ml-auto" />
