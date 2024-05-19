@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { PointsBadge } from '../components/PointsBadge';
-import { WritingFeedback, WritingSection, getSocketUrl } from '../utilities';
+import { WritingFeedback, WritingSection, useSocketUrl } from '../utilities';
 import useWebSocket from 'react-use-websocket';
 import { WSFeedbackComponent } from '../components/WSFeedback';
 
@@ -48,7 +48,7 @@ export function WritingPage({
     setAnswer(e.target.value);
   };
 
-  const socketUrl = getSocketUrl() as string;
+  const socketUrl = useSocketUrl() as string;
 
   const { sendMessage } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
