@@ -23,7 +23,7 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * Then it stores the question in the database in the user's record.
  * The input should be as follows:
  * {
- *  action:'fullTestGetQuestion',
+ *  action:'fullTestStart',
  * }
  *
  * It will return the following:
