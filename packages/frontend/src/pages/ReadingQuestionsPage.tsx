@@ -3,7 +3,6 @@ import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
 import { readingParts } from '../utilities/LRSampleQuestions';
-//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
