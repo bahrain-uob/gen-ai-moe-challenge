@@ -25,6 +25,7 @@ export const gradeReadingListening = async (
 
   const feedback = gradeRL(questions, answer.answer);
 
+  console.log('Feedback:', feedback);
   const sectionAnswer =
     questions.PK == 'reading' ? 'readingAnswer' : 'listeningAnswer';
 
@@ -41,7 +42,7 @@ export const gradeReadingListening = async (
   const response = await apiClient.send(command);
 };
 
-const gradeRL = async (
+const gradeRL = (
   question: ListeningSection | ReadingSection,
   answer: Answer,
 ) => {
