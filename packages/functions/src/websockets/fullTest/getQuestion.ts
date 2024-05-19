@@ -4,7 +4,8 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../../utilities';
-import { examSections, submit } from '../../utilities/fullTestUtilities';
+import { examSections } from '../../utilities/fullTestUtilities';
+import { submit } from '../../utilities/fullTestFunctions';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
