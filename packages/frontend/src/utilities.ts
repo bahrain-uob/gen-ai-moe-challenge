@@ -76,7 +76,7 @@ export type SpeakingFeedback = {
  * This uses the `AuthContext` under the hood to get the JWT token, and injects
  * it in the url for authentication.
  */
-export const getSocketUrl = (): string | undefined => {
+export const useSocketUrl = (): string | undefined => {
   const authInfo = useContext(AuthContext);
 
   const token = authInfo.authSession?.tokens?.idToken?.toString();
