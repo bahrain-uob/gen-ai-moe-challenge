@@ -32,6 +32,9 @@ const landingRoutes: RouteObject[] = [
     path: '/',
     Component: App,
   },
+];
+
+const notLandingRoutes: RouteObject[] = [
   {
     path: '/speaking',
     Component: Speaking,
@@ -77,9 +80,6 @@ const landingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
-];
-
-const notLandingRoutes: RouteObject[] = [
   {
     path: '/sign-up',
     Component: SignUp,
