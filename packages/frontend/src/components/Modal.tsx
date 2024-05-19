@@ -31,18 +31,18 @@ export const Modal: React.FC<ModalProps> = ({
       aria-modal="true"
     >
       <div
-        className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-all ${backdropStyle}`}
+        className={`fixed inset-0 bg-gray-700 bg-opacity-50 transition-all ${backdropStyle}`}
       ></div>
 
       <div
         className={`fixed inset-0 w-screen overflow-y-auto transition-all ${modalContainerStyle}`}
       >
         <div
-          className={`flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0`}
+          className={`flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0`}
           onClick={onCancel}
         >
           <div
-            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg ${modalPanelStyle}`}
+            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg ${modalPanelStyle}`}
           >
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
@@ -70,7 +70,7 @@ export const Modal: React.FC<ModalProps> = ({
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                 onClick={onCancel}
               >
-                Return
+                Continue
               </button>
             </div>
           </div>
