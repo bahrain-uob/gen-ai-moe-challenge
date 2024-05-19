@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
 import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
@@ -26,92 +26,60 @@ import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 
-// Place pages here
-export const routes = createBrowserRouter([
-  // All routes inside `children` use the default layout
+// These routes will have the landing nav bar
+const landingRoutes: RouteObject[] = [
   {
-    element: <Layout isLanding={true} />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '/',
-        Component: App,
-      },
-      {
-        path: '/speaking',
-        Component: Speaking,
-      },
-      {
-        path: '/Exercises',
-        Component: Exercises,
-      },
-      {
-        path: '/sections',
-        Component: Sections,
-      },
-      {
-        path: '/SpeakingExercises',
-        Component: SpeakingExercisesPage,
-      },
-      {
-        path: '/SpeakingLongQuestion',
-        Component: SpeakingLongQuestionPage,
-      },
-      {
-        path: '/SpeakingConversation',
-        Component: SpeakingConversationPage,
-      },
-      {
-        path: '/writing',
-        element: <WritingPage task={writingSection.task2} />,
-      },
-      {
-        path: '/Listening/addQuestion',
-        Component: AddListeningQPage,
-      },
-      {
-        path: '/Listening/addQuestion/success',
-        Component: SuccessAddListeningQPage,
-      },
+    path: '/',
+    Component: App,
+  },
+  {
+    path: '/speaking',
+    Component: Speaking,
+  },
+  {
+    path: '/Exercises',
+    Component: Exercises,
+  },
+  {
+    path: '/sections',
+    Component: Sections,
+  },
+  {
+    path: '/SpeakingExercises',
+    Component: SpeakingExercisesPage,
+  },
+  {
+    path: '/SpeakingLongQuestion',
+    Component: SpeakingLongQuestionPage,
+  },
+  {
+    path: '/SpeakingConversation',
+    Component: SpeakingConversationPage,
+  },
+  {
+    path: '/writing',
+    element: <WritingPage task={writingSection.task2} />,
+  },
+  {
+    path: '/Listening/addQuestion',
+    Component: AddListeningQPage,
+  },
+  {
+    path: '/Listening/addQuestion/success',
+    Component: SuccessAddListeningQPage,
+  },
 
-      {
-        path: '/full-exam',
-        Component: FullExam,
-      },
-      {
-        path: '/test',
-        Component: TestPage,
-      },
-    ],
-  },
-  /* Include all the routes that may affect authentication info here */
   {
-    element: <Layout hasAuthContext={false} />,
-    children: [
-      {
-        path: '/sign-up',
-        Component: SignUp,
-      },
-      {
-        path: '/sign-in',
-        Component: SignIn,
-      },
-      {
-        path: '/sign-out',
-        Component: SignOutPage,
-      },
-    ],
+    path: '/full-exam',
+    Component: FullExam,
   },
-  // Note that home page doesn't need a padding, because of the slider
   {
-    element: <Layout noPadding />,
-    children: [
-      {
-        path: '/home',
-        Component: Home,
-      },
-    ],
+    path: '/test',
+    Component: TestPage,
   },
+];
+
+const noLayoutRoutes: RouteObject[] = [
   // These pages don't use `Layout` yet
   {
     path: '/reading/:sk',
@@ -141,5 +109,43 @@ export const routes = createBrowserRouter([
     path: '/PlacementTest',
     Component: PlacementTest,
   },
+];
+
+// Place pages here
+export const routes = createBrowserRouter([
+  {
+    element: <Layout isLanding={true} />,
+    errorElement: <ErrorPage />,
+    children: landingRoutes,
+  },
+  /* Include all the routes that may affect authentication info here */
+  {
+    element: <Layout hasAuthContext={false} />,
+    children: [
+      {
+        path: '/sign-up',
+        Component: SignUp,
+      },
+      {
+        path: '/sign-in',
+        Component: SignIn,
+      },
+      {
+        path: '/sign-out',
+        Component: SignOutPage,
+      },
+    ],
+  },
+  // Note that home page doesn't need a padding, because of the slider
+  {
+    element: <Layout noPadding />,
+    children: [
+      {
+        path: '/home',
+        Component: Home,
+      },
+    ],
+  },
+  ...noLayoutRoutes,
 ]);
 // TODO: handle not found pages
