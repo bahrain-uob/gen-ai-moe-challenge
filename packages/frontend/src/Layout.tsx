@@ -1,6 +1,5 @@
 import { useOutlet } from 'react-router-dom';
 import { Nav } from './components/Nav';
-import { AuthInfoProvider } from './AuthContext';
 
 /**
  * This is the layout component that will be used throughout the website
@@ -10,12 +9,10 @@ import { AuthInfoProvider } from './AuthContext';
  */
 export const Layout = ({
   noPadding = false,
-  hasAuthContext = true,
   children = null,
   isLanding = false,
 }: {
   noPadding?: boolean;
-  hasAuthContext?: boolean;
   /* Using any is the easier way, I don't want to bother with things that go
    * above my head
    */
@@ -45,5 +42,5 @@ export const Layout = ({
     </main>
   );
 
-  return hasAuthContext ? <AuthInfoProvider>{out}</AuthInfoProvider> : out;
+  return out;
 };

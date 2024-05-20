@@ -10,8 +10,8 @@ import { useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
-import { ListeningAudioPlayer } from '../components/ListeningAudioPlayer';
 import { Modal } from '../components/Modal';
+import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
@@ -24,10 +24,10 @@ export const ListeningQuestionsPage = () => {
   // TODO: this should be a parameter
   const parts = listeningParts; //listeningParts
   const urls = [
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-5-matching.mp3',
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-3-short-answer-questions.mp3',
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-1-form-completion.mp3',
-    'https://s3.eu-west-2.amazonaws.com/ielts-web-static/production/Sample-tests/Listening/ielts-listening-sample-task-8-note-completion.mp3',
+    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
+    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
+    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
+    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
   ];
 
   const [partIndex, setPartIndex] = useState(0);
@@ -105,7 +105,7 @@ export const ListeningQuestionsPage = () => {
   );
 
   /* Listening Audio */
-  const audioPlayer = <ListeningAudioPlayer urls={urls} />;
+  const audioPlayer = <WaveSurferPlayer urls={urls} height={50} />;
 
   const questionsScreen = (
     <div className="w-full h-full p-8 overflow-y-scroll">
@@ -122,10 +122,12 @@ export const ListeningQuestionsPage = () => {
     <>
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
       <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
-      <div className={`h-[82svh] lg:h-[80svh] w-screen bg-white`}>
+      <div className={`h-[78svh] lg:h-[76svh] w-screen bg-white`}>
         {questionsScreen}
       </div>
-      <div className="h-[6svh] bg-gray-200">{audioPlayer}</div>
+      <div className="h-[10svh] p-5 bg-gray-200 flex flex-row items-center">
+        {audioPlayer}
+      </div>
       <Modal
         isOpen={helpIsOpen}
         modalMessage="This is help"

@@ -1,8 +1,11 @@
 import { signOut } from 'aws-amplify/auth';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext';
 
 export function SignOutPage() {
   const navigate = useNavigate();
+  const authInfo = useContext(AuthContext);
 
   signOut()
     .then(() => {
@@ -11,7 +14,10 @@ export function SignOutPage() {
     .catch(error => {
       console.log('error signing out: ', error);
     })
-    .finally(() => navigate('/'));
+    .finally(() => {
+      authInfo.update();
+      navigate('/');
+    });
 
   return <></>;
 }
