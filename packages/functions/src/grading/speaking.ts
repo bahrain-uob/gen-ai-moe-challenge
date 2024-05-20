@@ -31,13 +31,13 @@ export const gradeSpeaking = async (
   publish: boolean = false,
 ) => {
   const grading = [
-    gradeSpeakingP2(
-      answer.answer!.P1.question,
-      answer.answer!.P1.audioFileName,
-    ),
     gradeSpeakingP1(
-      answer.answer!.P2.questions,
-      answer.answer!.P2.audioFileNames,
+      answer.answer!.P1.questions,
+      answer.answer!.P1.audioFileNames,
+    ),
+    gradeSpeakingP2(
+      answer.answer!.P2.question,
+      answer.answer!.P2.audioFileName,
     ),
     gradeSpeakingP1(
       answer.answer!.P3.questions,
