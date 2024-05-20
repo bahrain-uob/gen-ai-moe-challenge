@@ -3,6 +3,7 @@ import { MicButton } from '../components/MicButton';
 import { TitleRow } from '../components/TestComponents';
 import { useState } from 'react';
 import { Modal } from '../components/Modal';
+import { useMicRecorder } from '../components/useMicRecorder';
 
 export const SpeakingCardPage = () => {
   const partIndex = 1;
@@ -63,12 +64,19 @@ export const SpeakingCardPage = () => {
     </>
   );
 
+  const { isRecording, startRecording, stopRecording } = useMicRecorder();
+
   const pageBody = (
     <div className="flex flex-col h-full justify-evenly items-center px-6">
       <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
         {cardContent}
       </div>
-      <MicButton className="shadow-backdrop" />
+      <MicButton
+        className="shadow-backdrop"
+        onStop={stopRecording}
+        onStart={startRecording}
+        isRecording={isRecording}
+      />
     </div>
   );
 

@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 
-type MicButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+interface MicButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  onStart: () => void;
+  onStop: () => void;
+  isRecording: boolean;
+}
 
 export const MicButton: React.FC<MicButtonProps> = ({
   className,
+  onStart,
+  onStop,
+  isRecording,
   ...props
 }) => {
   const [isOn, setOn] = useState(false);
@@ -21,7 +28,10 @@ export const MicButton: React.FC<MicButtonProps> = ({
     <button
       {...props}
       className={`${className} inline-block ${style} p-4 rounded-full border-2 transition-all duration-200`}
-      onClick={() => setOn(x => !x)}
+      onClick={() => {
+        setOn(x => !x);
+        isRecording ? onStop() : onStart();
+      }}
     >
       {icon}
     </button>
