@@ -31,6 +31,7 @@ export const FullTestPage = () => {
         console.log('Recieved data');
         setState(response);
       }
+      setIsloading(false);
     },
     shouldReconnect: () => true,
   });
