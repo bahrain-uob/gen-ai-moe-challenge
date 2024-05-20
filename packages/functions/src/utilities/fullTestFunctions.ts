@@ -144,62 +144,72 @@ const triggerGrading = (
 
 // this function removes the answers from the question and replaces
 // the S3 Keys with presigned URLs
-export const filterQuestion = (question: any) => {
+export const filterQuestion = async (question: any) => {
   const newQuestion = structuredClone(question);
   const client = new S3Client();
 
   if (newQuestion.PK === 'writing') {
-    // remove the graph description
-    delete newQuestion.P1.GraphDescription;
     // get the presigned URL of the graph
-    newQuestion.P1.GraphKey = generatePresignedUrl(
+    newQuestion.P1.GraphKey = await generatePresignedUrl(
       question.P1.GraphKey,
       client,
     );
   } else if (newQuestion.PK === 'reading') {
-    newQuestion.map((part: any) => {
-      part.Questions.map((question: any) => {
-        question.SubQuestions.map((subQuestion: any) => {
+    for (let part of ['P1', 'P2', 'P3']) {
+      for (let question of newQuestion[part].Questions) {
+        for (let subQuestion of question.SubQuestions) {
           if (subQuestion.CorrectAnswers) {
+            console.log('deleting correct answers');
             delete subQuestion.CorrectAnswers;
           } else if (subQuestion.CorrectAnswer) {
+            console.log('deleting correct answer');
             delete subQuestion.CorrectAnswer;
           }
-        });
-      });
-    });
+        }
+      }
+    }
   } else if (newQuestion.PK === 'listening') {
-    newQuestion.map((part: any) => {
-      part.ScriptKey = generatePresignedUrl(part.ScriptKey, client);
-      part.Questions.map((question: any) => {
+    for (let part of ['P1', 'P2', 'P3', 'P4']) {
+      newQuestion[part].ScriptKey = await generatePresignedUrl(
+        newQuestion[part].ScriptKey,
+        client,
+      );
+      for (let question of newQuestion[part].Questions) {
         if (question.QuestionType === 'Diagram Completion') {
-          question.Diagram = generatePresignedUrl(question.Diagram, client);
+          question.Diagram = await generatePresignedUrl(
+            question.Diagram,
+            client,
+          );
         }
-        question.SubQuestions.map((subQuestion: any) => {
+        for (let subQuestion of question.SubQuestions) {
           if (subQuestion.CorrectAnswers) {
             delete subQuestion.CorrectAnswers;
           } else if (subQuestion.CorrectAnswer) {
             delete subQuestion.CorrectAnswer;
           }
-        });
-      });
-    });
-  } else if (newQuestion.PK === 'speaking') {
-    newQuestion.map((part: any) => {
-      part.Task.S3Key = generatePresignedUrl(part.Task.S3Key, client);
-      part.Questions.map((question: any) => {
-        if (question.S3Key) {
-          question.S3Key = generatePresignedUrl(question.S3Key, client);
         }
-      });
-    });
+      }
+    }
+  } else if (newQuestion.PK === 'speaking') {
+    for (let part of ['P1', 'P2', 'P3']) {
+      console.log(newQuestion[part].Task.S3key);
+      newQuestion[part].Task.S3key = await generatePresignedUrl(
+        newQuestion[part].Task.S3key,
+        client,
+      );
+      for (let question of newQuestion[part].Questions) {
+        if (question.S3key) {
+          question.S3key = await generatePresignedUrl(question.S3key, client);
+        }
+      }
+    }
   }
 
   return newQuestion;
 };
 
 const generatePresignedUrl = async (key: string, client: S3Client) => {
-  const bucket = Bucket.Uploads.bucketName;
+  const bucket = process.env.speakingPollyBucket;
 
   const input = {
     Bucket: bucket,
