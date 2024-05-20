@@ -45,6 +45,7 @@ export const FullTestPage = () => {
       </Layout>
     );
 
+  // Test was not started
   if (!testId) {
     const startTest = () => {
       sendJsonMessage({ action: 'fullTestStart' });
@@ -67,12 +68,29 @@ export const FullTestPage = () => {
       }
 
       out = 'Loading...';
-    } else {
+    }
+
+    // Test was started
+    else {
       switch (state.type) {
         case 'listening':
           console.log('executed w/', state.data.question);
+          const submitAnswers = (answers: any) => {
+            sendJsonMessage({
+              action: 'fullTestSubmit',
+              testId: testId,
+              data: {
+                type: state.type, // listening, reading, writing, speaking
+                answer: answers, // this will be based on the section answer schema
+              },
+            });
+          };
+
           out = (
-            <ListeningQuestionsPage listeningSection={state.data.question} />
+            <ListeningQuestionsPage
+              listeningSection={state.data.question}
+              submitAnswers={submitAnswers}
+            />
           );
           break;
       }
