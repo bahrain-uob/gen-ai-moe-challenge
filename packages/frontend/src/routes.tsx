@@ -26,6 +26,7 @@ import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import { ProfilePage } from './pages/ProfilePage.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -92,6 +93,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/sign-out',
     Component: SignOutPage,
+  },
+  {
+    path: '/profilePage',
+    Component: ProfilePage,
   },
   {
     path: '/PlacementTest',
