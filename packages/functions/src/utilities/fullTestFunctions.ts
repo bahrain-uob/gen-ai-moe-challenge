@@ -207,9 +207,14 @@ const generatePresignedUrl = async (key: string, client: S3Client) => {
   };
 
   const command = new GetObjectCommand(input);
-  const response = await getSignedUrl(client, command, {
-    expiresIn: 60 * 60,
-  });
+  let response;
+  try {
+    response = await getSignedUrl(client, command, {
+      expiresIn: 60 * 60,
+    });
+  } catch (err) {
+    console.log('Presigned URL error: ', err);
+  }
 
   return response;
 };
