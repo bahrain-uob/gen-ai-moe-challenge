@@ -35,6 +35,8 @@ const CFRLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
 type CFRLevel = (typeof CFRLevels)[number];
 
 export const PLTestPage = () => {
+  const [showDev, setShowDev] = useState(false);
+
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
   const [questionCount, setQuestionCount] = useState(0);
   const selectedLevel = selectLevel(cf);
@@ -60,8 +62,9 @@ export const PLTestPage = () => {
     <>
       {questionCount < 20 ? (
         <>
+          <button onClick={() => setShowDev(x => !x)}>Dev</button>
           <main className="w-full h-full flex items-center flex-col">
-            <div className="hidden">
+            <div className={showDev ? '' : 'hidden'}>
               <DevPanel cf={cf} question={question} level={level} />
             </div>
             <div className="w-full flex justify-center pb-36">
