@@ -13,7 +13,7 @@ import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PlacementTest.tsx';
+import PlacementTest from './pages/PLTestPage.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -93,6 +93,10 @@ const notLandingRoutes: RouteObject[] = [
     path: '/sign-out',
     Component: SignOutPage,
   },
+  {
+    path: '/PlacementTest',
+    Component: PlacementTest,
+  },
 ];
 
 const noLayoutRoutes: RouteObject[] = [
@@ -124,10 +128,6 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
-  },
-  {
-    path: '/PlacementTest',
-    Component: PlacementTest,
   },
 ];
 
