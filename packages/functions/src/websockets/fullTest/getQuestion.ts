@@ -5,7 +5,7 @@ import {
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../../utilities';
 import { examSections } from '../../utilities/fullTestUtilities';
-import { submit } from '../../utilities/fullTestFunctions';
+import { submit, filterQuestion } from '../../utilities/fullTestFunctions';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -84,7 +84,8 @@ export const main: APIGatewayProxyHandler = async event => {
 
   for (let section = 0; section < examSections.length; section++) {
     const sectionAnswer = exam![examSections[section].answer];
-    const nextSctionAnswer = exam![examSections[section + 1].answer];
+    const nextSctionAnswer =
+      section + 1 >= 3 ? null : exam![examSections[section + 1].answer];
 
     if (sectionAnswer === undefined) {
       break;
@@ -121,13 +122,16 @@ export const main: APIGatewayProxyHandler = async event => {
       }
       // else return the question and saved answer to continue
       else {
+        const newQuestion = await filterQuestion(
+          exam!.questions[examSections[section].type],
+        );
         // retrieve questions
         const command = new PostToConnectionCommand({
           ConnectionId: connectionId,
           Data: JSON.stringify({
             type: examSections[section].type,
             data: {
-              question: exam!.questions[examSections[section].type],
+              question: newQuestion,
               answer: sectionAnswer,
             },
           }),
@@ -173,6 +177,10 @@ export const main: APIGatewayProxyHandler = async event => {
       await dynamoDb.send(updateExam);
       console.log('Starting ', examSections[section + 1].type);
 
+      const newQuestion = await filterQuestion(
+        exam!.questions[examSections[section + 1].type],
+      );
+
       // send the new questions
 
       const command = new PostToConnectionCommand({
@@ -180,7 +188,7 @@ export const main: APIGatewayProxyHandler = async event => {
         Data: JSON.stringify({
           type: examSections[section + 1].type,
           data: {
-            question: exam!.questions[examSections[section + 1].type],
+            question: newQuestion,
           },
         }),
       });
