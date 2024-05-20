@@ -5,6 +5,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
+import ReadingQuestions from './ReadingQuestionsPage';
 
 export const FullTestPage = () => {
   let out;
@@ -72,6 +73,7 @@ export const FullTestPage = () => {
 
     // Test was started
     else {
+      console.log('executed w/', state.data.question);
       switch (state.type) {
         case 'listening':
           console.log('executed w/', state.data.question);
@@ -92,6 +94,10 @@ export const FullTestPage = () => {
               submitAnswers={submitAnswers}
             />
           );
+          break;
+
+        case 'reading':
+          out = <ReadingQuestions readingSection={state.data.question} />;
           break;
       }
     }
