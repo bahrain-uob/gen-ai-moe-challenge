@@ -4,7 +4,7 @@ import { BsQuestionLg } from 'react-icons/bs';
 type ModalProps = {
   isOpen: boolean;
   onCancel: MouseEventHandler;
-  modalMessage: string;
+  modalMessage:React.ReactNode; 
 };
 
 /*
@@ -56,10 +56,10 @@ export const Modal: React.FC<ModalProps> = ({
                   >
                     Instructions
                   </h3>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500 whitespace-pre-line">
+                  <div className="mt-2 text-md text-gray-500 whitespace-pre-line">
+
                       {modalMessage}
-                    </p>
+                   
                   </div>
                 </div>
               </div>
