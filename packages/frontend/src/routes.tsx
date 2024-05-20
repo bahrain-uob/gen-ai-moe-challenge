@@ -13,7 +13,7 @@ import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PlacementTest.tsx';
+import PlacementTest from './pages/PLTestPage.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -21,7 +21,8 @@ import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import { WritingPage } from './pages/WritingPage.tsx';
 import { writingSection } from './utilities.ts';
-import LRAnswersPage from './pages/LRAnswersPage.tsx';
+import RAnswersPage from './pages/RAnswersPage.tsx';
+import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
@@ -93,6 +94,10 @@ const notLandingRoutes: RouteObject[] = [
     path: '/sign-out',
     Component: SignOutPage,
   },
+  {
+    path: '/PlacementTest',
+    Component: PlacementTest,
+  },
 ];
 
 const noLayoutRoutes: RouteObject[] = [
@@ -114,12 +119,16 @@ const noLayoutRoutes: RouteObject[] = [
   //   Component: ListeningQuestionsPage,
   // },
   {
-    path: '/scores/:section/:sk', //TODO: we will remove this link because it will be added in another page
+    path: '/scores/:section/:sk',
     Component: LRFeedbackPage,
   },
   {
-    path: '/answers/:section/:sk', //TODO: we will remove this link because it will be added in another page
-    Component: LRAnswersPage,
+    path: '/answers/reading/:sk',
+    Component: RAnswersPage,
+  },
+  {
+    path: '/answers/listening/:sk',
+    Component: LAnswersPage,
   },
   {
     path: '/test-speaking-card-ui',
@@ -128,10 +137,6 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
-  },
-  {
-    path: '/PlacementTest',
-    Component: PlacementTest,
   },
 ];
 
