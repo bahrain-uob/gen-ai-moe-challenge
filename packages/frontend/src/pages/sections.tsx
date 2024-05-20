@@ -24,6 +24,17 @@ const sections = () => (
         <Button label="Speaking" />
       </Link>
     </div>
+    <div className="flex mt-6">
+      <Link to="/test-speaking-audio-ui">
+        <Button label="Speaking Audio UI" />
+      </Link>
+      <Link to="/test-speaking-card-ui">
+        <Button label="Speaking Card UI" />
+      </Link>
+    </div>
+    <Link to="/test">
+      <Button label="/test" />
+    </Link>
   </>
 );
 

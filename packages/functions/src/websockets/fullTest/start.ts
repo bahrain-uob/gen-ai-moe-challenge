@@ -5,9 +5,15 @@ import {
   PutCommand,
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 import { Table } from 'sst/node/table';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
+import { wsError } from '../../utilities';
+import { questions, WritingSection } from 'src/utilities/fullTestUtilities';
 
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -15,57 +21,48 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * This function is called when the user starts a test.
  * It retrieves a random question from the database based on the test type.
  * Then it stores the question in the database in the user's record.
+ * The input should be as follows:
+ * {
+ *  action:'fullTestGetQuestion',
+ * }
+ *
+ * It will return the following:
+ * {
+ *  testID: 'testID',
+ *  type: 'listening',
+ *  data: {
+ *    question: 'question', // this will be based on the section question schema
+ *                          // the same as the item in DB
+ * }
  */
-export const main = async (
-  event: APIGatewayProxyEvent,
-): Promise<APIGatewayProxyResult> => {
-  //   const PK = event.pathParameters?.questionType;
-  //   const possibleTestTypes = [
-  //     'writing',
-  //     'reading',
-  //     'listening',
-  //     'speaking',
-  //     'fullTest',
-  //   ];
+export const main: APIGatewayProxyHandler = async event => {
+  // Get client info
+  const { stage, domainName, authorizer } = event.requestContext;
+  const endpoint = `https://${domainName}/${stage}`;
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: endpoint,
+  });
+  const connectionId = event.requestContext.connectionId!;
+
+  const userId = authorizer!.userId;
+  if (!userId) {
+    return wsError(apiClient, connectionId, 400, 'No user specified');
+  }
 
   // Test sections
   const testSections = ['writing', 'reading', 'listening', 'speaking'];
 
-  const userID = event.requestContext.authorizer!.jwt.claims.sub;
-  if (!userID) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        message: 'Invalid user ID',
-      }),
-    };
-  }
-
-  //validate the question type
-  //   if (!PK || !possibleTestTypes.includes(PK)) {
-  //     return {
-  //       statusCode: 400,
-  //       body: JSON.stringify({
-  //         message: 'Invalid question type',
-  //       }),
-  //     };
-  //   }
-
   try {
     // Get the index of the questions
-    let questions;
-    // if (PK === 'fullTest') {
+    let questions: questions;
     const _Questions = testSections.map(async (PK: string) => getQuestion(PK));
     const QuestionsArray = await Promise.all(_Questions);
     questions = {
-      writing: QuestionsArray[0],
+      writing: QuestionsArray[0] as WritingSection,
       reading: QuestionsArray[1],
       listening: QuestionsArray[2],
       speaking: QuestionsArray[3],
     };
-    // } else {
-    //   questions = await getQuestion(PK);
-    // }
 
     const start_time = Date.now();
     const testID = `${start_time.toString()}#${uuidv4()}`;
@@ -74,7 +71,7 @@ export const main = async (
     const putCommand = new PutCommand({
       TableName: Table.Records.tableName,
       Item: {
-        PK: userID,
+        PK: userId,
         SK: testID,
         questions,
         listeningAnswer: {
@@ -88,7 +85,7 @@ export const main = async (
     const updatePreviousTestsCommand = new UpdateCommand({
       TableName: Table.Records.tableName,
       Key: {
-        PK: userID,
+        PK: userId,
         SK: 'previousTests',
       },
       UpdateExpression:
@@ -105,9 +102,21 @@ export const main = async (
     await dynamoDb.send(putCommand);
     await dynamoDb.send(updatePreviousTestsCommand);
 
+    const listeningQuestion = questions.listening;
+
+    const success = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: JSON.stringify({
+        testID,
+        type: 'listening',
+        data: { question: listeningQuestion },
+      }),
+    });
+    await apiClient.send(success);
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ questions, testID }),
+      body: 'Success',
     };
   } catch (err) {
     console.log(err);

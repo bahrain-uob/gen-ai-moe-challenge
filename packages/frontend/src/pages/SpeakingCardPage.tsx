@@ -1,0 +1,75 @@
+import { BsQuestionLg } from 'react-icons/bs';
+import { MicButton } from '../components/MicButton';
+import { TitleRow } from '../components/TestComponents';
+
+export const SpeakingCardPage = () => {
+  const partIndex = 1;
+  const parts = ['', '', ''];
+  const q = {
+    task: {
+      text: 'Describe your favorite shopping center.',
+    },
+    questions: [
+      'Where is this center?',
+      'What is special about it?',
+      'What do you do when you go there?',
+      'What do people say about it?',
+      'Explain why you think it is a good choice.',
+    ],
+  };
+
+  /* Bar */
+  const linkStyling =
+    'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
+  const barContent = (
+    <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
+      <span className={linkStyling + ' hover-darken'}>
+        <span>Help</span>
+        <BsQuestionLg className="inline ml-2" size={16} />
+      </span>
+      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      {parts.map((_, i) => (
+        <button
+          className={
+            linkStyling + (i === partIndex ? 'bg-black bg-opacity-40' : '')
+          }
+          key={i}
+        >
+          Part {i + 1}
+        </button>
+      ))}
+    </div>
+  );
+
+  const titleRow = <TitleRow title="Speaking" />;
+
+  const cardContent = (
+    <>
+      <h3 className="font-light text-lg mb-3 border-b-2">{q.task.text}</h3>
+      <ul className="list-inside ml-4">
+        {q.questions.map((question, index) => (
+          <li key={index} className="list-disc mb-1">
+            {question}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+
+  const pageBody = (
+    <div className="flex flex-col h-full justify-evenly items-center px-6">
+      <div className="w-full max-w-xl h-60 bg-white rounded-xl shadow-backdrop py-4 px-6">
+        {cardContent}
+      </div>
+      <MicButton className="shadow-backdrop" />
+    </div>
+  );
+
+  return (
+    <>
+      <div className="h-[6svh] bg-blue-4">{barContent}</div>
+      <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
+      <div className="h-[82svh] lg:h-[80svh] w-screen">{pageBody}</div>
+    </>
+  );
+};
