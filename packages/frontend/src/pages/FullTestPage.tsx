@@ -76,6 +76,7 @@ export const FullTestPage = () => {
     else {
       console.log('executed w/', state.data.question);
       const submitAnswers = (answers: any) => {
+        console.log('Submitting', { answers });
         sendJsonMessage({
           action: 'fullTestSubmit',
           testId: testId,
@@ -104,6 +105,21 @@ export const FullTestPage = () => {
               readingSection={state.data.question}
               submitAnswers={submitAnswers}
             />
+          );
+          break;
+
+        case 'writing':
+          const dummySubmit = () =>
+            submitAnswers({
+              P1: 'My anweser',
+              P2: 'My anweser',
+            });
+
+          out = (
+            <Layout>
+              <h3>Writing assessment</h3>
+              <button onSubmit={() => dummySubmit()}> Submit </button>
+            </Layout>
           );
           break;
       }
