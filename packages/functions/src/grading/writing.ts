@@ -4,11 +4,8 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import {
-  WritingSection,
-  WritingAnswer,
-  saveFeedback,
-} from '../utilities/fullTestUtilities';
+import { WritingSection, WritingAnswer } from '../utilities/fullTestUtilities';
+import { saveFeedback } from 'src/utilities/fullTestFunctions';
 
 export const gradeWriting = async (
   PK: string,

@@ -3,7 +3,6 @@ import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
 import { readingParts } from '../utilities/LRSampleQuestions';
-//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { post } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
@@ -14,6 +13,7 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
+import { Modal } from '../components/Modal';
 
 type setType = (arg: Answer[]) => void;
 
@@ -28,6 +28,7 @@ const ReadingQuestions = () => {
 
   const [partIndex, setPartIndex] = useState(0);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -73,10 +74,13 @@ const ReadingQuestions = () => {
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -170,6 +174,11 @@ const ReadingQuestions = () => {
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage="This is help"
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };
