@@ -1,6 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Answer } from '../utilities/LRUtilities';
-import { listeningParts } from '../utilities/LRSampleQuestions';
 import { TitleRow } from '../components/TestComponents';
 import {
   QuestionsComponent,
@@ -10,19 +9,31 @@ import { useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
+// import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
-export const ListeningQuestionsPage = () => {
-  const { sk } = useParams();
-  if (!sk) return;
+interface ListeningQuestionsPageProps {
+  // TODO: fix the type
+  listeningSection: any;
+}
 
+export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
+  listeningSection,
+}) => {
   const navigate = useNavigate();
 
-  // TODO: this should be a parameter
-  const parts = listeningParts; //listeningParts
+  const parts = [
+    listeningSection.P1,
+    listeningSection.P2,
+    listeningSection.P3,
+    listeningSection.P4,
+  ];
+  const sk = listeningSection.SK;
+
+  // TODO: don't hard-code urls
   const urls = [
     'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
     'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',

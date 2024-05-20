@@ -23,7 +23,7 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * Then it stores the question in the database in the user's record.
  * The input should be as follows:
  * {
- *  action:'fullTestGetQuestion',
+ *  action:'fullTestStart',
  * }
  *
  * It will return the following:
@@ -65,7 +65,7 @@ export const main: APIGatewayProxyHandler = async event => {
     };
 
     const start_time = Date.now();
-    const testID = `${start_time.toString()}#${uuidv4()}`;
+    const testID = `${start_time.toString()}-${uuidv4()}`;
 
     // Store the question in the user's record
     const putCommand = new PutCommand({

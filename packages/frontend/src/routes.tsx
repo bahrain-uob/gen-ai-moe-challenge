@@ -25,7 +25,8 @@ import RAnswersPage from './pages/RAnswersPage.tsx';
 import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
-import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+// import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 
 // These routes will have the landing nav bar
@@ -105,15 +106,23 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
+  {
+    path: '/full-test/:testId',
+    Component: FullTestPage,
+  },
+  {
+    path: '/full-test',
+    Component: FullTestPage,
+  },
   // These pages don't use `Layout` yet
   {
     path: '/reading/:sk',
     Component: ReadingQuestions,
   },
-  {
-    path: '/listening/:sk',
-    Component: ListeningQuestionsPage,
-  },
+  // {
+  //   path: '/listening/:sk',
+  //   Component: ListeningQuestionsPage,
+  // },
   {
     path: '/scores/:section/:sk',
     Component: LRFeedbackPage,
