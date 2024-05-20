@@ -23,13 +23,18 @@ const sections = () => (
       <Link to="/speaking">
         <Button label="Speaking" />
       </Link>
-      <Link to="/writing-task1">
-        <Button label="Writing Task 1" />
+    </div>
+    <div className="flex mt-6">
+      <Link to="/test-speaking-audio-ui">
+        <Button label="Speaking Audio UI" />
       </Link>
-      <Link to="/writing-task2">
-        <Button label="Writing Task 2" />
+      <Link to="/test-speaking-card-ui">
+        <Button label="Speaking Card UI" />
       </Link>
     </div>
+    <Link to="/test">
+      <Button label="/test" />
+    </Link>
   </>
 );
 

@@ -1,4 +1,4 @@
-import { Api, StackContext, use, Service, WebSocketApi } from 'sst/constructs';
+import { Api, StackContext, use, WebSocketApi, Function } from 'sst/constructs';
 import { DBStack } from './DBStack';
 import { CacheHeaderBehavior, CachePolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { Duration } from 'aws-cdk-lib/core';
@@ -13,6 +13,7 @@ export function ApiStack({ stack }: StackContext) {
     myTable,
     speakingPollyBucket,
     Polly_bucket,
+    audiobucket,
   } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
@@ -129,6 +130,18 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
+      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
+      'GET /Listening/audio': {
+        function: {
+          handler:
+            'packages/functions/src/sample-python-lambda/getListeningAudio.main',
+          runtime: 'python3.11',
+          permissions: ['s3:*'],
+          timeout: '60 seconds',
+          environment: { audioBucket: audiobucket.bucketName },
+        },
+      },
+      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
@@ -149,13 +162,24 @@ export function ApiStack({ stack }: StackContext) {
   const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
-        bind: [table],
+        bind: [table, uploads_bucket],
         permissions: ['bedrock:InvokeModel'],
       },
     },
+    authorizer: {
+      type: 'lambda',
+      identitySource: [`route.request.querystring.idToken`],
+      function: new Function(stack, 'Authorizer', {
+        handler: 'packages/functions/src/websockets/authorizer.handler',
+        environment: {
+          userPool: auth.userPoolId,
+          userPoolClient: auth.userPoolClientId,
+        },
+      }),
+    },
     routes: {
-      $connect: 'packages/functions/src/connect.main',
-      $disconnect: 'packages/functions/src/disconnect.main',
+      $connect: 'packages/functions/src/websockets/connect.main',
+      $disconnect: 'packages/functions/src/websockets/disconnect.main',
       gradeWriting: {
         function: {
           handler: 'packages/functions/src/gradingWriting.main',
@@ -165,9 +189,59 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       },
-      speaking: {
+      fullTestStart: {
         function: {
-          handler: 'packages/functions/src/speaking.main',
+          handler: 'packages/functions/src/websockets/fullTest/start.main',
+        },
+      },
+      fullTestAutoSave: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/autoSave.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestGetQuestion: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/fullTest/getQuestion.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestSubmit: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/submit.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      gradeSpeakingP1: {
+        function: {
+          handler: 'packages/functions/src/speakingP1Grading.main',
+          permissions: [
+            's3:GetObject',
+            's3:PutObject',
+            'transcribe:StartTranscriptionJob',
+            'transcribe:GetTranscriptionJob',
+            'dynamodb:PutItem',
+          ],
+          environment: {
+            speakingUploadBucketName: uploads_bucket.bucketName,
+            feedbackTableName: feedback_table.tableName,
+          },
+          timeout: '120 seconds',
+        },
+      },
+      gradeSpeakingP2: {
+        function: {
+          handler: 'packages/functions/src/speakingP2Grading.main',
           permissions: [
             's3:GetObject',
             's3:PutObject',
@@ -186,11 +260,12 @@ export function ApiStack({ stack }: StackContext) {
   });
 
   stack.addOutputs({
+    ApiEndpoint: api.url,
     WebSocketEndpoint: webSocket.url,
   });
 
   // Allowing authenticated users to access API
-  auth.attachPermissionsForAuthUsers(stack, [api]);
+  auth.attachPermissionsForAuthUsers(stack, [api, webSocket]);
 
   return { api, apiCachePolicy, webSocket };
 }
