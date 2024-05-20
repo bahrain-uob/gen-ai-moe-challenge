@@ -7,12 +7,14 @@ import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 
 export const FullTestPage = () => {
+  let out;
   const [state, setState] = useState<any>(null);
   const { testId } = useParams();
+  const [isLoading, setIsloading] = useState(false);
 
   const socketUrl = useSocketUrl() ?? '';
   const navigate = useNavigate();
-  console.log({ state });
+  console.log({ state, testId });
 
   const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
@@ -24,6 +26,9 @@ export const FullTestPage = () => {
       if ('testID' in response) {
         setState(response);
         navigate(`/full-test/${response.testID}`);
+      } else if ('data' in response) {
+        console.log('Recieved data');
+        setState(response);
       }
     },
     shouldReconnect: () => true,
@@ -45,18 +50,36 @@ export const FullTestPage = () => {
       sendJsonMessage({ action: 'fullTestStart' });
     };
 
-    return (
+    out = (
       <Layout>
         <ConfirmFullTestStart onConfirm={() => startTest()} />
       </Layout>
     );
+  } else {
+    if (!state) {
+      if (!isLoading) {
+        sendJsonMessage({
+          action: 'fullTestGetQuestion',
+          testId: testId,
+        });
+        console.log('Sent message');
+        setIsloading(true);
+      }
+
+      out = 'Loading...';
+    } else {
+      switch (state.type) {
+        case 'listening':
+          console.log('executed w/', state.data.question);
+          out = (
+            <ListeningQuestionsPage listeningSection={state.data.question} />
+          );
+          break;
+      }
+    }
   }
 
-  switch (state.type) {
-    case 'listening':
-      console.log('executed w/', state.data.question);
-      return <ListeningQuestionsPage listeningSection={state.data.question} />;
-  }
+  return out;
 };
 
 const connectionStatus = {
