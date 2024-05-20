@@ -45,13 +45,18 @@ export const main: APIGatewayProxyHandler = async event => {
   if (!testId) {
     return wsError(apiClient, connectionId, 400, 'No test ID provided');
   }
-
   const userId = authorizer!.userId;
   if (!userId) {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
   const answer = body.data.answer;
+  if (!answer) {
+    return wsError(apiClient, connectionId, 400, 'No answer provided');
+  }
   const type = body.data.type;
+  if (!type) {
+    return wsError(apiClient, connectionId, 400, 'No type provided');
+  }
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);

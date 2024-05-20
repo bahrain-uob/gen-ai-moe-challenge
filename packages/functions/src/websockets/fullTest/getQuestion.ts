@@ -163,6 +163,7 @@ export const main: APIGatewayProxyHandler = async event => {
           ':newSection': {
             start_time: Date.now(),
             status: 'In progress',
+            answer: [],
           },
         },
         ExpressionAttributeNames: {
