@@ -1,6 +1,8 @@
 import { BsQuestionLg } from 'react-icons/bs';
 import { MicButton } from '../components/MicButton';
 import { TitleRow } from '../components/TestComponents';
+import { useState } from 'react';
+import { Modal } from '../components/Modal';
 
 export const SpeakingCardPage = () => {
   const partIndex = 1;
@@ -18,15 +20,20 @@ export const SpeakingCardPage = () => {
     ],
   };
 
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
+
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -70,6 +77,11 @@ export const SpeakingCardPage = () => {
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
       <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
       <div className="h-[82svh] lg:h-[80svh] w-screen">{pageBody}</div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage="This is help"
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };

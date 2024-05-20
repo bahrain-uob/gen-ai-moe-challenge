@@ -3,9 +3,15 @@
     {
       "P1": {
         "M": {
-          "Question": { "S": "" },
-          "GraphDescription": { "S": "" },
-          "GraphKey": { "S": "" }
+          "Question": {
+            "S": "The chart below shows the number of trips made by children in one country in 1990 and 2010 to travel to and from school using different modes of transport.\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant."
+          },
+          "GraphDescription": {
+            "S": "The graph shows that in 1991 car trips per year was 4.5 million while in 2010 it was 11 million. Walking trips per year in 1990 was above 12 million while in 2010 was 6 million. cycling trips per year in 1990 was just above 6 million while in 2010 it was 2 million. walking and bus trips per year in 1990 was just below 6 million while in 2010 it was 3 million. bus trips per year was 7 million in 1990 while in 2010 it was 5 million."
+          },
+          "GraphKey": {
+            "S": "writing/ielts_2024_01_10_IWAC1365_197676223_1704894778294.jpg"
+          }
         }
       },
       "P2": {
@@ -19,9 +25,13 @@
     {
       "P1": {
         "M": {
-          "Question": { "S": "" },
-          "GraphDescription": { "S": "" },
-          "GraphKey": { "S": "" }
+          "Question": {
+            "S": "The chart below shows the number of men and women in further education in Britain in three periods and whether they were studying fulltime or part-time.\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant."
+          },
+          "GraphDescription": {
+            "S": "Period: 1970/71\n- Number of men: 1000 as part-time and 100 as full-time\n- Number of women: 700 as part-time and 50 as full-time\n\nPeriod: 1980/81\n- Number of men: 850 as part-time and 150 as full-time\n- Number of women: 800 as part-time and 200 as full-time\n\nPeriod: 1990/91\n- Number of men: 900 as part-time and 225 as full-time\n- Number of women: 1100 as part-time and 225 as full-time"
+          },
+          "GraphKey": { "S": "writing/out-000.png" }
         }
       },
       "P2": {
@@ -35,9 +45,13 @@
     {
       "P1": {
         "M": {
-          "Question": { "S": "" },
-          "GraphDescription": { "S": "" },
-          "GraphKey": { "S": "" }
+          "Question": {
+            "S": "The diagram illustrates the process that is used to manufacture bricks for the building industry.\nSummarise the information by selecting and reporting the main features and make comparisons where relevant.\nWrite at least 150 words."
+          },
+          "GraphDescription": {
+            "S": "The diagram explains the way in which bricks are made for the building industry. Overall, there are seven stages in the process, beginning with the digging up of clay and culminating in delivery.\nTo begin, the clay used to make the bricks is dug up from the ground by a large digger. This clay is then placed onto a metal grid, which is used to break up the clay into smaller pieces. A roller assists in this process. \nFollowing this, sand and water are added to the clay, and this mixture is turned into bricks by either placing it into a mould or using a wire cutter. Next, these bricks are placed in an oven to dry for 24 – 48 hours. \nIn the subsequent stage, the bricks go through a heating and cooling process. They are heated in a kiln at a moderate and then a high temperature (ranging from 200c to 1300c), followed by a cooling process in a chamber for 2 – 3 days. Finally, the bricks are packed and delivered to their destinations."
+          },
+          "GraphKey": { "S": "writing/ielts-process-bricks.jpg" }
         }
       },
       "P2": {
@@ -51,9 +65,13 @@
     {
       "P1": {
         "M": {
-          "Question": { "S": "" },
-          "GraphDescription": { "S": "" },
-          "GraphKey": { "S": "" }
+          "Question": {
+            "S": "The chart below shows the proportion of staff employed by age in the public sector in the UK in 2015 and 2020. \nSummarise the information by selecting and reporting the main features and make comparisons where relevant.\nWrite at least 150 words."
+          },
+          "GraphDescription": {
+            "S": "proportion of staff employed by age\n\nPeriod: 2015 \n- over 50: 23%\n- 41-50: 19%\n- 31-40: 21%\n- 21-30: 23%\n- under 21: 14%\n\nPeriod 2020: \n- over 50: 16%\n- 41-50: 28%\n- 31-40: 11%\n- 21-30: 33%\n- under 21: 12%"
+          },
+          "GraphKey": { "S": "writing/ielts-pie-charts5468486754.png" }
         }
       },
       "P2": {
@@ -3077,7 +3095,7 @@
             ]
           },
           "ScriptKey": {
-            "S": "-"
+            "S": "listening/IELTSPart1-328493804.mp3"
           }
         }
       },
@@ -3267,7 +3285,7 @@
               {
                 "M": {
                   "Diagram": {
-                    "S": "-"
+                    "S": "listening/diagrams/IELTSDiagram-93458762359.png"
                   },
                   "NumOfSubQuestions": {
                     "N": "4"
@@ -3371,7 +3389,7 @@
             ]
           },
           "ScriptKey": {
-            "S": "-"
+            "S": "listening/IELTS11_Test2_Section2.mp3"
           }
         }
       },
@@ -3663,7 +3681,7 @@
             ]
           },
           "ScriptKey": {
-            "S": "-"
+            "S": "listening/IELTS11_Test2_Section3.mp3"
           }
         }
       },
@@ -3834,7 +3852,7 @@
             ]
           },
           "ScriptKey": {
-            "S": "-"
+            "S": "listening/IELTS11_Test2_Section4.mp3"
           }
         }
       }

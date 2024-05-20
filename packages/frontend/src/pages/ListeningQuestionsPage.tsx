@@ -10,6 +10,7 @@ import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
 // import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
@@ -41,6 +42,7 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   ];
 
   const [partIndex, setPartIndex] = useState(0);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -86,10 +88,13 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -134,6 +139,11 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
       <div className="h-[10svh] p-5 bg-gray-200 flex flex-row items-center">
         {audioPlayer}
       </div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage="This is help"
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };

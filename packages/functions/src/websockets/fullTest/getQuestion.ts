@@ -4,7 +4,8 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../../utilities';
-import { examSections, submit } from '../../utilities/fullTestUtilities';
+import { examSections } from '../../utilities/fullTestUtilities';
+import { submit } from '../../utilities/fullTestFunctions';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -75,11 +76,9 @@ export const main: APIGatewayProxyHandler = async event => {
     },
   });
 
-  let exam;
-  try {
-    exam = (await dynamoDb.send(getExam)).Item;
-  } catch (e) {
-    return wsError(apiClient, connectionId, 500, `Exam not found: ${e}`);
+  const exam = (await dynamoDb.send(getExam)).Item;
+  if (exam === undefined) {
+    return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
   console.log('Exam:', exam);
 

@@ -1,8 +1,8 @@
 import {
   ListeningSection,
   ReadingSection,
-  saveFeedback,
 } from 'src/utilities/fullTestUtilities';
+import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Answer } from '../../../frontend/src/utilities/LRUtilities';
 import {
   ApiGatewayManagementApiClient,
