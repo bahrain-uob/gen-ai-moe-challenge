@@ -136,12 +136,12 @@ export interface SpeakingAnswer {
   end_time?: string;
   answer?: {
     P1: {
-      audioFileName: string;
-      question: string;
-    };
-    P2: {
       audioFileNames: string[];
       questions: string[];
+    };
+    P2: {
+      audioFileName: string;
+      question: string;
     };
     P3: {
       audioFileNames: string[];
