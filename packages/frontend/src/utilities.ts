@@ -78,10 +78,8 @@ export type SpeakingFeedback = {
  */
 export const getSocketUrl = (): string | undefined => {
   const authInfo = useContext(AuthContext);
-  if (!authInfo) return;
-  // return undefined;
 
-  const token = authInfo.authSession.tokens?.idToken?.toString();
+  const token = authInfo.authSession?.tokens?.idToken?.toString();
   if (!token) return;
 
   // console.log(`URL is ${import.meta.env.VITE_WEBSOCKET_URL}?idToken=${token}`);
