@@ -77,6 +77,7 @@ export const main: APIGatewayProxyHandler = async event => {
         listeningAnswer: {
           start_time: start_time,
           status: 'In progress',
+          answer: [],
         },
       },
     });
