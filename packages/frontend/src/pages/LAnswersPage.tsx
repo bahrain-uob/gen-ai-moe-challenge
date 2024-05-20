@@ -109,7 +109,7 @@ const LAnswersPage = () => {
     <>
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
       <div className="h-[6svh] lg:h-[8svh]">{TitleRow}</div>
-      <div className={`h-[78svh] lg:h-[76svh] w-screen bg-white`}>
+      <div className={`h-[88svh] lg:h-[86svh] w-screen bg-white`}>
         {questionsScreen}
       </div>
       {/*<div className="h-[10svh] p-5 bg-gray-200 flex flex-row items-center">
