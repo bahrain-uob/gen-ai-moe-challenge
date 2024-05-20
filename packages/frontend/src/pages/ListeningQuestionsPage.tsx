@@ -9,13 +9,14 @@ import { useState } from 'react';
 import { toJSON } from '../utilities';
 import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
-import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
+// import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ListeningQuestionsPageProps {
-  listeningSection: ListeningSection;
+  // TODO: fix the type
+  listeningSection: any;
 }
 
 export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
