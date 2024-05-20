@@ -74,19 +74,20 @@ export const FullTestPage = () => {
     // Test was started
     else {
       console.log('executed w/', state.data.question);
+      const submitAnswers = (answers: any) => {
+        sendJsonMessage({
+          action: 'fullTestSubmit',
+          testId: testId,
+          data: {
+            type: state.type, // listening, reading, writing, speaking
+            answer: answers, // this will be based on the section answer schema
+          },
+        });
+      };
+
       switch (state.type) {
         case 'listening':
           console.log('executed w/', state.data.question);
-          const submitAnswers = (answers: any) => {
-            sendJsonMessage({
-              action: 'fullTestSubmit',
-              testId: testId,
-              data: {
-                type: state.type, // listening, reading, writing, speaking
-                answer: answers, // this will be based on the section answer schema
-              },
-            });
-          };
 
           out = (
             <ListeningQuestionsPage
@@ -97,7 +98,12 @@ export const FullTestPage = () => {
           break;
 
         case 'reading':
-          out = <ReadingQuestions readingSection={state.data.question} />;
+          out = (
+            <ReadingQuestions
+              readingSection={state.data.question}
+              submitAnswers={submitAnswers}
+            />
+          );
           break;
       }
     }

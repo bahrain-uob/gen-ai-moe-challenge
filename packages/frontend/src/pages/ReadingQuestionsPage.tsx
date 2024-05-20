@@ -16,10 +16,12 @@ type setType = (arg: Answer[]) => void;
 
 interface ReadingQuestionsProps {
   readingSection: ReadingSection;
+  submitAnswers: (answer: any) => void;
 }
 
 const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   readingSection,
+  submitAnswers,
 }) => {
   const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
 
@@ -69,10 +71,7 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   );
 
   const titleRow = (
-    <TitleRow
-      title="Reading Test"
-      onSubmit={() => console.log('Submitting', answers)}
-    />
+    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(answers)} />
   );
 
   /* Maximize */
