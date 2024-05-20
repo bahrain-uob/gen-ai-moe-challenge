@@ -65,7 +65,7 @@ export const main: APIGatewayProxyHandler = async event => {
     };
 
     const start_time = Date.now();
-    const testID = `${start_time.toString()}#${uuidv4()}`;
+    const testID = `${start_time.toString()}-${uuidv4()}`;
 
     // Store the question in the user's record
     const putCommand = new PutCommand({
