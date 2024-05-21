@@ -7,11 +7,8 @@ import { wsError } from '../../utilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
-import {
-  examSections,
-  autoSave,
-  submit,
-} from 'src/utilities/fullTestUtilities';
+import { examSections } from 'src/utilities/fullTestUtilities';
+import { autoSave, submit } from 'src/utilities/fullTestFunctions';
 
 /**
  * This funciton should be called when the user needs the questions for the test.
@@ -71,11 +68,9 @@ export const main: APIGatewayProxyHandler = async event => {
     },
   });
 
-  let exam;
-  try {
-    exam = (await dynamoDb.send(getExam)).Item;
-  } catch (e) {
-    return wsError(apiClient, connectionId, 500, `Exam not found: ${e}`);
+  const exam = (await dynamoDb.send(getExam)).Item;
+  if (exam === undefined) {
+    return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
   // console.log('Exam:', exam);
 
@@ -84,6 +79,18 @@ export const main: APIGatewayProxyHandler = async event => {
 
     if (sectionAnswer === undefined) {
       break;
+    }
+    if (
+      (sectionAnswer.status === 'Auto-submitted' ||
+        sectionAnswer.status === 'Submitted') &&
+      type === examSections[section].type
+    ) {
+      return wsError(
+        apiClient,
+        connectionId,
+        400,
+        'Section is already submitted',
+      );
     }
 
     // if the section is in progress

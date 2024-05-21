@@ -141,7 +141,6 @@ export function ApiStack({ stack }: StackContext) {
           environment: { audioBucket: audiobucket.bucketName },
         },
       },
-      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
     },
   });
   api.attachPermissions([myTable]);
@@ -163,7 +162,10 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       function: {
         bind: [table, uploads_bucket],
-        permissions: ['bedrock:InvokeModel'],
+        permissions: ['bedrock:InvokeModel', 's3:GetObject'],
+        environment: {
+          speakingPollyBucket: speakingPollyBucket.bucketName,
+        },
       },
     },
     authorizer: {

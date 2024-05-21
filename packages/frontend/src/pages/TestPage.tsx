@@ -3,6 +3,8 @@ import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useContext, useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
+import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
 import WaveSurferPlayer from './waveformListeningTest';
 import { AuthContext } from '../AuthContext';
 
@@ -67,6 +69,9 @@ function TestPage() {
       <Link to="/"> Back </Link>
 
       <ColorPalette />
+
+      <ModalDemo />
+
       <div className="mt-8 px-4">
         <WaveSurferPlayer audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
       </div>
@@ -75,7 +80,7 @@ function TestPage() {
 }
 
 const ColorPalette = () => {
-  const baseClasses = 'w-16 h-16 ';
+  const baseClasses = 'w-16 h-16 border ';
 
   return (
     <>
@@ -96,3 +101,26 @@ const ColorPalette = () => {
 };
 
 export default TestPage;
+
+const ModalDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const message = `- This is my thing
+  - blah 
+  - blah`;
+
+  return (
+    <div className="mt-8 px-4">
+      {/* <button onChange={() => setIsOpen(true)}>Open Modal</button> */}
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+
+      <br />
+      <br />
+      <Modal
+        isOpen={isOpen}
+        onCancel={() => setIsOpen(false)}
+        modalMessage={message}
+      />
+    </div>
+  );
+};

@@ -49,7 +49,7 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
         wavesurferRef.current = null;
       }
     };
-  }, [trackIndex, urls]);
+  }, []);
 
   const handlePlay = () => {
     if (wavesurferRef.current) {

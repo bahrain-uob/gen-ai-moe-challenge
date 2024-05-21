@@ -1,7 +1,7 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
-import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
+// import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
@@ -25,9 +25,11 @@ import RAnswersPage from './pages/RAnswersPage.tsx';
 import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
-import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import VocabularyPracticePage from './pages/VocabularyPracticePage';
 import addVocabQuestionsPage from './pages/AddVocabQuestionsPage.tsx';
+// import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
+import { FullTestPage } from './pages/FullTestPage.tsx';
+import { ProfilePage } from './pages/ProfilePage.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -96,6 +98,10 @@ const notLandingRoutes: RouteObject[] = [
     Component: SignOutPage,
   },
   {
+    path: '/profilePage',
+    Component: ProfilePage,
+  },
+  {
     path: '/PlacementTest',
     Component: PlacementTest,
   },
@@ -110,15 +116,23 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
+  {
+    path: '/full-test/:testId',
+    Component: FullTestPage,
+  },
+  {
+    path: '/full-test',
+    Component: FullTestPage,
+  },
   // These pages don't use `Layout` yet
-  {
-    path: '/reading/:sk',
-    Component: ReadingQuestions,
-  },
-  {
-    path: '/listening/:sk',
-    Component: ListeningQuestionsPage,
-  },
+  // {
+  //   path: '/reading/:sk',
+  //   Component: ReadingQuestions,
+  // },
+  // {
+  //   path: '/listening/:sk',
+  //   Component: ListeningQuestionsPage,
+  // },
   {
     path: '/scores/:section/:sk',
     Component: LRFeedbackPage,

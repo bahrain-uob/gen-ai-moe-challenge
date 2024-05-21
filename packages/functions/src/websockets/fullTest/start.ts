@@ -14,6 +14,7 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
 import { questions, WritingSection } from 'src/utilities/fullTestUtilities';
+import { filterQuestion } from 'src/utilities/fullTestFunctions';
 
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -23,7 +24,7 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * Then it stores the question in the database in the user's record.
  * The input should be as follows:
  * {
- *  action:'fullTestGetQuestion',
+ *  action:'fullTestStart',
  * }
  *
  * It will return the following:
@@ -65,7 +66,7 @@ export const main: APIGatewayProxyHandler = async event => {
     };
 
     const start_time = Date.now();
-    const testID = `${start_time.toString()}#${uuidv4()}`;
+    const testID = `${start_time.toString()}-${uuidv4()}`;
 
     // Store the question in the user's record
     const putCommand = new PutCommand({
@@ -77,6 +78,7 @@ export const main: APIGatewayProxyHandler = async event => {
         listeningAnswer: {
           start_time: start_time,
           status: 'In progress',
+          answer: [],
         },
       },
     });
@@ -102,7 +104,8 @@ export const main: APIGatewayProxyHandler = async event => {
     await dynamoDb.send(putCommand);
     await dynamoDb.send(updatePreviousTestsCommand);
 
-    const listeningQuestion = questions.listening;
+    const listeningQuestion = await filterQuestion(questions.listening);
+    console.log('Listening Question:', listeningQuestion);
 
     const success = new PostToConnectionCommand({
       ConnectionId: connectionId,

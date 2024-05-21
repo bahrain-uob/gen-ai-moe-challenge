@@ -1,27 +1,34 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { Answer } from '../utilities/LRUtilities';
-import { listeningParts } from '../utilities/LRSampleQuestions';
 import { TitleRow } from '../components/TestComponents';
 import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useState } from 'react';
-import { toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
+import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
-export const ListeningQuestionsPage = () => {
-  const { sk } = useParams();
-  if (!sk) return;
+interface ListeningQuestionsPageProps {
+  listeningSection: ListeningSection;
+  submitAnswers: (answer: any) => void;
+}
 
-  const navigate = useNavigate();
+export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
+  listeningSection,
+  submitAnswers,
+}) => {
+  const parts = [
+    listeningSection.P1,
+    listeningSection.P2,
+    listeningSection.P3,
+    listeningSection.P4,
+  ];
 
-  // TODO: this should be a parameter
-  const parts = listeningParts; //listeningParts
+  // TODO: don't hard-code urls
   const urls = [
     'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
     'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
@@ -30,6 +37,7 @@ export const ListeningQuestionsPage = () => {
   ];
 
   const [partIndex, setPartIndex] = useState(0);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -44,41 +52,18 @@ export const ListeningQuestionsPage = () => {
     };
   };
 
-  const submitAnswers = async (sk: string) => {
-    try {
-      const payload = {
-        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
-      };
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: `/answers/listening/${sk}`,
-          options: {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: payload,
-          },
-        }),
-      );
-      console.log('Submit response:', response);
-      alert('Answers submitted successfully!');
-      navigate(`/scores/listening/${sk}`);
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-      alert('Failed to submit answers.');
-    }
-  };
-
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -96,7 +81,7 @@ export const ListeningQuestionsPage = () => {
   );
 
   const titleRow = (
-    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(sk)} />
+    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(answers)} />
   );
 
   /* Listening Audio */
@@ -123,6 +108,11 @@ export const ListeningQuestionsPage = () => {
       <div className="h-[10svh] p-5 bg-gray-200 flex flex-row items-center">
         {audioPlayer}
       </div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage="This is help"
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };
