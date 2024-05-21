@@ -29,6 +29,7 @@ export const FullTestPage = () => {
        * don't care for now!)
        */
       if (typeof response === 'string') {
+        console.log(response);
       } else if ('testID' in response) {
         setState(response);
         navigate(`/full-test/${response.testID}`);
