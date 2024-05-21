@@ -19,7 +19,7 @@ import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
-import { WritingPage } from './pages/WritingPage.tsx';
+// import { WritingPage } from './pages/WritingPage.tsx';
 //import { writingSection } from './utilities.ts';
 import RAnswersPage from './pages/RAnswersPage.tsx';
 import LAnswersPage from './pages/LAnswersPage.tsx';
@@ -102,10 +102,10 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
-  {
-    path: '/writing',
-    element: <WritingPage />,
-  },
+  // {
+  //   path: '/writing',
+  //   element: <WritingPage />,
+  // },
   {
     path: '/full-test/:testId',
     Component: FullTestPage,
