@@ -140,7 +140,7 @@ export const FullTestPage = () => {
             out = (
               <Layout>
                 <h3>Writing assessment</h3>
-                <button onSubmit={() => dummySubmit()}> Submit </button>
+                <button onClick={() => dummySubmit()}> Submit </button>
               </Layout>
             );
             break;
