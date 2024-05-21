@@ -119,6 +119,7 @@ export const main: APIGatewayProxyHandler = async event => {
         });
         await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
+        return { statusCode: 200, body: 'Auto-Submitted' };
       }
       // else return the question and saved answer to continue
       else {
@@ -144,7 +145,7 @@ export const main: APIGatewayProxyHandler = async event => {
           'questions',
         );
       }
-      break;
+      return { statusCode: 200, body: 'Question sended' };
     }
     // if the section is submitted and the next section is not started
     else if (
@@ -193,8 +194,9 @@ export const main: APIGatewayProxyHandler = async event => {
         }),
       });
       await apiClient.send(command);
+      return { statusCode: 200, body: 'New question sended' };
     }
   }
 
-  return { statusCode: 200, body: 'Connected' };
+  return wsError(apiClient, connectionId, 400, 'No section in progress');
 };
