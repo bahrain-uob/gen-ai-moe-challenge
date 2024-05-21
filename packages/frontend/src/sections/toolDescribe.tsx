@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const toolDescribe = () => {
   return (
-    <section className="w-full flex-1 flex flex-col lg:flex-row gap-10 max-container justify-center lg:gap-56 pb-10 bg-[#6A9EAB]  " >
+    <section className="w-full flex-1 flex flex-col lg:flex-row gap-10 max-container justify-center lg:gap-56 pb-10 bg-blue-4  " >
     
 
       <div className="relative xl:w-2/4 flex flex-col justify-center items-center w-full max-xl:padding-x pt-27 text-white ">
