@@ -116,6 +116,7 @@ export const FullTestPage = () => {
 
       // Question was returned
       else {
+        let dummySubmit: any;
         switch (state.type) {
           case 'listening':
             console.log('executed w/', state.data.question);
@@ -138,7 +139,7 @@ export const FullTestPage = () => {
             break;
 
           case 'writing':
-            const dummySubmit = () =>
+            dummySubmit = () =>
               submitAnswers({
                 P1: 'My anweser',
                 P2: 'My anweser',
@@ -147,6 +148,31 @@ export const FullTestPage = () => {
             out = (
               <Layout>
                 <h3>Writing assessment</h3>
+                <button onClick={() => dummySubmit()}> Submit </button>
+              </Layout>
+            );
+            break;
+
+          case 'speaking':
+            dummySubmit = () =>
+              submitAnswers({
+                P1: {
+                  audioFileNames: [],
+                  questions: [],
+                },
+                P2: {
+                  audioFileName: [],
+                  question: [],
+                },
+                P3: {
+                  audioFileNames: [],
+                  questions: [],
+                },
+              });
+
+            out = (
+              <Layout>
+                <h3>Speaking assesment</h3>
                 <button onClick={() => dummySubmit()}> Submit </button>
               </Layout>
             );
