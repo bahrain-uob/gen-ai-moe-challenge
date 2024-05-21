@@ -11,17 +11,20 @@ import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
 import { ReadingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ReadingQuestionsProps {
   readingSection: ReadingSection;
   submitAnswers: (answer: any) => void;
+  time: number;
 }
 
 const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   readingSection,
   submitAnswers,
+  time,
 }) => {
   const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
 
@@ -54,7 +57,9 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer time={time} />
+      </span>
       {parts.map((_, i) => (
         <button
           className={
@@ -149,7 +154,19 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
       </div>
       <Modal
         isOpen={helpIsOpen}
-        modalMessage="This is help"
+        modalMessage={
+          <div>
+          <ul  className="list-disc  mt-5 pr-10 pl-5">
+           <li className='mt-4 text-justify'>The passage is located on the left side of your screen, Read it carefully to understand the content and context.</li>
+           <li className='mt-4 text-justify'>To navigate through different parts of the test, please press the buttons located in the top right corner of the screen.</li>
+           <li className='mt-4 text-justify'>When you have completed all parts of the test, click the 'Submit' button located in the top right corner of the screen to finish and submit your answers.</li>
+           <li className='mt-4 text-justify'>There are 40 questions altogether, and each question carries one mark. Answer all of the questions.</li>
+           <li className='mt-4  text-justify'>The test will take about 60 minutes,You should aim to spend no more than 20 minutes on each part. As the test progresses, the sections increase in difficulty, so make sure you allow yourself enough time to complete each section.</li>
+          </ul>
+        </div>
+
+
+        }
         onCancel={() => setHelpIsOpen(false)}
       />
     </>

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import SpeakingQuestions from './SpeakingQuestionsPage';
+import { Spinner } from '../components/Spinner';
 
 export const FullTestPage = () => {
   let out;
@@ -68,11 +69,13 @@ export const FullTestPage = () => {
   if (readyState !== ReadyState.OPEN)
     return (
       <Layout>
-        <p>
-          {socketUrl === ''
-            ? 'You have to sign in first'
-            : connectionStatus[readyState]}
-        </p>
+        <Spinner
+          message={
+            socketUrl === ''
+              ? 'You have to sign in first'
+              : connectionStatus[readyState]
+          }
+        />
       </Layout>
     );
 
@@ -98,7 +101,11 @@ export const FullTestPage = () => {
         setIsloading(true);
       }
 
-      out = 'Loading...';
+      out = (
+        <Layout>
+          <Spinner message="Loading..." />
+        </Layout>
+      );
     }
 
     // Test was started
@@ -147,6 +154,8 @@ export const FullTestPage = () => {
       // Question was returned
       else {
         let dummySubmit: any;
+        const time = Number(testId.slice(0, testId.indexOf('-')));
+
         switch (state.type) {
           case 'listening':
             out = (
@@ -162,6 +171,7 @@ export const FullTestPage = () => {
               <ReadingQuestions
                 readingSection={state.data.question}
                 submitAnswers={submitAnswers}
+                time={time}
               />
             );
             break;

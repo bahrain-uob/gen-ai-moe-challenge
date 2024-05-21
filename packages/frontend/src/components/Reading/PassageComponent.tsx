@@ -11,7 +11,7 @@ export const PassageComponent = ({
     <div>
       <h1 className="font-bold text-xl">Part {PartIndex + 1}</h1>
       <h1 className="my-4 text-xl">{readingPart.PassageTitle}</h1>
-      <p style={{ whiteSpace: 'pre-line' }}>{readingPart.Passage}</p>
+      <p style={{ whiteSpace: 'pre-line' }} className='text-justify'>{readingPart.Passage}</p>
     </div>
   );
 };

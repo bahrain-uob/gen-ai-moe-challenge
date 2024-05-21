@@ -6,6 +6,7 @@ import {
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { WritingSection, WritingAnswer } from '../utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
+import { WritingFeedback } from '../../../frontend/src/utilities';
 
 export const gradeWriting = async (
   PK: string,
@@ -110,22 +111,44 @@ export const gradeWritingPart = async (
 
   // Calculate average score
   const scores: Array<number> = feedbacks.map(feedback => {
-    const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
+    const scoreNullable = feedback.match(/\d(\.\d{1,2})?/gm);
+    const score = scoreNullable === null ? '0' : scoreNullable[0] ?? '0';
     const number = parseFloat(score);
     return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
   const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
   console.log('Scores', scores, 'Average Score:', avgScore);
 
-  const out = {
-    'Coherence & Cohesion': feedbacks[0],
-    'Grammatical Range & Accuracy': feedbacks[1],
-    'Lexical Resource': feedbacks[2],
-    'Task Responce': feedbacks[3],
+  // const out = {
+  //   'Coherence & Cohesion': feedbacks[0],
+  //   'Grammatical Range & Accuracy': feedbacks[1],
+  //   'Lexical Resource': feedbacks[2],
+  //   'Task Responce': feedbacks[3],
+  //   'Grammer Tool Feedback': grammerToolFeedback,
+  //   'Combined Feedback': '',
+  // };
+
+  const out: WritingFeedback = {
+    'Coherence & Cohesion': {
+      text: feedbacks[0],
+      score: scores[0],
+    },
+    'Grammatical Range & Accuracy': {
+      text: feedbacks[1],
+      score: scores[1],
+    },
+    'Lexical Resource': {
+      text: feedbacks[2],
+      score: scores[2],
+    },
+    'Task Responce': {
+      text: feedbacks[3],
+      score: scores[3],
+    },
     'Grammer Tool Feedback': grammerToolFeedback,
     'Combined Feedback': '',
+    score: avgScore,
   };
-
   // Create a combined feedback
   const unifyPrompt = promptToUnifyFeedbacks(out);
   out['Combined Feedback'] = await runModel(unifyPrompt);
@@ -249,13 +272,15 @@ parts of the student's answer relevant to your grading.
  * Create a prompt to unify the feedbacks into one.  Takes as input a Record
  * with the criteria as the key, and the feedback text as the value.
  */
-function promptToUnifyFeedbacks(feedbacks: Record<string, string>) {
+function promptToUnifyFeedbacks(feedbacks: WritingFeedback) {
   const feedbacksSection = Object.entries(feedbacks)
     // Convert to XML-like format
     .map(([criteria, feedback]) =>
-      criteria === 'Combined Feedback' // Exclude combined feedback from Object
+      criteria === 'Combined Feedback' || // Exclude combined feedback from Object
+      criteria === 'Grammer Tool Feedback' || // Exclude Grammar Tool Feedback from Object
+      criteria === 'score' // Exclude score from Object
         ? ''
-        : `<${criteria}>\n${feedback}\n</${criteria}>`,
+        : `<${criteria}>\n${feedback.text}\n</${criteria}>`,
     )
     .reduce((prev, curr) => prev + '\n' + curr);
 

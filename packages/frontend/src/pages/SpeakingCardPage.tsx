@@ -87,7 +87,18 @@ export const SpeakingCardPage = () => {
       <div className="h-[82svh] lg:h-[80svh] w-screen">{pageBody}</div>
       <Modal
         isOpen={helpIsOpen}
-        modalMessage="This is help"
+        modalMessage={
+          <div>
+          <ul className="list-disc mt-5 pr-10 pl-5">
+            <li className='mt-4 text-justify'>A task card will be displayed on your screen with topics and questions to discuss. Take time to prepare your thoughts.</li>
+            <li className='mt-4 text-justify'>When ready, click the microphone icon to start recording your response. Speak for up to 2 minutes, addressing all points and questions.</li>
+            <li className='mt-4 text-justify'>To complete the test, submit your responses and exit the recording interface as instructed on the screen.</li>
+            <li className='mt-4 text-justify'>Ensure clear and structured responses to demonstrate your language skills effectively.</li>
+          </ul>
+        </div>
+        
+
+        }
         onCancel={() => setHelpIsOpen(false)}
       />
     </>
