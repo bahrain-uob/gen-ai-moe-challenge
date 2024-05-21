@@ -1,44 +1,42 @@
 import React, { useState, useEffect } from 'react';
 
 interface Props {
-  minutes: number; // Number of minutes for countdown
-  onTimeUp: () => void;
+  time: number; // Number of minutes for countdown
+  onTimeUp?: () => void;
 }
 
-const CountdownTimer: React.FC<Props> = ({ minutes, onTimeUp }) => {
-  const [remainingTime, setRemainingTime] = useState<number>(minutes * 60); // Convert minutes to seconds
+export const CountdownTimer: React.FC<Props> = ({ time, onTimeUp }) => {
+  const [remainingTime, setRemainingTime] = useState<number>(
+    Math.floor((time - Date.now() + 60 * 60 * 1000) / 1000),
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setRemainingTime(prevTime => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          onTimeUp();
+      setRemainingTime(r => {
+        console.log({ r }, r <= 0, r === 1);
+        if (r <= 0) {
           return 0;
+        } else if (r === 1) {
+          onTimeUp?.();
+          return r - 1;
         } else {
-          return prevTime - 1;
+          return r - 1;
         }
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes, onTimeUp]);
+  }, []);
 
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${padZero(minutes)}:${padZero(seconds)}`;
-  };
-
-  const padZero = (num: number): string => {
-    return num < 10 ? `0${num}` : `${num}`;
-  };
-
-  return (
-    <div className="remaining-time">
-      Remaining Time: {formatTime(remainingTime)}
-    </div>
-  );
+  return <span>{formatTime(remainingTime)}</span>;
 };
 
-export default CountdownTimer;
+const formatTime = (time: number): string => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${padZero(minutes)}:${padZero(seconds)}`;
+};
+
+const padZero = (num: number): string => {
+  return num < 10 ? `0${num}` : `${num}`;
+};

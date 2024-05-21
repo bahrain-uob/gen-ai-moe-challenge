@@ -11,17 +11,20 @@ import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
 import { ReadingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ReadingQuestionsProps {
   readingSection: ReadingSection;
   submitAnswers: (answer: any) => void;
+  time: number;
 }
 
 const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   readingSection,
   submitAnswers,
+  time,
 }) => {
   const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
 
@@ -54,7 +57,9 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer time={time} />
+      </span>
       {parts.map((_, i) => (
         <button
           className={
