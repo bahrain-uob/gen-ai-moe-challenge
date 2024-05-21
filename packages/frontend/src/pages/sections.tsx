@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from '../components/TButton';
+import { setCachedFeedback } from '../utilities';
+import { sampleFullTest } from '../utilities/sampleFullTest';
 
 const sections = () => (
   <>
@@ -14,10 +16,10 @@ const sections = () => (
     </div>
     <h4 className="text-xl mb-4"> Dummy pages </h4>
     <div className="flex">
-      <Link to="">
+      <Link to="/listening/1">
         <Button label="Listening" />
       </Link>
-      <Link to="/reading/1">
+      <Link to="/reading/2">
         <Button label="Reading" />
       </Link>
       <Link to="/speaking">
@@ -37,6 +39,14 @@ const sections = () => (
     </Link>
     <Link to="/full-test">
       <Button label="full test" />
+    </Link>
+    <Link
+      to="/feedback/1717941628284-sample"
+      onClick={() =>
+        setCachedFeedback({ fullItem: sampleFullTest }, '1717941628284-sample')
+      }
+    >
+      <Button label="Sample Feedback" />
     </Link>
   </>
 );

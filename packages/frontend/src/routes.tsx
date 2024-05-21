@@ -19,21 +19,29 @@ import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
-import { WritingPage } from './pages/WritingPage.tsx';
-import { writingSection } from './utilities.ts';
-import RAnswersPage from './pages/RAnswersPage.tsx';
-import LAnswersPage from './pages/LAnswersPage.tsx';
+// import { WritingPage } from './pages/WritingPage.tsx';
+//import { writingSection } from './utilities.ts';
+// import RAnswersPage from './pages/RAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
+import { AllFeedbacks } from './components/AllFeedbacks.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
   {
     path: '/',
     Component: App,
+  },
+  {
+    path: '/sign-up',
+    Component: SignUp,
+  },
+  {
+    path: '/sign-in',
+    Component: SignIn,
   },
 ];
 
@@ -63,10 +71,6 @@ const notLandingRoutes: RouteObject[] = [
     Component: SpeakingConversationPage,
   },
   {
-    path: '/writing',
-    element: <WritingPage task={writingSection.task2} />,
-  },
-  {
     path: '/Listening/addQuestion',
     Component: AddListeningQPage,
   },
@@ -83,18 +87,12 @@ const notLandingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
+ 
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
+  
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -106,6 +104,10 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
+  // {
+  //   path: '/writing',
+  //   element: <WritingPage />,
+  // },
   {
     path: '/full-test/:testId',
     Component: FullTestPage,
@@ -113,6 +115,10 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/full-test',
     Component: FullTestPage,
+  },
+  {
+    path: '/feedback/:testId',
+    Component: AllFeedbacks,
   },
   // These pages don't use `Layout` yet
   // {
@@ -127,14 +133,14 @@ const noLayoutRoutes: RouteObject[] = [
     path: '/scores/:section/:sk',
     Component: LRFeedbackPage,
   },
-  {
-    path: '/answers/reading/:sk',
-    Component: RAnswersPage,
-  },
-  {
-    path: '/answers/listening/:sk',
-    Component: LAnswersPage,
-  },
+  // {
+  //   path: '/answers/reading/:sk',
+  //   Component: RAnswersPage,
+  // },
+  // {
+  //   path: '/answers/listening/:sk',
+  //   Component: LAnswersPage,
+  // },
   {
     path: '/test-speaking-card-ui',
     Component: SpeakingCardPage,
@@ -142,7 +148,15 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
+  },{
+    path: '/sign-in',
+    Component: SignIn,
   },
+  {
+    path: '/sign-up',
+    Component: SignUp,
+  }
+ 
 ];
 
 // Place pages here

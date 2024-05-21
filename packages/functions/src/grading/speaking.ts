@@ -13,10 +13,12 @@ import {
 } from '../utilities/speakingUtilities';
 import {
   SpeakingAnswer,
+  SpeakingFeedbackAll,
   SpeakingSection,
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
+import { SpeakingFeedback } from '../../../frontend/src/utilities/types';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;
@@ -26,9 +28,9 @@ export const gradeSpeaking = async (
   SK: string,
   questions: SpeakingSection,
   answer: SpeakingAnswer,
-  connectionId: string,
-  endpoint: string,
-  publish: boolean = false,
+  // connectionId: string,
+  // endpoint: string,
+  // publish: boolean = false,
 ) => {
   const grading = [
     gradeSpeakingP1(
@@ -46,30 +48,40 @@ export const gradeSpeaking = async (
   ];
   const _feedbacks = await Promise.all(grading);
 
-  const feedback = {
-    P1: _feedbacks[0],
-    P2: _feedbacks[1],
-    P3: _feedbacks[2],
-  };
+  const feedback: SpeakingFeedbackAll = _feedbacks;
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, 'speakingAnswer', feedback);
-  // Send feedback to the client
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: endpoint,
-  });
+  // // Send feedback to the client
+  // const apiClient = new ApiGatewayManagementApiClient({
+  //   endpoint: endpoint,
+  // });
 
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify(publish ? newTestItem : 'Speaking graded'),
-  });
-  const response = await apiClient.send(command);
+  // const command = new PostToConnectionCommand({
+  //   ConnectionId: connectionId,
+  //   Data: JSON.stringify(publish ? newTestItem : 'Speaking graded'),
+  // });
+  // const response = await apiClient.send(command);
+
+  return newTestItem;
 };
 
 export const gradeSpeakingP1 = async (
   questions: string[],
   audioFileNames: string[],
-) => {
+): Promise<SpeakingFeedback> => {
+  if (!questions.length || !audioFileNames.length) {
+    return {
+      error: 'No questions or audio files found',
+    };
+  }
+
+  if (questions.length == 0 || audioFileNames.length == 0) {
+    return {
+      error: 'No questions or audio files found',
+    };
+  }
+
   //   const { audioFileNames, questions } = requestBody;
   const fileNames = audioFileNames.map((file: string) => {
     return file.slice(0, -5);
@@ -129,9 +141,10 @@ export const gradeSpeakingP1 = async (
     pronMistakes.concat(missPronunciations);
   }
 
-  const pronScore = Math.round(
+  const pronScoreUnv = Math.round(
     pronScores.reduce((a, b) => a + b, 0) / pronScores.length,
   );
+  const pronScore = Number.isFinite(pronScoreUnv) ? pronScoreUnv : 0;
   const pronFeedback =
     pronMistakes.length > 0
       ? `There are pronunciation mistakes in the words ${pronMistakes.toString()}.`
@@ -175,17 +188,28 @@ export const gradeSpeakingP1 = async (
     return number >= 1 && number <= 9 ? number : 1; // Ensure score is between 1 and 9
   });
   scores.push(Math.round(pronScore * speechPercentage));
-  const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
-    2,
-  );
+  const avgScore =
+    scores.reduce((a, b) => (a ?? 0) + (b ?? 0), 0) / scores.length;
 
   // Feedback to be returned to the user
-  const output = {
-    Score: avgScore,
-    'Fluency and Coherence': feedbackResults[0],
-    'Lexical Resource': feedbackResults[1],
-    'Grammatical Range and Accuracy': feedbackResults[2],
-    Pronunciation: pronFeedback,
+  const output: SpeakingFeedback = {
+    score: avgScore,
+    'Fluency & Coherence': {
+      text: feedbackResults[0],
+      score: Number.isFinite(scores[0]) ? scores[0] : 0,
+    },
+    'Lexical Resource': {
+      text: feedbackResults[1],
+      score: Number.isFinite(scores[0]) ? scores[1] : 0,
+    },
+    'Grammatical Range & Accuracy': {
+      text: feedbackResults[2],
+      score: Number.isFinite(scores[0]) ? scores[2] : 0,
+    },
+    Pronunciation: {
+      text: pronFeedback,
+      score: Number.isFinite(pronScore) ? pronScore : 0,
+    },
   };
 
   return output;
@@ -194,7 +218,7 @@ export const gradeSpeakingP1 = async (
 export const gradeSpeakingP2 = async (
   question: string,
   audioFileName: string,
-) => {
+): Promise<SpeakingFeedback> => {
   const fileName = audioFileName.slice(0, -5);
 
   // Ensure audioFileName and question exist in the body
@@ -276,18 +300,35 @@ export const gradeSpeakingP2 = async (
     return number >= 1 && number <= 9 ? number : 1; // Ensure score is between 1 and 9
   });
   scores.push(Math.round(pronScore * speechPercentage));
-  const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
-    2,
-  );
+  const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
 
   // Feedback to be returned to the user
-  const output = {
-    Score: avgScore,
-    'Fluency and Coherence': feedbackResults[0],
-    'Lexical Resource': feedbackResults[1],
-    'Grammatical Range and Accuracy': feedbackResults[2],
-    Pronunciation: pronFeedback,
-  };
+  // const output = {
+  //   Score: avgScore,
+  //   'Fluency and Coherence': feedbackResults[0],
+  //   'Lexical Resource': feedbackResults[1],
+  //   'Grammatical Range and Accuracy': feedbackResults[2],
+  //   Pronunciation: pronFeedback,
+  // };
 
+  const output: SpeakingFeedback = {
+    score: avgScore,
+    'Fluency & Coherence': {
+      text: feedbackResults[0],
+      score: Number.isFinite(scores[0]) ? scores[0] : 0,
+    },
+    'Lexical Resource': {
+      text: feedbackResults[1],
+      score: Number.isFinite(scores[0]) ? scores[1] : 0,
+    },
+    'Grammatical Range & Accuracy': {
+      text: feedbackResults[2],
+      score: Number.isFinite(scores[0]) ? scores[2] : 0,
+    },
+    Pronunciation: {
+      text: pronFeedback,
+      score: Number.isFinite(pronScore) ? pronScore : 0,
+    },
+  };
   return output;
 };

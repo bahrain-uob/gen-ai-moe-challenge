@@ -14,12 +14,11 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
 import {
-  ListeningSection,
-  questions,
-  ReadingSection,
-  SpeakingSection,
-  startFullTestResponse,
-  WritingSection,
+  examSectionObject,
+  SectionQuestions,
+  SectionTestItem,
+  startSectionTestResponse,
+  testType,
 } from 'src/utilities/fullTestUtilities';
 import { filterQuestion } from 'src/utilities/fullTestFunctions';
 
@@ -31,13 +30,14 @@ const dynamoDb = DynamoDBDocumentClient.from(client);
  * Then it stores the question in the database in the user's record.
  * The input should be as follows:
  * {
- *  action:'fullTestStart',
+ *  action:'sectionTestStart',
+ *  type: 'sectionType', // listening, reading, writing, speaking
  * }
  *
  * It will return the following:
  * {
  *  testID: 'testID',
- *  type: 'listening',
+ *  type: 'sectionType',
  *  data: {
  *    question: 'question', // this will be based on the section question schema
  *                          // the same as the item in DB
@@ -57,28 +57,33 @@ export const main: APIGatewayProxyHandler = async event => {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
 
+  const body = JSON.parse(event.body!);
+  const type = body.type as testType;
+  if (!type) {
+    return wsError(apiClient, connectionId, 400, 'No type provided');
+  }
+
   // Test sections
   const testSections = ['writing', 'reading', 'listening', 'speaking'];
 
+  if (!testSections.includes(type)) {
+    return wsError(apiClient, connectionId, 400, 'Invalid test type');
+  }
+
   try {
-    // Get the index of the questions
-    let questions: questions;
-    const _Questions = testSections.map(async (PK: string) => getQuestion(PK));
-    const QuestionsArray = await Promise.all(_Questions);
-    questions = {
-      writing: QuestionsArray[0] as WritingSection,
-      reading: QuestionsArray[1] as ReadingSection,
-      listening: QuestionsArray[2] as ListeningSection,
-      speaking: QuestionsArray[3] as SpeakingSection,
-    };
+    // get a question from the DB
+    const questions = await getQuestion(type);
+
+    // Check if the user already has a test in progress
     const getUserTests = new GetCommand({
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: type + 'Tests',
       },
     });
 
+    // If he has a test in progress, return an error
     const userTests = await dynamoDb.send(getUserTests);
     if (userTests.Item?.inProgress) {
       return wsError(
@@ -89,21 +94,27 @@ export const main: APIGatewayProxyHandler = async event => {
       );
     }
 
+    // Generate a test ID
     const start_time = Date.now();
     const testID = `${start_time.toString()}-${uuidv4()}`;
 
     // Store the question in the user's record
+    const item: SectionTestItem = {
+      PK: userId,
+      SK: testID,
+      questions,
+      type: type,
+    };
+    const answerKey = examSectionObject[type].answer;
+
+    item[answerKey] = {
+      start_time: start_time,
+      status: 'In progress',
+    };
+
     const putCommand = new PutCommand({
       TableName: Table.Records.tableName,
-      Item: {
-        PK: userId,
-        SK: testID,
-        questions,
-        listeningAnswer: {
-          start_time: start_time,
-          status: 'In progress',
-        },
-      },
+      Item: item,
     });
 
     // Add the test ID to the list of previous tests
@@ -111,28 +122,23 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: type + 'Tests',
       },
-      UpdateExpression: 'SET inProgress = :testID', //list_append(if_not_exists(#testType, :init), :testID)',
-      // ExpressionAttributeNames: {
-      //   '#testType': 'fullTests',
-      // },
+      UpdateExpression: 'SET inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
-        // ':init': [],
       },
     });
 
     await dynamoDb.send(putCommand);
     await dynamoDb.send(updatePreviousTestsCommand);
 
-    const listeningQuestion = await filterQuestion(questions.listening);
-    console.log('Listening Question:', listeningQuestion);
+    const filteredQuestion = await filterQuestion(questions);
 
-    const response: startFullTestResponse = {
+    const response: startSectionTestResponse = {
       testID,
-      type: 'listening',
-      data: { question: listeningQuestion },
+      type: type,
+      data: { question: filteredQuestion },
     };
 
     const success = new PostToConnectionCommand({
@@ -156,7 +162,7 @@ export const main: APIGatewayProxyHandler = async event => {
   }
 };
 
-const getQuestion = async (PK: string) => {
+const getQuestion = async (PK: string): Promise<SectionQuestions> => {
   const getIndexCommand = new GetCommand({
     // Get the table name from the environment variable
     TableName: Table.Records.tableName,
@@ -194,5 +200,5 @@ const getQuestion = async (PK: string) => {
   });
   const response = await dynamoDb.send(getQuestionCommand);
 
-  return response.Item;
+  return response.Item as SectionQuestions;
 };

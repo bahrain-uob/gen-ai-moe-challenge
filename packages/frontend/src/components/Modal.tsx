@@ -4,7 +4,7 @@ import { BsQuestionLg } from 'react-icons/bs';
 type ModalProps = {
   isOpen: boolean;
   onCancel: MouseEventHandler;
-  modalMessage: string;
+  modalMessage:React.ReactNode; 
 };
 
 /*
@@ -39,10 +39,9 @@ export const Modal: React.FC<ModalProps> = ({
       >
         <div
           className={`flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0`}
-          onClick={onCancel}
         >
           <div
-            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg ${modalPanelStyle}`}
+            className={`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:mx-6 w-full sm:max-w-screen-md ${modalPanelStyle}`}
           >
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
@@ -56,10 +55,10 @@ export const Modal: React.FC<ModalProps> = ({
                   >
                     Instructions
                   </h3>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500 whitespace-pre-line">
+                  <div className="mt-2 text-md text-gray-500 whitespace-pre-line">
+
                       {modalMessage}
-                    </p>
+                   
                   </div>
                 </div>
               </div>

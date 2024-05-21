@@ -4,7 +4,14 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from '../../utilities';
-import { examSections } from '../../utilities/fullTestUtilities';
+import {
+  examSections,
+  FullTestItem,
+  getQuestionResponse,
+  RLAnswer,
+  SpeakingAnswer,
+  WritingAnswer,
+} from '../../utilities/fullTestUtilities';
 import { submit, filterQuestion } from '../../utilities/fullTestFunctions';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
@@ -51,7 +58,7 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Ensure message has a body
   if (event.body == undefined) {
-    return await wsError(apiClient, connectionId, 400, 'Bad Request');
+    return await wsError(apiClient, connectionId, 400, 'No body found');
   }
   const body = JSON.parse(event.body);
 
@@ -76,7 +83,7 @@ export const main: APIGatewayProxyHandler = async event => {
     },
   });
 
-  const exam = (await dynamoDb.send(getExam)).Item;
+  const exam = (await dynamoDb.send(getExam)).Item as FullTestItem;
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
@@ -94,18 +101,20 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
       // calculate total time
-      const totalTime = Date.now() - sectionAnswer.start_time;
+      const totalTime = Date.now() - Number(sectionAnswer.start_time);
       console.log('Total time:', totalTime / (1000 * 60));
 
       // if the time is up auto submit the section
       if (totalTime > examSections[section].time) {
         //auto-submitted
-        submit(
+        await submit(
           dynamoDb,
           userId,
           testId,
           examSections[section].answer,
-          sectionAnswer.answer,
+          sectionAnswer.answer
+            ? sectionAnswer.answer
+            : examSections[section].initAnswer,
           connectionId,
           endpoint,
           true,
@@ -126,16 +135,18 @@ export const main: APIGatewayProxyHandler = async event => {
         const newQuestion = await filterQuestion(
           exam!.questions[examSections[section].type],
         );
+
+        const response: getQuestionResponse = {
+          type: examSections[section].type,
+          data: {
+            question: newQuestion,
+            answer: sectionAnswer,
+          },
+        };
         // retrieve questions
         const command = new PostToConnectionCommand({
           ConnectionId: connectionId,
-          Data: JSON.stringify({
-            type: examSections[section].type,
-            data: {
-              question: newQuestion,
-              answer: sectionAnswer,
-            },
-          }),
+          Data: JSON.stringify(response),
         });
         await apiClient.send(command);
 
@@ -156,6 +167,10 @@ export const main: APIGatewayProxyHandler = async event => {
       // start the next section
       console.log(examSections[section + 1].answer);
 
+      const initAnswer: SpeakingAnswer | WritingAnswer | RLAnswer = {
+        start_time: Date.now(),
+        status: 'In progress',
+      };
       // set the start time and status
       const updateExam = new UpdateCommand({
         TableName: Table.Records.tableName,
@@ -165,11 +180,7 @@ export const main: APIGatewayProxyHandler = async event => {
         },
         UpdateExpression: 'SET #section = :newSection',
         ExpressionAttributeValues: {
-          ':newSection': {
-            start_time: Date.now(),
-            status: 'In progress',
-            answer: [],
-          },
+          ':newSection': initAnswer,
         },
         ExpressionAttributeNames: {
           '#section': examSections[section + 1].answer,
@@ -184,14 +195,16 @@ export const main: APIGatewayProxyHandler = async event => {
 
       // send the new questions
 
+      const response: getQuestionResponse = {
+        type: examSections[section + 1].type,
+        data: {
+          question: newQuestion,
+          answer: initAnswer,
+        },
+      };
       const command = new PostToConnectionCommand({
         ConnectionId: connectionId,
-        Data: JSON.stringify({
-          type: examSections[section + 1].type,
-          data: {
-            question: newQuestion,
-          },
-        }),
+        Data: JSON.stringify(response),
       });
       await apiClient.send(command);
       return { statusCode: 200, body: 'New question sended' };

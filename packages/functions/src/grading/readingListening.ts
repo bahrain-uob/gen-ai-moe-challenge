@@ -1,6 +1,9 @@
 import {
+  ListeningPart,
   ListeningSection,
+  ReadingPart,
   ReadingSection,
+  RLFeedbackAll,
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Answer } from '../../../frontend/src/utilities/LRUtilities';
@@ -15,15 +18,11 @@ export const gradeReadingListening = async (
   SK: string,
   questions: ListeningSection | ReadingSection,
   answer: RLAnswer,
-  connectionId: string,
-  endpoint: string,
-  publish: boolean = false,
+  // connectionId: string,
+  // endpoint: string,
+  // publish: boolean = false,
 ) => {
-  if (!answer.answer) {
-    return { error: 'No answer provided' };
-  }
-
-  const feedback = gradeRL(questions, answer.answer);
+  const feedback: RLFeedbackAll = gradeRL(questions, answer.answer);
 
   console.log('Feedback:', feedback);
   const sectionAnswer =
@@ -31,21 +30,26 @@ export const gradeReadingListening = async (
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, sectionAnswer, feedback);
-  // Send feedback to the client
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: endpoint,
-  });
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify(publish ? newTestItem : questions.PK + ' graded'),
-  });
-  const response = await apiClient.send(command);
+  // // Send feedback to the client
+  // const apiClient = new ApiGatewayManagementApiClient({
+  //   endpoint: endpoint,
+  // });
+  // const command = new PostToConnectionCommand({
+  //   ConnectionId: connectionId,
+  //   Data: JSON.stringify(publish ? newTestItem : questions.PK + ' graded'),
+  // });
+  // const response = await apiClient.send(command);
+
+  return newTestItem;
 };
 
 const gradeRL = (
   question: ListeningSection | ReadingSection,
   answer: Answer,
-) => {
+): RLFeedbackAll => {
+  if (!answer) {
+    return { error: 'No answer provided' };
+  }
   const studentAnswers = answer;
 
   const flattenedStudentAnswers = studentAnswers.flat(3);
@@ -54,12 +58,12 @@ const gradeRL = (
   console.log('Received student answers:', studentAnswers);
   console.log('Flattened student answers:', flattenedStudentAnswers);
 
-  let pks: ('P1' | 'P2' | 'P3' | 'P4')[];
+  let parts: (ListeningPart | ReadingPart)[];
 
   if (question.PK === 'reading') {
-    pks = ['P1', 'P2', 'P3'];
+    parts = [question.P1, question.P2, question.P3];
   } else {
-    pks = ['P1', 'P2', 'P3', 'P4'];
+    parts = [question.P1, question.P2, question.P3, question.P4];
   }
 
   try {
@@ -68,19 +72,8 @@ const gradeRL = (
     let totalScore = 0;
     let allCorrectAnswers = [];
 
-    for (let index = 0; index < pks.length; index++) {
-      //   const pk = pks[index];
-
-      //   const getItemParams = {
-      //     TableName: process.env.TABLE1_NAME,
-      //     Key: {
-      //       MyPartitionKey: pk,
-      //       MySortKey: sk,
-      //     },
-      //   };
-      const partResponseItem = question[pks[index]];
-      //   const partResponse = await dynamoDb.get(getItemParams).promise();
-      //   const partResponseItem = partResponse.Item;
+    for (let index = 0; index < parts.length; index++) {
+      const partResponseItem = parts[index];
 
       if (partResponseItem && partResponseItem.NumOfQuestions) {
         const numOfQuestions = partResponseItem.NumOfQuestions;
@@ -88,8 +81,9 @@ const gradeRL = (
 
         for (let i = 0; i < numOfQuestions; i++) {
           questions.push(partResponseItem.Questions[i]);
-          const NumOfSubQuestions = questions[i].NumOfSubQuestions;
-          const questionType = questions[i].QuestionType;
+          const question = questions[i];
+          const NumOfSubQuestions = question.NumOfSubQuestions;
+          const questionType = question.QuestionType;
 
           if (
             questionType === 'Matching Paragraph Information' ||
@@ -97,13 +91,13 @@ const gradeRL = (
             questionType === 'List Selection' ||
             questionType === 'Matching Headings' ||
             questionType === 'Yes No Not Given' ||
-            questionType === 'Choosing a Title' ||
-            questionType === 'Classification' ||
-            questionType === 'Matching Sentence Endings' ||
+            // questionType === 'Choosing a Title' ||
+            // questionType === 'Classification' ||
+            // questionType === 'Matching Sentence Endings' ||
             questionType === 'Multiple Choice'
           ) {
             for (let j = 0; j < NumOfSubQuestions; j++) {
-              const correctAnswer = questions[i].SubQuestions[j].CorrectAnswer;
+              const correctAnswer = question.SubQuestions[j].CorrectAnswer;
               const isCorrect =
                 flattenedStudentAnswers[counter] === correctAnswer;
               const score = isCorrect ? 1 : 0;
@@ -111,18 +105,21 @@ const gradeRL = (
               allCorrectAnswers.push(correctAnswer);
               counter++;
             }
-          } else {
+          } else if (
+            questionType === 'Diagram Completion' ||
+            questionType === 'Multiple Answers' ||
+            questionType === 'Short Answers' ||
+            questionType === 'Summary Completion' ||
+            questionType === 'Table Completion'
+          ) {
             //for other question types: summary completion, table completion, graph completion, multiple select...
             const correctAnswers = [];
             let qIndex = 0;
 
             for (let j = 0; j < NumOfSubQuestions; j++) {
-              const questionWeight =
-                questions[i].SubQuestions[j].QuestionWeight;
+              const questionWeight = question.SubQuestions[j].QuestionWeight;
               for (let k = 0; k < questionWeight; k++) {
-                correctAnswers.push(
-                  questions[i].SubQuestions[j].CorrectAnswers[k],
-                );
+                correctAnswers.push(question.SubQuestions[j].CorrectAnswers[k]);
                 const studentAnswer = flattenedStudentAnswers[counter].trim();
                 const isCorrect =
                   correctAnswers[qIndex].includes(studentAnswer);

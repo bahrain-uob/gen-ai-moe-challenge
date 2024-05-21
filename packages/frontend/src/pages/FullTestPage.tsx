@@ -2,15 +2,36 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { ConfirmFullTestStart } from '../components/ConfirmFullTestStart';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { useSocketUrl } from '../utilities';
+import { setCachedFeedback, useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import SpeakingQuestions from './SpeakingQuestionsPage';
+import { Spinner } from '../components/Spinner';
+import { WritingPage } from './WritingPage';
+import { IntermediatePage } from '../components/IntermediatePage';
+import { ToastContainer, toast } from 'react-toastify';
+import {
+  ListeningSection,
+  ReadingSection,
+  WritingAnswer,
+  WritingSection,
+  getQuestionResponse,
+  startFullTestResponse,
+  submitFullTestResponse,
+} from '../../../functions/src/utilities/fullTestUtilities';
+
+// Everything in this pages depends on this.
+type StateType =
+  | startFullTestResponse
+  | getQuestionResponse
+  | submitFullTestResponse
+  | null;
 
 export const FullTestPage = () => {
   let out;
-  const [state, setState] = useState<any>(null);
+
+  const [state, setState] = useState<StateType>(null);
   const { testId } = useParams();
   const [isLoading, setIsloading] = useState(false);
 
@@ -21,6 +42,7 @@ export const FullTestPage = () => {
   const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
     onClose: event => console.log('closed', event),
+    ////// Handle incoming messages //////
     onMessage: e => {
       console.log('event', e);
       const response = JSON.parse(e.data);
@@ -50,14 +72,28 @@ export const FullTestPage = () => {
         setState(response);
         navigate(`/full-test/${response.testID}`);
 
+        toast.dismiss();
         setIsloading(false);
       } else if ('data' in response) {
         console.log('Recieved data', { response });
         setState(response);
 
+        toast.dismiss();
         setIsloading(false);
+      } else if ('fullItem' in response) {
+        console.log('Recieved fullItem', response);
+
+        // setState(response);
+        toast('Recieved Feedback');
+        setTimeout(() => {
+          navigate(`/feedback/${testId}`);
+        }, 1000);
+        setCachedFeedback(response, testId as string);
+      } else {
+        console.log('Unexpected payload');
       }
 
+      // Message timeout
       setTimeout(() => {
         setIsloading(false);
       }, 10000);
@@ -65,21 +101,26 @@ export const FullTestPage = () => {
     shouldReconnect: () => true,
   });
 
+  ////// Sign in and Connection //////
   if (readyState !== ReadyState.OPEN)
     return (
       <Layout>
-        <p>
-          {socketUrl === ''
-            ? 'You have to sign in first'
-            : connectionStatus[readyState]}
-        </p>
+        <Spinner
+          message={
+            socketUrl === ''
+              ? 'You have to sign in first'
+              : connectionStatus[readyState]
+          }
+        />
       </Layout>
     );
 
+  ////// Start test, Submit and Question pages //////
   // Test was not started
   if (!testId) {
     const startTest = () => {
       sendJsonMessage({ action: 'fullTestStart' });
+      toast.info('Loading your test...');
     };
 
     out = (
@@ -87,7 +128,11 @@ export const FullTestPage = () => {
         <ConfirmFullTestStart onConfirm={() => startTest()} />
       </Layout>
     );
-  } else {
+  }
+
+  // Test was started
+  else {
+    // No current state
     if (!state) {
       if (!isLoading) {
         sendJsonMessage({
@@ -95,15 +140,20 @@ export const FullTestPage = () => {
           testId: testId,
         });
         console.log('Sent message');
+        toast.info('Loading your test...');
         setIsloading(true);
       }
 
-      out = 'Loading...';
+      out = (
+        <Layout>
+          <Spinner message="Loading..." />
+        </Layout>
+      );
     }
 
-    // Test was started
+    // There's a state available
     else {
-      console.log('executed w/', state.data.question);
+      // console.log('executed w/', state.data?.question);
       const submitAnswers = (answers: any) => {
         console.log('Submitting', { answers });
         sendJsonMessage({
@@ -114,45 +164,61 @@ export const FullTestPage = () => {
             answer: answers, // this will be based on the section answer schema
           },
         });
+        toast.info('Submitting...');
+      };
+      const autoSaveAnswers = (answers: any) => {
+        console.log('Saving', { answers });
+        sendJsonMessage({
+          action: 'fullTestAutoSave',
+          testId: testId,
+          data: {
+            type: state.type, // listening, reading, writing, speaking
+            answer: answers, // this will be based on the section answer schema
+          },
+        });
+        toast.info('Your answer is getting saved...');
       };
 
-      // Auto-submit
-      if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
-        const fullTestGetQuestion = () => {
+      if (state.data === 'Submitted') {
+        const continueTest = () => {
           sendJsonMessage({
             action: 'fullTestGetQuestion',
             testId: testId,
           });
           console.log('Sent message');
           setIsloading(true);
+          toast.info(`Loading ${state.type}...`);
         };
 
-        out =
-          state.type !== 'speaking' ? (
-            <Layout>
-              <p>
-                Your {state.type} section was {state.data}
-              </p>
-              <p>You have 02:00 minutes before the next section starts</p>
-              <button onClick={() => fullTestGetQuestion()}>Continue</button>
-            </Layout>
-          ) : (
-            <Layout>
-              You have finished your test! Soon you'll be able to see your
-              feedback!
-            </Layout>
-          );
+        out = (
+          <Layout>
+            <IntermediatePage
+              type={state.type}
+              status={state.data}
+              onContinue={continueTest}
+            />
+          </Layout>
+        );
       }
 
       // Question was returned
-      else {
+      else if ('fullItem' in state) {
+        return JSON.stringify(state);
+      } else {
         let dummySubmit: any;
+        const time = Number(testId.slice(0, testId.indexOf('-')));
+        const savedAnswers =
+          'answer' in state.data ? state.data.answer?.answer : undefined;
+
         switch (state.type) {
           case 'listening':
             out = (
               <ListeningQuestionsPage
-                listeningSection={state.data.question}
+                listeningSection={state.data.question as ListeningSection}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
+                time={time}
               />
             );
             break;
@@ -160,24 +226,24 @@ export const FullTestPage = () => {
           case 'reading':
             out = (
               <ReadingQuestions
-                readingSection={state.data.question}
+                readingSection={state.data.question as ReadingSection}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
+                time={time}
               />
             );
             break;
 
           case 'writing':
-            dummySubmit = () =>
-              submitAnswers({
-                P1: 'My anweser',
-                P2: 'My anweser',
-              });
-
             out = (
-              <Layout>
-                <h3>Writing assessment</h3>
-                <button onClick={() => dummySubmit()}> Submit </button>
-              </Layout>
+              <WritingPage
+                writingSection={state.data.question as WritingSection}
+                submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers as WritingAnswer['answer']}
+                time={time}
+              />
             );
             break;
 
@@ -194,7 +260,12 @@ export const FullTestPage = () => {
     }
   }
 
-  return out;
+  return (
+    <>
+      {out}
+      <ToastContainer pauseOnHover={false} />
+    </>
+  );
 };
 
 const connectionStatus = {

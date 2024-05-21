@@ -1,4 +1,11 @@
-import { Feedback, SpeakingFeedback, WritingFeedback } from '../utilities';
+import {
+  Feedback,
+  SpeakingError,
+  SpeakingFeedback,
+  WritingError,
+  WritingFeedback,
+  WritingFeedbackSuccess,
+} from '../utilities/types';
 import { DoubleCircles } from './DoubleCirclesComponent';
 import CollapsableCard from './collapsableCard';
 
@@ -9,6 +16,8 @@ export const WSFeedbackComponent = ({
   feedback: SpeakingFeedback | WritingFeedback;
 }) => {
   const pClassname = 'whitespace-pre-line ml-4 mb-8';
+
+  if (isError(feedback)) return <p>{feedback.error}</p>;
 
   const circularFeedback = (
     <DoubleCircles
@@ -90,8 +99,14 @@ const entryTitle = (title: string, score: number) => (
   </>
 );
 
+function isError(
+  Feedback: SpeakingFeedback | WritingFeedback,
+): Feedback is WritingError | SpeakingError {
+  return (Feedback as WritingError | SpeakingError).error !== undefined;
+}
+
 const displayGrammarMistakes = (
-  grammarMisktakes: WritingFeedback['Grammer Tool Feedback'],
+  grammarMisktakes: WritingFeedbackSuccess['Grammer Tool Feedback'],
 ) => {
   console.log(grammarMisktakes);
   if (!grammarMisktakes) return;
@@ -132,7 +147,7 @@ const displayGrammarMistakes = (
   });
 };
 
-function isWritingFeedback(
+export function isWritingFeedback(
   feedback: SpeakingFeedback | WritingFeedback,
 ): feedback is WritingFeedback {
   return !('Pronunciation' in feedback);

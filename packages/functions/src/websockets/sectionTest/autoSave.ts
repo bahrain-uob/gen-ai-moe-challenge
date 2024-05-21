@@ -7,7 +7,11 @@ import { wsError } from '../../utilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
-import { examSections } from 'src/utilities/fullTestUtilities';
+import {
+  examSectionObject,
+  examSections,
+  testType,
+} from 'src/utilities/fullTestUtilities';
 import { autoSave, submit } from 'src/utilities/fullTestFunctions';
 
 /**
@@ -15,7 +19,7 @@ import { autoSave, submit } from 'src/utilities/fullTestFunctions';
  * auto submit if the time is up for the section.
  * The input should be as follows:
  * {
- *  action:'fullTestAutoSave',
+ *  action:'sectionTestAutoSave',
  *  testId: 'testId',
  *  data: {
  *      type: 'sectionType', // listening, reading, writing, speaking
@@ -53,10 +57,6 @@ export const main: APIGatewayProxyHandler = async event => {
   if (!answer) {
     return wsError(apiClient, connectionId, 400, 'No answer provided');
   }
-  const type = body.data.type;
-  if (!type) {
-    return wsError(apiClient, connectionId, 400, 'No type provided');
-  }
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -73,68 +73,57 @@ export const main: APIGatewayProxyHandler = async event => {
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
+  const type = body.data.type as testType;
+  if (exam.type !== type) {
+    return wsError(apiClient, connectionId, 400, 'Invalid test type');
+  }
   console.log('Exam:', exam);
 
-  for (let section = 0; section < examSections.length; section++) {
-    const sectionAnswer = exam![examSections[section].answer];
+  const section = examSectionObject[type];
+  const sectionStudentAnswer = exam[section.answer];
 
-    if (sectionAnswer === undefined) {
-      break;
+  if (sectionStudentAnswer === undefined) {
+    return wsError(apiClient, connectionId, 400, 'No section answer found');
+  }
+
+  // if the section is in progress
+  if (sectionStudentAnswer.status === 'In progress') {
+    // calculate total time
+    const totalTime = Date.now() - sectionStudentAnswer.start_time;
+    console.log('Total time:', totalTime / (1000 * 60));
+
+    // if the time is up auto submit the section
+    if (totalTime > section.time) {
+      //should be auto-submitted
+      await submit(
+        dynamoDb,
+        userId,
+        testId,
+        section.answer,
+        answer,
+        connectionId,
+        endpoint,
+        true,
+      );
+      const autoSubmittedCommand = new PostToConnectionCommand({
+        ConnectionId: connectionId,
+        Data: JSON.stringify({
+          type: type,
+          data: 'Auto-Submitted',
+        }),
+      });
+      await apiClient.send(autoSubmittedCommand);
+      console.log('Auto-Submitting ', type);
+      return { statusCode: 200, body: 'Auto-Submitted' };
     }
-
-    // if the section is in progress
-    if (sectionAnswer.status === 'In progress') {
-      // calculate total time
-      const totalTime = Date.now() - sectionAnswer.start_time;
-      console.log('Total time:', totalTime / (1000 * 60));
-
-      // if the time is up auto submit the section
-      if (totalTime > examSections[section].time) {
-        //should be auto-submitted
-        await submit(
-          dynamoDb,
-          userId,
-          testId,
-          examSections[section].answer,
-          answer,
-          connectionId,
-          endpoint,
-          true,
-        );
-        const autoSubmittedCommand = new PostToConnectionCommand({
-          ConnectionId: connectionId,
-          Data: JSON.stringify({
-            type: examSections[section].type,
-            data: 'Auto-Submitted',
-          }),
-        });
-        await apiClient.send(autoSubmittedCommand);
-        console.log('Auto-Submitting ', examSections[section].type);
-        return { statusCode: 200, body: 'Auto-Submitted' };
-      }
-      // make sure the provided answer is for the right section
-      else if (type === examSections[section].type) {
-        // auto - save
-        await autoSave(
-          dynamoDb,
-          userId,
-          testId,
-          examSections[section].answer,
-          answer,
-        );
-        console.log('Auto-Saving exam', examSections[section].type);
-        return { statusCode: 200, body: 'Auto-Saved' };
-      } else {
-        return wsError(
-          apiClient,
-          connectionId,
-          400,
-          'You are in wrong section',
-        );
-      }
-      break;
+    // make sure the provided answer is for the right section
+    else {
+      // auto - save
+      await autoSave(dynamoDb, userId, testId, section.answer, answer);
+      console.log('Auto-Saving exam', section.type);
+      return { statusCode: 200, body: 'Auto-Saved' };
     }
   }
 
-  return wsError(apiClient, connectionId, 400, 'No section in progress');
+  return wsError(apiClient, connectionId, 400, 'The test is finished');
 };

@@ -10,7 +10,6 @@ export function ApiStack({ stack }: StackContext) {
     table,
     uploads_bucket,
     feedback_table,
-    myTable,
     speakingPollyBucket,
     Polly_bucket,
     audiobucket,
@@ -23,9 +22,6 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       authorizer: 'jwt',
       function: {
-        environment: {
-          TABLE1_NAME: myTable.tableName,
-        },
         // Bind the table name to our API
         bind: [table],
       },
@@ -92,24 +88,6 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '120 seconds',
         },
       },
-      // Grade both writing tasks
-      'POST /grade-writing': {
-        function: {
-          handler: 'packages/functions/src/gradingWriting.main',
-          permissions: ['bedrock:InvokeModel'],
-          timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
-        },
-      }, //testing bedrock api for writing
-      //api endpoint for retrieving reading questions
-      'GET /{section}/{sk}':
-        'packages/functions/src/getQuestionsReadingListening.handler',
-      'POST /answers/{section}/{sk}':
-        'packages/functions/src/GradingReadingListening.handler',
-      'GET /scores/{section}/{sk}':
-        'packages/functions/src/getScoresReadingListening.handler',
 
       // Listening to convert script to audio (for now)
       'POST /Listening/AddQuestion': {
@@ -133,9 +111,10 @@ export function ApiStack({ stack }: StackContext) {
           environment: { audioBucket: audiobucket.bucketName },
         },
       },
+      'GET /fullTestFeedback/{SK}':
+        'packages/functions/src/getFullTestFeedback.main',
     },
   });
-  api.attachPermissions([myTable]);
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj
@@ -154,9 +133,15 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       function: {
         bind: [table, uploads_bucket],
-        permissions: ['bedrock:InvokeModel', 's3:GetObject'],
+        permissions: [
+          'bedrock:InvokeModel',
+          's3:GetObject',
+          'transcribe:StartTranscriptionJob',
+          'transcribe:GetTranscriptionJob',
+        ],
         environment: {
           speakingPollyBucket: speakingPollyBucket.bucketName,
+          grammerToolDNS: grammarToolDNS,
         },
       },
     },
@@ -174,15 +159,6 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       $connect: 'packages/functions/src/websockets/connect.main',
       $disconnect: 'packages/functions/src/websockets/disconnect.main',
-      gradeWriting: {
-        function: {
-          handler: 'packages/functions/src/gradingWriting.main',
-          timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
-        },
-      },
       fullTestStart: {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/start.main',
@@ -192,9 +168,6 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/autoSave.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
         },
       },
       fullTestGetQuestion: {
@@ -202,18 +175,37 @@ export function ApiStack({ stack }: StackContext) {
           handler:
             'packages/functions/src/websockets/fullTest/getQuestion.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
         },
       },
       fullTestSubmit: {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/submit.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
+        },
+      },
+      sectionTestStart: {
+        function: {
+          handler: 'packages/functions/src/websockets/sectionTest/start.main',
+        },
+      },
+      sectionTestAutoSave: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/sectionTest/autoSave.main',
+          timeout: '120 seconds',
+        },
+      },
+      sectionTestGetQuestion: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/sectionTest/getQuestion.main',
+          timeout: '120 seconds',
+        },
+      },
+      sectionTestSubmit: {
+        function: {
+          handler: 'packages/functions/src/websockets/sectionTest/submit.main',
+          timeout: '120 seconds',
         },
       },
       gradeSpeakingP1: {

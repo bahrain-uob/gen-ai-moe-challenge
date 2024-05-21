@@ -8,8 +8,10 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 import {
+  examSectionObject,
   examSections,
   submitFullTestResponse,
+  testType,
 } from 'src/utilities/fullTestUtilities';
 import { autoSave, submit } from 'src/utilities/fullTestFunctions';
 
@@ -18,7 +20,7 @@ import { autoSave, submit } from 'src/utilities/fullTestFunctions';
  * In both cases of completeing when quitting or starting a new section.
  * The input should be as follows:
  * {
- *  action:'fullTestSubmit',
+ *  action:'sectionTestSubmit',
  *  testId: 'testId',
  *  data: {
  *      type: 'sectionType', // listening, reading, writing, speaking
@@ -55,10 +57,6 @@ export const main: APIGatewayProxyHandler = async event => {
   if (!answer) {
     return wsError(apiClient, connectionId, 400, 'No answer provided');
   }
-  const type = body.data.type;
-  if (!type) {
-    return wsError(apiClient, connectionId, 400, 'No type provided');
-  }
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -75,63 +73,55 @@ export const main: APIGatewayProxyHandler = async event => {
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
+  const type = body.data.type as testType;
+  if (exam.type !== type) {
+    return wsError(apiClient, connectionId, 400, 'Invalid test type');
+  }
   // console.log('Exam:', exam);
 
-  for (let section = 0; section < examSections.length; section++) {
-    const sectionAnswer = exam![examSections[section].answer];
+  const section = examSectionObject[type];
+  const sectionStudentAnswer = exam[section.answer];
 
-    if (sectionAnswer === undefined) {
-      break;
-    }
-    if (
-      (sectionAnswer.status === 'Auto-submitted' ||
-        sectionAnswer.status === 'Submitted') &&
-      type === examSections[section].type
-    ) {
-      return wsError(
-        apiClient,
-        connectionId,
-        400,
-        'Section is already submitted',
-      );
-    }
-
-    // if the section is in progress
-    if (sectionAnswer.status === 'In progress') {
-      if (type === examSections[section].type) {
-        await submit(
-          dynamoDb,
-          userId,
-          testId,
-          examSections[section].answer,
-          answer,
-          connectionId,
-          endpoint,
-        );
-        console.log('Submitting ', examSections[section].type);
-
-        const response: submitFullTestResponse = {
-          type: examSections[section].type,
-          data: 'Submitted',
-        };
-        const autoSubmittedCommand = new PostToConnectionCommand({
-          ConnectionId: connectionId,
-          Data: JSON.stringify(response),
-        });
-        await apiClient.send(autoSubmittedCommand);
-        return { statusCode: 200, body: 'Submitted' };
-      } else {
-        return wsError(
-          apiClient,
-          connectionId,
-          400,
-          'You are in wrong section',
-        );
-      }
-
-      break;
-    }
+  if (sectionStudentAnswer === undefined) {
+    return wsError(apiClient, connectionId, 400, 'No section answer found');
   }
 
-  return wsError(apiClient, connectionId, 400, 'No section in progress');
+  if (
+    sectionStudentAnswer.status === 'Auto-submitted' ||
+    sectionStudentAnswer.status === 'Submitted'
+  ) {
+    return wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Section is already submitted',
+    );
+  }
+
+  // if the section is in progress
+  if (sectionStudentAnswer.status === 'In progress') {
+    await submit(
+      dynamoDb,
+      userId,
+      testId,
+      section.answer,
+      answer,
+      connectionId,
+      endpoint,
+    );
+    console.log('Submitting ', type);
+
+    const response: submitFullTestResponse = {
+      type: type,
+      data: 'Submitted',
+    };
+    const autoSubmittedCommand = new PostToConnectionCommand({
+      ConnectionId: connectionId,
+      Data: JSON.stringify(response),
+    });
+    await apiClient.send(autoSubmittedCommand);
+    return { statusCode: 200, body: 'Submitted' };
+  }
+
+  return wsError(apiClient, connectionId, 400, 'The test is finished');
 };

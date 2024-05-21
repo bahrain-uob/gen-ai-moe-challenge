@@ -17,14 +17,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
   });
 
-  const myTable = new dynamodb.Table(this, 'Table', {
-    partitionKey: {
-      name: 'MyPartitionKey',
-      type: dynamodb.AttributeType.STRING,
-    },
-    sortKey: { name: 'MySortKey', type: dynamodb.AttributeType.STRING },
-  });
-
   const uploads_bucket = new Bucket(stack, 'Uploads');
   const Polly_bucket = new Bucket(stack, 'Polly');
   const audiobucket = new Bucket(stack, 'listeningAudios');
@@ -111,7 +103,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     uploads_bucket,
     feedback_table,
     Polly_bucket,
-    myTable,
     speakingPollyBucket,
     audiobucket,
   };

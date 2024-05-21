@@ -147,8 +147,10 @@ export function createPrompt(
 export function pronunciationFeedback(pronunciationItems: object) {
   let correctPron = 0;
   let countOfWords = 0;
-  const missPronunciations = [];
-  for (let item of pronunciationItems) {
+  const missPronunciations: any[] = [];
+
+  // for (const item of pronunciationItems) {
+  Object.values(pronunciationItems).forEach(item => {
     if (item.alternatives[0].confidence > 0) {
       if (item.alternatives[0].confidence > 0.995) {
         correctPron++;
@@ -157,7 +159,9 @@ export function pronunciationFeedback(pronunciationItems: object) {
       }
       countOfWords++;
     }
-  }
+  });
+  // }
+
   const pronScore = Math.floor((correctPron / countOfWords) * 9);
   return { pronScore, missPronunciations };
 }
@@ -167,10 +171,12 @@ export function pronunciationFeedback(pronunciationItems: object) {
  */
 export function speechDuration(speechItems: object) {
   let sum = 0;
-  for (let item of speechItems) {
+
+  Object.values(speechItems).forEach(item => {
     if (item.end_time !== undefined && item.start_time !== undefined) {
       sum += Number(item.end_time) - Number(item.start_time);
     }
-  }
+  });
+
   return Math.round(sum);
 }
