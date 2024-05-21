@@ -8,7 +8,7 @@ const toolDescribe = () => {
     
 
       <div className="relative xl:w-2/4 flex flex-col justify-center items-center w-full max-xl:padding-x pt-27 text-white ">
-        <h1 className="text-4xl font-bold tracking-wider text-center font-montserrat  pb-10 mt-20 lg:text-4xl">
+        <h1 className="text-4xl font-bold leading-tight tracking-wider text-center font-montserrat  pb-10 mt-20 lg:text-4xl">
         Unlock Your Potential with Personalized Learning
         </h1>
         <h2 className='text-center font-montserrat pb-10'

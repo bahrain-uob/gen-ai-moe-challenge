@@ -1,7 +1,8 @@
 export default function About(){
     return (
+
         <div className="mt-5">
-            <section className="relative block px-6 py-10 md:py-20 md:px-10">
+            <section className="relative block px-6 py-5 md:py-5 md:px-10">
                 <div className="relative mx-auto max-w-5xl text-center">
                     <h2 className="block w-full text-blue-4 bg-clip-text font-bold text-3xl sm:text-4xl">
                         About
@@ -13,6 +14,8 @@ export default function About(){
                         might not provide an engaging experience.
                     </p>
                 </div>
+
+
                 <div className="relative mx-auto max-w-7xl z-10 grid grid-cols-1 gap-10 pt-14 sm:grid-cols-2 md-cols-2 lg:grid-cols-3">
                     <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transform transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Vision</h3>
@@ -20,6 +23,8 @@ export default function About(){
                             Our vision is to become the global leader in revolutionizing language proficiency development.
                         </p>
                     </div>
+
+
                     <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Mission</h3>
                         <p className="my-4 mb-0 font-normal leading-relaxed tracking-wide text-justify">
@@ -28,6 +33,8 @@ export default function About(){
                             we strive to make language learning engaging, efficient, and enjoyable for everyone.
                         </p>
                     </div>
+
+
                     <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Values</h3>
                         <ul className="my-4">
@@ -37,6 +44,8 @@ export default function About(){
                         </ul>
                     </div>
                 </div>
+
+
             </section>
         </div>
     );
