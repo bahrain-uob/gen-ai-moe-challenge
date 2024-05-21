@@ -8,6 +8,7 @@ import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
 import { WritingPage } from './WritingPage';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 export const FullTestPage = () => {
   let out;
@@ -140,7 +141,14 @@ export const FullTestPage = () => {
               <p>
                 Your {state.type} section was {state.data}
               </p>
-              <p>You have 02:00 minutes before the next section starts</p>
+              <p>
+                You have{' '}
+                <CountdownTimer
+                  duration={120}
+                  onTimeUp={() => fullTestGetQuestion()}
+                />{' '}
+                minutes before the next section starts
+              </p>
               <button onClick={() => fullTestGetQuestion()}>Continue</button>
             </Layout>
           ) : (
@@ -162,6 +170,7 @@ export const FullTestPage = () => {
               <ListeningQuestionsPage
                 listeningSection={state.data.question}
                 submitAnswers={submitAnswers}
+                time={time}
               />
             );
             break;
