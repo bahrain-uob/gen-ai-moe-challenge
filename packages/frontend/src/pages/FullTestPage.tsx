@@ -23,6 +23,7 @@ export const FullTestPage = () => {
   const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
     onClose: event => console.log('closed', event),
+    ////// Handle incoming messages //////
     onMessage: e => {
       console.log('event', e);
       const response = JSON.parse(e.data);
@@ -60,6 +61,7 @@ export const FullTestPage = () => {
         setIsloading(false);
       }
 
+      // Message timeout
       setTimeout(() => {
         setIsloading(false);
       }, 10000);
@@ -67,6 +69,7 @@ export const FullTestPage = () => {
     shouldReconnect: () => true,
   });
 
+  ////// Sign in and Connection //////
   if (readyState !== ReadyState.OPEN)
     return (
       <Layout>
@@ -80,6 +83,7 @@ export const FullTestPage = () => {
       </Layout>
     );
 
+  ////// Start test, Submit and Question pages //////
   // Test was not started
   if (!testId) {
     const startTest = () => {
@@ -91,7 +95,11 @@ export const FullTestPage = () => {
         <ConfirmFullTestStart onConfirm={() => startTest()} />
       </Layout>
     );
-  } else {
+  }
+
+  // Test was started
+  else {
+    // No current state
     if (!state) {
       if (!isLoading) {
         sendJsonMessage({
@@ -109,7 +117,7 @@ export const FullTestPage = () => {
       );
     }
 
-    // Test was started
+    // There's a state available
     else {
       console.log('executed w/', state.data.question);
       const submitAnswers = (answers: any) => {
@@ -124,7 +132,7 @@ export const FullTestPage = () => {
         });
       };
 
-      // Auto-submit
+      // Auto-submit and submit
       if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
         const fullTestGetQuestion = () => {
           sendJsonMessage({
