@@ -16,12 +16,16 @@ type setType = (arg: Answer[]) => void;
 interface ListeningQuestionsPageProps {
   listeningSection: ListeningSection;
   submitAnswers: (answer: any) => void;
+  autoSaveAnswers: (answer: any) => void;
+  savedAnswers?: any;
   time: number;
 }
 
 export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   listeningSection,
   submitAnswers,
+  autoSaveAnswers,
+  savedAnswers,
   time,
 }) => {
   const parts = [
@@ -43,7 +47,9 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
-    parts.map(part => initialAnswer(part.Questions)),
+    savedAnswers
+      ? savedAnswers
+      : parts.map(part => initialAnswer(part.Questions)),
   );
 
   const indexSet = function (i: number): setType {
@@ -89,7 +95,11 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   );
 
   const titleRow = (
-    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(answers)} />
+    <TitleRow
+      title="Listening Test"
+      onSubmit={() => submitAnswers(answers)}
+      onSave={() => autoSaveAnswers(answers)}
+    />
   );
 
   /* Listening Audio */
