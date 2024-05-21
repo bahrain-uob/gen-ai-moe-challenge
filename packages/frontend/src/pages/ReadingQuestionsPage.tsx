@@ -2,29 +2,28 @@ import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
-import { readingParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
-import { post } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
 import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
-import { useParams, useNavigate } from 'react-router-dom';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
+import { ReadingSection } from '../../../functions/src/utilities/fullTestUtilities';
 
 type setType = (arg: Answer[]) => void;
 
-const ReadingQuestions = () => {
-  const { sk } = useParams();
-  if (!sk) return;
+interface ReadingQuestionsProps {
+  readingSection: ReadingSection;
+  submitAnswers: (answer: any) => void;
+}
 
-  const navigate = useNavigate();
-
-  // TODO: this should be a parameter
-  const parts = readingParts; //listeningParts
+const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
+  readingSection,
+  submitAnswers,
+}) => {
+  const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
 
   const [partIndex, setPartIndex] = useState(0);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -41,32 +40,6 @@ const ReadingQuestions = () => {
       arrCopy[i] = value;
       setAnswers(arrCopy);
     };
-  };
-
-  const submitAnswers = async (sk: string) => {
-    try {
-      const payload = {
-        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
-      };
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: `/answers/reading/${sk}`,
-          options: {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: payload,
-          },
-        }),
-      );
-      console.log('Submit response:', response);
-      alert('Answers submitted successfully!');
-      navigate(`/scores/reading/${sk}`);
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-      alert('Failed to submit answers.');
-    }
   };
 
   /* Bar */
@@ -98,6 +71,7 @@ const ReadingQuestions = () => {
   );
 
   const titleRow = <TitleRow title="Reading Test" onSubmit={() => {}} />;
+
 
   /* Maximize */
   const maximizeButton = (

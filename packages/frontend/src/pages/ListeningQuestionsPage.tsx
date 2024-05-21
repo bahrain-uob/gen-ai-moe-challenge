@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { Answer } from '../utilities/LRUtilities';
 import { TitleRow } from '../components/TestComponents';
 import {
@@ -6,32 +5,28 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { useState } from 'react';
-import { toJSON } from '../utilities';
-import { post } from 'aws-amplify/api';
 import { BsQuestionLg } from 'react-icons/bs';
-// import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ListeningQuestionsPageProps {
-  // TODO: fix the type
-  listeningSection: any;
+  listeningSection: ListeningSection;
+  submitAnswers: (answer: any) => void;
 }
 
 export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   listeningSection,
+  submitAnswers,
 }) => {
-  const navigate = useNavigate();
-
   const parts = [
     listeningSection.P1,
     listeningSection.P2,
     listeningSection.P3,
     listeningSection.P4,
   ];
-  const sk = listeningSection.SK;
 
   // TODO: don't hard-code urls
   const urls = [
@@ -55,32 +50,6 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
       arrCopy[i] = value;
       setAnswers(arrCopy);
     };
-  };
-
-  const submitAnswers = async (sk: string) => {
-    try {
-      const payload = {
-        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
-      };
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: `/answers/listening/${sk}`,
-          options: {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: payload,
-          },
-        }),
-      );
-      console.log('Submit response:', response);
-      alert('Answers submitted successfully!');
-      navigate(`/scores/listening/${sk}`);
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-      alert('Failed to submit answers.');
-    }
   };
 
   /* Bar */
@@ -112,7 +81,7 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   );
 
   const titleRow = (
-    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(sk)} />
+    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(answers)} />
   );
 
   /* Listening Audio */

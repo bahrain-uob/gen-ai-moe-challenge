@@ -144,7 +144,7 @@ export function initialAnswer(questions: LRQuestion[]): Answer[] {
       case 'Matching Headings':
         return Array(q.SubQuestions.length).fill('');
       default:
-        throw Error('Invalid question');
+        throw Error(`Invalid question ${(q as any).QuestionType}`);
     }
   });
 }

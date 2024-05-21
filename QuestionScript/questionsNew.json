@@ -1540,7 +1540,7 @@
                     "S": "Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-5 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse, if the statement contradicts the information\nNot Given, If there is no information on this"
                   },
                   "QuestionType": {
-                    "S": "True False not Given"
+                    "S": "True False Not Given"
                   },
                   "SubQuestions": {
                     "L": [
