@@ -27,8 +27,6 @@ export interface ListeningPart {
   Questions: LRQuestion[];
 }
 export interface ReadingPart {
-  MyPartitionKey: string;
-  MySortKey: string;
   NumOfQuestions: number;
   PassageTitle: string;
   Passage: string;

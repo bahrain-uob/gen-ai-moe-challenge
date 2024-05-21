@@ -1,7 +1,7 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
-import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
+// import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
@@ -115,10 +115,10 @@ const noLayoutRoutes: RouteObject[] = [
     Component: FullTestPage,
   },
   // These pages don't use `Layout` yet
-  {
-    path: '/reading/:sk',
-    Component: ReadingQuestions,
-  },
+  // {
+  //   path: '/reading/:sk',
+  //   Component: ReadingQuestions,
+  // },
   // {
   //   path: '/listening/:sk',
   //   Component: ListeningQuestionsPage,

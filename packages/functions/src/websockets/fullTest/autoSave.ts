@@ -45,13 +45,18 @@ export const main: APIGatewayProxyHandler = async event => {
   if (!testId) {
     return wsError(apiClient, connectionId, 400, 'No test ID provided');
   }
-
   const userId = authorizer!.userId;
   if (!userId) {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
   const answer = body.data.answer;
+  if (!answer) {
+    return wsError(apiClient, connectionId, 400, 'No answer provided');
+  }
   const type = body.data.type;
+  if (!type) {
+    return wsError(apiClient, connectionId, 400, 'No type provided');
+  }
 
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -105,6 +110,7 @@ export const main: APIGatewayProxyHandler = async event => {
         });
         await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
+        return { statusCode: 200, body: 'Auto-Submitted' };
       }
       // make sure the provided answer is for the right section
       else if (type === examSections[section].type) {
@@ -117,6 +123,7 @@ export const main: APIGatewayProxyHandler = async event => {
           answer,
         );
         console.log('Auto-Saving exam', examSections[section].type);
+        return { statusCode: 200, body: 'Auto-Saved' };
       } else {
         return wsError(
           apiClient,
@@ -129,5 +136,5 @@ export const main: APIGatewayProxyHandler = async event => {
     }
   }
 
-  return { statusCode: 200, body: 'Connected' };
+  return wsError(apiClient, connectionId, 400, 'No section in progress');
 };
