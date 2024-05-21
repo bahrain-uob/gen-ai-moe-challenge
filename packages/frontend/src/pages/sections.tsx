@@ -8,20 +8,20 @@ const sections = () => (
         <h1 className="text-5xl font-bold">Section Exam</h1>
       </div>
 
-      <div className='w-1/2 rounded-xl bg-white flex flex-wrap'>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-8 p-4'>
+      <div className='w-1/2 rounded-xl bg-white flex flex-wrap shadow-lg'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-tl-xl'>
           <img src="assets/Listening.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Listening</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-8 p-4'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-tr-xl'>
           <img src="assets/Speaking.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Speaking</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-8 p-4'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-bl-xl'>
           <img src="assets/Reading.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Reading</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-8 p-4'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-br-xl'>
           <img src="assets/Writing.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Writing</h1>
         </div>
