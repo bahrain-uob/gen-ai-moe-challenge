@@ -4,24 +4,24 @@ import Button from '../components/TButton';
 const sections = () => (
   <>
     <main className="w-full h-full flex justify-center flex-col items-center">
-      <div className="w-1/2 h-1/2 flex flex-col items-center">
+      <div className="w-1/2 h-1/2 flex flex-col items-center mb-32">
         <h1 className="text-5xl font-bold">Section Exam</h1>
       </div>
 
       <div className='w-1/2 rounded-xl bg-white flex flex-wrap shadow-lg'>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-tl-xl'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tl-xl'>
           <img src="assets/Listening.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Listening</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-tr-xl'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tr-xl'>
           <img src="assets/Speaking.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Speaking</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-bl-xl'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-bl-xl'>
           <img src="assets/Reading.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Reading</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-10 border-2 rounded-br-xl'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-br-xl'>
           <img src="assets/Writing.png" className=' w-24'/>
           <h1 className='font-semibold text-2xl'>Writing</h1>
         </div>
