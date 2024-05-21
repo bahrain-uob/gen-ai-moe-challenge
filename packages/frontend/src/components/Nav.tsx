@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
+import React, { useEffect, useState } from 'react';
 import {
   BsArrowRight,
   BsBoxArrowRight,
@@ -17,10 +18,14 @@ type Entry = { text: string; to: To };
 // Common styles
 const _containerStyling =
   'flex flex-1 font-montserrat text-md font-bold text-white ';
-
+  
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [] } = props;
-
+  useEffect(() => {
+    _getCurrentUser().then(user => {
+      setUser(user);
+    });
+  }, []);
   const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
@@ -109,10 +114,30 @@ const MobileMenu = ({
     </>
   );
 };
+async function _getCurrentUser() {
+  try {
+    await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
+    const user = await getCurrentUser();
+    return user;
+  } catch (error: any) {
+    if (error.name == 'UserUnAuthenticatedException') {
+      console.log('Not logged in');
+    } else {
+      throw error;
+    }
+  }
+}
 
 const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
+useEffect(() => {
+    _getCurrentUser().then(user => {
+      setUser(user);
+    });
+  }, []);
+
 
   // Same as mobile menu
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
@@ -122,11 +147,18 @@ const ProfileMenu = () => {
       <Link className={linkStyling} to="">
         <div>View Profile</div>
       </Link>
-      <Link className={linkStyling} to="">
-        <div>Sign Out</div>
-      </Link>
+      {user === undefined ? (
+        <Link className={linkStyling} to="sign-in">
+          <div>Sign In</div>
+        </Link>
+      ) : (
+        <Link className={linkStyling} to="sign-out">
+          <div>Sign Out</div>
+        </Link>
+      )}
     </>
   );
+  
 
   return (
     <>
@@ -151,3 +183,8 @@ const ProfileMenu = () => {
     </>
   );
 };
+
+function setUser(_user: AuthUser | undefined) {
+  throw new Error('Function not implemented.');
+}
+
