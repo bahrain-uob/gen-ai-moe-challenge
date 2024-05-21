@@ -3,6 +3,11 @@ import Button from '../components/TButton';
 
 const sections = () => (
   <>
+    <main className="w-full h-full flex justify-center">
+      <div className="w-1/2 h-1/2 flex flex-col items-center">
+        <h1 className="text-5xl font-bold">Section Exam</h1>
+      </div>
+    </main>
     <div className="hidden">
       <h4 className="text-xl mb-4"> Better pages </h4>
       <div className="flex">
