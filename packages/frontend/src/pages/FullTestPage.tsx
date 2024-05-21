@@ -131,6 +131,17 @@ export const FullTestPage = () => {
           },
         });
       };
+      const saveAnswers = (answers: any) => {
+        console.log('Saving', { answers });
+        sendJsonMessage({
+          action: 'fullTestAutoSave',
+          testId: testId,
+          data: {
+            type: state.type, // listening, reading, writing, speaking
+            answer: answers, // this will be based on the section answer schema
+          },
+        });
+      };
 
       // Auto-submit and submit
       if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
@@ -171,6 +182,7 @@ export const FullTestPage = () => {
       else {
         let dummySubmit: any;
         const time = Number(testId.slice(0, testId.indexOf('-')));
+        const savedAnswers = state.data?.answer?.answer;
 
         switch (state.type) {
           case 'listening':
@@ -178,6 +190,8 @@ export const FullTestPage = () => {
               <ListeningQuestionsPage
                 listeningSection={state.data.question}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={saveAnswers}
+                savedAnswers={savedAnswers}
                 time={time}
               />
             );
