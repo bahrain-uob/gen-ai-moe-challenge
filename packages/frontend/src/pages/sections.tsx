@@ -3,9 +3,16 @@ import Button from '../components/TButton';
 
 const sections = () => (
   <>
-    <main className="w-full h-full flex justify-center">
+    <main className="w-full h-full flex justify-center flex-col items-center">
       <div className="w-1/2 h-1/2 flex flex-col items-center">
         <h1 className="text-5xl font-bold">Section Exam</h1>
+      </div>
+
+      <div className='w-1/2 rounded-xl'>
+        <div className='w-1/2 flex flex-row justify-center items-center bg-white border-[1px] border-black rounded-tl-xl gap-x-8 p-4'>
+          <img src="assets/Listening.png" className=' w-24'/>
+          <h1 className='font-semibold text-2xl'>Listening</h1>
+        </div>
       </div>
     </main>
     <div className="hidden">
