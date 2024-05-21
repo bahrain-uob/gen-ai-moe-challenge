@@ -24,7 +24,12 @@ export const FullTestPage = () => {
       console.log('event', e);
       const response = JSON.parse(e.data);
       console.log('message', response);
-      if ('testID' in response) {
+
+      /* For somw reason mahmood is notifing me when my answers are graded (I
+       * don't care for now!)
+       */
+      if (typeof response === 'string') {
+      } else if ('testID' in response) {
         setState(response);
         navigate(`/full-test/${response.testID}`);
       } else if ('data' in response) {
@@ -88,7 +93,7 @@ export const FullTestPage = () => {
       };
 
       // Auto-submit
-      if (state.data === 'Auto-Submitted') {
+      if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
         const fullTestGetQuestion = () => {
           sendJsonMessage({
             action: 'fullTestGetQuestion',
@@ -100,7 +105,7 @@ export const FullTestPage = () => {
 
         out = (
           <Layout>
-            <p>Your exam was auto-submitted</p>
+            <p>Your exam was {state.data}</p>
             <p>You have 02:00 minutes before the next section starts</p>
             <button onClick={() => fullTestGetQuestion()}>Continue</button>
           </Layout>
