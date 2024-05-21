@@ -141,7 +141,6 @@ const ProfileMenu = () => {
     });
   }, []);
 
-  // Same as mobile menu
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
   const menuContent = (
@@ -185,7 +184,4 @@ const ProfileMenu = () => {
   );
 };
 
-// State setter function for managing user state
-function setUser(_user: AuthUser | undefined) {
-  // Implement your logic to set the user state here
-}
+function setUser(_user: AuthUser | undefined) {}
