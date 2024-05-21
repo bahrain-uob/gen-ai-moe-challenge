@@ -4,25 +4,27 @@ import Button from '../components/TButton';
 const sections = () => (
   <>
     <main className="w-full h-full flex justify-center flex-col items-center">
-      <div className="w-1/2 h-1/2 flex flex-col items-center mb-32">
-        <h1 className="text-5xl font-bold">Section Exam</h1>
+      <div className="w-1/2 h-1/2 flex flex-col items-center mb-32 max-sm:w-full">
+        <h1 className="text-5xl font-bold max-sm:text-4xl">Section Exam</h1>
       </div>
-
-      <div className='w-1/2 rounded-xl bg-white flex flex-wrap shadow-lg'>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tl-xl'>
-          <img src="assets/Listening.png" className=' w-24'/>
+      <div className='w-3/4 pl-4 pb-2 max-sm:w-full'>
+        <h2 className='font-semibold text-grey-4'>Choose a Section to Practice on</h2>
+      </div>
+      <div className='w-3/4 rounded-xl bg-white flex flex-wrap shadow-lg max-sm:flex-col max-sm:w-full'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tl-xl max-sm:w-full max-sm:rounded-t-xl'>
+          <img src="assets/Listening.png" className='w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Listening</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tr-xl'>
-          <img src="assets/Speaking.png" className=' w-24'/>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tr-xl max-sm:w-full max-sm:rounded-none'>
+          <img src="assets/Speaking.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Speaking</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-bl-xl'>
-          <img src="assets/Reading.png" className=' w-24'/>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-bl-xl max-sm:w-full max-sm:rounded-none'>
+          <img src="assets/Reading.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Reading</h1>
         </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-br-xl'>
-          <img src="assets/Writing.png" className=' w-24'/>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-br-xl max-sm:w-full max-sm:rounded-b-xl'>
+          <img src="assets/Writing.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Writing</h1>
         </div>
       </div>
