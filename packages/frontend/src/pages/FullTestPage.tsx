@@ -6,6 +6,7 @@ import { useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
+import { Spinner } from '../components/Spinner';
 
 export const FullTestPage = () => {
   let out;
@@ -67,11 +68,13 @@ export const FullTestPage = () => {
   if (readyState !== ReadyState.OPEN)
     return (
       <Layout>
-        <p>
-          {socketUrl === ''
-            ? 'You have to sign in first'
-            : connectionStatus[readyState]}
-        </p>
+        <Spinner
+          message={
+            socketUrl === ''
+              ? 'You have to sign in first'
+              : connectionStatus[readyState]
+          }
+        />
       </Layout>
     );
 
@@ -97,7 +100,11 @@ export const FullTestPage = () => {
         setIsloading(true);
       }
 
-      out = 'Loading...';
+      out = (
+        <Layout>
+          <Spinner message="Loading..." />
+        </Layout>
+      );
     }
 
     // Test was started
