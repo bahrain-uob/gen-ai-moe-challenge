@@ -13,12 +13,13 @@ type NavProps = {
   showLogo?: boolean;
   entries?: Entry[];
 };
+
 type Entry = { text: string; to: To };
 
 // Common styles
 const _containerStyling =
   'flex flex-1 font-montserrat text-md font-bold text-white ';
-  
+
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [] } = props;
   useEffect(() => {
@@ -114,6 +115,7 @@ const MobileMenu = ({
     </>
   );
 };
+
 async function _getCurrentUser() {
   try {
     await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
@@ -132,12 +134,12 @@ const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
-useEffect(() => {
+
+  useEffect(() => {
     _getCurrentUser().then(user => {
       setUser(user);
     });
   }, []);
-
 
   // Same as mobile menu
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
@@ -158,7 +160,6 @@ useEffect(() => {
       )}
     </>
   );
-  
 
   return (
     <>
@@ -184,7 +185,7 @@ useEffect(() => {
   );
 };
 
+// State setter function for managing user state
 function setUser(_user: AuthUser | undefined) {
-  throw new Error('Function not implemented.');
+  // Implement your logic to set the user state here
 }
-
