@@ -4,16 +4,22 @@ import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { Modal } from '../components/Modal';
 import { TitleRow } from '../components/TestComponents';
 import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 interface WritingPageProps {
   writingSection: WritingSection;
   submitAnswers: (answer: any) => void;
+  autoSaveAnswers: (answer: any) => void;
+  savedAnswers?: any;
   time: number;
 }
 
 export const WritingPage: React.FC<WritingPageProps> = ({
   writingSection: __writingSection,
   submitAnswers,
+  autoSaveAnswers,
+  savedAnswers,
+  time,
 }) => {
   const writingSection = {
     task1: {
@@ -26,13 +32,22 @@ export const WritingPage: React.FC<WritingPageProps> = ({
     },
   };
 
+  console.log('Recieved answers', { savedAnswers });
+
   const [currentTaskKey, setCurrentTaskKey] = useState<'task1' | 'task2'>(
     'task1',
   );
-  const [answers, setAnswers] = useState<{ task1: string; task2: string }>({
-    task1: '',
-    task2: '',
-  });
+  const [answers, setAnswers] = useState<{ task1: string; task2: string }>(
+    savedAnswers
+      ? {
+          task1: savedAnswers.P1,
+          task2: savedAnswers.P2,
+        }
+      : {
+          task1: '',
+          task2: '',
+        },
+  );
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
 
@@ -58,7 +73,14 @@ export const WritingPage: React.FC<WritingPageProps> = ({
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer
+          start_time={time}
+          onTimeUp={() =>
+            submitAnswers({ P1: answers.task1, P2: answers.task2 })
+          }
+        />
+      </span>
       <button
         className={
           linkStyling +
@@ -87,6 +109,7 @@ export const WritingPage: React.FC<WritingPageProps> = ({
     <TitleRow
       title="Writing Test"
       onSubmit={() => submitAnswers({ P1: answers.task1, P2: answers.task2 })}
+      onSave={() => autoSaveAnswers({ P1: answers.task1, P2: answers.task2 })}
     />
   );
 

@@ -214,6 +214,8 @@ export const FullTestPage = () => {
               <WritingPage
                 writingSection={state.data.question}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
                 time={time}
               />
             );
