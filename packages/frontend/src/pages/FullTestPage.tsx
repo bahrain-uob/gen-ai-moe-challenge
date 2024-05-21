@@ -15,7 +15,7 @@ export const FullTestPage = () => {
 
   const socketUrl = useSocketUrl() ?? '';
   const navigate = useNavigate();
-  console.log({ state, testId });
+  console.log('State', { state, testId });
 
   const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
@@ -29,16 +29,29 @@ export const FullTestPage = () => {
        * don't care for now!)
        */
       if (typeof response === 'string') {
-        console.log(response);
+        console.log({ response });
 
         setIsloading(false);
+      } else if ('error' in response) {
+        console.log('Recieved error', response.error);
+        if (response.error === 'Section is already submitted') {
+          sendJsonMessage({
+            action: 'fullTestGetQuestion',
+            testId: testId,
+          });
+          console.log('SENT MESSAGE');
+          setIsloading(true);
+        } else if (response.error === 'The test is finished') {
+          console.log('>>> EXECUTED');
+          navigate('/');
+        }
       } else if ('testID' in response) {
         setState(response);
         navigate(`/full-test/${response.testID}`);
 
         setIsloading(false);
       } else if ('data' in response) {
-        console.log('Recieved data');
+        console.log('Recieved data', { response });
         setState(response);
 
         setIsloading(false);
@@ -135,8 +148,6 @@ export const FullTestPage = () => {
         let dummySubmit: any;
         switch (state.type) {
           case 'listening':
-            console.log('executed w/', state.data.question);
-
             out = (
               <ListeningQuestionsPage
                 listeningSection={state.data.question}
