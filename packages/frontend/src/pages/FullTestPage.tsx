@@ -177,13 +177,13 @@ export const FullTestPage = () => {
             break;
 
           case 'writing':
-            dummySubmit = () =>
-              submitAnswers({
-                P1: 'My anweser',
-                P2: 'My anweser',
-              });
-
-            out = <WritingPage writingSection={state.data.question} />;
+            out = (
+              <WritingPage
+                writingSection={state.data.question}
+                submitAnswers={submitAnswers}
+                time={time}
+              />
+            );
             break;
 
           case 'speaking':
