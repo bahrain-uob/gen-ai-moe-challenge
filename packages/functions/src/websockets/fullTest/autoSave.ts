@@ -110,6 +110,7 @@ export const main: APIGatewayProxyHandler = async event => {
         });
         await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
+        return { statusCode: 200, body: 'Auto-Submitted' };
       }
       // make sure the provided answer is for the right section
       else if (type === examSections[section].type) {
@@ -122,6 +123,7 @@ export const main: APIGatewayProxyHandler = async event => {
           answer,
         );
         console.log('Auto-Saving exam', examSections[section].type);
+        return { statusCode: 200, body: 'Auto-Saved' };
       } else {
         return wsError(
           apiClient,
@@ -134,5 +136,5 @@ export const main: APIGatewayProxyHandler = async event => {
     }
   }
 
-  return { statusCode: 200, body: 'Connected' };
+  return wsError(apiClient, connectionId, 400, 'No section in progress');
 };
