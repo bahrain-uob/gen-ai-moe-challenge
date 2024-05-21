@@ -202,6 +202,8 @@ export const FullTestPage = () => {
               <ReadingQuestions
                 readingSection={state.data.question}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={saveAnswers}
+                savedAnswers={savedAnswers}
                 time={time}
               />
             );
