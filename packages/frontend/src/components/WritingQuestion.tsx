@@ -1,5 +1,6 @@
 import { WritingSection } from '../utilities';
-import { PointsBadge } from './PointsBadge';
+// import { PointsBadge } from './PointsBadge';
+
 export function WritingQuestion({
   task,
 }: {
@@ -9,7 +10,7 @@ export function WritingQuestion({
     'graphUrl' in task ? (
       <div className="flex flex-row justify-center my-12 mx-4">
         <img
-          className="shadow-xl md:max-w-[50%] xl:max-w-[33%]"
+          className="shadow-xl md:max-w-[70%] xl:max-w-[70%]"
           src={task.graphUrl}
           alt=""
         />
@@ -17,19 +18,18 @@ export function WritingQuestion({
     ) : (
       <></>
     );
+
   return (
     <div className="max-w-screen-lg mx-auto">
-      <h1 className="text-2xl text-blue-4 font-bold text-center mb-12">
-        Writing {'graphUrl' in task ? '1' : '2'}
-      </h1>
-
       <section id="question" className="mb-12">
-        <h2 className="font-bold mb-4">Question:</h2>
+        <h2 className="font-bold mb-4">
+          Task {'graphUrl' in task ? '1' : '2'}:
+        </h2>
         <p className="whitespace-pre-line ml-4 mb-6">{task.question}</p>
         {image}
-        <div className="flex flex-row-reverse">
+        {/* <div className="flex flex-row-reverse">
           <PointsBadge points={10} />
-        </div>
+        </div> */}
       </section>
     </div>
   );

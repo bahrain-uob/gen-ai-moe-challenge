@@ -102,42 +102,40 @@ export function WritingPage({}) {
   const linkStyling =
     'px-3 lg:px-5 transition-colors duration-200 flex items-center leading-normal';
   const barContent = (
-    <div className="max-w-screen-lg mx-auto">
-      <nav className="flex flex-1 h-full font-montserrat text-sm font-bold text-white mb-6">
-        <button
-          className={linkStyling + ' hover-darken'}
-          onClick={() => setHelpIsOpen(true)}
-        >
-          <span>Help</span>
-          <BsQuestionLg className="inline ml-2" size={16} />
-        </button>
-        <span className={linkStyling + ' mr-auto'}>00:10</span>
-        <button
-          className={
-            linkStyling +
-            (currentTaskKey === 'task1'
-              ? ' bg-black bg-opacity-40'
-              : ' hover-darken')
-          }
-          onClick={() => handleTaskSwitch('task1')}
-        >
-          Task 1
-        </button>
-        <button
-          className={
-            linkStyling +
-            (currentTaskKey === 'task2'
-              ? ' bg-black bg-opacity-40'
-              : ' hover-darken')
-          }
-          onClick={() => handleTaskSwitch('task2')}
-        >
-          Task 2
-        </button>
-      </nav>
+    <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
+        <span>Help</span>
+        <BsQuestionLg className="inline ml-2" size={16} />
+      </button>
+      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <button
+        className={
+          linkStyling +
+          (currentTaskKey === 'task1'
+            ? ' bg-black bg-opacity-40'
+            : ' hover-darken')
+        }
+        onClick={() => handleTaskSwitch('task1')}
+      >
+        Task 1
+      </button>
+      <button
+        className={
+          linkStyling +
+          (currentTaskKey === 'task2'
+            ? ' bg-black bg-opacity-40'
+            : ' hover-darken')
+        }
+        onClick={() => handleTaskSwitch('task2')}
+      >
+        Task 2
+      </button>
     </div>
   );
-  const titleRow = <TitleRow title="Reading Test" onSubmit={() => {}} />;
+  const titleRow = <TitleRow title="Writing Test" onSubmit={() => {}} />;
 
   console.log('answers: ', answers);
 
@@ -171,18 +169,20 @@ export function WritingPage({}) {
       <div className="h-[90%] lg:h-full overflow-y-scroll p-8 max-lg:pt-0">
         <section id="answer" className="mb-12">
           <form>
-            <h2 className="font-bold mb-6">Answer:</h2>
+            <div className="flex justify-between">
+              <h2 className="font-bold mb-6">Answer:</h2>
+              <div className="flex flex-row-reverse font-extralight mb-4">
+                {/* Word count is {answer.trim().split(/\s+/).length} */}
+                Word count is {countWords(answers[`${currentTaskKey}`])}
+              </div>
+            </div>
             <textarea
-              className="bg-white w-full h-[50vh] xl:h-[75vh] p-4 mb-2 rounded-xl shadow-md resize-none outline-none"
+              className="bg-white w-full h-[125lvh] p-4 mb-2 rounded-md border-2 resize-none outline-none"
               name="answer"
               placeholder="Write your answer here..."
               value={answers[`${currentTaskKey}`]}
               onChange={handleChange}
             />
-            <div className="flex flex-row-reverse font-extralight mb-4">
-              {/* Word count is {answer.trim().split(/\s+/).length} */}
-              Word count is {countWords(answers[`${currentTaskKey}`])}
-            </div>
 
             {/* Submit button */}
             {/*<div className="text-center">
