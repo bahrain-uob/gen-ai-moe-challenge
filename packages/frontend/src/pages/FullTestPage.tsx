@@ -30,14 +30,23 @@ export const FullTestPage = () => {
        */
       if (typeof response === 'string') {
         console.log(response);
+
+        setIsloading(false);
       } else if ('testID' in response) {
         setState(response);
         navigate(`/full-test/${response.testID}`);
+
+        setIsloading(false);
       } else if ('data' in response) {
         console.log('Recieved data');
         setState(response);
+
+        setIsloading(false);
       }
-      setIsloading(false);
+
+      setTimeout(() => {
+        setIsloading(false);
+      }, 10000);
     },
     shouldReconnect: () => true,
   });
@@ -104,15 +113,21 @@ export const FullTestPage = () => {
           setIsloading(true);
         };
 
-        out = (
-          <Layout>
-            <p>
-              Your {state.type} section was {state.data}
-            </p>
-            <p>You have 02:00 minutes before the next section starts</p>
-            <button onClick={() => fullTestGetQuestion()}>Continue</button>
-          </Layout>
-        );
+        out =
+          state.type !== 'speaking' ? (
+            <Layout>
+              <p>
+                Your {state.type} section was {state.data}
+              </p>
+              <p>You have 02:00 minutes before the next section starts</p>
+              <button onClick={() => fullTestGetQuestion()}>Continue</button>
+            </Layout>
+          ) : (
+            <Layout>
+              You have finished your test! Soon you'll be able to see your
+              feedback!
+            </Layout>
+          );
       }
 
       // Question was returned
