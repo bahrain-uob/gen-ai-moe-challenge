@@ -9,17 +9,20 @@ import { BsQuestionLg } from 'react-icons/bs';
 import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ListeningQuestionsPageProps {
   listeningSection: ListeningSection;
   submitAnswers: (answer: any) => void;
+  time: number;
 }
 
 export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   listeningSection,
   submitAnswers,
+  time,
 }) => {
   const parts = [
     listeningSection.P1,
@@ -64,7 +67,12 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer
+          start_time={time}
+          onTimeUp={() => submitAnswers(answers)}
+        />
+      </span>
       {parts.map((_, i) => (
         <button
           className={
