@@ -136,7 +136,30 @@ export function WritingPage({}) {
       </div>
       <Modal
         isOpen={helpIsOpen}
-        modalMessage="This is help"
+        modalMessage={
+          <div>
+            <ul className="list-disc  mt-5 pr-10 pl-5">
+              <li className="mt-4 text-justify">
+                The Question is located on the left side of your screen, Read it
+                carefully then write your answer in the text box on the right
+                side of the screen
+              </li>
+              <li className="mt-4 text-justify">
+                To navigate through different parts of the test, please press
+                the buttons located in the top right corner of the screen.
+              </li>
+              <li className="mt-4 text-justify">
+                When you have completed all parts of the test, click the
+                'Submit' button located in the top right corner of the screen to
+                finish and submit your answers.
+              </li>
+              <li className="mt-4  text-justify">
+                The test will take about 60 minutes. You should aim to spend
+                approximately 20 minutes on Task 1 and 40 minutes on Task 2.
+              </li>
+            </ul>
+          </div>
+        }
         onCancel={() => setHelpIsOpen(false)}
       />
     </>
