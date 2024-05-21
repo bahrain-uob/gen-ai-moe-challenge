@@ -80,6 +80,18 @@ export const main: APIGatewayProxyHandler = async event => {
     if (sectionAnswer === undefined) {
       break;
     }
+    if (
+      (sectionAnswer.status === 'Auto-submitted' ||
+        sectionAnswer.status === 'Submitted') &&
+      type === examSections[section].type
+    ) {
+      return wsError(
+        apiClient,
+        connectionId,
+        400,
+        'Section is already submitted',
+      );
+    }
 
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
