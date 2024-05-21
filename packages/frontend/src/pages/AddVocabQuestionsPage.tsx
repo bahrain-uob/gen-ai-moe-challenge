@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { toJSON } from '../utilities';
-import { get, post } from 'aws-amplify/api';
+import { post } from 'aws-amplify/api';
 
 interface ChoiceInput {
   text: string;
@@ -62,7 +61,12 @@ const AddVocabQuestionsPage: React.FC = () => {
       return;
     }
 
-    const rightChoice = choices.find(choice => choice.isRight)?.text;
+    const rightChoice = choices.find(choice => choice.isRight)?.text ?? null;
+    if (!rightChoice) {
+      setResponse('Please select the correct answer.');
+      setIsError(true);
+      return;
+    }
     const sk = Math.random().toString(36).substr(2, 8); // Random eight-character mix of digits and letters
 
     const questionData = {
@@ -75,18 +79,16 @@ const AddVocabQuestionsPage: React.FC = () => {
     };
 
     try {
-      const apiResponse = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: '/addVocabQuestion',
-          options: {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: questionData,
+      await post({
+        apiName: 'myAPI',
+        path: '/addVocabQuestion',
+        options: {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        }),
-      );
+          body: questionData,
+        },
+      });
       setResponse('Question added successfully!');
       setIsError(false);
       clearFields();
