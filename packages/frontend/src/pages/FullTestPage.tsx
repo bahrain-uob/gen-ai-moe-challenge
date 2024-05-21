@@ -87,41 +87,64 @@ export const FullTestPage = () => {
         });
       };
 
-      switch (state.type) {
-        case 'listening':
-          console.log('executed w/', state.data.question);
+      // Auto-submit
+      if (state.data === 'Auto-Submitted') {
+        const fullTestGetQuestion = () => {
+          sendJsonMessage({
+            action: 'fullTestGetQuestion',
+            testId: testId,
+          });
+          console.log('Sent message');
+          setIsloading(true);
+        };
 
-          out = (
-            <ListeningQuestionsPage
-              listeningSection={state.data.question}
-              submitAnswers={submitAnswers}
-            />
-          );
-          break;
+        out = (
+          <Layout>
+            <p>Your exam was auto-submitted</p>
+            <p>You have 02:00 minutes before the next section starts</p>
+            <button onClick={() => fullTestGetQuestion()}>Continue</button>
+          </Layout>
+        );
+      }
 
-        case 'reading':
-          out = (
-            <ReadingQuestions
-              readingSection={state.data.question}
-              submitAnswers={submitAnswers}
-            />
-          );
-          break;
+      // Question was returned
+      else {
+        switch (state.type) {
+          case 'listening':
+            console.log('executed w/', state.data.question);
 
-        case 'writing':
-          const dummySubmit = () =>
-            submitAnswers({
-              P1: 'My anweser',
-              P2: 'My anweser',
-            });
+            out = (
+              <ListeningQuestionsPage
+                listeningSection={state.data.question}
+                submitAnswers={submitAnswers}
+              />
+            );
+            break;
 
-          out = (
-            <Layout>
-              <h3>Writing assessment</h3>
-              <button onSubmit={() => dummySubmit()}> Submit </button>
-            </Layout>
-          );
-          break;
+          case 'reading':
+            out = (
+              <ReadingQuestions
+                readingSection={state.data.question}
+                submitAnswers={submitAnswers}
+              />
+            );
+            break;
+
+          case 'writing':
+            const dummySubmit = () =>
+              submitAnswers({
+                P1: 'My anweser',
+                P2: 'My anweser',
+              });
+
+            out = (
+              <Layout>
+                <h3>Writing assessment</h3>
+                <button onSubmit={() => dummySubmit()}> Submit </button>
+              </Layout>
+            );
+            break;
+        }
       }
     }
   }
