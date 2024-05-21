@@ -7,10 +7,13 @@ import { WritingSection } from '../../../functions/src/utilities/fullTestUtiliti
 
 interface WritingPageProps {
   writingSection: WritingSection;
+  submitAnswers: (answer: any) => void;
+  time: number;
 }
 
 export const WritingPage: React.FC<WritingPageProps> = ({
   writingSection: __writingSection,
+  submitAnswers,
 }) => {
   const writingSection = {
     task1: {
@@ -80,7 +83,12 @@ export const WritingPage: React.FC<WritingPageProps> = ({
       </button>
     </div>
   );
-  const titleRow = <TitleRow title="Writing Test" onSubmit={() => {}} />;
+  const titleRow = (
+    <TitleRow
+      title="Writing Test"
+      onSubmit={() => submitAnswers({ P1: answers.task1, P2: answers.task2 })}
+    />
+  );
 
   console.log('answers: ', answers);
 
