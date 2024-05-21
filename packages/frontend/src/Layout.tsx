@@ -1,5 +1,5 @@
 import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Nav } from './components/Nav';
 import { useOutlet } from 'react-router-dom';
 
