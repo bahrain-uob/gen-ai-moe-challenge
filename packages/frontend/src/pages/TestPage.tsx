@@ -7,6 +7,7 @@ import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import WaveSurferPlayer from './waveformListeningTest';
 import { AuthContext } from '../AuthContext';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 async function _getCurrentUser() {
   try {
@@ -69,6 +70,11 @@ function TestPage() {
       <Link to="/"> Back </Link>
 
       <ColorPalette />
+
+      <CountdownTimer
+        time={Date.now() - 59 * 60 * 1000 - 55 * 1000}
+        onTimeUp={() => console.log('finished')}
+      />
 
       <ModalDemo />
 
