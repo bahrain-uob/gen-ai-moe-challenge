@@ -2,6 +2,7 @@ import Describe from './sections/toolDescribe';
 import Features from './sections/features';
 import About from './sections/About';
 import './index.css';
+import HowToUse from './sections/HowToUse';
 
 
 const App = () => {
@@ -22,10 +23,19 @@ const App = () => {
           <Features />
         </section>
 
+        <div className="border-t border-gray-300 w-full  my-10"/>
+
+        <section  id="HowToUse">
+          <HowToUse />
+        </section>
+
+        <div className="border-t border-gray-300 w-full my-20"/>
 
         <section >
           <About />
         </section>
+
+       
 
       
       </section>

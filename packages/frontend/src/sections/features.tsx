@@ -14,7 +14,7 @@ const features = [
     icon: ChartBarIcon,
   },
   {
-    name: 'Up-to-Date Test',
+    name: 'Up-to-Date Tests',
     description:
       'Test your self using up-to-date Tests',
     icon: ArrowPathIcon,
