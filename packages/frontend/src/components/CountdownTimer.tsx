@@ -19,7 +19,7 @@ export const CountdownTimer: React.FC<Props> = props => {
   useEffect(() => {
     const timer = setInterval(() => {
       setRemainingTime(r => {
-        console.log({ r }, r <= 0, r === 1);
+        // console.log({ r }, r <= 0, r === 1);
         if (r <= 0) {
           return 0;
         } else if (r === 1) {
