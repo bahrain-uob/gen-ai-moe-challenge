@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
+import { WritingPage } from './WritingPage';
 
 export const FullTestPage = () => {
   let out;
@@ -182,12 +183,7 @@ export const FullTestPage = () => {
                 P2: 'My anweser',
               });
 
-            out = (
-              <Layout>
-                <h3>Writing assessment</h3>
-                <button onClick={() => dummySubmit()}> Submit </button>
-              </Layout>
-            );
+            out = <WritingPage writingSection={state.data.question} />;
             break;
 
           case 'speaking':
