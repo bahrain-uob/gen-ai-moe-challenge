@@ -85,7 +85,7 @@ export const main: APIGatewayProxyHandler = async event => {
   for (let section = 0; section < examSections.length; section++) {
     const sectionAnswer = exam![examSections[section].answer];
     const nextSctionAnswer =
-      section + 1 >= 3 ? null : exam![examSections[section + 1].answer];
+      section + 1 > 3 ? null : exam![examSections[section + 1].answer];
 
     if (sectionAnswer === undefined) {
       break;
