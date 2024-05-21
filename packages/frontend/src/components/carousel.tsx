@@ -36,7 +36,7 @@ const Carousel = () => {
             className="bg-[#958F88] rounded-full text-[#EAE7E0] cursor-pointer"
           />
         </div>
-        <div className="flex max-md:flex-col justify-center items-center h-full sm:px-2 md:px-12">
+        <div className="flex max-md:flex-col justify-center items-center h-full sm:px-2 md:px-12 w-full">
           <div className=" w-1/2 h-full  rounded-2xl flex justify-center items-center">
             {/* Image */}
             <img
