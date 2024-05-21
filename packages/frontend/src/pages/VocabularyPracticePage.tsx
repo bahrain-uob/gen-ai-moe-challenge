@@ -57,7 +57,7 @@ const VocabularyPracticePage: React.FC = () => {
       style={{ marginTop: '-200px' }}
     >
       <h1 className="text-6xl font-bold text-center mb-6 mt-4 text-black">
-        Vocabulary Practice
+        Vocabulary & Grammar Practice
       </h1>
       <div className="w-full max-w-3xl p-5 bg-gray-200 shadow-2xl rounded-lg">
         <div className="grid grid-cols-2 gap-4 mb-6">
