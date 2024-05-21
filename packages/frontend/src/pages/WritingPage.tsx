@@ -118,7 +118,7 @@ export function WritingPage({}) {
   );
 
   const containerStyles =
-    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300';
+    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300 h-full';
   const questionContainerStyle =
     containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
   const answerContainerStyle =
