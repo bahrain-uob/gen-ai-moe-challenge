@@ -3,10 +3,10 @@
 import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
 
 export const examSections: examSection[] = [
-  { type: 'listening', answer: 'listeningAnswer', time: 60 * 60 * 1000 },
+  { type: 'listening', answer: 'listeningAnswer', time: 30 * 60 * 1000 },
   { type: 'reading', answer: 'readingAnswer', time: 60 * 60 * 1000 },
   { type: 'writing', answer: 'writingAnswer', time: 60 * 60 * 1000 },
-  { type: 'speaking', answer: 'speakingAnswer', time: 60 * 60 * 1000 },
+  { type: 'speaking', answer: 'speakingAnswer', time: 30 * 60 * 1000 },
 ];
 
 export type testSectionAnswer =
