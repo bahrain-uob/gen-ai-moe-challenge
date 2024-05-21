@@ -198,5 +198,5 @@ export const main: APIGatewayProxyHandler = async event => {
     }
   }
 
-  return wsError(apiClient, connectionId, 400, 'No section in progress');
+  return wsError(apiClient, connectionId, 400, 'The test is fininshed');
 };
