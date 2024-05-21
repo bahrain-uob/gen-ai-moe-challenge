@@ -46,6 +46,7 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   const [partIndex, setPartIndex] = useState(0);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
+  console.log('Recieved answers', { savedAnswers });
   const [answers, setAnswers] = useState<Answer[][]>(
     savedAnswers
       ? savedAnswers
