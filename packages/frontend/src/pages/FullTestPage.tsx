@@ -153,6 +153,8 @@ export const FullTestPage = () => {
       // Question was returned
       else {
         let dummySubmit: any;
+        const time = Number(testId.slice(0, testId.indexOf('-')));
+
         switch (state.type) {
           case 'listening':
             out = (
@@ -168,6 +170,7 @@ export const FullTestPage = () => {
               <ReadingQuestions
                 readingSection={state.data.question}
                 submitAnswers={submitAnswers}
+                time={time}
               />
             );
             break;
