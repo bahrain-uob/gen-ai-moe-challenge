@@ -70,8 +70,9 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
     </div>
   );
 
-  const titleRow = <TitleRow title="Reading Test" onSubmit={() => {}} />;
-
+  const titleRow = (
+    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(answers)} />
+  );
 
   /* Maximize */
   const maximizeButton = (
