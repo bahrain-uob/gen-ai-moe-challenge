@@ -58,7 +58,7 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
       <span className={linkStyling + ' mr-auto'}>
-        <CountdownTimer time={time} />
+        <CountdownTimer start_time={time} />
       </span>
       {parts.map((_, i) => (
         <button

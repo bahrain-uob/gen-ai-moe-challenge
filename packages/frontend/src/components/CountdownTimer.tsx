@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-interface Props {
-  time: number; // Number of minutes for countdown
+type Props = {
   onTimeUp?: () => void;
-}
+} & (
+  | {
+      start_time: number;
+    }
+  | { duration: number }
+);
 
-export const CountdownTimer: React.FC<Props> = ({ time, onTimeUp }) => {
+export const CountdownTimer: React.FC<Props> = props => {
   const [remainingTime, setRemainingTime] = useState<number>(
-    Math.floor((time - Date.now() + 60 * 60 * 1000) / 1000),
+    'start_time' in props
+      ? Math.floor((props.start_time - Date.now() + 60 * 60 * 1000) / 1000)
+      : props.duration,
   );
 
   useEffect(() => {
@@ -17,7 +23,7 @@ export const CountdownTimer: React.FC<Props> = ({ time, onTimeUp }) => {
         if (r <= 0) {
           return 0;
         } else if (r === 1) {
-          onTimeUp?.();
+          props.onTimeUp?.();
           return r - 1;
         } else {
           return r - 1;
