@@ -42,7 +42,7 @@ export const FullTestPage = () => {
           console.log('SENT MESSAGE');
           setIsloading(true);
         } else if (response.error === 'The test is finished') {
-          console.log('>>> EXECUTED');
+          // TODO: Do something better
           navigate('/');
         }
       } else if ('testID' in response) {
