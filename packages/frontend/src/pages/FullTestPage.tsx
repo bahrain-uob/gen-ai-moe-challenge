@@ -131,7 +131,7 @@ export const FullTestPage = () => {
           },
         });
       };
-      const saveAnswers = (answers: any) => {
+      const autoSaveAnswers = (answers: any) => {
         console.log('Saving', { answers });
         sendJsonMessage({
           action: 'fullTestAutoSave',
@@ -190,7 +190,7 @@ export const FullTestPage = () => {
               <ListeningQuestionsPage
                 listeningSection={state.data.question}
                 submitAnswers={submitAnswers}
-                autoSaveAnswers={saveAnswers}
+                autoSaveAnswers={autoSaveAnswers}
                 savedAnswers={savedAnswers}
                 time={time}
               />
@@ -202,7 +202,7 @@ export const FullTestPage = () => {
               <ReadingQuestions
                 readingSection={state.data.question}
                 submitAnswers={submitAnswers}
-                autoSaveAnswers={saveAnswers}
+                autoSaveAnswers={autoSaveAnswers}
                 savedAnswers={savedAnswers}
                 time={time}
               />
