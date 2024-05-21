@@ -18,6 +18,7 @@ import {
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
 import { SpeakingFeedback } from '../../../frontend/src/utilities';
+import { isNumberObject } from 'util/types';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;
@@ -142,8 +143,10 @@ export const gradeSpeakingP1 = async (
     pronMistakes.concat(missPronunciations);
   }
 
-  const pronScore =
-    Math.round(pronScores.reduce((a, b) => a + b, 0) / pronScores.length) ?? 0;
+  const pronScoreUnv = Math.round(
+    pronScores.reduce((a, b) => a + b, 0) / pronScores.length,
+  );
+  const pronScore = isNumberObject(pronScoreUnv) ? pronScoreUnv : 0;
   const pronFeedback =
     pronMistakes.length > 0
       ? `There are pronunciation mistakes in the words ${pronMistakes.toString()}.`
@@ -195,23 +198,22 @@ export const gradeSpeakingP1 = async (
     score: avgScore,
     'Fluency & Coherence': {
       text: feedbackResults[0],
-      score: Number.isNaN(scores[0]) ? 0 : scores[0] ?? 0,
+      score: isNumberObject(scores[0]) ? scores[0] : 0,
     },
     'Lexical Resource': {
       text: feedbackResults[1],
-      score: Number.isNaN(scores[0]) ? 0 : scores[1] ?? 0,
+      score: isNumberObject(scores[0]) ? scores[1] : 0,
     },
     'Grammatical Range & Accuracy': {
       text: feedbackResults[2],
-      score: Number.isNaN(scores[0]) ? 0 : scores[2] ?? 0,
+      score: isNumberObject(scores[0]) ? scores[2] : 0,
     },
     Pronunciation: {
       text: pronFeedback,
-      score: pronScore ?? 0,
+      score: isNumberObject(pronScore) ? pronScore : 0,
     },
   };
 
-  console.log(JSON.stringify(output));
   return output;
 };
 
