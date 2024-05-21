@@ -11,22 +11,22 @@ const sections = () => (
         <h2 className='font-semibold text-grey-4'>Choose a Section to Practice on</h2>
       </div>
       <div className='w-3/4 rounded-xl bg-white flex flex-wrap shadow-lg max-sm:flex-col max-sm:w-full'>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tl-xl max-sm:w-full max-sm:rounded-t-xl'>
+        <Link to=""><div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tl-xl max-sm:w-full max-sm:rounded-t-xl'>
           <img src="assets/Listening.png" className='w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Listening</h1>
-        </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tr-xl max-sm:w-full max-sm:rounded-none'>
+        </div></Link>
+        <Link to=""><div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-tr-xl max-sm:w-full max-sm:rounded-none'>
           <img src="assets/Speaking.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Speaking</h1>
-        </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-bl-xl max-sm:w-full max-sm:rounded-none'>
+        </div></Link>
+        <Link to=""><div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-bl-xl max-sm:w-full max-sm:rounded-none'>
           <img src="assets/Reading.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Reading</h1>
-        </div>
-        <div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-br-xl max-sm:w-full max-sm:rounded-b-xl'>
+        </div></Link>
+        <Link to=""><div className='w-1/2 flex flex-row justify-center items-center gap-x-10 p-12 border-2 rounded-br-xl max-sm:w-full max-sm:rounded-b-xl'>
           <img src="assets/Writing.png" className=' w-24 max-sm:w-16'/>
           <h1 className='font-semibold text-2xl'>Writing</h1>
-        </div>
+        </div></Link>
       </div>
     </main>
     <div className="hidden">
