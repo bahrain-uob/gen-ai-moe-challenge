@@ -17,6 +17,7 @@ import {
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
+import { SpeakingFeedback } from '../../../frontend/src/utilities';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;
@@ -70,6 +71,18 @@ export const gradeSpeakingP1 = async (
   questions: string[],
   audioFileNames: string[],
 ) => {
+  if (!questions.length || !audioFileNames.length) {
+    return {
+      error: 'No questions or audio files found',
+    };
+  }
+
+  if (questions.length == 0 || audioFileNames.length == 0) {
+    return {
+      error: 'No questions or audio files found',
+    };
+  }
+
   //   const { audioFileNames, questions } = requestBody;
   const fileNames = audioFileNames.map((file: string) => {
     return file.slice(0, -5);
@@ -129,9 +142,8 @@ export const gradeSpeakingP1 = async (
     pronMistakes.concat(missPronunciations);
   }
 
-  const pronScore = Math.round(
-    pronScores.reduce((a, b) => a + b, 0) / pronScores.length,
-  );
+  const pronScore =
+    Math.round(pronScores.reduce((a, b) => a + b, 0) / pronScores.length) ?? 0;
   const pronFeedback =
     pronMistakes.length > 0
       ? `There are pronunciation mistakes in the words ${pronMistakes.toString()}.`
@@ -175,19 +187,31 @@ export const gradeSpeakingP1 = async (
     return number >= 1 && number <= 9 ? number : 1; // Ensure score is between 1 and 9
   });
   scores.push(Math.round(pronScore * speechPercentage));
-  const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(
-    2,
-  );
+  const avgScore =
+    scores.reduce((a, b) => (a ?? 0) + (b ?? 0), 0) / scores.length;
 
   // Feedback to be returned to the user
-  const output = {
-    Score: avgScore,
-    'Fluency and Coherence': feedbackResults[0],
-    'Lexical Resource': feedbackResults[1],
-    'Grammatical Range and Accuracy': feedbackResults[2],
-    Pronunciation: pronFeedback,
+  const output: SpeakingFeedback = {
+    score: avgScore,
+    'Fluency & Coherence': {
+      text: feedbackResults[0],
+      score: Number.isNaN(scores[0]) ? 0 : scores[0] ?? 0,
+    },
+    'Lexical Resource': {
+      text: feedbackResults[1],
+      score: Number.isNaN(scores[0]) ? 0 : scores[1] ?? 0,
+    },
+    'Grammatical Range & Accuracy': {
+      text: feedbackResults[2],
+      score: Number.isNaN(scores[0]) ? 0 : scores[2] ?? 0,
+    },
+    Pronunciation: {
+      text: pronFeedback,
+      score: pronScore ?? 0,
+    },
   };
 
+  console.log(JSON.stringify(output));
   return output;
 };
 

@@ -111,7 +111,8 @@ export const gradeWritingPart = async (
 
   // Calculate average score
   const scores: Array<number> = feedbacks.map(feedback => {
-    const score = feedback.match(/\d(\.\d{1,2})?/gm)![0];
+    const scoreNullable = feedback.match(/\d(\.\d{1,2})?/gm);
+    const score = scoreNullable === null ? '0' : scoreNullable[0] ?? '0';
     const number = parseFloat(score);
     return number >= 0 && number <= 9 ? number : 0; // Ensure score is between 0 and 9
   });
