@@ -97,9 +97,7 @@ const ReadingQuestions = () => {
     </div>
   );
 
-  const titleRow = (
-    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(sk)} />
-  );
+  const titleRow = <TitleRow title="Reading Test" onSubmit={() => {}} />;
 
   /* Maximize */
   const maximizeButton = (
