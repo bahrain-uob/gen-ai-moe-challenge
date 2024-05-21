@@ -105,7 +105,9 @@ export const FullTestPage = () => {
 
         out = (
           <Layout>
-            <p>Your exam was {state.data}</p>
+            <p>
+              Your {state.type} section was {state.data}
+            </p>
             <p>You have 02:00 minutes before the next section starts</p>
             <button onClick={() => fullTestGetQuestion()}>Continue</button>
           </Layout>
