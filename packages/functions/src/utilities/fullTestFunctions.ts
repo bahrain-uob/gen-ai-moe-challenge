@@ -138,6 +138,7 @@ const triggerGrading = (
       test.speakingAnswer,
       connectionId,
       endpoint,
+      true,
     );
   }
 };
