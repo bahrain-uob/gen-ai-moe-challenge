@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
@@ -20,6 +20,12 @@ export default function SignIn() {
   const handleToastClose = () => {
     navigate('/home');
   };
+
+  useEffect(() => {
+    if (authInfo.authSession !== undefined) {
+      navigate('/home');
+    }
+  }, []);
 
   const handleSignIn = () => {
     signIn({ username: email, password })
