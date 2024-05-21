@@ -1,31 +1,27 @@
-import { BookOpenIcon, ChartBarIcon, ArrowPathIcon, FingerPrintIcon } from '@heroicons/react/24/outline'
+import { BsBook, BsBarChart, BsArrowRepeat, BsFingerprint  } from 'react-icons/bs';
 
 const features = [
   {
     name: 'Comprehensive Content',
-    description:
-      'It covers all English Test sections (Speaking , Listening , Reading , Writing)',
-    icon:BookOpenIcon,
+    description: 'It covers all English Test sections (Speaking, Listening, Reading, Writing)',
+    icon: BsBook,
   },
   {
     name: 'Instant Feedback',
-    description:
-      'Receive immediate feedback regarding your performance',
-    icon: ChartBarIcon,
+    description: 'Receive immediate feedback regarding your performance',
+    icon: BsBarChart,
   },
   {
     name: 'Up-to-Date Tests',
-    description:
-      'Test your self using up-to-date Tests',
-    icon: ArrowPathIcon,
+    description: 'Test yourself using up-to-date tests',
+    icon: BsArrowRepeat,
   },
   {
     name: 'Personalized Learning',
-    description:
-      'Get a personalized plan based on your levelGet a personalized plan based on your level.',
-    icon: FingerPrintIcon,
+    description: 'Get a personalized plan based on your level.',
+    icon: BsFingerprint ,
   },
-]
+];
 
 export default function Example() {
   return (

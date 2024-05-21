@@ -1,4 +1,5 @@
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { BsChevronRight } from  'react-icons/bs';
+
 
 
 export default function HowToUse(){
@@ -6,7 +7,7 @@ export default function HowToUse(){
     return(
 
  
-  <div className="flex  flex-col justify-center mt-20">
+  <div className="flex flex-col justify-center mt-20 px-4 md:px-6 lg:px-8">
 
 
     <div className="w-full">
@@ -17,7 +18,6 @@ export default function HowToUse(){
 
           <div className="flex flex-col gap-2 text-center">
 
-
             <h2
               className="mb-2 text-3xl font-extrabold leading-tight text-dark-grey-900 lg:text-4xl"
             >
@@ -26,15 +26,19 @@ export default function HowToUse(){
            
           </div>
         </div>
+
+
+
+
         <div
-          className="flex w-full flex-col items-center justify-between gap-y-10 lg:flex-row lg:gap-x-8 lg:gap-y-0 xl:gap-x-10"
+          className="flex w-full flex-col items-center justify-between gap-y-10 lg:flex-row lg:gap-x-8 lg:gap-y-0 xl:gap-x-10 "
         >
           <div className="flex items-start gap-4">
             <div
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-solid border-blue-4 bg-transparent text-dark-grey-600"
               
             >
-              <span className="text-base font-bold leading-7">1</span>
+              <span className="text-base text-blue-4 font-bold leading-7">1</span>
             </div>
             <div className="flex flex-col">
                 
@@ -52,14 +56,17 @@ export default function HowToUse(){
 
             </div>
           </div>
+
+
           <div className="rotate-90 lg:rotate-0">
-          <ChevronRightIcon className="h-8 w-8 text-dark-grey-600" /> 
+          <BsChevronRight className="h-8 w-8 text-dark-grey-600" /> 
           </div>
+
           <div className="flex items-start gap-4">
             <div
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-solid border-blue-4 bg-transparent text-dark-grey-600"
             >
-              <span className="text-base font-bold leading-7">2</span>
+              <span className="text-base  text-blue-4 font-bold leading-7">2</span>
             </div>
             <div className="flex flex-col">
               <h3
@@ -72,14 +79,17 @@ export default function HowToUse(){
               </p>
             </div>
           </div>
+
           <div className="rotate-90 lg:rotate-0">
-          <ChevronRightIcon className="h-8 w-8 text-dark-grey-600" /> 
+          <BsChevronRight className="h-8 w-8 text-dark-grey-600" /> 
           </div>
+
+          
           <div className="flex items-start gap-4">
             <div
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-solid border-blue-4 bg-transparent text-dark-grey-600"
             >
-              <span className="text-base font-bold leading-7">3</span>
+              <span className="text-base  text-blue-4 font-bold leading-7">3</span>
             </div>
             <div className="flex flex-col">
               <h3
