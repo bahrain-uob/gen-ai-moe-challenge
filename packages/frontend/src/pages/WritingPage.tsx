@@ -1,11 +1,28 @@
 import { ChangeEvent, useState } from 'react';
 import { WritingQuestion } from '../components/WritingQuestion';
-import { writingSection } from '../utilities';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { Modal } from '../components/Modal';
 import { TitleRow } from '../components/TestComponents';
+import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
 
-export function WritingPage({}) {
+interface WritingPageProps {
+  writingSection: WritingSection;
+}
+
+export const WritingPage: React.FC<WritingPageProps> = ({
+  writingSection: __writingSection,
+}) => {
+  const writingSection = {
+    task1: {
+      question: __writingSection.P1.Question,
+      graphDescription: __writingSection.P1.GraphDescription,
+      graphUrl: __writingSection.P1.GraphKey,
+    },
+    task2: {
+      question: __writingSection.P2.Question,
+    },
+  };
+
   const [currentTaskKey, setCurrentTaskKey] = useState<'task1' | 'task2'>(
     'task1',
   );
@@ -141,7 +158,7 @@ export function WritingPage({}) {
       />
     </>
   );
-}
+};
 
 const countWords = (str: string) =>
   str
