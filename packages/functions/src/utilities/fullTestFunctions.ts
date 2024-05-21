@@ -155,19 +155,19 @@ export const filterQuestion = async (question: any) => {
       client,
     );
   } else if (newQuestion.PK === 'reading') {
-    for (let part of ['P1', 'P2', 'P3']) {
-      for (let question of newQuestion[part].Questions) {
-        for (let subQuestion of question.SubQuestions) {
-          if (subQuestion.CorrectAnswers) {
-            console.log('deleting correct answers');
-            delete subQuestion.CorrectAnswers;
-          } else if (subQuestion.CorrectAnswer) {
-            console.log('deleting correct answer');
-            delete subQuestion.CorrectAnswer;
-          }
-        }
-      }
-    }
+    // for (let part of ['P1', 'P2', 'P3']) {
+    //   for (let question of newQuestion[part].Questions) {
+    //     for (let subQuestion of question.SubQuestions) {
+    //       if (subQuestion.CorrectAnswers) {
+    //         console.log('deleting correct answers');
+    //         delete subQuestion.CorrectAnswers;
+    //       } else if (subQuestion.CorrectAnswer) {
+    //         console.log('deleting correct answer');
+    //         delete subQuestion.CorrectAnswer;
+    //       }
+    //     }
+    //   }
+    // }
   } else if (newQuestion.PK === 'listening') {
     for (let part of ['P1', 'P2', 'P3', 'P4']) {
       newQuestion[part].ScriptKey = await generatePresignedUrl(
@@ -181,13 +181,13 @@ export const filterQuestion = async (question: any) => {
             client,
           );
         }
-        for (let subQuestion of question.SubQuestions) {
-          if (subQuestion.CorrectAnswers) {
-            delete subQuestion.CorrectAnswers;
-          } else if (subQuestion.CorrectAnswer) {
-            delete subQuestion.CorrectAnswer;
-          }
-        }
+        // for (let subQuestion of question.SubQuestions) {
+        //   if (subQuestion.CorrectAnswers) {
+        //     delete subQuestion.CorrectAnswers;
+        //   } else if (subQuestion.CorrectAnswer) {
+        //     delete subQuestion.CorrectAnswer;
+        //   }
+        // }
       }
     }
   } else if (newQuestion.PK === 'speaking') {
