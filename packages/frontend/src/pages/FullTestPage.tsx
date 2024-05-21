@@ -6,6 +6,7 @@ import { useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
+import SpeakingQuestions from './SpeakingQuestionsPage';
 
 export const FullTestPage = () => {
   let out;
@@ -181,27 +182,11 @@ export const FullTestPage = () => {
             break;
 
           case 'speaking':
-            dummySubmit = () =>
-              submitAnswers({
-                P1: {
-                  audioFileNames: [],
-                  questions: [],
-                },
-                P2: {
-                  audioFileName: [],
-                  question: [],
-                },
-                P3: {
-                  audioFileNames: [],
-                  questions: [],
-                },
-              });
-
             out = (
-              <Layout>
-                <h3>Speaking assesment</h3>
-                <button onClick={() => dummySubmit()}> Submit </button>
-              </Layout>
+              <SpeakingQuestions
+                speakingSection={state.data.question}
+                submitAnswers={submitAnswers}
+              />
             );
             break;
         }
