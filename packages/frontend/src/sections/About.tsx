@@ -16,8 +16,8 @@ export default function About(){
                 </div>
 
 
-                <div className="relative mx-auto max-w-7xl z-10 grid grid-cols-1 gap-10 pt-14 sm:grid-cols-2 md-cols-2 lg:grid-cols-3">
-                    <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transform transition duration-100 hover:scale-110">
+                <div  className="relative mx-auto max-w-7xl z-10 grid grid-cols-1 gap-10 pt-14 md:grid-cols-1 lg:grid-cols-3">
+                    <div className="h-[20rem] rounded-md border bg-white p-8 text-center shadow transform transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Vision</h3>
                         <p className="my-4 mb-0 font-normal leading-relaxed tracking-wide">
                             Our vision is to become the global leader in revolutionizing language proficiency development.
@@ -25,7 +25,7 @@ export default function About(){
                     </div>
 
 
-                    <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
+                    <div className="h-[20rem] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Mission</h3>
                         <p className="my-4 mb-0 font-normal leading-relaxed tracking-wide text-justify">
                             Our mission is to empower individuals to achieve their language proficiency goals through
@@ -35,7 +35,7 @@ export default function About(){
                     </div>
 
 
-                    <div className="h-[350px] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
+                    <div className="h-[20rem] rounded-md border bg-white p-8 text-center shadow transition duration-100 hover:scale-110">
                         <h3 className="mt-2 font-bold text-2xl text-gray-400">Values</h3>
                         <ul className="my-4">
                             <li>Innovation</li>
