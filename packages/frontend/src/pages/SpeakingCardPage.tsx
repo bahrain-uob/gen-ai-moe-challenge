@@ -1,6 +1,8 @@
 import { BsQuestionLg } from 'react-icons/bs';
 import { MicButton } from '../components/MicButton';
 import { TitleRow } from '../components/TestComponents';
+import { useState } from 'react';
+import { Modal } from '../components/Modal';
 
 export const SpeakingCardPage = () => {
   const partIndex = 1;
@@ -18,15 +20,20 @@ export const SpeakingCardPage = () => {
     ],
   };
 
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
+
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
-      </span>
+      </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
@@ -58,7 +65,7 @@ export const SpeakingCardPage = () => {
 
   const pageBody = (
     <div className="flex flex-col h-full justify-evenly items-center px-6">
-      <div className="w-full max-w-xl h-60 bg-white rounded-xl shadow-backdrop py-4 px-6">
+      <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
         {cardContent}
       </div>
       <MicButton className="shadow-backdrop" />
@@ -70,6 +77,22 @@ export const SpeakingCardPage = () => {
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
       <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
       <div className="h-[82svh] lg:h-[80svh] w-screen">{pageBody}</div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage={
+          <div>
+          <ul className="list-disc mt-5 pr-10 pl-5">
+            <li className='mt-4 text-justify'>A task card will be displayed on your screen with topics and questions to discuss. Take time to prepare your thoughts.</li>
+            <li className='mt-4 text-justify'>When ready, click the microphone icon to start recording your response. Speak for up to 2 minutes, addressing all points and questions.</li>
+            <li className='mt-4 text-justify'>To complete the test, submit your responses and exit the recording interface as instructed on the screen.</li>
+            <li className='mt-4 text-justify'>Ensure clear and structured responses to demonstrate your language skills effectively.</li>
+          </ul>
+        </div>
+        
+
+        }
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };

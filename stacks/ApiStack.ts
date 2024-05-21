@@ -13,6 +13,7 @@ export function ApiStack({ stack }: StackContext) {
     myTable,
     speakingPollyBucket,
     Polly_bucket,
+    audiobucket,
   } = use(DBStack);
   const { auth } = use(AuthStack);
   const { grammarToolDNS } = use(GrammarToolStack);
@@ -121,7 +122,17 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
-      'GET /startTest/{testType}' : 'packages/functions/src/startTest.main',
+      'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
+      'GET /Listening/audio': {
+        function: {
+          handler:
+            'packages/functions/src/sample-python-lambda/getListeningAudio.main',
+          runtime: 'python3.11',
+          permissions: ['s3:*'],
+          timeout: '60 seconds',
+          environment: { audioBucket: audiobucket.bucketName },
+        },
+      },
     },
   });
   api.attachPermissions([myTable]);
@@ -142,8 +153,11 @@ export function ApiStack({ stack }: StackContext) {
   const webSocket = new WebSocketApi(stack, 'WebSocketApi', {
     defaults: {
       function: {
-        bind: [table],
-        permissions: ['bedrock:InvokeModel'],
+        bind: [table, uploads_bucket],
+        permissions: ['bedrock:InvokeModel', 's3:GetObject'],
+        environment: {
+          speakingPollyBucket: speakingPollyBucket.bucketName,
+        },
       },
     },
     authorizer: {
@@ -163,6 +177,39 @@ export function ApiStack({ stack }: StackContext) {
       gradeWriting: {
         function: {
           handler: 'packages/functions/src/gradingWriting.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestStart: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/start.main',
+        },
+      },
+      fullTestAutoSave: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/autoSave.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestGetQuestion: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/fullTest/getQuestion.main',
+          timeout: '120 seconds',
+          environment: {
+            grammerToolDNS: grammarToolDNS,
+          },
+        },
+      },
+      fullTestSubmit: {
+        function: {
+          handler: 'packages/functions/src/websockets/fullTest/submit.main',
           timeout: '120 seconds',
           environment: {
             grammerToolDNS: grammarToolDNS,

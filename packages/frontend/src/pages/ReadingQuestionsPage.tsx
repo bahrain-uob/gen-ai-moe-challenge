@@ -2,32 +2,35 @@ import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { Answer } from '../utilities/LRUtilities';
-import { readingParts } from '../utilities/LRSampleQuestions';
-//import { listeningParts } from '../utilities/LRSampleQuestions';
 import { PassageComponent } from '../components/Reading/PassageComponent';
-import { post } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
 import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
-import { useParams, useNavigate } from 'react-router-dom';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
+import { Modal } from '../components/Modal';
+import { ReadingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
-const ReadingQuestions = () => {
-  const { sk } = useParams();
-  if (!sk) return;
+interface ReadingQuestionsProps {
+  readingSection: ReadingSection;
+  submitAnswers: (answer: any) => void;
+  time: number;
+}
 
-  const navigate = useNavigate();
-
-  // TODO: this should be a parameter
-  const parts = readingParts; //listeningParts
+const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
+  readingSection,
+  submitAnswers,
+  time,
+}) => {
+  const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
 
   const [partIndex, setPartIndex] = useState(0);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
     parts.map(part => initialAnswer(part.Questions)),
@@ -42,42 +45,21 @@ const ReadingQuestions = () => {
     };
   };
 
-  const submitAnswers = async (sk: string) => {
-    try {
-      const payload = {
-        studentAnswers: answers, // Assuming 'answers' is the nested array data you showed
-      };
-      const response = await toJSON(
-        post({
-          apiName: 'myAPI',
-          path: `/answers/reading/${sk}`,
-          options: {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: payload,
-          },
-        }),
-      );
-      console.log('Submit response:', response);
-      alert('Answers submitted successfully!');
-      navigate(`/scores/reading/${sk}`);
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-      alert('Failed to submit answers.');
-    }
-  };
-
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
   const barContent = (
     <div className="flex flex-1 h-full font-montserrat text-sm font-bold text-white">
-      <span className={linkStyling + ' hover-darken'}>
+      <button
+        className={linkStyling + ' hover-darken'}
+        onClick={() => setHelpIsOpen(true)}
+      >
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
+      </button>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer time={time} />
       </span>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
       {parts.map((_, i) => (
         <button
           className={
@@ -94,7 +76,7 @@ const ReadingQuestions = () => {
   );
 
   const titleRow = (
-    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(sk)} />
+    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(answers)} />
   );
 
   /* Maximize */
@@ -170,6 +152,23 @@ const ReadingQuestions = () => {
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>
       </div>
+      <Modal
+        isOpen={helpIsOpen}
+        modalMessage={
+          <div>
+          <ul  className="list-disc  mt-5 pr-10 pl-5">
+           <li className='mt-4 text-justify'>The passage is located on the left side of your screen, Read it carefully to understand the content and context.</li>
+           <li className='mt-4 text-justify'>To navigate through different parts of the test, please press the buttons located in the top right corner of the screen.</li>
+           <li className='mt-4 text-justify'>When you have completed all parts of the test, click the 'Submit' button located in the top right corner of the screen to finish and submit your answers.</li>
+           <li className='mt-4 text-justify'>There are 40 questions altogether, and each question carries one mark. Answer all of the questions.</li>
+           <li className='mt-4  text-justify'>The test will take about 60 minutes,You should aim to spend no more than 20 minutes on each part. As the test progresses, the sections increase in difficulty, so make sure you allow yourself enough time to complete each section.</li>
+          </ul>
+        </div>
+
+
+        }
+        onCancel={() => setHelpIsOpen(false)}
+      />
     </>
   );
 };

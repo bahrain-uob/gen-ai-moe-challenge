@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import { post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
+import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
+import WaveSurferPlayer from './waveformListeningTest';
+import { AuthContext } from '../AuthContext';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 async function _getCurrentUser() {
   try {
@@ -39,10 +44,24 @@ function TestPage() {
     });
   }, []);
 
+  const userInfo = useContext(AuthContext);
+
   return (
     <>
       <h2> This is a test page</h2>
       <p>{user ? JSON.stringify(user) : 'No current User'}</p>
+
+      <p className="mt-4 font-light text-lg">Get info using Auth Stack</p>
+      {userInfo ? (
+        <>
+          <p className="mb-3">
+            Auth Session = {JSON.stringify(userInfo.authSession)}
+          </p>
+          <p className="mb-3">User info = {JSON.stringify(userInfo.user)}</p>
+        </>
+      ) : (
+        <p>No Current User</p>
+      )}
 
       <br />
       <button onClick={testAPIAccess}>POST /</button>
@@ -51,12 +70,23 @@ function TestPage() {
       <Link to="/"> Back </Link>
 
       <ColorPalette />
+
+      <CountdownTimer
+        time={Date.now() - 59 * 60 * 1000 - 55 * 1000}
+        onTimeUp={() => console.log('finished')}
+      />
+
+      <ModalDemo />
+
+      <div className="mt-8 px-4">
+        <WaveSurferPlayer audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
+      </div>
     </>
   );
 }
 
 const ColorPalette = () => {
-  const baseClasses = 'w-16 h-16 ';
+  const baseClasses = 'w-16 h-16 border ';
 
   return (
     <>
@@ -77,3 +107,26 @@ const ColorPalette = () => {
 };
 
 export default TestPage;
+
+const ModalDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const message = `- This is my thing
+  - blah 
+  - blah`;
+
+  return (
+    <div className="mt-8 px-4">
+      {/* <button onChange={() => setIsOpen(true)}>Open Modal</button> */}
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+
+      <br />
+      <br />
+      <Modal
+        isOpen={isOpen}
+        onCancel={() => setIsOpen(false)}
+        modalMessage={message}
+      />
+    </div>
+  );
+};
