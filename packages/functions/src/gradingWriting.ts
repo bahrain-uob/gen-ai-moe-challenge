@@ -6,7 +6,7 @@ import {
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { wsError } from './utilities';
-
+import { WritingFeedback } from '../../frontend/src/utilities';
 
 export const main: APIGatewayProxyHandler = async event => {
   // Get client info
@@ -26,10 +26,20 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
-    return await wsError(apiClient, connectionId, 400, 'Missing answer or question or writingTask');
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Missing answer or question or writingTask',
+    );
   }
   if (writingTask === 'Task 1' && !graphDescription) {
-    return await wsError(apiClient, connectionId, 400, 'Missing graph description');
+    return await wsError(
+      apiClient,
+      connectionId,
+      400,
+      'Missing graph description',
+    );
   }
   if (writingTask === 'Task 2' && graphDescription) {
     return await wsError(
@@ -86,15 +96,36 @@ export const main: APIGatewayProxyHandler = async event => {
   const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
   console.log('Scores', scores, 'Average Score:', avgScore);
 
-  const out = {
-    'Coherence & Cohesion': feedbacks[0],
-    'Grammatical Range & Accuracy': feedbacks[1],
-    'Lexical Resource': feedbacks[2],
-    'Task Responce': feedbacks[3],
+  // const out = {
+  //   'Coherence & Cohesion': feedbacks[0],
+  //   'Grammatical Range & Accuracy': feedbacks[1],
+  //   'Lexical Resource': feedbacks[2],
+  //   'Task Responce': feedbacks[3],
+  //   'Grammer Tool Feedback': grammerToolFeedback,
+  //   'Combined Feedback': '',
+  // };
+
+  const out: WritingFeedback = {
+    'Coherence & Cohesion': {
+      text: feedbacks[0],
+      score: scores[0],
+    },
+    'Grammatical Range & Accuracy': {
+      text: feedbacks[1],
+      score: scores[1],
+    },
+    'Lexical Resource': {
+      text: feedbacks[2],
+      score: scores[2],
+    },
+    'Task Responce': {
+      text: feedbacks[3],
+      score: scores[3],
+    },
     'Grammer Tool Feedback': grammerToolFeedback,
     'Combined Feedback': '',
+    score: avgScore,
   };
-
   // Create a combined feedback
   const unifyPrompt = promptToUnifyFeedbacks(out);
   out['Combined Feedback'] = await runModel(unifyPrompt);
@@ -221,13 +252,13 @@ parts of the student's answer relevant to your grading.
  * Create a prompt to unify the feedbacks into one.  Takes as input a Record
  * with the criteria as the key, and the feedback text as the value.
  */
-function promptToUnifyFeedbacks(feedbacks: Record<string, string>) {
+function promptToUnifyFeedbacks(feedbacks: WritingFeedback) {
   const feedbacksSection = Object.entries(feedbacks)
     // Convert to XML-like format
     .map(([criteria, feedback]) =>
       criteria === 'Combined Feedback' // Exclude combined feedback from Object
         ? ''
-        : `<${criteria}>\n${feedback}\n</${criteria}>`,
+        : `<${criteria}>\n${feedback.text}\n</${criteria}>`,
     )
     .reduce((prev, curr) => prev + '\n' + curr);
 

@@ -28,6 +28,7 @@ import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
+import { WritingTask1Page_ } from './pages/WritingTask1_.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -98,6 +99,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/PlacementTest',
     Component: PlacementTest,
+  },
+  {
+    path: '_writing-task1',
+    Component: WritingTask1Page_,
   },
 ];
 

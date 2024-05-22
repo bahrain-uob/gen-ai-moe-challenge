@@ -16,12 +16,12 @@ export const WSFeedbackComponent = ({
         value: feedback.score * 4,
         maxValue: 36,
         // TODO Don't hard-code a band score
-        text: 'B1',
+        text: 'B2',
       }}
       rightCircleProps={{
-        value: feedback.score * 4,
-        maxValue: 36,
-        text: (feedback.score * 4).toFixed() + ' / 36',
+        value: feedback['Lexical Resource'].score,
+        maxValue: 9,
+        text: feedback.score.toFixed() + ' / 9',
       }}
     />
   );
@@ -107,14 +107,14 @@ const displayGrammarMistakes = (
       mistake.context.offset + mistake.context.length,
     );
 
-    let body = [];
-    for (let x in mistake) {
-      body.push(
-        <p key={x}>
-          {x.toString()}: {JSON.stringify(mistake[x])}
-        </p>,
-      );
-    }
+    // let body = [];
+    // for (let x in mistake) {
+    //   body.push(
+    //     <p key={x}>
+    //       {x.toString()}: {JSON.stringify(mistake[x])}
+    //     </p>,
+    //   );
+    // }
 
     const title = (
       <>
@@ -126,7 +126,8 @@ const displayGrammarMistakes = (
 
     return (
       <CollapsableCard title={title} key={index}>
-        {body}
+        {/* {body} */}
+        {mistake.message}
       </CollapsableCard>
     );
   });
