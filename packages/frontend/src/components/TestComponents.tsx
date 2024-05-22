@@ -22,11 +22,11 @@ export const TitleRow: React.FC<TitleRowProps> = ({
       </div>
       <div className="w-1/3 text-center font-light text-xl">{title}</div>
       <div className="w-1/3 nav-item flex-row justify-end">
-        <button onClick={onSave}>
-          Save <BsFloppy2 className="inline mr-4" />
+        <button onClick={onSave} className="mr-2">
+          Save <BsFloppy2 className="inline max-sm:hidden mr-4" />
         </button>
         <button onClick={onSubmit}>
-          Submit <BsCheckLg className="inline" />
+          Submit <BsCheckLg className="inline max-sm:hidden" />
         </button>
       </div>
     </div>
