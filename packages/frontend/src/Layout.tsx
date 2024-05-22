@@ -1,7 +1,7 @@
 import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Nav } from './components/Nav';
-import { useOutlet } from 'react-router-dom';
+import { useNavigate, useOutlet } from 'react-router-dom';
 
 export const Layout = ({
   noPadding = false,
@@ -39,10 +39,7 @@ export const Layout = ({
         { text: 'Exercises', to: '/Exercises' },
       ];
 
-  if (isLanding && user) {
-    // If user is on the landing page and authenticated, replace "Sign In" with "Sign Out"
-    navEntries.push({ text: 'Sign out', to: '/sign-out' });
-  } else if (isLanding) {
+  if (user == undefined) {
     // If user is on the landing page and not authenticated, include "Sign In"
     navEntries.push({ text: 'Sign in', to: '/sign-in' });
   }
@@ -52,7 +49,7 @@ export const Layout = ({
   if (!children) {
     children = useOutlet();
   }
-
+  useNavigate(0);
   return (
     <main className="bg-grey-1 min-h-screen">
       <Nav entries={navEntries} />
