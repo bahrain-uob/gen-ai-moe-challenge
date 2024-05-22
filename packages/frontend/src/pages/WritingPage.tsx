@@ -176,9 +176,9 @@ export const WritingPage: React.FC<WritingPageProps> = ({
 
   return (
     <>
-      <div className="h-[6svh] bg-blue-4">{barContent}</div>
-      <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
-      <div className="flex flex-col lg:flex-row h-[88svh] lg:h-[86svh] w-screen overflow-y-hidden">
+      <div className="h-[6dvh] bg-blue-4">{barContent}</div>
+      <div className="h-[6dvh] lg:h-[8dvh]">{titleRow}</div>
+      <div className="flex flex-col lg:flex-row h-[88dvh] lg:h-[86dvh] w-screen overflow-y-hidden">
         <div className={questionContainerStyle}>{questionScreen}</div>
         <div className={answerContainerStyle}>{answerScreen}</div>
       </div>

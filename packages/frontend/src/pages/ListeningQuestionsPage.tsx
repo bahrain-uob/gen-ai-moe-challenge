@@ -114,12 +114,12 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
 
   return (
     <>
-      <div className="h-[6svh] bg-blue-4">{barContent}</div>
-      <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
-      <div className={`h-[78svh] lg:h-[76svh] w-screen bg-white`}>
+      <div className="h-[6dvh] bg-blue-4">{barContent}</div>
+      <div className="h-[6dvh] lg:h-[8dvh]">{titleRow}</div>
+      <div className={`h-[78dvh] lg:h-[76dvh] w-screen bg-white`}>
         {questionsScreen}
       </div>
-      <div className="h-[10svh] p-5 bg-gray-200 flex flex-row items-center">
+      <div className="h-[10dvh] p-5 bg-gray-200 flex flex-row items-center">
         {audioPlayer}
       </div>
       <Modal
