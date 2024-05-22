@@ -111,6 +111,8 @@ export function ApiStack({ stack }: StackContext) {
           environment: { audioBucket: audiobucket.bucketName },
         },
       },
+      'GET /fullTestFeedback/{SK}':
+        'packages/functions/src/getFullTestFeedback.main',
     },
   });
 
