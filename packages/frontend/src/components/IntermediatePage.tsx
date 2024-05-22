@@ -1,4 +1,3 @@
-import { Layout } from '../Layout';
 import { CountdownTimer } from './CountdownTimer';
 
 interface IntermediatePageProps {

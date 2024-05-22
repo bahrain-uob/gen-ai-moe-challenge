@@ -8,7 +8,6 @@ import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
 import { WritingPage } from './WritingPage';
-import { CountdownTimer } from '../components/CountdownTimer';
 import { IntermediatePage } from '../components/IntermediatePage';
 
 export const FullTestPage = () => {
