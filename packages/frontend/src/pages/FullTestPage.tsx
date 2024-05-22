@@ -8,7 +8,8 @@ import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
 import { WritingPage } from './WritingPage';
-import { CountdownTimer } from '../components/CountdownTimer';
+import { IntermediatePage } from '../components/IntermediatePage';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const FullTestPage = () => {
   let out;
@@ -53,11 +54,13 @@ export const FullTestPage = () => {
         setState(response);
         navigate(`/full-test/${response.testID}`);
 
+        toast.dismiss();
         setIsloading(false);
       } else if ('data' in response) {
         console.log('Recieved data', { response });
         setState(response);
 
+        toast.dismiss();
         setIsloading(false);
       }
 
@@ -88,6 +91,7 @@ export const FullTestPage = () => {
   if (!testId) {
     const startTest = () => {
       sendJsonMessage({ action: 'fullTestStart' });
+      toast.info('Loading your test...');
     };
 
     out = (
@@ -107,6 +111,7 @@ export const FullTestPage = () => {
           testId: testId,
         });
         console.log('Sent message');
+        toast.info('Loading your test...');
         setIsloading(true);
       }
 
@@ -130,6 +135,7 @@ export const FullTestPage = () => {
             answer: answers, // this will be based on the section answer schema
           },
         });
+        toast.info('Submitting...');
       };
       const autoSaveAnswers = (answers: any) => {
         console.log('Saving', { answers });
@@ -141,41 +147,30 @@ export const FullTestPage = () => {
             answer: answers, // this will be based on the section answer schema
           },
         });
+        toast.info('Your answer is getting saved...');
       };
 
       // Auto-submit and submit
       if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
-        const fullTestGetQuestion = () => {
+        const continueTest = () => {
           sendJsonMessage({
             action: 'fullTestGetQuestion',
             testId: testId,
           });
           console.log('Sent message');
           setIsloading(true);
+          toast.info(`Loading ${state.type}...`);
         };
 
-        out =
-          state.type !== 'speaking' ? (
-            <Layout>
-              <p>
-                Your {state.type} section was {state.data}
-              </p>
-              <p>
-                You have{' '}
-                <CountdownTimer
-                  duration={120}
-                  onTimeUp={() => fullTestGetQuestion()}
-                />{' '}
-                minutes before the next section starts
-              </p>
-              <button onClick={() => fullTestGetQuestion()}>Continue</button>
-            </Layout>
-          ) : (
-            <Layout>
-              You have finished your test! Soon you'll be able to see your
-              feedback!
-            </Layout>
-          );
+        out = (
+          <Layout>
+            <IntermediatePage
+              type={state.type}
+              status={state.data}
+              onContinue={continueTest}
+            />
+          </Layout>
+        );
       }
 
       // Question was returned
@@ -250,7 +245,12 @@ export const FullTestPage = () => {
     }
   }
 
-  return out;
+  return (
+    <>
+      {out}
+      <ToastContainer pauseOnHover={false} />
+    </>
+  );
 };
 
 const connectionStatus = {
