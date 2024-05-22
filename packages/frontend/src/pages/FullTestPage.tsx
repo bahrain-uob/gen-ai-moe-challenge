@@ -9,6 +9,7 @@ import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
 import { WritingPage } from './WritingPage';
 import { CountdownTimer } from '../components/CountdownTimer';
+import { IntermediatePage } from '../components/IntermediatePage';
 
 export const FullTestPage = () => {
   let out;
@@ -154,28 +155,15 @@ export const FullTestPage = () => {
           setIsloading(true);
         };
 
-        out =
-          state.type !== 'speaking' ? (
-            <Layout>
-              <p>
-                Your {state.type} section was {state.data}
-              </p>
-              <p>
-                You have{' '}
-                <CountdownTimer
-                  duration={120}
-                  onTimeUp={() => fullTestGetQuestion()}
-                />{' '}
-                minutes before the next section starts
-              </p>
-              <button onClick={() => fullTestGetQuestion()}>Continue</button>
-            </Layout>
-          ) : (
-            <Layout>
-              You have finished your test! Soon you'll be able to see your
-              feedback!
-            </Layout>
-          );
+        out = (
+          <Layout>
+            <IntermediatePage
+              type={state.type}
+              status={state.data}
+              onContinue={fullTestGetQuestion}
+            />
+          </Layout>
+        );
       }
 
       // Question was returned
