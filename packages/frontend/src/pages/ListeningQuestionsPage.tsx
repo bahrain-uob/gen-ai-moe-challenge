@@ -36,12 +36,7 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   ];
 
   // TODO: don't hard-code urls
-  const urls = [
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-  ];
+  const urls = parts.map(p => p.ScriptKey);
 
   const [partIndex, setPartIndex] = useState(0);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
