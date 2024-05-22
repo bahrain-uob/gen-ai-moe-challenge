@@ -1,6 +1,4 @@
-import { useMicRecorder } from '../components/useMicRecorder';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
-import { MicButton } from '../components/MicButton';
 
 // type SpeakingPart = {
 //   Task: {
@@ -20,8 +18,6 @@ export const SpeakingBodyComponent = (
   //partIndex: number;
   //}
   {
-    const { isRecording, startRecording, stopRecording } = useMicRecorder();
-
     console.log(speakingPart);
 
     const renderSwitch = (partIndex: number) => {
@@ -35,10 +31,15 @@ export const SpeakingBodyComponent = (
       }
     };
 
-    const urls = speakingPart.Questions.map(question => {
-      return question.S3key;
-    });
-    console.log(urls);
+    const urls = [
+      'https://upload.wikimedia.org/wikipedia/commons/0/07/Sdcfdswasd.wav',
+      'https://upload.wikimedia.org/wikipedia/commons/c/cc/Vcdsasdcv.wav',
+      'https://upload.wikimedia.org/wikipedia/commons/0/07/Sdcfdswasd.wav',
+    ];
+    // const urls = speakingPart.Questions.map(question => {
+    //   return question.S3key;
+    // });
+    // console.log(urls);
     const waveform = <WaveSurferPlayer urls={urls} height={50} />;
 
     const cardContent = (
@@ -61,12 +62,6 @@ export const SpeakingBodyComponent = (
         <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
           {element}
         </div>
-        <MicButton
-          className="shadow-backdrop"
-          onStop={stopRecording}
-          onStart={startRecording}
-          isRecording={isRecording}
-        />
       </div>
     );
 
