@@ -154,7 +154,12 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       function: {
         bind: [table, uploads_bucket],
-        permissions: ['bedrock:InvokeModel', 's3:GetObject'],
+        permissions: [
+          'bedrock:InvokeModel',
+          's3:GetObject',
+          'transcribe:StartTranscriptionJob',
+          'transcribe:GetTranscriptionJob',
+        ],
         environment: {
           speakingPollyBucket: speakingPollyBucket.bucketName,
         },
