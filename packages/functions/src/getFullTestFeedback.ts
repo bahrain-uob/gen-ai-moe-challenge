@@ -43,14 +43,17 @@ export const main = async (
     };
   }
 
-  if (exam.speakingAnswer === undefined) {
+  if (exam.speakingAnswer === undefined || exam.writingAnswer === undefined) {
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'Exam not finished' }),
     };
   }
 
-  if (exam.speakingAnswer.feedback === undefined) {
+  if (
+    exam.speakingAnswer.feedback === undefined ||
+    exam.writingAnswer.feedback === undefined
+  ) {
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'Grading not completed yet' }),
