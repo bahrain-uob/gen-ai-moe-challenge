@@ -157,10 +157,11 @@ export const FullTestPage = () => {
         out =
           state.type !== 'speaking' ? (
             <Layout>
-              <p>
+               <div className="flex flex-col items-center justify-center mt-20">
+              <p className="text-center font-bold text-3xl mb-4">
                 Your {state.type} section was {state.data}
               </p>
-              <p>
+              <p className="text-center text-xl mb-4 mt-4">
                 You have{' '}
                 <CountdownTimer
                   duration={120}
@@ -168,7 +169,9 @@ export const FullTestPage = () => {
                 />{' '}
                 minutes before the next section starts
               </p>
-              <button onClick={() => fullTestGetQuestion()}>Continue</button>
+              <button className="bg-blue-4 text-white px-4 py-2 rounded hover:bg-blue-3 my-10" onClick={() => fullTestGetQuestion()}>Continue</button>
+
+              </div>
             </Layout>
           ) : (
             <Layout>
@@ -252,6 +255,7 @@ export const FullTestPage = () => {
 
   return out;
 };
+
 
 const connectionStatus = {
   [ReadyState.CONNECTING]: "We're trying to connect to the server...",
