@@ -53,15 +53,15 @@ export const ConfirmFullTestStart: React.FC<ConfirmFullTestStartProps> = ({
           </p>
         </div>
 
-        <div>
-          <h3 className="text-lg font-bold mb-2 inline mr-4">
+        <div className="flex flex-col md:flex-row md:justify-between">
+          <h3 className="text-lg font-bold mb-4 md:mb-0 inline mr-4">
             Are you sure you want to start?
           </h3>
           <button
             className="bg-blue-3 hover:bg-blue-4 text-white font-bold py-2 px-4 rounded"
             onClick={onConfirm}
           >
-            Yes
+            Continue
           </button>
         </div>
       </div>
