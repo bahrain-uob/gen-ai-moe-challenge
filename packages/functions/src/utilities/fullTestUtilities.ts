@@ -41,10 +41,10 @@ type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
 
 // type ReadingSection = [ReadingPart, ReadingPart, ReadingPart];
 export type questions = {
-  reading: any; // ReadingSection;
+  reading: ReadingSection; // ReadingSection;
   writing: WritingSection;
-  listening: any; // ListeningSection;
-  speaking: any; // SpeakingSection;
+  listening: ListeningSection; // ListeningSection;
+  speaking: SpeakingSection; // SpeakingSection;
 };
 
 export type ListeningSection = {
