@@ -193,4 +193,3 @@ const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
   );
 };
 
-function setUser(_user: AuthUser | undefined) {}
