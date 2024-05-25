@@ -1,6 +1,6 @@
 import { signOut } from 'aws-amplify/auth';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 
 export function SignOutPage() {

@@ -13,7 +13,7 @@ export const Layout = ({
   isLanding?: boolean;
 }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchCurrentUser();
   }, []);
@@ -42,6 +42,7 @@ export const Layout = ({
   if (user == undefined) {
     // If user is on the landing page and not authenticated, include "Sign In"
     navEntries.push({ text: 'Sign in', to: '/sign-in' });
+    navigate(0);
   }
 
   const containerClasses = noPadding ? '' : 'px-10 py-12';
@@ -49,7 +50,7 @@ export const Layout = ({
   if (!children) {
     children = useOutlet();
   }
-  useNavigate(0);
+  
   return (
     <main className="bg-grey-1 min-h-screen">
       <Nav entries={navEntries} />

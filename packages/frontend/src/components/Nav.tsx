@@ -6,7 +6,7 @@ import {
   BsList,
   BsPersonCircle,
 } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { To } from 'react-router-dom';
 
 type NavProps = {
@@ -22,11 +22,14 @@ const _containerStyling =
 
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [] } = props;
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
+
   useEffect(() => {
     _getCurrentUser().then(user => {
       setUser(user);
     });
   }, []);
+
   const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
@@ -48,7 +51,7 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={_containerStyling + 'h-full'}>
           {logo}
           {links}
-          <ProfileMenu />
+          <ProfileMenu user={user} />
 
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}
@@ -82,7 +85,7 @@ const MobileMenu = ({
 
   return (
     <>
-      <button className={className} onClick={() => toggleMenu()}>
+      <button className={className} onClick={toggleMenu}>
         <BsList size="35" />
       </button>
       <div
@@ -92,7 +95,7 @@ const MobileMenu = ({
           } transition-all duration-300 overflow-hidden`}
       >
         <div className={_containerStyling + 'flex-col w-[60vw] h-dvh'}>
-          <button className={itemStyle} onClick={() => toggleMenu()}>
+          <button className={itemStyle} onClick={toggleMenu}>
             <span>Back</span>
             <BsArrowRight className="ml-auto" />
           </button>
@@ -130,30 +133,36 @@ async function _getCurrentUser() {
   }
 }
 
-const ProfileMenu = () => {
+const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
-  const [user, setUser] = useState<AuthUser | undefined>(undefined);
-
-  useEffect(() => {
-    _getCurrentUser().then(user => {
-      setUser(user);
-    });
-  }, []);
+  const navigate = useNavigate();
 
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
   const menuContent = (
     <>
-      <Link className={linkStyling} to="../profilePage">
-        <div>View Profile</div>
-      </Link>
+      {user && (
+        <Link className={linkStyling} to="../profilePage">
+          <div>View Profile</div>
+        </Link>
+      )}
+
       {user === undefined ? (
         <Link className={linkStyling} to="sign-in">
           <div>Sign In</div>
         </Link>
       ) : (
-        <Link className={linkStyling} to="sign-out">
+        <Link
+          className={linkStyling}
+          to="sign-out"
+          onClick={() => {
+            // Sign out logic can be placed here if needed
+            navigate('/')
+            navigate(0);
+
+          }}
+        >
           <div>Sign Out</div>
         </Link>
       )}
