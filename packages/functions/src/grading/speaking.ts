@@ -48,7 +48,7 @@ export const gradeSpeaking = async (
   ];
   const _feedbacks = await Promise.all(grading);
 
-  const feedback = {
+  const feedback: SpeakingFeedbackAll = {
     P1: _feedbacks[0],
     P2: _feedbacks[1],
     P3: _feedbacks[2],
