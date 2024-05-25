@@ -1,5 +1,8 @@
 ///  <reference path="../../../frontend/src/utilities/LRUtilities.ts" />
-import { SpeakingFeedback } from '../../../frontend/src/utilities';
+import {
+  SpeakingFeedback,
+  WritingFeedback,
+} from '../../../frontend/src/utilities';
 import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
 
 export const examSections: examSection[] = [
@@ -112,7 +115,7 @@ export interface WritingAnswer {
     P1: string;
     P2: string;
   }; // WritingAnswer;
-  feedback?: any; // WritingFeedback;
+  feedback?: WritingFeedbackAll; // WritingFeedback;
   status: FeedbackStatus;
 }
 
@@ -150,4 +153,9 @@ export interface SpeakingFeedbackAll {
   P1: SpeakingFeedback;
   P2: SpeakingFeedback;
   P3: SpeakingFeedback;
+}
+
+export interface WritingFeedbackAll {
+  P1: WritingFeedback;
+  P2: WritingFeedback;
 }
