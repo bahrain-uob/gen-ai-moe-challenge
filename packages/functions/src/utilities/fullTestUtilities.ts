@@ -1,4 +1,5 @@
 ///  <reference path="../../../frontend/src/utilities/LRUtilities.ts" />
+import { SpeakingFeedback } from '../../../frontend/src/utilities';
 import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
 
 export const examSections: examSection[] = [
@@ -27,13 +28,7 @@ export interface FullTestItem {
   SK: string;
   questions: questions;
 
-  speakingAnswer?: {
-    start_time: string;
-    end_time?: string;
-    answer?: any; // SpeakingAnswer;
-    feedback?: any; // SpeakingFeedback;
-    status: FeedbackStatus;
-  };
+  speakingAnswer?: SpeakingAnswer;
   writingAnswer?: WritingAnswer;
   listeningAnswer?: RLAnswer;
   readingAnswer?: RLAnswer;
@@ -147,6 +142,12 @@ export interface SpeakingAnswer {
       questions: string[];
     };
   };
-  feedback?: any; // SpeakingFeedback
+  feedback?: SpeakingFeedbackAll; // SpeakingFeedback
   status: FeedbackStatus;
+}
+
+export interface SpeakingFeedbackAll {
+  P1: SpeakingFeedback;
+  P2: SpeakingFeedback;
+  P3: SpeakingFeedback;
 }
