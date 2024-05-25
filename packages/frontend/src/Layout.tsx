@@ -13,7 +13,9 @@ export const Layout = ({
   isLanding?: boolean;
 }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [showSignIn, setShowSignIn] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     fetchCurrentUser();
   }, []);
@@ -25,8 +27,18 @@ export const Layout = ({
       setUser(currentUser);
     } catch (error: any) {
       console.error('Error fetching current user:', error);
+      setUser(null);
     }
   };
+
+  useEffect(() => {
+    if (user === null && !showSignIn) {
+      const timeoutId = setTimeout(() => {
+        setShowSignIn(true);
+      }, 1000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [user, showSignIn]);
 
   const navEntries = isLanding
     ? [
@@ -38,11 +50,10 @@ export const Layout = ({
         { text: 'Section Exams', to: '/Sections' },
         { text: 'Exercises', to: '/Exercises' },
       ];
-
-  if (user == undefined) {
-    // If user is on the landing page and not authenticated, include "Sign In"
+      
+  if (showSignIn) {
     navEntries.push({ text: 'Sign in', to: '/sign-in' });
-    navigate(0);
+    
   }
 
   const containerClasses = noPadding ? '' : 'px-10 py-12';
