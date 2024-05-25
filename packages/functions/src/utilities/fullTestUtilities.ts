@@ -124,7 +124,7 @@ export interface RLAnswer {
   start_time: string;
   end_time?: string;
   answer?: string[] | string[][];
-  feedback?: any; // ListeningFeedback | ReadingFeedback;
+  feedback?: RLFeedbackAll; // ListeningFeedback | ReadingFeedback;
   status: FeedbackStatus;
 }
 
@@ -159,3 +159,14 @@ export interface WritingFeedbackAll {
   P1: WritingFeedback;
   P2: WritingFeedback;
 }
+
+export type RLFeedbackAll =
+  | {
+      CorrectAnswers: any[]; //allCorrectAnswers;
+      studentAnswers: string[] | string[][]; //studentAnswers;
+      scores: number[]; //allScores;
+      totalScore: number; //totalScore;
+      BandScore: number; //bandScore;
+      europeanFrameworkGrade: 'C1' | 'C2' | 'B2' | 'B1' | 'A1' | 'A2'; //europeanFrameworkGrade;
+    }
+  | { error: string };

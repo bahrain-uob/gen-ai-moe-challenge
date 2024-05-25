@@ -3,6 +3,7 @@ import {
   ListeningSection,
   ReadingPart,
   ReadingSection,
+  RLFeedbackAll,
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Answer } from '../../../frontend/src/utilities/LRUtilities';
@@ -25,7 +26,7 @@ export const gradeReadingListening = async (
     return { error: 'No answer provided' };
   }
 
-  const feedback = gradeRL(questions, answer.answer);
+  const feedback: RLFeedbackAll = gradeRL(questions, answer.answer);
 
   console.log('Feedback:', feedback);
   const sectionAnswer =
@@ -47,7 +48,7 @@ export const gradeReadingListening = async (
 const gradeRL = (
   question: ListeningSection | ReadingSection,
   answer: Answer,
-) => {
+): RLFeedbackAll => {
   const studentAnswers = answer;
 
   const flattenedStudentAnswers = studentAnswers.flat(3);
