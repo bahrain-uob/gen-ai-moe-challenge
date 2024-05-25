@@ -4,7 +4,11 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import { WritingSection, WritingAnswer } from '../utilities/fullTestUtilities';
+import {
+  WritingSection,
+  WritingAnswer,
+  WritingFeedbackAll,
+} from '../utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { WritingFeedback } from '../../../frontend/src/utilities/types';
 
@@ -28,7 +32,7 @@ export const gradeWriting = async (
   ];
   const _feedbacks = await Promise.all(grading);
 
-  const feedback = {
+  const feedback: WritingFeedbackAll = {
     P1: _feedbacks[0],
     P2: _feedbacks[1],
   };
@@ -52,7 +56,7 @@ export const gradeWritingPart = async (
   answer: string,
   writingTask: 'Task 1' | 'Task 2',
   graphDescription: string | undefined = undefined,
-) => {
+): Promise<WritingFeedback> => {
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
     return {

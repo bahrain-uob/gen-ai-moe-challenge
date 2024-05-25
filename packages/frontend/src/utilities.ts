@@ -48,19 +48,23 @@ export type Feedback = { score: number; text: string };
 /**
  * This is the format of the response sent by the `'POST /grade-writing'`.
  */
-export interface WritingFeedback {
-  'Coherence & Cohesion': Feedback;
-  'Grammatical Range & Accuracy': Feedback;
-  'Lexical Resource': Feedback;
-  'Task Responce': Feedback;
-  'Grammer Tool Feedback'?: Array<{
-    message: string;
-    context: { text: string; offset: number; length: number };
-    [key: string]: any;
-  }>;
-  'Combined Feedback': string;
-  score: number;
-}
+export type WritingFeedback =
+  | {
+      'Coherence & Cohesion': Feedback;
+      'Grammatical Range & Accuracy': Feedback;
+      'Lexical Resource': Feedback;
+      'Task Responce': Feedback;
+      'Grammer Tool Feedback'?: Array<{
+        message: string;
+        context: { text: string; offset: number; length: number };
+        [key: string]: any;
+      }>;
+      'Combined Feedback': string;
+      score: number;
+    }
+  | {
+      error: string;
+    };
 
 export type SpeakingFeedback =
   | {
