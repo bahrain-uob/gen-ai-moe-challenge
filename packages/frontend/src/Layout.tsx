@@ -12,7 +12,7 @@ export const Layout = ({
   children?: any;
   isLanding?: boolean;
 }) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
   const [showSignIn, setShowSignIn] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Layout = ({
         setUser(currentUser);
       } catch (error: any) {
         console.error('Error fetching current user:', error);
-        setUser(null);
+        setUser(undefined);
       }
     };
 
@@ -31,7 +31,7 @@ export const Layout = ({
   }, []);
 
   useEffect(() => {
-    if (user === null && isLanding) {
+    if (user === undefined && isLanding) {
       const timeoutId = setTimeout(() => {
         setShowSignIn(true);
       }, 1000);
