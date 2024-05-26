@@ -1,4 +1,4 @@
-# Sample React.js SST app
+# Lingui - GenAI-driven IELTS Self-evaluation Tool
 
 An example full-stack serverless React.js app created with SST.
 
@@ -8,78 +8,32 @@ This stack assumes and requires that you deploy the __prod__ SST stage first, wh
 
 The template was designed this way to be __educational and to demonstrate the use of different stages (prod,dev,test) while keeping a single database for cost saving and simplification__ to be shared between them all. It is important to note that this is not a recommended setup for production uses. 
 
-## Steps to get started (one time per repo)
+## System Design
 
-At a high level, these are the steps you need to take to use this template:
+### Sequence Diagram
 
-1. Create a repository out of this template (Click the green button!)
-1. Decide between Amazon CodeCatalyst or GitHub workflows for CI/CD
-    1. Configure the selected workflow
-1. Start developing and testing
+## Implementation
 
-Checkout the relevant sections below for the detailed steps in each.
+### Screenshots
 
-## Decide between Amazon CodeCatalyst or GitHub workflows for CI/CD
+### Used Libraries
 
-### Amazon CodeCatalyst
-This template includes a sample workflow definition under the speical [.codecatalyst](.codecatalyst) root folder in the following structure.
+### Frontend Documentation
 
-```md
-.codecatalyst
-    ├── imagebuilder            (1)
-    │   ├── docker.yaml
-    │   ├── git.yaml
-    │   └── node.yaml
-    ├── scripts                 (2)
-    │   └── sst_deploy.sh
-    └── workflows               (3)
-        └── DeployToProd.yaml
-```
+For this project we elected to use a component-based approach.  For example,
+Question components were shared between listening tests, reading tests, and
+practice exercises.  For an overview of the various components and other
+implementation details, see [front end
+documentation](./docs/06-frontend-documentation.md).
 
-(1) contains Amazon EC2 ImageBuilder componenet configuration files that tell ImageBuilder how to install docker, git and nodejs. These files are used as part of the `devops-coca` stage to create a container image that will be used by Amazon CodeCatalyst workflows to build and deploy your SST application.
+### Note on bundle size
 
-(2) contains the build script that will run as part of the Amazon CodeCatalyst workflow.
+### Type Sharing + Data Validation
 
-(3) contains the workflow (pipeline) defenition of the Amazon CodeCatalyst workflow that will trigger based on pushes/changes to the main branch and deploy those changes to AWS.
-
-In addition, the [ImageBuilderForCodeCatalyst.ts](devops/ImageBuilderForCodeCatalyst.ts) stack provides an automation that deploys the Amazon ImageBuilder container recipe and pipeline, as well as a private Amazon Elastic Container Registry (ECR) that will host the build image.
-
-#### Configuration steps for Amazon CodeCatalyst
-
-0. Delete the `.github` folder to disable/remove GitHub workflows
-
-1. Deploy the "devops-coca" stage
-
-```bash
-npx sst deploy --stage devops-coca
-```
-
-This will deploy the imagebuilder pipeline and all the other resources specified in the stack in order to build the base image.
-
-2. Get the name of the Amazon ECR repository
-
-Access the AWS Console and navigate to the Amazon ECR console.
-You will need to find the name of the ECR repository that was just created.
-You can also use Amazon CloudFormation to find the stack and check the resources tab of the stack to find the ECR repository resource name.
-
-3. Create a new Amazon CodeCatalyst space at [http://codecatalyst.aws](http://codecatalyst.aws) [(docs)](https://docs.aws.amazon.com/codecatalyst/latest/userguide/spaces-create.html)
-
-4. Create a deploy environment in Amazon CodeCatalyst and associate the account connection and IAM roles to your deploy environment [(docs)](https://docs.aws.amazon.com/codecatalyst/latest/userguide/ipa-connect-account-addroles-env.html)
-
-5. Install the GitHub repositories extension in Amazon CodeCatalyst [(docs)](https://docs.aws.amazon.com/codecatalyst/latest/userguide/extensions-github-extension-quickstart.html)
-
-6. Trigger Amazon EC2 Image Builder to build the container image
-
-Visit the Amazon EC2 Image Builder console, find the pipeline, and trigger it to build the image. Wait for the image to be built and pushed to ECR, then take note of the image URL.
-
-7. Update [DeployToProd.yaml](.codecatalyst/workflows/DeployToProd.yaml) with the container image URL from ECR and the deploy environment name and IAM role
-
-This can be done from the CodeCatalyst console or by modifying the yaml file directly.
+### Deployment of Language Tool
 
 
-Once all of these steps are done, Amazon CodeCatalyst workflow should be able to run successfully and deploy the sample SST application to the configured AWS account.  
-
-### GitHub Workflow
+## Setting up GitHub Workflow
 
 This template includes two sample workflow definitions under the speical [.github](.github) root folder in the following structure.
 
@@ -166,6 +120,8 @@ npm run dev
 
 ### Understanding the project structure
 
+<!-- TODO: expand on this -->
+
 ```md
 codecatalyst-sst-app
     ├── README.md                                   (1)
@@ -234,6 +190,19 @@ Deploy all your stacks to AWS. Or optionally deploy, a specific stack. (You shou
 The main caveat where you may need to use `deploy` instead of `dev` is if you want to test your application without the Live Lambda feature (hosting Lambda's in AWS instead of proxying them to your laptop, which is what happens in `npm run dev`. [See this for more info on Live Lambda](https://docs.sst.dev/live-lambda-development#how-it-works).) 
 
 ### `npm run remove [stack]`
+
+### `npx tsc --noEmit`
+
+### Running frontend 
+
+
+```sh
+$ npm run dev
+$ npx sst bind vite
+$ npx sst bind 'vite --host 192.168.xxx.xxx'
+$ npx vite
+```
+
 
 Remove all your stacks and all of their resources from AWS. Or optionally removes, a specific stack.
 
