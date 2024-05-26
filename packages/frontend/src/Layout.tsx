@@ -1,7 +1,7 @@
 import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Nav } from './components/Nav';
-import { useNavigate, useOutlet } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 
 export const Layout = ({
   noPadding = false,
