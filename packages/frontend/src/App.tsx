@@ -25,7 +25,7 @@ const App = () => {
 
         <div className="border-t border-gray-300 w-full  my-10"/>
 
-        <section  id="HowToUse">
+        <section  >
           <HowToUse />
         </section>
 

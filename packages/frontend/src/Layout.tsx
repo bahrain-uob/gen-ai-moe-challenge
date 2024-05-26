@@ -18,16 +18,18 @@ export const Layout = ({
    */
   children?: any;
   isLanding?: boolean;
+ 
 }) => {
   const containerClasses = noPadding ? '' : 'px-10 py-12';
   if (!children) {
     children = useOutlet();
   }
   const navEntries = isLanding
-    ? [
-        { text: 'About', to: '""' },
+    ? [ 
+      { text: 'Features', to: '""' },
         { text: 'How to use', to: '""' },
-        { text: 'Sign in', to: '/sign-in' },
+        { text: 'About', to: '""' },
+        { text: 'SIGN IN', to: '/sign-in' },
       ]
     : [
         { text: 'Full Exams', to: '/Full-Exam' },
@@ -35,9 +37,11 @@ export const Layout = ({
         { text: 'Exercises', to: '/Exercises' },
       ];
 
+      
+
   const out = (
     <main className="bg-grey-1 min-h-screen">
-      <Nav entries={navEntries} />
+      <Nav entries={navEntries} isLanding={isLanding}/>
       <div className={containerClasses}>{children}</div>
     </main>
   );

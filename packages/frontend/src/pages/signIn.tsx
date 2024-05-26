@@ -50,10 +50,21 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-full mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 flex-col justify-center px-6 py-10 lg:px-8 bg-stone-300 rounded-md shadow-md mt-10">
+    <div className="min-h-screen flex flex-col bg-grey-1">
+
+
+     <div className="w-full flex justify-between items-center px-10 py-5 ">
+      <h1 className="text-xl font-bold text-blue-4">LINGUI</h1>
+      <Link to="/" className="text-xl text-blue-4">Home</Link>
+    </div>
+
+
+    <div className="flex flex-1 items-center justify-center px-20">
+    <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[29rem] flex flex-col justify-center px-6 py-10 lg:px-8 bg-white rounded-md shadow-lg">
+        
       <ToastContainer />
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-4 mb-5 text-center text-3xl  font-roboto leading-9 tracking-tight text-gray-900">
+        <h1 className="mt-2 mb-10 text-center text-3xl  font-roboto leading-9  tracking-tight text-gray-900">
           Sign in
         </h1>
       </div>
@@ -68,7 +79,7 @@ export default function SignIn() {
             type="email"
             autoComplete="off"
             onChange={e => setEmail(e.target.value)}
-            className="block w-full rounded-md border-0 py-1.5 pl-4 "
+            className="block w-full rounded-md border border-blue-4 py-1.5 pl-4 "
           />
         </div>
       </div>
@@ -82,7 +93,7 @@ export default function SignIn() {
           <input
             type={passwordShown ? 'text' : 'password'}
             onChange={e => setPassword(e.target.value)}
-            className="block w-full rounded-md border-0 py-1.5 pl-4 pr-10 "
+            className="block w-full rounded-md border border-blue-4 py-1.5 pl-4 pr-10 "
           />
 
           {passwordShown ? (
@@ -120,12 +131,9 @@ export default function SignIn() {
         </Link>
       </p>
 
-      <div>
-        <Link to="/" className="text-blue-4">
-          {' '}
-          Back{' '}
-        </Link>
-      </div>
+      
+    </div>
+    </div>
     </div>
   );
 }
