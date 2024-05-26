@@ -5,7 +5,7 @@ const CircularProgressBar = ({
   percentage: number;
   circleWidth: number;
 }) => {
-  const radius = 30;
+  const radius = 15;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (circumference * percentage) / 100;
 
@@ -14,15 +14,15 @@ const CircularProgressBar = ({
       <svg className="w-full h-full" viewBox="0 0 100 100">
         <circle
           className="text-gray-200 stroke-current"
-          strokeWidth="5"
+          strokeWidth="3"
           cx="50"
           cy="50"
           r={radius}
           fill="transparent"
         />
         <circle
-          className="text-[#2FD790] progress-ring__circle stroke-current"
-          strokeWidth="5"
+          className="text-[#3B828E] progress-ring__circle stroke-current"
+          strokeWidth="3"
           strokeLinecap="round"
           cx="50"
           cy="50"
@@ -37,7 +37,7 @@ const CircularProgressBar = ({
           font-family="Verdana"
           text-anchor="middle"
           alignment-baseline="middle"
-          className=" text-base font-Inter font-bold"
+          className=" text-[0.5rem] font-Inter  "
         >
           {percentage}%
         </text>
