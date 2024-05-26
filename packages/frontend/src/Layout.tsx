@@ -14,46 +14,47 @@ export const Layout = ({
 }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [showSignIn, setShowSignIn] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        await fetchAuthSession({ forceRefresh: true });
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      } catch (error: any) {
+        console.error('Error fetching current user:', error);
+        setUser(null);
+      }
+    };
+
     fetchCurrentUser();
   }, []);
 
-  const fetchCurrentUser = async () => {
-    try {
-      await fetchAuthSession({ forceRefresh: true });
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-    } catch (error: any) {
-      console.error('Error fetching current user:', error);
-      setUser(null);
-    }
-  };
-
   useEffect(() => {
-    if (user === null && !showSignIn) {
+    if (user === null && isLanding) {
       const timeoutId = setTimeout(() => {
         setShowSignIn(true);
       }, 1000);
-      return () => clearTimeout(timeoutId);
+
+      return () => clearTimeout(timeoutId); // Cleanup timeout
     }
-  }, [user, showSignIn]);
+  }, [user, isLanding]);
+
+
 
   const navEntries = isLanding
     ? [
-        { text: 'About', to: '""' },
-        { text: 'How to use', to: '""' },
+        { text: 'About', to: "''" },
+        { text: 'How to use', to: "''" },
       ]
     : [
         { text: 'Full Exams', to: '/Full-Exam' },
         { text: 'Section Exams', to: '/Sections' },
         { text: 'Exercises', to: '/Exercises' },
       ];
-      
-  if (showSignIn) {
-    navEntries.push({ text: 'Sign in', to: '/sign-in' });
-    
+
+  if (showSignIn && isLanding) {
+    navEntries.push({ text: 'Sign in', to: 'sign-in' });
   }
 
   const containerClasses = noPadding ? '' : 'px-10 py-12';
@@ -61,7 +62,7 @@ export const Layout = ({
   if (!children) {
     children = useOutlet();
   }
-  
+
   return (
     <main className="bg-grey-1 min-h-screen">
       <Nav entries={navEntries} />

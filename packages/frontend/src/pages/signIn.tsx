@@ -19,6 +19,7 @@ export default function SignIn() {
 
   const handleToastClose = () => {
     navigate('/home');
+    navigate(0);
   };
 
   useEffect(() => {
@@ -125,6 +126,7 @@ export default function SignIn() {
           {' '}
           Back{' '}
         </Link>
+        
       </div>
     </div>
   );
