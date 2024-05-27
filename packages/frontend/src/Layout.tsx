@@ -14,7 +14,7 @@ export const Layout = ({
 }) => {
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
   const [showSignIn, setShowSignIn] = useState(false);
-
+  
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -39,8 +39,6 @@ export const Layout = ({
       return () => clearTimeout(timeoutId); // Cleanup timeout
     }
   }, [user, isLanding]);
-
-
 
   const navEntries = isLanding
     ? [

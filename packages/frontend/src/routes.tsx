@@ -35,6 +35,14 @@ const landingRoutes: RouteObject[] = [
     path: '/',
     Component: App,
   },
+  {
+    path: '/sign-up',
+    Component: SignUp,
+  },
+  {
+    path: '/sign-in',
+    Component: SignIn,
+  },
 ];
 
 const notLandingRoutes: RouteObject[] = [
@@ -79,14 +87,7 @@ const notLandingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
+  
   {
     path: '/sign-out',
     Component: SignOutPage,
