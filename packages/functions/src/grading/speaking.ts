@@ -18,7 +18,7 @@ import {
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
-import { SpeakingFeedback } from '../../../frontend/src/utilities/types';
+import { Error, SpeakingFeedback } from '../../../frontend/src/utilities';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;
@@ -48,11 +48,7 @@ export const gradeSpeaking = async (
   ];
   const _feedbacks = await Promise.all(grading);
 
-  const feedback: SpeakingFeedbackAll = {
-    P1: _feedbacks[0],
-    P2: _feedbacks[1],
-    P3: _feedbacks[2],
-  };
+  const feedback: SpeakingFeedbackAll = _feedbacks;
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, 'speakingAnswer', feedback);
@@ -71,7 +67,7 @@ export const gradeSpeaking = async (
 export const gradeSpeakingP1 = async (
   questions: string[],
   audioFileNames: string[],
-): Promise<SpeakingFeedback> => {
+): Promise<SpeakingFeedback | Error> => {
   if (!questions.length || !audioFileNames.length) {
     return {
       error: 'No questions or audio files found',
@@ -220,7 +216,7 @@ export const gradeSpeakingP1 = async (
 export const gradeSpeakingP2 = async (
   question: string,
   audioFileName: string,
-): Promise<SpeakingFeedback> => {
+): Promise<SpeakingFeedback | Error> => {
   const fileName = audioFileName.slice(0, -5);
 
   // Ensure audioFileName and question exist in the body

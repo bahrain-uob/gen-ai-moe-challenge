@@ -1,5 +1,6 @@
 ///  <reference path="../../../frontend/src/utilities/LRUtilities.ts" />
 import {
+  Error,
   SpeakingFeedback,
   WritingFeedback,
 } from '../../../frontend/src/utilities';
@@ -149,16 +150,9 @@ export interface SpeakingAnswer {
   status: FeedbackStatus;
 }
 
-export interface SpeakingFeedbackAll {
-  P1: SpeakingFeedback;
-  P2: SpeakingFeedback;
-  P3: SpeakingFeedback;
-}
+export type SpeakingFeedbackAll = (SpeakingFeedback | Error)[];
 
-export interface WritingFeedbackAll {
-  P1: WritingFeedback;
-  P2: WritingFeedback;
-}
+export type WritingFeedbackAll = (WritingFeedback | Error)[];
 
 export type RLFeedbackAll =
   | {

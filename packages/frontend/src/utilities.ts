@@ -48,35 +48,31 @@ export type Feedback = { score: number; text: string };
 /**
  * This is the format of the response sent by the `'POST /grade-writing'`.
  */
-export type WritingFeedback =
-  | {
-      'Coherence & Cohesion': Feedback;
-      'Grammatical Range & Accuracy': Feedback;
-      'Lexical Resource': Feedback;
-      'Task Responce': Feedback;
-      'Grammer Tool Feedback'?: Array<{
-        message: string;
-        context: { text: string; offset: number; length: number };
-        [key: string]: any;
-      }>;
-      'Combined Feedback': string;
-      score: number;
-    }
-  | {
-      error: string;
-    };
+export type WritingFeedback = {
+  'Coherence & Cohesion': Feedback;
+  'Grammatical Range & Accuracy': Feedback;
+  'Lexical Resource': Feedback;
+  'Task Responce': Feedback;
+  'Grammer Tool Feedback'?: Array<{
+    message: string;
+    context: { text: string; offset: number; length: number };
+    [key: string]: any;
+  }>;
+  'Combined Feedback': string;
+  score: number;
+};
 
-export type SpeakingFeedback =
-  | {
-      score: number;
-      'Fluency & Coherence': Feedback;
-      'Lexical Resource': Feedback;
-      'Grammatical Range & Accuracy': Feedback;
-      Pronunciation: Feedback;
-    }
-  | {
-      error: string;
-    };
+export type SpeakingFeedback = {
+  score: number;
+  'Fluency & Coherence': Feedback;
+  'Lexical Resource': Feedback;
+  'Grammatical Range & Accuracy': Feedback;
+  Pronunciation: Feedback;
+};
+
+export type Error = {
+  error: string;
+};
 
 /** Get authenticated socket url, returns undefined if not signed in, or there
  * where any other issues
