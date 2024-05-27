@@ -51,7 +51,7 @@ export type questions = {
 };
 
 export type ListeningSection = {
-  PK: string;
+  PK: 'listening';
   SK: string;
   P1: ListeningPart;
   P2: ListeningPart;
@@ -59,21 +59,21 @@ export type ListeningSection = {
   P4: ListeningPart;
 };
 
-type ListeningPart = {
+export type ListeningPart = {
   NumOfQuestions: number;
   ScriptKey: string;
   Questions: LRQuestion[];
 };
 
 export type ReadingSection = {
-  PK: string;
+  PK: 'reading';
   SK: string;
   P1: ReadingPart;
   P2: ReadingPart;
   P3: ReadingPart;
 };
 
-type ReadingPart = {
+export type ReadingPart = {
   NumOfQuestions: number;
   PassageTitle: string;
   Passage: string;
