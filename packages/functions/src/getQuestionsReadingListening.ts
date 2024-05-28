@@ -36,7 +36,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       statusCode: 200,
       body: JSON.stringify(flattenedOutputs),
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       statusCode: 500,
       body: JSON.stringify({ error: `An error occurred while querying the database: ${error.message}` }),
