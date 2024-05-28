@@ -17,7 +17,7 @@ import {
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
-import { SpeakingFeedback } from '../../../frontend/src/utilities';
+import { SpeakingFeedback } from '../../../frontend/src/utilities/types';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;

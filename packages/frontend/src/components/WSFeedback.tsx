@@ -1,4 +1,8 @@
-import { Feedback, SpeakingFeedback, WritingFeedback } from '../utilities';
+import {
+  Feedback,
+  SpeakingFeedback,
+  WritingFeedback,
+} from '../utilities/types';
 import { DoubleCircles } from './DoubleCirclesComponent';
 import CollapsableCard from './collapsableCard';
 
