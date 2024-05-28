@@ -103,7 +103,6 @@ export function DBStack(this: any, { stack }: StackContext) {
     uploads_bucket,
     feedback_table,
     Polly_bucket,
-    myTable,
     speakingPollyBucket,
     audiobucket,
   };
