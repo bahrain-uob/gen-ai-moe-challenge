@@ -106,8 +106,6 @@ export function ApiStack({ stack }: StackContext) {
       //api endpoint for retrieving reading questions
       'GET /{section}/{sk}':
         'packages/functions/src/getQuestionsReadingListening.handler',
-      'POST /answers/{section}/{sk}':
-        'packages/functions/src/GradingReadingListening.handler',
       'GET /scores/{section}/{sk}':
         'packages/functions/src/getScoresReadingListening.handler',
 
