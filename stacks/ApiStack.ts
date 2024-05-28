@@ -88,17 +88,6 @@ export function ApiStack({ stack }: StackContext) {
           timeout: '120 seconds',
         },
       },
-      // Grade both writing tasks
-      'POST /grade-writing': {
-        function: {
-          handler: 'packages/functions/src/gradingWriting.main',
-          permissions: ['bedrock:InvokeModel'],
-          timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
-        },
-      }, //testing bedrock api for writing
 
       // Listening to convert script to audio (for now)
       'POST /Listening/AddQuestion': {
@@ -162,15 +151,6 @@ export function ApiStack({ stack }: StackContext) {
     routes: {
       $connect: 'packages/functions/src/websockets/connect.main',
       $disconnect: 'packages/functions/src/websockets/disconnect.main',
-      gradeWriting: {
-        function: {
-          handler: 'packages/functions/src/gradingWriting.main',
-          timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
-        },
-      },
       fullTestStart: {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/start.main',
