@@ -18,12 +18,16 @@ type setType = (arg: Answer[]) => void;
 interface ReadingQuestionsProps {
   readingSection: ReadingSection;
   submitAnswers: (answer: any) => void;
+  autoSaveAnswers: (answer: any) => void;
+  savedAnswers?: any;
   time: number;
 }
 
 const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   readingSection,
   submitAnswers,
+  autoSaveAnswers,
+  savedAnswers,
   time,
 }) => {
   const parts = [readingSection.P1, readingSection.P2, readingSection.P3];
@@ -33,7 +37,9 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   const [answers, setAnswers] = useState<Answer[][]>(
-    parts.map(part => initialAnswer(part.Questions)),
+    savedAnswers
+      ? savedAnswers
+      : parts.map(part => initialAnswer(part.Questions)),
   );
 
   const indexSet = function (i: number): setType {
@@ -58,7 +64,7 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
       <span className={linkStyling + ' mr-auto'}>
-        <CountdownTimer time={time} />
+        <CountdownTimer start_time={time} />
       </span>
       {parts.map((_, i) => (
         <button
@@ -76,7 +82,11 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
   );
 
   const titleRow = (
-    <TitleRow title="Reading Test" onSubmit={() => submitAnswers(answers)} />
+    <TitleRow
+      title="Reading Test"
+      onSubmit={() => submitAnswers(answers)}
+      onSave={() => autoSaveAnswers(answers)}
+    />
   );
 
   /* Maximize */
@@ -156,16 +166,32 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
         isOpen={helpIsOpen}
         modalMessage={
           <div>
-          <ul  className="list-disc  mt-5 pr-10 pl-5">
-           <li className='mt-4 text-justify'>The passage is located on the left side of your screen, Read it carefully to understand the content and context.</li>
-           <li className='mt-4 text-justify'>To navigate through different parts of the test, please press the buttons located in the top right corner of the screen.</li>
-           <li className='mt-4 text-justify'>When you have completed all parts of the test, click the 'Submit' button located in the top right corner of the screen to finish and submit your answers.</li>
-           <li className='mt-4 text-justify'>There are 40 questions altogether, and each question carries one mark. Answer all of the questions.</li>
-           <li className='mt-4  text-justify'>The test will take about 60 minutes,You should aim to spend no more than 20 minutes on each part. As the test progresses, the sections increase in difficulty, so make sure you allow yourself enough time to complete each section.</li>
-          </ul>
-        </div>
-
-
+            <ul className="list-disc  mt-5 pr-10 pl-5">
+              <li className="mt-4 text-justify">
+                The passage is located on the left side of your screen, Read it
+                carefully to understand the content and context.
+              </li>
+              <li className="mt-4 text-justify">
+                To navigate through different parts of the test, please press
+                the buttons located in the top right corner of the screen.
+              </li>
+              <li className="mt-4 text-justify">
+                When you have completed all parts of the test, click the
+                'Submit' button located in the top right corner of the screen to
+                finish and submit your answers.
+              </li>
+              <li className="mt-4 text-justify">
+                There are 40 questions altogether, and each question carries one
+                mark. Answer all of the questions.
+              </li>
+              <li className="mt-4  text-justify">
+                The test will take about 60 minutes,You should aim to spend no
+                more than 20 minutes on each part. As the test progresses, the
+                sections increase in difficulty, so make sure you allow yourself
+                enough time to complete each section.
+              </li>
+            </ul>
+          </div>
         }
         onCancel={() => setHelpIsOpen(false)}
       />

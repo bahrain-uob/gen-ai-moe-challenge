@@ -71,10 +71,7 @@ function TestPage() {
 
       <ColorPalette />
 
-      <CountdownTimer
-        time={Date.now() - 59 * 60 * 1000 - 55 * 1000}
-        onTimeUp={() => console.log('finished')}
-      />
+      <CountdownTimer duration={5} onTimeUp={() => console.log('finished')} />
 
       <ModalDemo />
 

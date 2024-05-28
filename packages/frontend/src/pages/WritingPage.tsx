@@ -1,18 +1,53 @@
 import { ChangeEvent, useState } from 'react';
 import { WritingQuestion } from '../components/WritingQuestion';
-import { writingSection } from '../utilities';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { Modal } from '../components/Modal';
 import { TitleRow } from '../components/TestComponents';
+import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import { CountdownTimer } from '../components/CountdownTimer';
 
-export function WritingPage({}) {
+interface WritingPageProps {
+  writingSection: WritingSection;
+  submitAnswers: (answer: any) => void;
+  autoSaveAnswers: (answer: any) => void;
+  savedAnswers?: any;
+  time: number;
+}
+
+export const WritingPage: React.FC<WritingPageProps> = ({
+  writingSection: __writingSection,
+  submitAnswers,
+  autoSaveAnswers,
+  savedAnswers,
+  time,
+}) => {
+  const writingSection = {
+    task1: {
+      question: __writingSection.P1.Question,
+      graphDescription: __writingSection.P1.GraphDescription,
+      graphUrl: __writingSection.P1.GraphKey,
+    },
+    task2: {
+      question: __writingSection.P2.Question,
+    },
+  };
+
+  console.log('Recieved answers', { savedAnswers });
+
   const [currentTaskKey, setCurrentTaskKey] = useState<'task1' | 'task2'>(
     'task1',
   );
-  const [answers, setAnswers] = useState<{ task1: string; task2: string }>({
-    task1: '',
-    task2: '',
-  });
+  const [answers, setAnswers] = useState<{ task1: string; task2: string }>(
+    savedAnswers
+      ? {
+          task1: savedAnswers.P1,
+          task2: savedAnswers.P2,
+        }
+      : {
+          task1: '',
+          task2: '',
+        },
+  );
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
 
@@ -38,7 +73,14 @@ export function WritingPage({}) {
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer
+          start_time={time}
+          onTimeUp={() =>
+            submitAnswers({ P1: answers.task1, P2: answers.task2 })
+          }
+        />
+      </span>
       <button
         className={
           linkStyling +
@@ -63,7 +105,13 @@ export function WritingPage({}) {
       </button>
     </div>
   );
-  const titleRow = <TitleRow title="Writing Test" onSubmit={() => {}} />;
+  const titleRow = (
+    <TitleRow
+      title="Writing Test"
+      onSubmit={() => submitAnswers({ P1: answers.task1, P2: answers.task2 })}
+      onSave={() => autoSaveAnswers({ P1: answers.task1, P2: answers.task2 })}
+    />
+  );
 
   console.log('answers: ', answers);
 
@@ -118,7 +166,7 @@ export function WritingPage({}) {
   );
 
   const containerStyles =
-    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300';
+    'w-full lg:w-1/2 lg:max-h-full transition-all duration-300 h-full';
   const questionContainerStyle =
     containerStyles + ' ' + (isMaximized ? 'max-h-[100%]' : 'max-h-[50%]');
   const answerContainerStyle =
@@ -136,12 +184,35 @@ export function WritingPage({}) {
       </div>
       <Modal
         isOpen={helpIsOpen}
-        modalMessage="This is help"
+        modalMessage={
+          <div>
+            <ul className="list-disc  mt-5 pr-10 pl-5">
+              <li className="mt-4 text-justify">
+                The Question is located on the left side of your screen, Read it
+                carefully then write your answer in the text box on the right
+                side of the screen
+              </li>
+              <li className="mt-4 text-justify">
+                To navigate through different parts of the test, please press
+                the buttons located in the top right corner of the screen.
+              </li>
+              <li className="mt-4 text-justify">
+                When you have completed all parts of the test, click the
+                'Submit' button located in the top right corner of the screen to
+                finish and submit your answers.
+              </li>
+              <li className="mt-4  text-justify">
+                The test will take about 60 minutes. You should aim to spend
+                approximately 20 minutes on Task 1 and 40 minutes on Task 2.
+              </li>
+            </ul>
+          </div>
+        }
         onCancel={() => setHelpIsOpen(false)}
       />
     </>
   );
-}
+};
 
 const countWords = (str: string) =>
   str

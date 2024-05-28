@@ -9,17 +9,24 @@ import { BsQuestionLg } from 'react-icons/bs';
 import { ListeningSection } from '../../../functions/src/utilities/fullTestUtilities';
 import { Modal } from '../components/Modal';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
+import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
 interface ListeningQuestionsPageProps {
   listeningSection: ListeningSection;
   submitAnswers: (answer: any) => void;
+  autoSaveAnswers: (answer: any) => void;
+  savedAnswers?: any;
+  time: number;
 }
 
 export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   listeningSection,
   submitAnswers,
+  autoSaveAnswers,
+  savedAnswers,
+  time,
 }) => {
   const parts = [
     listeningSection.P1,
@@ -29,18 +36,16 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   ];
 
   // TODO: don't hard-code urls
-  const urls = [
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-    'https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg',
-  ];
+  const urls = parts.map(p => p.ScriptKey);
 
   const [partIndex, setPartIndex] = useState(0);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
+  console.log('Recieved answers', { savedAnswers });
   const [answers, setAnswers] = useState<Answer[][]>(
-    parts.map(part => initialAnswer(part.Questions)),
+    savedAnswers
+      ? savedAnswers
+      : parts.map(part => initialAnswer(part.Questions)),
   );
 
   const indexSet = function (i: number): setType {
@@ -64,7 +69,12 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}>
+        <CountdownTimer
+          start_time={time}
+          onTimeUp={() => submitAnswers(answers)}
+        />
+      </span>
       {parts.map((_, i) => (
         <button
           className={
@@ -81,7 +91,11 @@ export const ListeningQuestionsPage: React.FC<ListeningQuestionsPageProps> = ({
   );
 
   const titleRow = (
-    <TitleRow title="Listening Test" onSubmit={() => submitAnswers(answers)} />
+    <TitleRow
+      title="Listening Test"
+      onSubmit={() => submitAnswers(answers)}
+      onSave={() => autoSaveAnswers(answers)}
+    />
   );
 
   /* Listening Audio */

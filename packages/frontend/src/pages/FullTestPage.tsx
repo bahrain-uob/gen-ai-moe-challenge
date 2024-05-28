@@ -7,6 +7,9 @@ import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
 import ReadingQuestions from './ReadingQuestionsPage';
 import { Spinner } from '../components/Spinner';
+import { WritingPage } from './WritingPage';
+import { IntermediatePage } from '../components/IntermediatePage';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const FullTestPage = () => {
   let out;
@@ -21,6 +24,7 @@ export const FullTestPage = () => {
   const { sendJsonMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: event => console.log('opened', event),
     onClose: event => console.log('closed', event),
+    ////// Handle incoming messages //////
     onMessage: e => {
       console.log('event', e);
       const response = JSON.parse(e.data);
@@ -50,14 +54,17 @@ export const FullTestPage = () => {
         setState(response);
         navigate(`/full-test/${response.testID}`);
 
+        toast.dismiss();
         setIsloading(false);
       } else if ('data' in response) {
         console.log('Recieved data', { response });
         setState(response);
 
+        toast.dismiss();
         setIsloading(false);
       }
 
+      // Message timeout
       setTimeout(() => {
         setIsloading(false);
       }, 10000);
@@ -65,6 +72,7 @@ export const FullTestPage = () => {
     shouldReconnect: () => true,
   });
 
+  ////// Sign in and Connection //////
   if (readyState !== ReadyState.OPEN)
     return (
       <Layout>
@@ -78,10 +86,12 @@ export const FullTestPage = () => {
       </Layout>
     );
 
+  ////// Start test, Submit and Question pages //////
   // Test was not started
   if (!testId) {
     const startTest = () => {
       sendJsonMessage({ action: 'fullTestStart' });
+      toast.info('Loading your test...');
     };
 
     out = (
@@ -89,7 +99,11 @@ export const FullTestPage = () => {
         <ConfirmFullTestStart onConfirm={() => startTest()} />
       </Layout>
     );
-  } else {
+  }
+
+  // Test was started
+  else {
+    // No current state
     if (!state) {
       if (!isLoading) {
         sendJsonMessage({
@@ -97,6 +111,7 @@ export const FullTestPage = () => {
           testId: testId,
         });
         console.log('Sent message');
+        toast.info('Loading your test...');
         setIsloading(true);
       }
 
@@ -107,7 +122,7 @@ export const FullTestPage = () => {
       );
     }
 
-    // Test was started
+    // There's a state available
     else {
       console.log('executed w/', state.data.question);
       const submitAnswers = (answers: any) => {
@@ -120,40 +135,49 @@ export const FullTestPage = () => {
             answer: answers, // this will be based on the section answer schema
           },
         });
+        toast.info('Submitting...');
+      };
+      const autoSaveAnswers = (answers: any) => {
+        console.log('Saving', { answers });
+        sendJsonMessage({
+          action: 'fullTestAutoSave',
+          testId: testId,
+          data: {
+            type: state.type, // listening, reading, writing, speaking
+            answer: answers, // this will be based on the section answer schema
+          },
+        });
+        toast.info('Your answer is getting saved...');
       };
 
-      // Auto-submit
+      // Auto-submit and submit
       if (state.data === 'Auto-Submitted' || state.data === 'Submitted') {
-        const fullTestGetQuestion = () => {
+        const continueTest = () => {
           sendJsonMessage({
             action: 'fullTestGetQuestion',
             testId: testId,
           });
           console.log('Sent message');
           setIsloading(true);
+          toast.info(`Loading ${state.type}...`);
         };
 
-        out =
-          state.type !== 'speaking' ? (
-            <Layout>
-              <p>
-                Your {state.type} section was {state.data}
-              </p>
-              <p>You have 02:00 minutes before the next section starts</p>
-              <button onClick={() => fullTestGetQuestion()}>Continue</button>
-            </Layout>
-          ) : (
-            <Layout>
-              You have finished your test! Soon you'll be able to see your
-              feedback!
-            </Layout>
-          );
+        out = (
+          <Layout>
+            <IntermediatePage
+              type={state.type}
+              status={state.data}
+              onContinue={continueTest}
+            />
+          </Layout>
+        );
       }
 
       // Question was returned
       else {
         let dummySubmit: any;
         const time = Number(testId.slice(0, testId.indexOf('-')));
+        const savedAnswers = state.data?.answer?.answer;
 
         switch (state.type) {
           case 'listening':
@@ -161,6 +185,9 @@ export const FullTestPage = () => {
               <ListeningQuestionsPage
                 listeningSection={state.data.question}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
+                time={time}
               />
             );
             break;
@@ -170,23 +197,22 @@ export const FullTestPage = () => {
               <ReadingQuestions
                 readingSection={state.data.question}
                 submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
                 time={time}
               />
             );
             break;
 
           case 'writing':
-            dummySubmit = () =>
-              submitAnswers({
-                P1: 'My anweser',
-                P2: 'My anweser',
-              });
-
             out = (
-              <Layout>
-                <h3>Writing assessment</h3>
-                <button onClick={() => dummySubmit()}> Submit </button>
-              </Layout>
+              <WritingPage
+                writingSection={state.data.question}
+                submitAnswers={submitAnswers}
+                autoSaveAnswers={autoSaveAnswers}
+                savedAnswers={savedAnswers}
+                time={time}
+              />
             );
             break;
 
@@ -219,7 +245,12 @@ export const FullTestPage = () => {
     }
   }
 
-  return out;
+  return (
+    <>
+      {out}
+      <ToastContainer pauseOnHover={false} />
+    </>
+  );
 };
 
 const connectionStatus = {
