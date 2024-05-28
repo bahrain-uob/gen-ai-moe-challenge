@@ -14,10 +14,10 @@ const sections = () => (
     </div>
     <h4 className="text-xl mb-4"> Dummy pages </h4>
     <div className="flex">
-      <Link to="">
+      <Link to="/listening/1">
         <Button label="Listening" />
       </Link>
-      <Link to="/reading/1">
+      <Link to="/reading/2">
         <Button label="Reading" />
       </Link>
       <Link to="/speaking">

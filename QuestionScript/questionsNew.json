@@ -1540,7 +1540,7 @@
                     "S": "Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-5 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse, if the statement contradicts the information\nNot Given, If there is no information on this"
                   },
                   "QuestionType": {
-                    "S": "True False not Given"
+                    "S": "True False Not Given"
                   },
                   "SubQuestions": {
                     "L": [
@@ -3145,20 +3145,20 @@
                               {
                                 "L": [
                                   {
-                                    "S": "A"
+                                    "S": "A- Few rooms now have a different purpose of use."
                                   },
                                   {
-                                    "S": "B"
+                                    "S": "B- A different kind of seating arrangement has been installed."
                                   }
                                 ]
                               },
                               {
                                 "L": [
                                   {
-                                    "S": "A"
+                                    "S": "A- Few rooms now have a different purpose of use."
                                   },
                                   {
-                                    "S": "B"
+                                    "S": "B- A different kind of seating arrangement has been installed."
                                   }
                                 ]
                               }
@@ -3198,20 +3198,20 @@
                               {
                                 "L": [
                                   {
-                                    "S": "D"
+                                    "S": "D- a bookshop"
                                   },
                                   {
-                                    "S": "B"
+                                    "S": "B- backstage tours"
                                   }
                                 ]
                               },
                               {
                                 "L": [
                                   {
-                                    "S": "D"
+                                    "S": "D- a bookshop"
                                   },
                                   {
-                                    "S": "B"
+                                    "S": "B- backstage tours"
                                   }
                                 ]
                               }
@@ -3251,20 +3251,20 @@
                               {
                                 "L": [
                                   {
-                                    "S": "C"
+                                    "S": "C- making puppets"
                                   },
                                   {
-                                    "S": "E"
+                                    "S": "E- lighting"
                                   }
                                 ]
                               },
                               {
                                 "L": [
                                   {
-                                    "S": "C"
+                                    "S": "C- making puppets"
                                   },
                                   {
-                                    "S": "E"
+                                    "S": "E- lighting"
                                   }
                                 ]
                               }
@@ -3429,7 +3429,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "A"
+                            "S": "A- elements affecting where beings live"
                           },
                           "QuestionText": {
                             "S": " What are the students consent which should be included in their aims? "
@@ -3452,7 +3452,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "A"
+                            "S": "A- string"
                           },
                           "QuestionText": {
                             "S": "What tools did they not remember to take on the Field Trip?"
@@ -3475,7 +3475,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "C"
+                            "S": "C- the amount of information given."
                           },
                           "QuestionText": {
                             "S": " In Helen’s section, Colin suggests a change in"
@@ -3498,7 +3498,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "B"
+                            "S": "B- It was easy to carry out."
                           },
                           "QuestionText": {
                             "S": "What do they say about the technique they used to measure wave speed?"
@@ -3521,7 +3521,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "B"
+                            "S": "B-  She stood in the wrong place."
                           },
                           "QuestionText": {
                             "S": " What error did Helen make when first drawing the map? "
@@ -3544,7 +3544,7 @@
                             ]
                           },
                           "CorrectAnswer": {
-                            "S": "B"
+                            "S": "B- check it using photographs"
                           },
                           "QuestionText": {
                             "S": "What do they decide to do next with their map?"
@@ -3594,20 +3594,20 @@
                               {
                                 "L": [
                                   {
-                                    "S": "A"
+                                    "S": "A- lack of water"
                                   },
                                   {
-                                    "S": "D"
+                                    "S": "D- high temperatures"
                                   }
                                 ]
                               },
                               {
                                 "L": [
                                   {
-                                    "S": "A"
+                                    "S": "A- lack of water"
                                   },
                                   {
-                                    "S": "D"
+                                    "S": "D- high temperatures"
                                   }
                                 ]
                               }
@@ -3647,20 +3647,20 @@
                               {
                                 "L": [
                                   {
-                                    "S": "C"
+                                    "S": "C- wrong identification of few organisms"
                                   },
                                   {
-                                    "S": "E"
+                                    "S": "E- missing some organisms when calculating"
                                   }
                                 ]
                               },
                               {
                                 "L": [
                                   {
-                                    "S": "C"
+                                    "S": "C- wrong identification of few organisms"
                                   },
                                   {
-                                    "S": "E"
+                                    "S": "E- missing some organisms when calculating"
                                   }
                                 ]
                               }

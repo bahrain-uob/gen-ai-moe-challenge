@@ -1,36 +1,46 @@
-const features = () => {
-    return (
-      <section className="max-container flex justify-center flex-wrap gap-9">
-      <div className="flex-1 sm:w-[650px] sm:min-w-[550px] w-full rounded-[20px] px-16 py-16">
-        <div className="flex flex-row justify-center items-center gap-9 max-sm:flex-col">
-          <img src="assets/Sections.png"/>
-          <p className="font-semibold text-center text-2xl">It covers all English exams sections<br/>(Speaking , Listening , Reading , Writing)</p>
+import { BsBook, BsBarChart, BsArrowRepeat, BsFingerprint  } from 'react-icons/bs';
+
+const features = [
+  {
+    name: 'Comprehensive Content',
+    description: 'It covers all English Test sections (Speaking, Listening, Reading, Writing)',
+    icon: BsBook,
+  },
+  {
+    name: 'Instant Feedback',
+    description: 'Receive immediate feedback regarding your performance',
+    icon: BsBarChart,
+  },
+  {
+    name: 'Up-to-Date Tests',
+    description: 'Test yourself using up-to-date tests',
+    icon: BsArrowRepeat,
+  },
+  {
+    name: 'Personalized Learning',
+    description: 'Get a personalized plan based on your level.',
+    icon: BsFingerprint ,
+  },
+];
+
+export default function Example() {
+  return (
+    <div className=" py-10 sm:py-10">
+      
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            {features.map((feature) => (
+              <div key={feature.name} className="relative pl-16">
+                <dt className="text-base font-semibold leading-7 text-gray-900">
+                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-4">
+                    <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  {feature.name}
+                </dt>
+                <dd className="mt-2 text-base leading-7 text-gray-600">{feature.description}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-      </div>
-  
-      <div className="flex-1 sm:w-[660px] sm:min-w-[550px] w-full rounded-[20px] px-16 py-16">
-        <div className="flex flex-row justify-center items-center gap-9 max-sm:flex-col">
-          <img src="assets/FB.png"/>
-          <p className="font-semibold text-center text-2xl">Receive immediate feedback regarding your performance</p>
-        </div>
-      </div>
-  
-      <div className="flex-1 sm:w-[650px] sm:min-w-[550px] w-full rounded-[20px] px-16 py-16">
-        <div className="flex flex-row justify-center items-center gap-9 max-sm:flex-col">
-          <img src="assets/UTD.png"/>
-          <p className="font-semibold text-center text-2xl">Test your self using up-to-date exams</p>
-        </div>
-      </div>
-  
-      <div className="flex-1 sm:w-[650px] sm:min-w-[550px] w-full rounded-[20px] px-16 py-16">
-        <div className="flex flex-row justify-center items-center gap-9 max-sm:flex-col">
-          <img src="assets/Personalized.png"/>
-          <p className="font-semibold text-center text-2xl">Get a personalized plan based on your level</p>
-        </div>
-      </div>
-  
-      </section>
-    )
-  }
-  
-  export default features
+    
+  )
+}

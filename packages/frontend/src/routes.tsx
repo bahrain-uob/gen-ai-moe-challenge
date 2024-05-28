@@ -1,7 +1,7 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
-import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
+// import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
@@ -19,8 +19,8 @@ import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
 import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
-import { WritingPage } from './pages/WritingPage.tsx';
-import { writingSection } from './utilities.ts';
+// import { WritingPage } from './pages/WritingPage.tsx';
+//import { writingSection } from './utilities.ts';
 import RAnswersPage from './pages/RAnswersPage.tsx';
 import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
@@ -63,10 +63,6 @@ const notLandingRoutes: RouteObject[] = [
     Component: SpeakingConversationPage,
   },
   {
-    path: '/writing',
-    element: <WritingPage task={writingSection.task2} />,
-  },
-  {
     path: '/Listening/addQuestion',
     Component: AddListeningQPage,
   },
@@ -106,6 +102,10 @@ const notLandingRoutes: RouteObject[] = [
 ];
 
 const noLayoutRoutes: RouteObject[] = [
+  // {
+  //   path: '/writing',
+  //   element: <WritingPage />,
+  // },
   {
     path: '/full-test/:testId',
     Component: FullTestPage,
@@ -115,10 +115,10 @@ const noLayoutRoutes: RouteObject[] = [
     Component: FullTestPage,
   },
   // These pages don't use `Layout` yet
-  {
-    path: '/reading/:sk',
-    Component: ReadingQuestions,
-  },
+  // {
+  //   path: '/reading/:sk',
+  //   Component: ReadingQuestions,
+  // },
   // {
   //   path: '/listening/:sk',
   //   Component: ListeningQuestionsPage,
