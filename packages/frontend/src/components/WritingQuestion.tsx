@@ -1,4 +1,4 @@
-import { WritingSection } from '../utilities';
+import { WritingSection } from '../utilities/types';
 // import { PointsBadge } from './PointsBadge';
 
 export function WritingQuestion({

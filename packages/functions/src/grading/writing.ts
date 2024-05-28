@@ -6,7 +6,7 @@ import {
 } from '@aws-sdk/client-apigatewaymanagementapi';
 import { WritingSection, WritingAnswer } from '../utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
-import { WritingFeedback } from '../../../frontend/src/utilities';
+import { WritingFeedback } from '../../../frontend/src/utilities/types';
 
 export const gradeWriting = async (
   PK: string,
