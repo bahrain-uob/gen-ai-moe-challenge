@@ -25,6 +25,7 @@ export default function SignIn() {
   useEffect(() => {
     if (authInfo.authSession !== undefined) {
       navigate('/home');
+      navigate(0);
     }
   }, []);
 
