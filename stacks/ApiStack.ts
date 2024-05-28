@@ -10,7 +10,6 @@ export function ApiStack({ stack }: StackContext) {
     table,
     uploads_bucket,
     feedback_table,
-    myTable,
     speakingPollyBucket,
     Polly_bucket,
     audiobucket,
@@ -23,9 +22,6 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       authorizer: 'jwt',
       function: {
-        environment: {
-          TABLE1_NAME: myTable.tableName,
-        },
         // Bind the table name to our API
         bind: [table],
       },
@@ -103,11 +99,6 @@ export function ApiStack({ stack }: StackContext) {
           },
         },
       }, //testing bedrock api for writing
-      //api endpoint for retrieving reading questions
-      'GET /{section}/{sk}':
-        'packages/functions/src/getQuestionsReadingListening.handler',
-      'GET /scores/{section}/{sk}':
-        'packages/functions/src/getScoresReadingListening.handler',
 
       // Listening to convert script to audio (for now)
       'POST /Listening/AddQuestion': {
@@ -133,7 +124,6 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
   });
-  api.attachPermissions([myTable]);
 
   // cache policy to use with cloudfront as reverse proxy to avoid cors
   // https://dev.to/larswww/real-world-serverless-part-3-cloudfront-reverse-proxy-no-cors-cgj
