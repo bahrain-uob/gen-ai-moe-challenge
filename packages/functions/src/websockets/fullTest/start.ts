@@ -13,7 +13,13 @@ import { Table } from 'sst/node/table';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
-import { questions, WritingSection } from 'src/utilities/fullTestUtilities';
+import {
+  ListeningSection,
+  questions,
+  ReadingSection,
+  SpeakingSection,
+  WritingSection,
+} from 'src/utilities/fullTestUtilities';
 import { filterQuestion } from 'src/utilities/fullTestFunctions';
 
 const client = new DynamoDBClient();
@@ -60,9 +66,9 @@ export const main: APIGatewayProxyHandler = async event => {
     const QuestionsArray = await Promise.all(_Questions);
     questions = {
       writing: QuestionsArray[0] as WritingSection,
-      reading: QuestionsArray[1],
-      listening: QuestionsArray[2],
-      speaking: QuestionsArray[3],
+      reading: QuestionsArray[1] as ReadingSection,
+      listening: QuestionsArray[2] as ListeningSection,
+      speaking: QuestionsArray[3] as SpeakingSection,
     };
 
     const start_time = Date.now();
