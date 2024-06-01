@@ -165,7 +165,7 @@ export type RLFeedbackAll =
     }
   | { error: string };
 
-type generalFullTestError =
+export type generalFullTestError =
   | {
       statusCode: 400;
       error:
