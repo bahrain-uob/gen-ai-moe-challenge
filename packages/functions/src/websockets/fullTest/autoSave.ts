@@ -129,7 +129,7 @@ export const main: APIGatewayProxyHandler = async event => {
           apiClient,
           connectionId,
           400,
-          'Wrong section you are in: ' + examSections[section].type,
+          'You are in wrong section',
         );
       }
       break;
