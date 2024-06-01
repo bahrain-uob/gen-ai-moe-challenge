@@ -7,7 +7,10 @@ import { wsError } from '../../utilities';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
-import { examSections } from 'src/utilities/fullTestUtilities';
+import {
+  examSections,
+  submitFullTestResponse,
+} from 'src/utilities/fullTestUtilities';
 import { autoSave, submit } from 'src/utilities/fullTestFunctions';
 
 /**
@@ -107,12 +110,13 @@ export const main: APIGatewayProxyHandler = async event => {
         );
         console.log('Submitting ', examSections[section].type);
 
+        const response: submitFullTestResponse = {
+          type: examSections[section].type,
+          data: 'Submitted',
+        };
         const autoSubmittedCommand = new PostToConnectionCommand({
           ConnectionId: connectionId,
-          Data: JSON.stringify({
-            type: examSections[section].type,
-            data: 'Submitted',
-          }),
+          Data: JSON.stringify(response),
         });
         await apiClient.send(autoSubmittedCommand);
         return { statusCode: 200, body: 'Submitted' };
@@ -121,7 +125,7 @@ export const main: APIGatewayProxyHandler = async event => {
           apiClient,
           connectionId,
           400,
-          'Wrong section you are in: ' + examSections[section].type,
+          'You are in wrong section',
         );
       }
 

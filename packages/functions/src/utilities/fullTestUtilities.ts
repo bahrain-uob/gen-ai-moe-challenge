@@ -175,7 +175,8 @@ type generalFullTestError =
         | 'No answer provided'
         | 'No type provided'
         | 'No section in progress'
-        | 'You are in wrong section';
+        | 'You are in wrong section'
+        | 'Section is already submitted';
     }
   | {
       statusCode: 500;
@@ -204,4 +205,9 @@ export type startFullTestResponse = {
   data: {
     question: ListeningSection;
   };
+};
+
+export type submitFullTestResponse = {
+  type: 'listening' | 'reading' | 'writing' | 'speaking';
+  data: 'Submitted';
 };
