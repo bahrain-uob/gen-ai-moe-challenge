@@ -18,6 +18,7 @@ import {
   questions,
   ReadingSection,
   SpeakingSection,
+  startFullTestResponse,
   WritingSection,
 } from 'src/utilities/fullTestUtilities';
 import { filterQuestion } from 'src/utilities/fullTestFunctions';
@@ -113,13 +114,15 @@ export const main: APIGatewayProxyHandler = async event => {
     const listeningQuestion = await filterQuestion(questions.listening);
     console.log('Listening Question:', listeningQuestion);
 
+    const response: startFullTestResponse = {
+      testID,
+      type: 'listening',
+      data: { question: listeningQuestion },
+    };
+
     const success = new PostToConnectionCommand({
       ConnectionId: connectionId,
-      Data: JSON.stringify({
-        testID,
-        type: 'listening',
-        data: { question: listeningQuestion },
-      }),
+      Data: JSON.stringify(response),
     });
     await apiClient.send(success);
 
