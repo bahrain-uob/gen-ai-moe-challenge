@@ -38,7 +38,7 @@ export interface FullTestItem {
   readingAnswer?: RLAnswer;
 }
 
-type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
+type FeedbackStatus = 'In progress' | 'Auto-submitted' | 'Submitted';
 
 // type ReadingSection = [ReadingPart, ReadingPart, ReadingPart];
 export type questions = {
@@ -165,10 +165,11 @@ export type RLFeedbackAll =
     }
   | { error: string };
 
-export type autoSaveError =
+type generalFullTestError =
   | {
       statusCode: 400;
       error:
+        | 'No body found'
         | 'No test ID provided'
         | 'No user specified'
         | 'No answer provided'
@@ -184,3 +185,15 @@ export type autoSaveError =
       type: 'listening' | 'reading' | 'writing' | 'speaking';
       data: 'Auto-Submitted';
     }; // In case that the test is auto submitted
+
+export type getQuestionResponse = {
+  type: 'listening' | 'reading' | 'writing' | 'speaking';
+  data: {
+    question:
+      | WritingSection
+      | ReadingSection
+      | ListeningSection
+      | SpeakingSection;
+    answer: WritingAnswer | RLAnswer | SpeakingAnswer;
+  };
+};
