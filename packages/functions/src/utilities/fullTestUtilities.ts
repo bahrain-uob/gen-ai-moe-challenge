@@ -164,3 +164,23 @@ export type RLFeedbackAll =
       europeanFrameworkGrade: 'C1' | 'C2' | 'B2' | 'B1' | 'A1' | 'A2'; //europeanFrameworkGrade;
     }
   | { error: string };
+
+export type autoSaveError =
+  | {
+      statusCode: 400;
+      error:
+        | 'No test ID provided'
+        | 'No user specified'
+        | 'No answer provided'
+        | 'No type provided'
+        | 'No section in progress'
+        | 'You are in wrong section';
+    }
+  | {
+      statusCode: 500;
+      error: 'Exam not found';
+    }
+  | {
+      type: 'listening' | 'reading' | 'writing' | 'speaking';
+      data: 'Auto-Submitted';
+    }; // In case that the test is auto submitted
