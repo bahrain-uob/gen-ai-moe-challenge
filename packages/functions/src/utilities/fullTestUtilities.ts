@@ -197,3 +197,11 @@ export type getQuestionResponse = {
     answer: WritingAnswer | RLAnswer | SpeakingAnswer;
   };
 };
+
+export type startFullTestResponse = {
+  testID: string;
+  type: 'listening';
+  data: {
+    question: ListeningSection;
+  };
+};
