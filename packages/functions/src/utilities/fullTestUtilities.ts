@@ -157,7 +157,7 @@ export type WritingFeedbackAll = (WritingFeedback | Error)[];
 export type RLFeedbackAll =
   | {
       CorrectAnswers: any[]; //allCorrectAnswers;
-      studentAnswers: string[] | string[][]; //studentAnswers;
+      studentAnswers: any; //studentAnswers;
       scores: number[]; //allScores;
       totalScore: number; //totalScore;
       BandScore: number; //bandScore;
