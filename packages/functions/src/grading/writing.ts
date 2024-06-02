@@ -10,7 +10,10 @@ import {
   WritingFeedbackAll,
 } from '../utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
-import { Error, WritingFeedback } from '../../../frontend/src/utilities';
+import {
+  WritingFeedback,
+  WritingFeedbackSuccess,
+} from '../../../frontend/src/utilities';
 
 export const gradeWriting = async (
   PK: string,
@@ -53,7 +56,7 @@ export const gradeWritingPart = async (
   answer: string,
   writingTask: 'Task 1' | 'Task 2',
   graphDescription: string | undefined = undefined,
-): Promise<WritingFeedback | Error> => {
+): Promise<WritingFeedback> => {
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
     return {
@@ -273,7 +276,7 @@ parts of the student's answer relevant to your grading.
  * Create a prompt to unify the feedbacks into one.  Takes as input a Record
  * with the criteria as the key, and the feedback text as the value.
  */
-function promptToUnifyFeedbacks(feedbacks: WritingFeedback) {
+function promptToUnifyFeedbacks(feedbacks: WritingFeedbackSuccess) {
   const filteredFeedbacks = {
     'Coherence & Cohesion': feedbacks['Coherence & Cohesion'].text,
     'Grammatical Range & Accuracy':

@@ -48,7 +48,7 @@ export type Feedback = { score: number; text: string };
 /**
  * This is the format of the response sent by the `'POST /grade-writing'`.
  */
-export type WritingFeedback = {
+export type WritingFeedbackSuccess = {
   'Coherence & Cohesion': Feedback;
   'Grammatical Range & Accuracy': Feedback;
   'Lexical Resource': Feedback;
@@ -62,7 +62,10 @@ export type WritingFeedback = {
   score: number;
 };
 
-export type SpeakingFeedback = {
+export type WritingFeedback = WritingFeedbackSuccess | WritingError;
+export type SpeakingFeedback = SpeakingFeedbackSuccess | SpeakingError;
+
+export type SpeakingFeedbackSuccess = {
   score: number;
   'Fluency & Coherence': Feedback;
   'Lexical Resource': Feedback;
@@ -70,8 +73,20 @@ export type SpeakingFeedback = {
   Pronunciation: Feedback;
 };
 
-export type Error = {
-  error: string;
+export type WritingError = {
+  error:
+    | 'Missing answer or question or writing task'
+    | 'Missing graph description'
+    | 'Unexpected graph descreption';
+};
+
+export type SpeakingError = {
+  error:
+    | 'No questions or audio files found'
+    | 'Missing audio file or question'
+    | 'Upload Bucket Not Found'
+    | 'Failed to start transcription'
+    | 'Failed to retrieve the transcript';
 };
 
 /** Get authenticated socket url, returns undefined if not signed in, or there
