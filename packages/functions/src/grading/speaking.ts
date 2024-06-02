@@ -18,7 +18,7 @@ import {
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Bucket } from 'sst/node/bucket';
-import { Error, SpeakingFeedback } from '../../../frontend/src/utilities';
+import { SpeakingFeedback } from '../../../frontend/src/utilities';
 
 const uploadResponseBucket = Bucket.Uploads.bucketName;
 // const feedbackTableName = process.env.feedbackTableName;
@@ -67,7 +67,7 @@ export const gradeSpeaking = async (
 export const gradeSpeakingP1 = async (
   questions: string[],
   audioFileNames: string[],
-): Promise<SpeakingFeedback | Error> => {
+): Promise<SpeakingFeedback> => {
   if (!questions.length || !audioFileNames.length) {
     return {
       error: 'No questions or audio files found',
@@ -216,7 +216,7 @@ export const gradeSpeakingP1 = async (
 export const gradeSpeakingP2 = async (
   question: string,
   audioFileName: string,
-): Promise<SpeakingFeedback | Error> => {
+): Promise<SpeakingFeedback> => {
   const fileName = audioFileName.slice(0, -5);
 
   // Ensure audioFileName and question exist in the body
