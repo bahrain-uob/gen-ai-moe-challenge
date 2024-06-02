@@ -9,6 +9,7 @@ import {
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { FullTestItem } from './utilities/fullTestUtilities';
+import test from 'node:test';
 
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -17,6 +18,14 @@ export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
   const testSK = event.pathParameters?.SK;
+  if (!testSK) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: 'Invalid test ID',
+      }),
+    };
+  }
 
   const userId = event.requestContext.authorizer!.jwt.claims.sub;
   if (!userId) {
