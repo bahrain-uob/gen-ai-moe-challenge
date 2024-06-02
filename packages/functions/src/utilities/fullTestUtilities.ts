@@ -2,7 +2,7 @@
 import {
   SpeakingFeedback,
   WritingFeedback,
-} from '../../../frontend/src/utilities';
+} from '../../../frontend/src/utilities/types';
 import { LRQuestion } from '../../../frontend/src/utilities/LRUtilities';
 
 export const examSections: examSection[] = [
