@@ -13,7 +13,7 @@ import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import {
   WritingFeedback,
   WritingFeedbackSuccess,
-} from '../../../frontend/src/utilities';
+} from '../../../frontend/src/utilities/types';
 
 export const gradeWriting = async (
   PK: string,
