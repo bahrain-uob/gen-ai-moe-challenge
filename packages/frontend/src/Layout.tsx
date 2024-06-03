@@ -56,9 +56,9 @@ export const Layout = ({
       ];
     } else {
       return [
-        { text: 'About', to: '/' },
-        { text: 'How to use', to: '/' },
-        ...(showSignIn ? [{ text: 'Sign in', to: '/sign-in' }] : []),
+        { text: 'About', to: '"' },
+        { text: 'How to use', to: '""' },
+        { text: 'Sign in', to: '/sign-in' },
       ];
     }
   };
