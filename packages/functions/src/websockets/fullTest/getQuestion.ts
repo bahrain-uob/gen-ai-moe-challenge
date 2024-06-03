@@ -111,7 +111,9 @@ export const main: APIGatewayProxyHandler = async event => {
           dynamoDb,
           userId,
           testId,
-          examSections[section].answer,
+          examSections[section].answer
+            ? examSections[section].answer
+            : examSections[section].initAnswer,
           sectionAnswer.answer,
           connectionId,
           endpoint,
@@ -168,7 +170,6 @@ export const main: APIGatewayProxyHandler = async event => {
       const initAnswer: SpeakingAnswer | WritingAnswer | RLAnswer = {
         start_time: Date.now().toString(),
         status: 'In progress',
-        answer: [],
       };
       // set the start time and status
       const updateExam = new UpdateCommand({
