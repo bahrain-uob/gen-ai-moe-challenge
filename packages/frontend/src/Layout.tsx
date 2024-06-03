@@ -1,7 +1,7 @@
 import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Nav } from './components/Nav';
-import { useOutlet, useLocation } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 
 export const Layout = ({
   noPadding = false,
@@ -14,7 +14,6 @@ export const Layout = ({
 }) => {
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
   const [showSignIn, setShowSignIn] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
