@@ -1,14 +1,12 @@
-import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   BsArrowRight,
   BsBoxArrowRight,
   BsList,
   BsPersonCircle,
 } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
-import type { To } from 'react-router-dom';
-
+import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 
 type NavProps = {
   showLogo?: boolean;
@@ -18,36 +16,44 @@ type NavProps = {
 
 type Entry = { text: string; to: To };
 
-// Common styles
-const _containerStyling =
-  'flex flex-1 font-montserrat text-md text-white ';
+const _containerStyling = 'flex flex-1 font-montserrat text-md text-white ';
 
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [], isLanding = false } = props;
 
-  const itemStyle = 'nav-item hover-darken';
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
 
-  /*<img className="w-12" src="assets/Logo.png" />*/
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await fetchAuthSession({ forceRefresh: true });
+        const user = await getCurrentUser();
+        setUser(user);
+      } catch (error: any) {
+        if (error.name === 'UserUnAuthenticatedException') {
+          console.log('Not logged in');
+        } else {
+          console.error('Error fetching user:', error);
+        }
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
     <Link className={itemStyle} to="">
-      <span className='${itemStyle}  text-xl font-bold'>LINGUI</span>
+      <span className={`${itemStyle} text-xl font-bold`}>LINGUI</span>
     </Link>
   ) : null;
 
-  
-
-  // Nav content (hidden on mobile)
-
-  /*check if it is sign in*/
   const getLinkClass = (text: string) => {
     if (text === 'SIGN IN') {
-      return `${itemStyle} font-bold ml-auto`;  // Add 'ml-auto' to push it to the far right
+      return `${itemStyle} font-bold ml-auto`;
     }
     return itemStyle;
   };
-
-
 
   const links = entries.map(({ text, to }, index) => (
     <Link className={getLinkClass(text) + ' max-md:hidden'} to={to} key={index}>
@@ -58,11 +64,10 @@ export const Nav: React.FC<NavProps> = props => {
   return (
     <header className="z-10 w-full">
       <nav className="bg-blue-4 h-14">
-        <div className={_containerStyling + 'h-full'}>
+        <div className={`${_containerStyling} h-full`}>
           {logo}
           {links}
-          {!isLanding && <ProfileMenu />}
-
+          {!isLanding && <ProfileMenu user={user} />}
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}
             entries={entries}
@@ -104,15 +109,12 @@ const MobileMenu = ({
             isOpen ? 'max-w-[60vw] ' : 'max-w-0'
           } transition-all duration-300 overflow-hidden`}
       >
-        <div className={_containerStyling + 'flex-col w-[60vw] h-dvh'}>
+        <div className={`${_containerStyling} flex-col w-[60vw] h-dvh`}>
           <button className={itemStyle} onClick={toggleMenu}>
             <span>Back</span>
             <BsArrowRight className="ml-auto" />
           </button>
-
           {links}
-
-          {/* TODO: change sign or sign out based on whether the user login */}
           <button className={`${itemStyle} mt-auto`}>
             <span>Sign out</span>
             <BsBoxArrowRight className="ml-auto" />
@@ -129,20 +131,6 @@ const MobileMenu = ({
   );
 };
 
-async function _getCurrentUser() {
-  try {
-    await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
-    const user = await getCurrentUser();
-    return user;
-  } catch (error: any) {
-    if (error.name == 'UserUnAuthenticatedException') {
-      console.log('Not logged in');
-    } else {
-      throw error;
-    }
-  }
-}
-
 const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
@@ -157,7 +145,6 @@ const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
           <div>View Profile</div>
         </Link>
       )}
-
       {user === undefined ? (
         <Link className={linkStyling} to="sign-in">
           <div>Sign In</div>
@@ -168,9 +155,8 @@ const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
           to="sign-out"
           onClick={() => {
             // Sign out logic can be placed here if needed
-            navigate('/')
+            navigate('/');
             navigate(0);
-
           }}
         >
           <div>Sign Out</div>
@@ -202,4 +188,3 @@ const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
     </>
   );
 };
-
