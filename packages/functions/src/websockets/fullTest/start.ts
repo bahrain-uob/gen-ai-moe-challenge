@@ -71,6 +71,23 @@ export const main: APIGatewayProxyHandler = async event => {
       listening: QuestionsArray[2] as ListeningSection,
       speaking: QuestionsArray[3] as SpeakingSection,
     };
+    const getUserTests = new GetCommand({
+      TableName: Table.Records.tableName,
+      Key: {
+        PK: userId,
+        SK: 'fullTests',
+      },
+    });
+
+    const userTests = await dynamoDb.send(getUserTests);
+    if (userTests.Item?.inProgress) {
+      return wsError(
+        apiClient,
+        connectionId,
+        400,
+        'You already have a test in progress',
+      );
+    }
 
     const start_time = Date.now();
     const testID = `${start_time.toString()}-${uuidv4()}`;
@@ -94,16 +111,15 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'previousTests',
+        SK: 'fullTests',
       },
-      UpdateExpression:
-        'SET #testType = list_append(if_not_exists(#testType, :init), :testID)',
-      ExpressionAttributeNames: {
-        '#testType': 'fullTests',
-      },
+      UpdateExpression: 'SET inProgress = :testID', //list_append(if_not_exists(#testType, :init), :testID)',
+      // ExpressionAttributeNames: {
+      //   '#testType': 'fullTests',
+      // },
       ExpressionAttributeValues: {
-        ':testID': [testID],
-        ':init': [],
+        ':testID': testID,
+        // ':init': [],
       },
     });
 

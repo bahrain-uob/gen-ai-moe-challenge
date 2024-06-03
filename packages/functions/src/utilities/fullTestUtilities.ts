@@ -200,7 +200,8 @@ export type generalFullTestError =
         | 'No type provided'
         | 'No section in progress'
         | 'You are in wrong section'
-        | 'Section is already submitted';
+        | 'Section is already submitted'
+        | 'You already have a test in progress'; // In case of starting a new test without submitting the previous one
     }
   | {
       statusCode: 500;

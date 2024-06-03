@@ -64,7 +64,7 @@ export const submit = async (
   const updatedExam: FullTestItem = (await DBClient.send(updateExam))
     .Attributes as FullTestItem;
 
-  triggerGrading(updatedExam, section, connectionId, endpoint);
+  await triggerGrading(updatedExam, section, connectionId, endpoint, DBClient);
 
   return;
 };
@@ -97,14 +97,15 @@ export const saveFeedback = async (
   return (await dynamoDb.send(updateExam)).Attributes as FullTestItem;
 };
 
-const triggerGrading = (
+const triggerGrading = async (
   test: FullTestItem,
   section: testSectionAnswer,
   connectionId: string,
   endpoint: string,
+  DBClient: DynamoDBDocumentClient,
 ) => {
   if (section === 'writingAnswer' && test.writingAnswer) {
-    gradeWriting(
+    await gradeWriting(
       test.PK,
       test.SK,
       test.questions.writing,
@@ -113,7 +114,7 @@ const triggerGrading = (
       endpoint,
     );
   } else if (section === 'listeningAnswer' && test.listeningAnswer) {
-    gradeReadingListening(
+    await gradeReadingListening(
       test.PK,
       test.SK,
       test.questions.listening,
@@ -122,7 +123,7 @@ const triggerGrading = (
       endpoint,
     );
   } else if (section === 'readingAnswer' && test.readingAnswer) {
-    gradeReadingListening(
+    await gradeReadingListening(
       test.PK,
       test.SK,
       test.questions.reading,
@@ -131,7 +132,7 @@ const triggerGrading = (
       endpoint,
     );
   } else if (section === 'speakingAnswer' && test.speakingAnswer) {
-    gradeSpeaking(
+    await gradeSpeaking(
       test.PK,
       test.SK,
       test.questions.speaking,
@@ -140,7 +141,32 @@ const triggerGrading = (
       endpoint,
       true,
     );
+    await endFullTest(DBClient, test.PK, test.SK);
   }
+};
+
+const endFullTest = async (
+  DBClient: DynamoDBDocumentClient,
+  PK: string,
+  SK: string,
+) => {
+  // Add the test ID to the list of previous tests
+  // And remove it from the current test
+  const updateTestsCommand = new UpdateCommand({
+    TableName: Table.Records.tableName,
+    Key: {
+      PK: PK,
+      SK: 'fullTests',
+    },
+    UpdateExpression:
+      'SET inProgress = :empty, previous = list_append(if_not_exists(previous, :init), :testID)',
+    ExpressionAttributeValues: {
+      ':testID': [SK],
+      ':init': [],
+      ':empty': '',
+    },
+  });
+  await DBClient.send(updateTestsCommand);
 };
 
 // this function removes the answers from the question and replaces
