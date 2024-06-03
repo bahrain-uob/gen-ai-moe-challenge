@@ -9,38 +9,48 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import type { To } from 'react-router-dom';
 
+
 type NavProps = {
   showLogo?: boolean;
   entries?: Entry[];
+  isLanding?: boolean;
 };
 
 type Entry = { text: string; to: To };
 
 // Common styles
 const _containerStyling =
-  'flex flex-1 font-montserrat text-md font-bold text-white ';
+  'flex flex-1 font-montserrat text-md text-white ';
 
 export const Nav: React.FC<NavProps> = props => {
-  const { showLogo = true, entries = [] } = props;
-  const [user, setUser] = useState<AuthUser | undefined>(undefined);
-
-  useEffect(() => {
-    _getCurrentUser().then(user => {
-      setUser(user);
-    });
-  }, []);
+  const { showLogo = true, entries = [], isLanding = false } = props;
 
   const itemStyle = 'nav-item hover-darken';
 
+  /*<img className="w-12" src="assets/Logo.png" />*/
+
   const logo = showLogo ? (
     <Link className={itemStyle} to="">
-      <img className="w-12" src="assets/Logo.png" />
+      <span className='${itemStyle}  text-xl font-bold'>LINGUI</span>
     </Link>
   ) : null;
 
+  
+
   // Nav content (hidden on mobile)
+
+  /*check if it is sign in*/
+  const getLinkClass = (text: string) => {
+    if (text === 'SIGN IN') {
+      return `${itemStyle} font-bold ml-auto`;  // Add 'ml-auto' to push it to the far right
+    }
+    return itemStyle;
+  };
+
+
+
   const links = entries.map(({ text, to }, index) => (
-    <Link className={itemStyle + ' max-md:hidden'} to={to} key={index}>
+    <Link className={getLinkClass(text) + ' max-md:hidden'} to={to} key={index}>
       <div>{text}</div>
     </Link>
   ));
@@ -51,7 +61,7 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={_containerStyling + 'h-full'}>
           {logo}
           {links}
-          <ProfileMenu user={user} />
+          {!isLanding && <ProfileMenu />}
 
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}

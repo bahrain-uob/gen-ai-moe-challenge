@@ -87,11 +87,12 @@ const notLandingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
-  
+ 
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
+  
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -143,7 +144,15 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
+  },{
+    path: '/sign-in',
+    Component: SignIn,
   },
+  {
+    path: '/sign-up',
+    Component: SignUp,
+  }
+ 
 ];
 
 // Place pages here
