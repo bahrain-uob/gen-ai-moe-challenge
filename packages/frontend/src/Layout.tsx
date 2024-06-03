@@ -1,7 +1,7 @@
 import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Nav } from './components/Nav';
-import { useOutlet } from 'react-router-dom';
+import { useOutlet, useLocation } from 'react-router-dom';
 
 export const Layout = ({
   noPadding = false,
@@ -14,7 +14,8 @@ export const Layout = ({
 }) => {
   const [user, setUser] = useState<AuthUser | undefined>(undefined);
   const [showSignIn, setShowSignIn] = useState(false);
-  
+  const location = useLocation();
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -40,20 +41,29 @@ export const Layout = ({
     }
   }, [user, isLanding]);
 
-  const navEntries = isLanding
-    ? [
-        { text: 'About', to: "''" },
-        { text: 'How to use', to: "''" },
-      ]
-    : [
+  const getNavEntries = () => {
+    if (isLanding) {
+      return [
+        { text: 'About', to: '""' },
+        { text: 'How to use', to: '"' },
+        ...(showSignIn ? [{ text: 'Sign in', to: '/sign-in' }] : []),
+      ];
+    } else if (user) {
+      return [
         { text: 'Full Exams', to: '/Full-Exam' },
         { text: 'Section Exams', to: '/Sections' },
         { text: 'Exercises', to: '/Exercises' },
       ];
+    } else {
+      return [
+        { text: 'About', to: '/' },
+        { text: 'How to use', to: '/' },
+        ...(showSignIn ? [{ text: 'Sign in', to: '/sign-in' }] : []),
+      ];
+    }
+  };
 
-  if (showSignIn && isLanding) {
-    navEntries.push({ text: 'Sign in', to: 'sign-in' });
-  }
+  const navEntries = getNavEntries();
 
   const containerClasses = noPadding ? '' : 'px-10 py-12';
 
