@@ -3963,5 +3963,391 @@
         }
       }
     }
+  ],
+
+  "listeningChallengeB2": [
+    {
+      "context": {
+        "S": "readingChallengeB2-1.mp3"
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Choose the correct answer, A, B or C."
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- didn't start the company but manages it now."
+                              },
+                              {
+                                "S": "B- started the company and manages it now."
+                              },
+                              {
+                                "S": "C- tarted the company but doesn't manage it any more."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B- started the company and manages it now."
+                          },
+                          "QuestionText": {
+                            "S": " Anna ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- is for parents to learn from."
+                              },
+                              {
+                                "S": "B- is for students to learn from."
+                              },
+                              {
+                                "S": "C- is for students who want to find a tutor."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C- is for students who want to find a tutor."
+                          },
+                          "QuestionText": {
+                            "S": "The app ..."
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- don't have the time or knowledge to help with their children's homework."
+                              },
+                              {
+                                "S": "B- think that schools should help with their children's homework."
+                              },
+                              {
+                                "S": "C- don't want to help with their children's homework."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "A- don't have the time or knowledge to help with their children's homework."
+                          },
+                          "QuestionText": {
+                            "S": " Many parents ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- has student exercises on it."
+                              },
+                              {
+                                "S": "B- is only for people in remote areas."
+                              },
+                              {
+                                "S": "C-  offers live online support from tutors."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C-  offers live online support from tutors."
+                          },
+                          "QuestionText": {
+                            "S": "The app ..."
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- often charge lower rates."
+                              },
+                              {
+                                "S": "B-  often charge higher rates."
+                              },
+                              {
+                                "S": "C- don't like to work too much."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "A- often charge lower rates."
+                          },
+                          "QuestionText": {
+                            "S": " On the app, tutors who live in remote areas ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A- is new and not many people know about it."
+                              },
+                              {
+                                "S": "B- is already popular."
+                              },
+                              {
+                                "S": "C- is not very successful."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B- is already popular."
+                          },
+                          "QuestionText": {
+                            "S": "The app ..."
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A a problem\nB a need\nC itself\nD the range of services\nE an idea\nF funding"
+          },
+          "ListTitle": {
+            "S": "List of nouns:"
+          },
+          "NumOfSubQuestions": {
+            "N": "6"
+          },
+          "Question": {
+            "S": "Match the verbs and nouns from the interview."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "to solve -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": " to come up with -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "to meet -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "to speak for -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "to secure -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "to expand -answer-"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
   ]
 }
