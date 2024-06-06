@@ -22,6 +22,7 @@ import { Table } from 'sst/node/table';
  * {
  *  action:'sectionTestGetQuestion',
  *  testId: 'testId',
+ *  type: 'sectionType', // listening, reading, writing, speaking
  * }
  *
  * It will return the following:
