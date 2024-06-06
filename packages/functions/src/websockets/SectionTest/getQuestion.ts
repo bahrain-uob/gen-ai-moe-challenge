@@ -67,18 +67,6 @@ export const main: APIGatewayProxyHandler = async event => {
     return wsError(apiClient, connectionId, 400, 'No user specified');
   }
 
-  const type = body.data.type as testType;
-  if (!type) {
-    return wsError(apiClient, connectionId, 400, 'No type provided');
-  }
-
-  // Test sections
-  const testSections = ['writing', 'reading', 'listening', 'speaking'];
-
-  if (!testSections.includes(type)) {
-    return wsError(apiClient, connectionId, 400, 'Invalid test type'); // TODO: Add to the error type
-  }
-
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
 
@@ -94,6 +82,7 @@ export const main: APIGatewayProxyHandler = async event => {
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
+  const type = body.data.type as testType;
   if (exam.type !== type) {
     return wsError(apiClient, connectionId, 400, 'Invalid test type');
   }

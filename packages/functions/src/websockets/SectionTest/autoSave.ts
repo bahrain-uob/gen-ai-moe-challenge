@@ -58,18 +58,6 @@ export const main: APIGatewayProxyHandler = async event => {
     return wsError(apiClient, connectionId, 400, 'No answer provided');
   }
 
-  const type = body.data.type as testType;
-  if (!type) {
-    return wsError(apiClient, connectionId, 400, 'No type provided');
-  }
-
-  // Test sections
-  const testSections = ['writing', 'reading', 'listening', 'speaking'];
-
-  if (!testSections.includes(type)) {
-    return wsError(apiClient, connectionId, 400, 'Invalid test type');
-  }
-
   const client = new DynamoDBClient();
   const dynamoDb = DynamoDBDocumentClient.from(client);
 
@@ -84,6 +72,10 @@ export const main: APIGatewayProxyHandler = async event => {
   const exam = (await dynamoDb.send(getExam)).Item;
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
+  }
+  const type = body.data.type as testType;
+  if (exam.type !== type) {
+    return wsError(apiClient, connectionId, 400, 'Invalid test type');
   }
   console.log('Exam:', exam);
 
@@ -125,7 +117,7 @@ export const main: APIGatewayProxyHandler = async event => {
       return { statusCode: 200, body: 'Auto-Submitted' };
     }
     // make sure the provided answer is for the right section
-    else if (type === exam.type) {
+    else {
       // auto - save
       autoSave(dynamoDb, userId, testId, section.answer, answer);
       console.log('Auto-Saving exam', section.type);
