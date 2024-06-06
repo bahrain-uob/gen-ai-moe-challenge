@@ -80,7 +80,7 @@ export interface SectionTestItem {
   speakingAnswer?: SpeakingAnswer;
 }
 
-type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
+type FeedbackStatus = 'In progress' | 'Auto-submitted' | 'Submitted';
 
 // type ReadingSection = [ReadingPart, ReadingPart, ReadingPart];
 export type questions = {
