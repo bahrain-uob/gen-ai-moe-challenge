@@ -36,13 +36,20 @@ export const examSections: examSection[] = [
   },
 ];
 
+export const examSectionObject = {
+  listening: examSections[0],
+  reading: examSections[1],
+  writing: examSections[2],
+  speaking: examSections[3],
+};
+
 export type testSectionAnswer =
   | 'listeningAnswer'
   | 'readingAnswer'
   | 'writingAnswer'
   | 'speakingAnswer';
 
-type testType = 'listening' | 'reading' | 'writing' | 'speaking';
+export type testType = 'listening' | 'reading' | 'writing' | 'speaking';
 
 type examSection = {
   type: testType;
@@ -62,7 +69,18 @@ export interface FullTestItem {
   readingAnswer?: RLAnswer;
 }
 
-type FeedbackStatus = 'In progress' | 'Auto-submitted' | 'Submitted';
+export interface SectionTestItem {
+  PK: string;
+  SK: string;
+  questions: SectionQuestions;
+  type: testType;
+  listeningAnswer?: RLAnswer;
+  readingAnswer?: RLAnswer;
+  writingAnswer?: WritingAnswer;
+  speakingAnswer?: SpeakingAnswer;
+}
+
+type FeedbackStatus = 'In progress' | 'Auto submitted' | 'Submitted';
 
 // type ReadingSection = [ReadingPart, ReadingPart, ReadingPart];
 export type questions = {
@@ -134,8 +152,8 @@ export interface WritingSection {
   };
 }
 export interface WritingAnswer {
-  start_time: string;
-  end_time?: string;
+  start_time: number;
+  end_time?: number;
   answer?: {
     P1: string;
     P2: string;
@@ -146,16 +164,16 @@ export interface WritingAnswer {
 
 //Reading and listening answer
 export interface RLAnswer {
-  start_time: string;
-  end_time?: string;
+  start_time: number;
+  end_time?: number;
   answer?: string[] | string[][];
   feedback?: RLFeedbackAll; // ListeningFeedback | ReadingFeedback;
   status: FeedbackStatus;
 }
 
 export interface SpeakingAnswer {
-  start_time: string;
-  end_time?: string;
+  start_time: number;
+  end_time?: number;
   answer?: {
     P1: {
       audioFileNames: string[];
@@ -235,4 +253,17 @@ export type startFullTestResponse = {
 export type submitFullTestResponse = {
   type: 'listening' | 'reading' | 'writing' | 'speaking';
   data: 'Submitted';
+};
+export type SectionQuestions =
+  | WritingSection
+  | ReadingSection
+  | ListeningSection
+  | SpeakingSection;
+
+export type startSectionTestResponse = {
+  testID: string;
+  type: testType;
+  data: {
+    question: SectionQuestions;
+  };
 };
