@@ -100,6 +100,15 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
+      'POST /upload': {
+        function: {
+          handler: 'packages/functions/src/sample-python-lambda/upload.main',
+          runtime: 'python3.11',
+          permissions: ['s3:*', 'polly:SynthesizeSpeech', 'dynamodb:PutItem'],
+          timeout: '60 seconds',
+          environment: { Polly_Bucket: Polly_bucket.bucketName },
+        },
+      },
       'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
       'GET /Listening/audio': {
         function: {
