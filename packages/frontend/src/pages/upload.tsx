@@ -5,6 +5,7 @@ import { toJSON } from '../utilities';
 const UploadToS3: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadUrl, setUploadUrl] = useState<string | null>(null);
+  const [progress, setProgress] = useState<number>(0);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -37,6 +38,12 @@ const UploadToS3: React.FC = () => {
                 file_name: selectedFile.name,
                 file_content: base64File,
                 content_type: selectedFile.type,
+                progressCallback: progress => {
+                  const percent = Math.round(
+                    (progress.loaded / progress.total) * 100,
+                  );
+                  setProgress(percent);
+                },
               },
             },
           }),
@@ -59,16 +66,52 @@ const UploadToS3: React.FC = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={uploadFile}>Upload</button>
-      {uploadUrl && (
-        <div>
-          <p>
-            File uploaded successfully. URL: <a href={uploadUrl}>{uploadUrl}</a>
-          </p>
+    <div className="max-w-lg mx-auto mt-10">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="fileInput"
+          >
+            Select File
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            className="w-full py-2 px-3 text-gray-700 border rounded focus:outline-none focus:shadow-outline"
+            onChange={handleFileChange}
+          />
         </div>
-      )}
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={uploadFile}
+        >
+          Upload
+        </button>
+        {progress > 0 && (
+          <div className="mt-4">
+            <progress className="w-full" value={progress} max="100">
+              {progress}%
+            </progress>
+            <p className="text-gray-700 text-sm mt-2">{progress}%</p>
+          </div>
+        )}
+        {uploadUrl && (
+          <div className="mt-4">
+            <p className="text-green-500 font-bold">
+              File uploaded successfully.
+            </p>
+            <a
+              href={uploadUrl}
+              className="text-blue-500 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {uploadUrl}
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
