@@ -5,7 +5,6 @@ import { toJSON } from '../utilities';
 const UploadToS3: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadUrl, setUploadUrl] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(0);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -38,12 +37,6 @@ const UploadToS3: React.FC = () => {
                 file_name: selectedFile.name,
                 file_content: base64File,
                 content_type: selectedFile.type,
-                progressCallback: progress => {
-                  const percent = Math.round(
-                    (progress.loaded / progress.total) * 100,
-                  );
-                  setProgress(percent);
-                },
               },
             },
           }),
@@ -88,14 +81,6 @@ const UploadToS3: React.FC = () => {
         >
           Upload
         </button>
-        {progress > 0 && (
-          <div className="mt-4">
-            <progress className="w-full" value={progress} max="100">
-              {progress}%
-            </progress>
-            <p className="text-gray-700 text-sm mt-2">{progress}%</p>
-          </div>
-        )}
         {uploadUrl && (
           <div className="mt-4">
             <p className="text-green-500 font-bold">
