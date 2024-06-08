@@ -220,6 +220,7 @@ export type generalFullTestError =
         | 'No section in progress'
         | 'You are in wrong section'
         | 'Section is already submitted'
+        | 'The test is finished'
         | 'You already have a test in progress'; // In case of starting a new test without submitting the previous one
     }
   | {
