@@ -20,9 +20,9 @@ export const gradeWriting = async (
   SK: string,
   questions: WritingSection,
   answer: WritingAnswer,
-  connectionId: string,
-  endpoint: string,
-  publish: boolean = false,
+  // connectionId: string,
+  // endpoint: string,
+  // publish: boolean = false,
 ) => {
   const grading = [
     gradeWritingPart(
@@ -39,16 +39,17 @@ export const gradeWriting = async (
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, 'writingAnswer', feedback);
-  // Send feedback to the client
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: endpoint,
-  });
+  // // Send feedback to the client
+  // const apiClient = new ApiGatewayManagementApiClient({
+  //   endpoint: endpoint,
+  // });
 
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify(publish ? newTestItem : 'Writing graded'),
-  });
-  const response = await apiClient.send(command);
+  // const command = new PostToConnectionCommand({
+  //   ConnectionId: connectionId,
+  //   Data: JSON.stringify(publish ? newTestItem : 'Writing graded'),
+  // });
+  // const response = await apiClient.send(command);
+  return newTestItem;
 };
 
 export const gradeWritingPart = async (

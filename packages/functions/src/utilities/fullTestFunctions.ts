@@ -7,7 +7,20 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { gradeReadingListening } from 'src/grading/readingListening';
 import { gradeSpeaking } from 'src/grading/speaking';
-import { FullTestItem, testSectionAnswer } from './fullTestUtilities';
+import {
+  FullTestItem,
+  ListeningSection,
+  ReadingSection,
+  SectionTestItem,
+  SpeakingSection,
+  testSectionAnswer,
+  testType,
+  WritingSection,
+} from './fullTestUtilities';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 
 export const autoSave = async (
   DBClient: DynamoDBDocumentClient,
@@ -61,8 +74,9 @@ export const submit = async (
     ReturnValues: 'ALL_NEW',
   });
 
-  const updatedExam: FullTestItem = (await DBClient.send(updateExam))
-    .Attributes as FullTestItem;
+  const updatedExam: FullTestItem | SectionTestItem = (
+    await DBClient.send(updateExam)
+  ).Attributes as FullTestItem | SectionTestItem;
 
   await triggerGrading(updatedExam, section, connectionId, endpoint, DBClient);
 
@@ -94,61 +108,98 @@ export const saveFeedback = async (
     },
     ReturnValues: 'ALL_NEW',
   });
-  return (await dynamoDb.send(updateExam)).Attributes as FullTestItem;
+  return (await dynamoDb.send(updateExam)).Attributes as
+    | FullTestItem
+    | SectionTestItem;
 };
 
 const triggerGrading = async (
-  test: FullTestItem,
+  test: FullTestItem | SectionTestItem,
   section: testSectionAnswer,
   connectionId: string,
   endpoint: string,
   DBClient: DynamoDBDocumentClient,
 ) => {
+  let updatedTest;
+  let toPublish;
+
   if (section === 'writingAnswer' && test.writingAnswer) {
-    await gradeWriting(
+    updatedTest = await gradeWriting(
       test.PK,
       test.SK,
-      test.questions.writing,
+      isSectionTest(test)
+        ? (test.questions as WritingSection)
+        : test.questions.writing,
       test.writingAnswer,
-      connectionId,
-      endpoint,
+      // connectionId,
+      // endpoint,
     );
   } else if (section === 'listeningAnswer' && test.listeningAnswer) {
-    await gradeReadingListening(
+    updatedTest = await gradeReadingListening(
       test.PK,
       test.SK,
-      test.questions.listening,
+      isSectionTest(test)
+        ? (test.questions as ListeningSection)
+        : test.questions.listening,
       test.listeningAnswer,
-      connectionId,
-      endpoint,
+      // connectionId,
+      // endpoint,
     );
   } else if (section === 'readingAnswer' && test.readingAnswer) {
-    await gradeReadingListening(
+    updatedTest = await gradeReadingListening(
       test.PK,
       test.SK,
-      test.questions.reading,
+      isSectionTest(test)
+        ? (test.questions as ReadingSection)
+        : test.questions.reading,
       test.readingAnswer,
-      connectionId,
-      endpoint,
+      // connectionId,
+      // endpoint,
     );
   } else if (section === 'speakingAnswer' && test.speakingAnswer) {
-    await gradeSpeaking(
+    updatedTest = await gradeSpeaking(
       test.PK,
       test.SK,
-      test.questions.speaking,
+      isSectionTest(test)
+        ? (test.questions as SpeakingSection)
+        : test.questions.speaking,
       test.speakingAnswer,
-      connectionId,
-      endpoint,
-      true,
+      // connectionId,
+      // endpoint,
+      // true,
     );
-    await endFullTest(DBClient, test.PK, test.SK);
+    if (!isSectionTest(test)) {
+      await endTest(DBClient, test.PK, test.SK, 'full');
+      toPublish = updatedTest;
+    }
   }
+
+  if (!updatedTest) {
+    throw new Error('Error in the format of the test');
+  }
+
+  if (isSectionTest(test)) {
+    await endTest(DBClient, test.PK, test.SK, test.type);
+    toPublish = updatedTest;
+  }
+
+  // Send feedback to the client
+  const apiClient = new ApiGatewayManagementApiClient({
+    endpoint: endpoint,
+  });
+
+  const command = new PostToConnectionCommand({
+    ConnectionId: connectionId,
+    Data: JSON.stringify(toPublish ? toPublish : section + ' graded'),
+  });
+  const response = await apiClient.send(command);
 };
 
-const endFullTest = async (
+const endTest = async (
   DBClient: DynamoDBDocumentClient,
   PK: string,
   SK: string,
+  type: testType | 'full',
 ) => {
   // Add the test ID to the list of previous tests
   // And remove it from the current test
@@ -156,7 +207,7 @@ const endFullTest = async (
     TableName: Table.Records.tableName,
     Key: {
       PK: PK,
-      SK: 'fullTests',
+      SK: type + 'Tests',
     },
     UpdateExpression:
       'SET inProgress = :empty, previous = list_append(if_not_exists(previous, :init), :testID)',
@@ -254,4 +305,10 @@ const generatePresignedUrl = async (key: string, client: S3Client) => {
   }
 
   return response;
+};
+
+const isSectionTest = (
+  test: FullTestItem | SectionTestItem,
+): test is SectionTestItem => {
+  return (test as SectionTestItem).type !== undefined;
 };
