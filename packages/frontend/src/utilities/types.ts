@@ -77,3 +77,7 @@ export type SpeakingError = {
     | 'Failed to start transcription'
     | 'Failed to retrieve the transcript';
 };
+
+export type RLError = {
+  error: 'No answer provided' | 'Internal Server Error';
+};
