@@ -123,5 +123,5 @@ export const main: APIGatewayProxyHandler = async event => {
     return { statusCode: 200, body: 'Submitted' };
   }
 
-  return wsError(apiClient, connectionId, 400, 'No section in progress');
+  return wsError(apiClient, connectionId, 400, 'The test is finished');
 };
