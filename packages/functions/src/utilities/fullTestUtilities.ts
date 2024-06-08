@@ -167,7 +167,7 @@ export interface WritingAnswer {
 export interface RLAnswer {
   start_time: number;
   end_time?: number;
-  answer?: string[] | string[][];
+  answer?: any;
   feedback?: RLFeedbackAll; // ListeningFeedback | ReadingFeedback;
   status: FeedbackStatus;
 }
