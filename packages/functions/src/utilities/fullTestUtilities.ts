@@ -1,5 +1,6 @@
 ///  <reference path="../../../frontend/src/utilities/LRUtilities.ts" />
 import {
+  RLError,
   SpeakingFeedback,
   WritingFeedback,
 } from '../../../frontend/src/utilities/types';
@@ -205,7 +206,7 @@ export type RLFeedbackAll =
       BandScore: number; //bandScore;
       europeanFrameworkGrade: 'C1' | 'C2' | 'B2' | 'B1' | 'A1' | 'A2'; //europeanFrameworkGrade;
     }
-  | { error: string };
+  | RLError;
 
 export type generalFullTestError =
   | {
