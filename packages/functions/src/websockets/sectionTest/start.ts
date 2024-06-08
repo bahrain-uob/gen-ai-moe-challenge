@@ -67,7 +67,7 @@ export const main: APIGatewayProxyHandler = async event => {
   const testSections = ['writing', 'reading', 'listening', 'speaking'];
 
   if (!testSections.includes(type)) {
-    return wsError(apiClient, connectionId, 400, 'Invalid test type'); // TODO: Add to the error type
+    return wsError(apiClient, connectionId, 400, 'Invalid test type');
   }
 
   try {
