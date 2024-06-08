@@ -83,7 +83,7 @@ export const main: APIGatewayProxyHandler = async event => {
   const sectionStudentAnswer = exam[section.answer];
 
   if (sectionStudentAnswer === undefined) {
-    return wsError(apiClient, connectionId, 400, 'No section answer found'); // TODO: Add to the error type
+    return wsError(apiClient, connectionId, 400, 'No section answer found');
   }
 
   // if the section is in progress
