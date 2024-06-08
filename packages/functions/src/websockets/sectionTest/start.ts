@@ -58,7 +58,7 @@ export const main: APIGatewayProxyHandler = async event => {
   }
 
   const body = JSON.parse(event.body!);
-  const type = body.data.type as testType;
+  const type = body.type as testType;
   if (!type) {
     return wsError(apiClient, connectionId, 400, 'No type provided');
   }
