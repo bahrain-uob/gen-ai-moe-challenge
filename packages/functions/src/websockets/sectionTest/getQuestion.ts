@@ -22,7 +22,6 @@ import { Table } from 'sst/node/table';
  * {
  *  action:'sectionTestGetQuestion',
  *  testId: 'testId',
- *  type: 'sectionType', // listening, reading, writing, speaking
  * }
  *
  * It will return the following:
@@ -82,10 +81,8 @@ export const main: APIGatewayProxyHandler = async event => {
   if (exam === undefined) {
     return wsError(apiClient, connectionId, 500, `Exam not found`);
   }
-  const type = body.data.type as testType;
-  if (exam.type !== type) {
-    return wsError(apiClient, connectionId, 400, 'Invalid test type');
-  }
+  const type = exam.type as testType;
+
   console.log('Exam:', exam);
 
   const section = examSectionObject[type];
