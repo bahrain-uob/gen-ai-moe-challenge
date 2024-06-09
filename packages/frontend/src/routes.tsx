@@ -101,10 +101,6 @@ const notLandingRoutes: RouteObject[] = [
     path: '/PlacementTest',
     Component: PlacementTest,
   },
-  {
-    path: '/feedback/:sk',
-    Component: AllFeedbacks,
-  },
 ];
 
 const noLayoutRoutes: RouteObject[] = [
@@ -119,6 +115,10 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/full-test',
     Component: FullTestPage,
+  },
+  {
+    path: '/feedback/:testId',
+    Component: AllFeedbacks,
   },
   // These pages don't use `Layout` yet
   // {
