@@ -132,12 +132,14 @@ export type SpeakingSection = {
 type SpeakingPart = {
   Task: {
     S3key: string;
-    text: number;
-  };
-  Questions: {
     text: string;
-    S3Key?: string;
-  }[];
+  };
+  Questions:
+    | {
+        text: string;
+        S3key: string;
+      }[]
+    | string[];
 };
 
 export interface WritingSection {
