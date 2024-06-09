@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { WSFeedbackComponent } from './WSFeedback';
 
 type Screens = 'feedback' | 'listening' | 'reading' | 'writing' | 'speaking';
-type DataType = FullTestItem | undefined | { message: string };
+type DataType = { fullItem: FullTestItem } | undefined | { message: string };
 
 export const AllFeedbacks: React.FC = () => {
   const [data, setData] = useState<DataType>();
@@ -51,10 +51,18 @@ export const AllFeedbacks: React.FC = () => {
 
   switch (screen) {
     case 'feedback':
+      const readingFeedback = data.fullItem.readingAnswer?.feedback;
+      const readingScores =
+        readingFeedback && 'scores' in readingFeedback
+          ? readingFeedback.totalScore
+          : null;
+
       out = (
         <div>
           <h3 className="text-lg font-light">Feedback</h3>
           <div>
+            <p>Reading score: {JSON.stringify(readingScores)}</p>
+            <div className="mt-4"></div>
             <Button onClick={() => setScreen('listening')}>
               Listening Feedback
             </Button>
@@ -81,9 +89,11 @@ export const AllFeedbacks: React.FC = () => {
       break;
 
     case 'writing':
-      const feedback = data?.writingAnswer?.feedback;
+      const feedback = data.fullItem?.writingAnswer?.feedback;
       if (!feedback) break;
-      out = <WSFeedbackComponent feedback={feedback[0]} />;
+      out = feedback.map((taskFeedback, key) => (
+        <WSFeedbackComponent feedback={taskFeedback} key={key} />
+      ));
       break;
 
     case 'speaking':
