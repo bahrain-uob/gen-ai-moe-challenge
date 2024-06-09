@@ -6,6 +6,7 @@ import { toJSON } from '../utilities';
 import { Spinner } from './Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { WSFeedbackComponent } from './WSFeedback';
+import LAnswersPage from '../pages/LAnswersPage';
 
 type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
@@ -52,11 +53,12 @@ export const AllFeedbacks: React.FC = () => {
   console.log({ data });
 
   // Handle various pages
+  const listeningFeedback = data.fullItem?.listeningAnswer?.feedback;
+  const readingFeedback = data.fullItem.readingAnswer?.feedback;
   switch (screen) {
     case 'general':
-      const readingFeedback = data.fullItem.readingAnswer?.feedback;
       const readingScores =
-        readingFeedback && 'scores' in readingFeedback
+        readingFeedback && !('error' in readingFeedback)
           ? readingFeedback.totalScore
           : null;
 
@@ -84,11 +86,18 @@ export const AllFeedbacks: React.FC = () => {
       break;
 
     case 'listening':
-      out = 'Listening';
+      if (listeningFeedback && !('error' in listeningFeedback)) {
+        console.log(listeningFeedback.studentAnswers);
+        out = (
+          <LAnswersPage studentAnswers={listeningFeedback.studentAnswers} />
+        );
+      } else {
+        out = `Listening error: ${listeningFeedback?.error}`;
+      }
+
       break;
 
     case 'reading':
-      out = 'reading';
       break;
 
     case 'writing':
