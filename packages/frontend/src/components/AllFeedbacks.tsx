@@ -7,19 +7,21 @@ import { Spinner } from './Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { WSFeedbackComponent } from './WSFeedback';
 
-type Screens = 'feedback' | 'listening' | 'reading' | 'writing' | 'speaking';
+type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
 
 export const AllFeedbacks: React.FC = () => {
-  const [data, setData] = useState<DataType>();
-  const [screen, setScreen] = useState<Screens>('feedback');
+  let out;
 
+  const [data, setData] = useState<DataType>();
+  const [screen, setScreen] = useState<Screens>('general');
+
+  // Get full test item
   const { sk } = useParams();
   const navigate = useNavigate();
   if (!sk) {
     navigate(-1);
   }
-
   useEffect(() => {
     console.log(`/fullTestFeedback/${sk}`);
     toJSON(
@@ -38,19 +40,20 @@ export const AllFeedbacks: React.FC = () => {
       });
   }, []);
 
-  let out;
-
   if (!data) {
     return <Spinner message={'Loading your feedback'} />;
   }
-  // return JSON.stringify(fullTestItem);
 
   if ('message' in data) {
+    // TODO: error page
     return `Recieved error: ${data.message}`;
   }
 
+  console.log({ data });
+
+  // Handle various pages
   switch (screen) {
-    case 'feedback':
+    case 'general':
       const readingFeedback = data.fullItem.readingAnswer?.feedback;
       const readingScores =
         readingFeedback && 'scores' in readingFeedback
@@ -103,9 +106,9 @@ export const AllFeedbacks: React.FC = () => {
   return (
     <>
       {out}
-      {screen !== 'feedback' && (
+      {screen !== 'general' && (
         <div className="mt-20">
-          <Button onClick={() => setScreen('feedback')}>Back</Button>
+          <Button onClick={() => setScreen('general')}>Back</Button>
         </div>
       )}
     </>
