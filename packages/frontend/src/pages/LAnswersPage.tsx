@@ -1,45 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../stylesheets/readingStyling.css';
 import '../stylesheets/exam.css';
 import { listeningParts } from '../utilities/LRSampleQuestions';
-import { get } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
 
 import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
-import { useParams } from 'react-router-dom';
 import { BsArrowLeft, BsQuestionLg } from 'react-icons/bs';
-//import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 
-const LAnswersPage = () => {
-  const { sk } = useParams<{
-    sk: string | undefined;
-  }>();
-  const [data, setData] = useState<any>(null);
+type LAnswersPageProps = {
+  studentAnswers: any;
+};
+
+const LAnswersPage: React.FC<LAnswersPageProps> = ({ studentAnswers }) => {
   const [partIndex, setPartIndex] = useState(0);
-
-  useEffect(() => {
-    if (!sk) return;
-    console.log(' sk: ', sk);
-    toJSON(
-      get({
-        apiName: 'myAPI',
-        path: `/scores/listening/${sk}`,
-      }),
-    )
-      .then(data => {
-        setData(data);
-        console.log('data: ', data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [sk]);
-
-  if (!data) {
-    return (
-      <div className="text-lg px-10 text-center mb-8 mt-6">Loading...</div>
-    );
-  }
 
   // TODO: this should be a parameter
   const parts = listeningParts;
@@ -98,8 +70,8 @@ const LAnswersPage = () => {
     <div className="w-full h-full p-8 overflow-y-scroll">
       <QuestionsComponent
         questions={parts[partIndex].Questions}
-        answers={data.studentAnswers[partIndex]}
-        setAnswers={data.studentAnswers[partIndex]}
+        answers={studentAnswers[partIndex]}
+        setAnswers={() => {}}
         showCorrectAnswer={true}
       />
     </div>

@@ -22,7 +22,6 @@ import ErrorPage from './pages/ErrorPage.tsx';
 // import { WritingPage } from './pages/WritingPage.tsx';
 //import { writingSection } from './utilities.ts';
 import RAnswersPage from './pages/RAnswersPage.tsx';
-import LAnswersPage from './pages/LAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
@@ -138,10 +137,10 @@ const noLayoutRoutes: RouteObject[] = [
     path: '/answers/reading/:sk',
     Component: RAnswersPage,
   },
-  {
-    path: '/answers/listening/:sk',
-    Component: LAnswersPage,
-  },
+  // {
+  //   path: '/answers/listening/:sk',
+  //   Component: LAnswersPage,
+  // },
   {
     path: '/test-speaking-card-ui',
     Component: SpeakingCardPage,
