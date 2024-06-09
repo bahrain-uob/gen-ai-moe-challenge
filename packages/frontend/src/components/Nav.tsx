@@ -43,8 +43,8 @@ export const Nav: React.FC<NavProps> = props => {
   const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
-    <Link className={itemStyle} to="">
-      <span className={`${itemStyle} text-xl font-bold`}>LINGUI</span>
+    <Link className={`${itemStyle} text-xl font-bold px-7`} to="/home">
+      <div>LINGUI</div>
     </Link>
   ) : null;
 
