@@ -10,6 +10,7 @@ import { Spinner } from '../components/Spinner';
 import { WritingPage } from './WritingPage';
 import { IntermediatePage } from '../components/IntermediatePage';
 import { ToastContainer, toast } from 'react-toastify';
+import { setCachedFeedback } from '../components/AllFeedbacks';
 
 export const FullTestPage = () => {
   let out;
@@ -62,6 +63,17 @@ export const FullTestPage = () => {
 
         toast.dismiss();
         setIsloading(false);
+      } else if ('fullItem' in response) {
+        console.log('Recieved fullItem', response);
+
+        // setState(response);
+        toast('Recieved Feedback');
+        setTimeout(() => {
+          navigate(`/feedback/${testId}`);
+        }, 1000);
+        setCachedFeedback(response, testId as string);
+      } else {
+        console.log('Unexpected payload');
       }
 
       // Message timeout
@@ -174,7 +186,9 @@ export const FullTestPage = () => {
       }
 
       // Question was returned
-      else {
+      else if ('fullItem' in state) {
+        return JSON.stringify(state);
+      } else {
         let dummySubmit: any;
         const time = Number(testId.slice(0, testId.indexOf('-')));
         const savedAnswers = state.data?.answer?.answer;
