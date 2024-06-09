@@ -7,6 +7,7 @@ import { Spinner } from './Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { WSFeedbackComponent } from './WSFeedback';
 import LAnswersPage from '../pages/LAnswersPage';
+import { Layout } from '../Layout';
 
 type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
@@ -18,17 +19,17 @@ export const AllFeedbacks: React.FC = () => {
   const [screen, setScreen] = useState<Screens>('general');
 
   // Get full test item
-  const { sk } = useParams();
+  const { testId } = useParams();
   const navigate = useNavigate();
-  if (!sk) {
+  if (!testId) {
     navigate(-1);
   }
   useEffect(() => {
-    console.log(`/fullTestFeedback/${sk}`);
+    console.log(`/fullTestFeedback/${testId}`);
 
     // Local was found
     try {
-      let localData = getCachedFeedback(sk as string);
+      let localData = getCachedFeedback(testId as string);
       if (localData) {
         setData(localData);
         return;
@@ -41,12 +42,12 @@ export const AllFeedbacks: React.FC = () => {
     toJSON(
       get({
         apiName: 'myAPI',
-        path: `/fullTestFeedback/${sk}`,
+        path: `/fullTestFeedback/${testId}`,
       }),
     )
       .then(response => {
         setData(response);
-        setCachedFeedback(response, sk as string);
+        setCachedFeedback(response, testId as string);
       })
       .catch(err => {
         if ('message' in err) {
@@ -58,12 +59,16 @@ export const AllFeedbacks: React.FC = () => {
   }, []);
 
   if (!data) {
-    return <Spinner message={'Loading your feedback'} />;
+    return (
+      <Layout>
+        <Spinner message={'Loading your feedback'} />
+      </Layout>
+    );
   }
 
   if ('message' in data) {
     // TODO: error page
-    return `Recieved error: ${data.message}`;
+    return <Layout>{`Recieved error: ${data.message}`}</Layout>;
   }
 
   console.log({ data });
@@ -79,7 +84,7 @@ export const AllFeedbacks: React.FC = () => {
           : null;
 
       out = (
-        <div>
+        <Layout>
           <h3 className="text-lg font-light">Feedback</h3>
           <div>
             <p>Reading score: {JSON.stringify(readingScores)}</p>
@@ -97,7 +102,7 @@ export const AllFeedbacks: React.FC = () => {
               Speaking Feedback
             </Button>
           </div>
-        </div>
+        </Layout>
       );
       break;
 
@@ -108,7 +113,7 @@ export const AllFeedbacks: React.FC = () => {
           <LAnswersPage studentAnswers={listeningFeedback.studentAnswers} />
         );
       } else {
-        out = `Listening error: ${listeningFeedback?.error}`;
+        out = <Layout>{`Listening error: ${listeningFeedback?.error}`}</Layout>;
       }
 
       break;
@@ -119,9 +124,12 @@ export const AllFeedbacks: React.FC = () => {
     case 'writing':
       const feedback = data.fullItem?.writingAnswer?.feedback;
       if (!feedback) break;
+
       out = feedback.map((taskFeedback, key) => (
         <WSFeedbackComponent feedback={taskFeedback} key={key} />
       ));
+      out = <Layout>{out}</Layout>;
+
       break;
 
     case 'speaking':
