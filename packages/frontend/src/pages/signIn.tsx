@@ -36,7 +36,7 @@ export default function SignIn() {
          * https://docs.amplify.aws/react/build-a-backend/auth/enable-sign-up/#sign-in
          */
         if (user.nextStep.signInStep === 'DONE') {
-          toast.success('Signed up successfully', {
+          toast.success('Signed in successfully', {
             onClose: handleToastClose,
           });
         } else {
