@@ -38,6 +38,9 @@ const sections = () => (
     <Link to="/full-test">
       <Button label="full test" />
     </Link>
+    <Link to="/feedback/somethin">
+      <Button label="Feedback" />
+    </Link>
   </>
 );
 
