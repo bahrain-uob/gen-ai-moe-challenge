@@ -28,6 +28,7 @@ import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
+import UploadToS3 from './pages/upload.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -53,6 +54,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/Exercises',
     Component: Exercises,
+  },
+  {
+    path: '/upload',
+    Component: UploadToS3,
   },
   {
     path: '/sections',
@@ -87,12 +92,12 @@ const notLandingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
- 
+
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
-  
+
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -144,15 +149,15 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
-  },{
+  },
+  {
     path: '/sign-in',
     Component: SignIn,
   },
   {
     path: '/sign-up',
     Component: SignUp,
-  }
- 
+  },
 ];
 
 // Place pages here
