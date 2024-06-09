@@ -64,7 +64,7 @@ const Carousel = () => {
                   <p className="text-center text-4xl   max-md:text-xl">
                     {texts[index]}
                   </p>
-                  <div className="cursor-pointer w-full flex justify-center items-center">
+                  <div className="w-full flex justify-center items-center">
                     <Link to={buttonPage[index]}>
                     
                     <button className="text-blue-4 text-sm font-bold border border-blue-4 px-4 py-2 rounded-full shadow-md focus:outline-none hover:bg-blue-4 hover:text-white sm:text-lg sm:px-5 sm:py-2">
