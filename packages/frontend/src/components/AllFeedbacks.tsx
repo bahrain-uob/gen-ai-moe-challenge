@@ -25,13 +25,29 @@ export const AllFeedbacks: React.FC = () => {
   }
   useEffect(() => {
     console.log(`/fullTestFeedback/${sk}`);
+
+    // Local was found
+    try {
+      let localData = getCachedFeedback(sk as string);
+      if (localData) {
+        setData(localData);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Corrupt or no local data was found
     toJSON(
       get({
         apiName: 'myAPI',
         path: `/fullTestFeedback/${sk}`,
       }),
     )
-      .then(response => setData(response))
+      .then(response => {
+        setData(response);
+        setCachedFeedback(response, sk as string);
+      })
       .catch(err => {
         if ('message' in err) {
           setData(err);
@@ -122,4 +138,16 @@ export const AllFeedbacks: React.FC = () => {
       )}
     </>
   );
+};
+
+const getFeedbackKey = (testId: string) => `FeedbackItem-${testId}`;
+
+const getCachedFeedback = (testId: string) => {
+  const localData = sessionStorage.getItem(getFeedbackKey(testId));
+  if (localData) console.log('Using cached', { localData });
+  return localData ? JSON.parse(localData) : localData;
+};
+
+export const setCachedFeedback = (feedback: any, testId: string) => {
+  sessionStorage.setItem(getFeedbackKey(testId), JSON.stringify(feedback));
 };
