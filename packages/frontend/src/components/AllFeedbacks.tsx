@@ -162,16 +162,7 @@ export const AllFeedbacks: React.FC = () => {
       break;
   }
 
-  return (
-    <>
-      {out}
-      {screen !== 'general' && (
-        <div className="mt-20">
-          <Button onClick={() => setScreen('general')}>Back</Button>
-        </div>
-      )}
-    </>
-  );
+  return out;
 };
 
 const getFeedbackKey = (testId: string) => `FeedbackItem-${testId}`;
