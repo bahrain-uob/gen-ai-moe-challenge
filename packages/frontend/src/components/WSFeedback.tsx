@@ -147,7 +147,7 @@ const displayGrammarMistakes = (
   });
 };
 
-function isWritingFeedback(
+export function isWritingFeedback(
   feedback: SpeakingFeedback | WritingFeedback,
 ): feedback is WritingFeedback {
   return !('Pronunciation' in feedback);

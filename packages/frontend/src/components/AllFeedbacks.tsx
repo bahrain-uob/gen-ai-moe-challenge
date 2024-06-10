@@ -5,10 +5,10 @@ import { get } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
 import { Spinner } from './Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
-import { WSFeedbackComponent } from './WSFeedback';
 import LAnswersPage from '../pages/LAnswersPage';
 import { Layout } from '../Layout';
 import RAnswersPage from '../pages/RAnswersPage';
+import { WSFeedbackPage } from './WSFeedbackPage';
 
 type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
@@ -143,17 +143,22 @@ export const AllFeedbacks: React.FC = () => {
       break;
 
     case 'writing':
-      const feedback = data.fullItem?.writingAnswer?.feedback;
+    case 'speaking':
+      const feedback =
+        screen === 'writing'
+          ? data.fullItem?.writingAnswer?.feedback
+          : data.fullItem?.speakingAnswer?.feedback;
       if (!feedback) break;
 
-      out = feedback.map((taskFeedback, key) => (
-        <WSFeedbackComponent feedback={taskFeedback} key={key} />
-      ));
-      out = <Layout>{out}</Layout>;
+      out = (
+        <Layout>
+          <WSFeedbackPage
+            feedback={feedback}
+            onBack={() => setScreen('general')}
+          />
+        </Layout>
+      );
 
-      break;
-
-    case 'speaking':
       break;
   }
 
