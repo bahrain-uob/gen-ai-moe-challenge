@@ -33,7 +33,8 @@ export type Plan = {
  * alongside his training plans if any.
  */
 export type Profile = {
-  uid: string;
+  PK: string; // this is the uid
+  SK: 'plan';
   listening?: Plan;
   reading?: Plan;
   vocab?: Plan;
