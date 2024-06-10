@@ -16,7 +16,11 @@ const ChallengePage: React.FC = () => {
   };
 
   const renderCurrentQuestion = () => {
+
     return (
+        <>
+      
+
       <QuestionsComponent
         questions={[sampleChallenge.tasks[currentQuestionIndex]]}
         answers={[answers[currentQuestionIndex]]}
@@ -25,15 +29,17 @@ const ChallengePage: React.FC = () => {
           updatedAnswers[currentQuestionIndex] = newAnswers[0];
           setAnswers(updatedAnswers);
         }}
-        showCorrectAnswer={false} // Adjust this based on your use case
+        showCorrectAnswer={false}
       />
+
+</>
     );
   };
 
   return (
     <div>
 
-     <h1 className='text-3xl font-bold mb-10'>Listening</h1>
+     <h1 className='text-3xl font-bold mb-10'>{sampleChallenge.type}</h1>
      
 
      <div>
@@ -45,13 +51,12 @@ const ChallengePage: React.FC = () => {
         </button>
       </div>
 
+      {sampleChallenge.type === 'Listening' && sampleChallenge.contextAudio && (
+        <div className='my-5'>
+          <audio src={sampleChallenge.contextAudio} controls className="audio-player" style={{ width: '100%' }} />
+        </div>
+      )}
 
-     <div className='my-5'>
-     {sampleChallenge.contextAudio && (
-  <audio src={sampleChallenge.contextAudio} controls style={{ width: '100%' }} />
-)}
-
-      </div>  
 
       <div className='bg-white p-10 mb-5 rounded-lg shadow-md'>
       <h2>{sampleChallenge.context}</h2>

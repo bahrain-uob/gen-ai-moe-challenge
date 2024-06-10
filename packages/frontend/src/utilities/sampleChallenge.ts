@@ -4,11 +4,15 @@ export type Challenge = {
   context: string;
   contextAudio?: string;
   tasks: LRQuestion[];
+  type: 'Reading' | 'Listening' | 'Speaking' | 'Writing';
+  level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 };
 
 export const sampleChallenge: Challenge = {
   context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
   contextAudio: 'readingChallengeB2-1.mp3',
+  type: 'Listening',
+  level: 'B2',
   tasks: [
     {
       // Here was a Question[] and the question is inside it but I changed it to LRQuestion immediately (need confirmation from Sayed)
