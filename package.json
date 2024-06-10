@@ -28,6 +28,8 @@
     "@aws-sdk/client-dynamodb": "^3.556.0",
     "@aws-sdk/lib-dynamodb": "^3.556.0",
     "@fontsource/inter": "^5.0.18",
+    "@mui/icons-material": "^5.15.19",
+    "@mui/material": "^5.15.19",
     "aws-jwt-verify": "^4.0.1",
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
@@ -35,6 +37,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-icons": "^5.2.0",
     "react-router-dom": "^6.23.0",
+    "react-stepper-horizontal": "^1.0.11",
     "react-toastify": "^10.0.5",
     "react-use-audio-player": "^2.2.0",
     "recordrtc": "^5.6.2"
