@@ -1,6 +1,7 @@
 import { LRQuestion } from './LRUtilities';
 
 export type Challenge = {
+  contextTitle:string;
   context: string;
   contextAudio?: string;
   tasks: LRQuestion[];
@@ -9,6 +10,7 @@ export type Challenge = {
 };
 
 export const sampleChallenge: Challenge = {
+  contextTitle:"Transcipt",
   context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
   contextAudio: 'readingChallengeB2-1.mp3',
   type: 'Listening',

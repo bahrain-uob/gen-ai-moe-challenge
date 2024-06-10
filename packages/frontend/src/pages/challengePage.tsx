@@ -59,6 +59,7 @@ const ChallengePage: React.FC = () => {
 
 
       <div className='bg-white p-10 mb-5 rounded-lg shadow-md'>
+      <h1 className='mb-3 text-xl font-bold text-center'>{sampleChallenge.contextTitle}</h1>  
       <h2>{sampleChallenge.context}</h2>
       </div>
 
