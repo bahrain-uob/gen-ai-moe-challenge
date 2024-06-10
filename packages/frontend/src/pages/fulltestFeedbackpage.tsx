@@ -1,6 +1,6 @@
 import { sampleFullTest } from '../utilities/sampleFullTest';
 import { DoubleCircles } from '../components/DoubleCirclesComponent';
-import { calculateFeedbackScore } from '../utilities/calculateFeedbackScore';
+import { calculateFinalScore, getEuropeanFrameworkGrade } from '../utilities/calculateFeedbackScore';
 
 const fulltestFeedback = () => {
   const readingFeedback = sampleFullTest.readingAnswer?.feedback;
@@ -18,6 +18,23 @@ const fulltestFeedback = () => {
       ? listeningFeedback.totalScore
       : null;
 
+      const total = calculateFinalScore(sampleFullTest);
+
+      // Determine what to display as the text based on the 'total' value
+      let bandscore;
+      if (total === 'error') {
+        bandscore = 'Error'; // Handle the error case
+      } else {
+        bandscore = total.toFixed(2); // Convert number to string and format it
+      }
+      let CEFRdis;
+      const CEFR= getEuropeanFrameworkGrade(sampleFullTest);
+      if (CEFR === 'error') {
+        CEFRdis = 'Error'; // Handle the error case
+      } else {
+        CEFRdis = CEFR; // Convert number to string and format it
+      }
+
   return (
     <div>
       <DoubleCircles
@@ -25,12 +42,12 @@ const fulltestFeedback = () => {
           value: 0 * 4,
           maxValue: 36,
           // TODO Don't hard-code a band score
-          text: 'B1',
+          text: CEFRdis,
         }}
         rightCircleProps={{
           value: 0 * 4,
           maxValue: 36,
-          text: (0 * 4).toFixed() + ' / 36',
+          text: bandscore,
         }}
       />
     </div>

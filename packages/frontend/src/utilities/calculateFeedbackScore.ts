@@ -3,6 +3,7 @@ import {
   SpeakingFeedbackAll,
   WritingFeedbackAll,
 } from '../../../functions/src/utilities/fullTestUtilities';
+import { sampleFullTest } from './sampleFullTest';
 import { isWSError } from './types';
 
 export const calculateWritingFeedbackScore = (feedback: WritingFeedbackAll) => {
@@ -68,3 +69,24 @@ export const calculateFinalScore = (test: FullTestItem): number | 'error' => {
 
   return total / 4;
 };
+
+
+export const  getEuropeanFrameworkGrade = (test: FullTestItem): string | 'error' =>{
+  const result = calculateFinalScore(sampleFullTest);
+  if(result == 'error'){
+    return 'error';
+  }
+  else if (result >= 36) {
+    return 'C2';
+  } else if (result >= 32) {
+    return 'C1';
+  } else if (result >= 28) {
+    return 'B2';
+  } else if (result >= 24) {
+    return 'B1';
+  } else if (result >= 20) {
+    return 'A2';
+  } else {
+    return 'A1';
+  }
+}
