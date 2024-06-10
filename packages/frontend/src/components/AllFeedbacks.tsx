@@ -110,7 +110,10 @@ export const AllFeedbacks: React.FC = () => {
       if (listeningFeedback && !('error' in listeningFeedback)) {
         console.log(listeningFeedback.studentAnswers);
         out = (
-          <LAnswersPage studentAnswers={listeningFeedback.studentAnswers} />
+          <LAnswersPage
+            studentAnswers={listeningFeedback.studentAnswers}
+            onBack={() => setScreen('general')}
+          />
         );
       } else {
         out = <Layout>{`Listening error: ${listeningFeedback?.error}`}</Layout>;

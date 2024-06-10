@@ -8,9 +8,13 @@ import { BsArrowLeft, BsQuestionLg } from 'react-icons/bs';
 
 type LAnswersPageProps = {
   studentAnswers: any;
+  onBack: () => void;
 };
 
-const LAnswersPage: React.FC<LAnswersPageProps> = ({ studentAnswers }) => {
+const LAnswersPage: React.FC<LAnswersPageProps> = ({
+  studentAnswers,
+  onBack,
+}) => {
   const [partIndex, setPartIndex] = useState(0);
 
   // TODO: this should be a parameter
@@ -32,7 +36,7 @@ const LAnswersPage: React.FC<LAnswersPageProps> = ({ studentAnswers }) => {
         <span>Help</span>
         <BsQuestionLg className="inline ml-2" size={16} />
       </span>
-      <span className={linkStyling + ' mr-auto'}>00:10</span>
+      <span className={linkStyling + ' mr-auto'}></span>
       {parts.map((_, i) => (
         <button
           className={
@@ -51,7 +55,7 @@ const LAnswersPage: React.FC<LAnswersPageProps> = ({ studentAnswers }) => {
   const TitleRow = (
     <div className="w-full h-full flex items-center border-b-2">
       <div className="sm:w-1/3 w-1/2 h-full nav-item">
-        <button className="hover:text-gray-700">
+        <button className="hover:text-gray-700" onClick={onBack}>
           <BsArrowLeft className="inline mr-2" />
           <span>Back</span>
         </button>
