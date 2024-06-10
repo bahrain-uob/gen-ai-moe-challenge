@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Button from '../components/TButton';
-import { setCachedFeedback } from '../components/AllFeedbacks';
+import { setCachedFeedback } from '../utilities';
 import { sampleFullTest } from '../utilities/sampleFullTest';
 
 const sections = () => (

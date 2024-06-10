@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
 import { Button } from './Button';
 import { get } from 'aws-amplify/api';
-import { toJSON } from '../utilities';
+import { getCachedFeedback, setCachedFeedback, toJSON } from '../utilities';
 import { Spinner } from './Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import LAnswersPage from '../pages/LAnswersPage';
@@ -163,16 +163,4 @@ export const AllFeedbacks: React.FC = () => {
   }
 
   return out;
-};
-
-const getFeedbackKey = (testId: string) => `FeedbackItem-${testId}`;
-
-const getCachedFeedback = (testId: string) => {
-  const localData = sessionStorage.getItem(getFeedbackKey(testId));
-  if (localData) console.log('Using cached', { localData });
-  return localData ? JSON.parse(localData) : localData;
-};
-
-export const setCachedFeedback = (feedback: any, testId: string) => {
-  sessionStorage.setItem(getFeedbackKey(testId), JSON.stringify(feedback));
 };
