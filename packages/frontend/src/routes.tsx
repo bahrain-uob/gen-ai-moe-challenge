@@ -21,7 +21,7 @@ import { SignOutPage } from './pages/signOut.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 // import { WritingPage } from './pages/WritingPage.tsx';
 //import { writingSection } from './utilities.ts';
-import RAnswersPage from './pages/RAnswersPage.tsx';
+// import RAnswersPage from './pages/RAnswersPage.tsx';
 import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
 import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
@@ -133,10 +133,10 @@ const noLayoutRoutes: RouteObject[] = [
     path: '/scores/:section/:sk',
     Component: LRFeedbackPage,
   },
-  {
-    path: '/answers/reading/:sk',
-    Component: RAnswersPage,
-  },
+  // {
+  //   path: '/answers/reading/:sk',
+  //   Component: RAnswersPage,
+  // },
   // {
   //   path: '/answers/listening/:sk',
   //   Component: LAnswersPage,

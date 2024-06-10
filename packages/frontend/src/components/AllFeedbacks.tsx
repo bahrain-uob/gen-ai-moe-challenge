@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { WSFeedbackComponent } from './WSFeedback';
 import LAnswersPage from '../pages/LAnswersPage';
 import { Layout } from '../Layout';
+import RAnswersPage from '../pages/RAnswersPage';
 
 type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
@@ -76,6 +77,8 @@ export const AllFeedbacks: React.FC = () => {
   // Handle various pages
   const listeningFeedback = data.fullItem?.listeningAnswer?.feedback;
   const readingFeedback = data.fullItem.readingAnswer?.feedback;
+  const readingSection = data.fullItem.questions.reading;
+
   switch (screen) {
     case 'general':
       const readingScores =
@@ -118,10 +121,25 @@ export const AllFeedbacks: React.FC = () => {
       } else {
         out = <Layout>{`Listening error: ${listeningFeedback?.error}`}</Layout>;
       }
-
       break;
 
     case 'reading':
+      if (readingFeedback && !('error' in readingFeedback)) {
+        console.log(readingFeedback.studentAnswers);
+        out = (
+          <RAnswersPage
+            readingParts={[
+              readingSection.P1,
+              readingSection.P2,
+              readingSection.P3,
+            ]}
+            studentAnswers={readingFeedback.studentAnswers}
+            onBack={() => setScreen('general')}
+          />
+        );
+      } else {
+        out = <Layout>{`Listening error: ${readingFeedback?.error}`}</Layout>;
+      }
       break;
 
     case 'writing':
