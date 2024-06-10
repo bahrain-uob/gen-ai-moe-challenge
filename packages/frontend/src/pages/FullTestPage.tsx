@@ -14,6 +14,7 @@ import { setCachedFeedback } from '../components/AllFeedbacks';
 import {
   ListeningSection,
   ReadingSection,
+  WritingAnswer,
   WritingSection,
   getQuestionResponse,
   startFullTestResponse,
@@ -240,7 +241,7 @@ export const FullTestPage = () => {
                 writingSection={state.data.question as WritingSection}
                 submitAnswers={submitAnswers}
                 autoSaveAnswers={autoSaveAnswers}
-                savedAnswers={savedAnswers}
+                savedAnswers={savedAnswers as WritingAnswer['answer']}
                 time={time}
               />
             );
