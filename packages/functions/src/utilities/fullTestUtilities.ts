@@ -154,7 +154,7 @@ export interface WritingSection {
     Question: string;
   };
 }
-export interface WritingAnswer {
+export type WritingAnswer = {
   start_time: number;
   end_time?: number;
   answer?: {

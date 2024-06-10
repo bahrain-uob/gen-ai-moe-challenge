@@ -1,17 +1,17 @@
-import { WritingSection } from '../utilities/types';
+import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
 // import { PointsBadge } from './PointsBadge';
 
 export function WritingQuestion({
   task,
 }: {
-  task: WritingSection['task1'] | WritingSection['task2'];
+  task: WritingSection['P1'] | WritingSection['P2'];
 }) {
   const image =
-    'graphUrl' in task ? (
+    'GraphKey' in task ? (
       <div className="flex flex-row justify-center my-12 mx-4">
         <img
           className="shadow-xl md:max-w-[70%] xl:max-w-[70%]"
-          src={task.graphUrl}
+          src={task.GraphKey}
           alt=""
         />
       </div>
@@ -25,7 +25,7 @@ export function WritingQuestion({
         <h2 className="font-bold mb-4">
           Task {'graphUrl' in task ? '1' : '2'}:
         </h2>
-        <p className="whitespace-pre-line ml-4 mb-6">{task.question}</p>
+        <p className="whitespace-pre-line ml-4 mb-6">{task.Question}</p>
         {image}
         {/* <div className="flex flex-row-reverse">
           <PointsBadge points={10} />
