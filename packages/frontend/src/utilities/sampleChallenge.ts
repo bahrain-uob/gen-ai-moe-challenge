@@ -1,10 +1,4 @@
-import { LRQuestion } from './LRUtilities';
-
-export type Challenge = {
-  context: string;
-  contextAudio?: string;
-  tasks: LRQuestion[];
-};
+import { Challenge } from './planTypes';
 
 export const sampleChallenge: Challenge = {
   context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
