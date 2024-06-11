@@ -28,6 +28,8 @@ import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
+import { SpeakingQuestionsPage } from './pages/SpeakingQuestionsPage.tsx';
+import { sampleFullTest } from './utilities/sampleFullTest.ts';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -155,8 +157,16 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/sign-up',
     Component: SignUp,
-  }
- 
+  },
+  {
+    path: '/sample-speaking',
+    element: (
+      <SpeakingQuestionsPage
+        speakingSection={sampleFullTest.questions.speaking}
+        submitAnswers={console.log}
+      />
+    ),
+  },
 ];
 
 // Place pages here

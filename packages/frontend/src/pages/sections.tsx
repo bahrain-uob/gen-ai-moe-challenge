@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Button from '../components/TButton';
+import { Button as OtherButton } from '../components/Button';
 import { setCachedFeedback } from '../utilities';
 import { sampleFullTest } from '../utilities/sampleFullTest';
 
@@ -48,6 +49,9 @@ const sections = () => (
     >
       <Button label="Sample Feedback" />
     </Link>
+    <div className="mt-6">
+      <OtherButton to="/sample-speaking">Sample Speaking Page</OtherButton>
+    </div>
   </>
 );
 
