@@ -13,12 +13,12 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const style = NoBackground
-  ? 'text-black bg-transparent border border-black hover:bg-blue-3 hover:text-white hover:border-none'
+  ? 'text-black bg-transparent border border-black hover:bg-blue-3 hover:text-white hover:border-blue-3'
   : isTransparent
     ? 'text-black bg-gray-1 bg-opacity-50 hover:bg-blue-1 ring-1 ring-inset ring-gray-400'
     : 'text-white bg-blue-3 hover:bg-blue-4';
 
-    const activeStyle = isActive ? 'bg-blue-300 text-white border-none' : '';
+    const activeStyle = isActive ? 'bg-blue-300 text-white border-blue-3' : '';
     /*for some reason the blue-3 does not work , kept is as blue-300 for now should be modified */
   return (
     <button
