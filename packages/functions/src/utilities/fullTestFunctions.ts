@@ -170,7 +170,9 @@ const triggerGrading = async (
     );
     if (!isSectionTest(test)) {
       await endTest(DBClient, test.PK, test.SK, 'full');
-      toPublish = updatedTest;
+      toPublish = {
+        fullItem: updatedTest,
+      };
     }
   }
 
