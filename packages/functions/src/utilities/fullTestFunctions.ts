@@ -7,7 +7,7 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { gradeReadingListening } from 'src/grading/readingListening';
 import { gradeSpeaking } from 'src/grading/speaking';
-import { calculateFinalScore, calculateSpeakingFeedbackScore, calculateWritingFeedbackScore } from '../../../frontend/src/utilities/calculateFeedbackScore'
+import { calculateFinalScore, calculateLRFeedbackScore, calculateSpeakingFeedbackScore, calculateWritingFeedbackScore } from '../../../frontend/src/utilities/calculateFeedbackScore'
 import {
   FullTestItem,
   ListeningSection,
@@ -150,8 +150,7 @@ const triggerGrading = async (
       // connectionId,
       // endpoint,
     );
-    const listeningFeedback = updatedTest.listeningAnswer?.feedback;
-    sectionTestScore = !listeningFeedback || isWSError(listeningFeedback) ? 0 : listeningFeedback.BandScore;
+    sectionTestScore = calculateLRFeedbackScore(updatedTest.listeningAnswer?.feedback);
 
   } else if (section === 'readingAnswer' && test.readingAnswer) {
     updatedTest = await gradeReadingListening(
@@ -165,8 +164,7 @@ const triggerGrading = async (
       // endpoint,
     );
 
-    const readingFeedback = updatedTest.readingAnswer?.feedback;
-    sectionTestScore = !readingFeedback || isWSError(readingFeedback) ? 0 : readingFeedback.BandScore;
+    sectionTestScore = calculateLRFeedbackScore(updatedTest.readingAnswer?.feedback);
 
   } else if (section === 'speakingAnswer' && test.speakingAnswer) {
     updatedTest = await gradeSpeaking(
