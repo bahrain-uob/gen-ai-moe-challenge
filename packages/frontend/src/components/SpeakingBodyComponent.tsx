@@ -1,4 +1,5 @@
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
+import { sampleAudios } from '../utilities/sampleFullTest';
 
 // type SpeakingPart = {
 //   Task: {
@@ -31,16 +32,7 @@ export const SpeakingBodyComponent = (
       }
     };
 
-    const urls = [
-      'https://upload.wikimedia.org/wikipedia/commons/0/07/Sdcfdswasd.wav',
-      'https://upload.wikimedia.org/wikipedia/commons/c/cc/Vcdsasdcv.wav',
-      'https://upload.wikimedia.org/wikipedia/commons/0/07/Sdcfdswasd.wav',
-    ];
-    // const urls = speakingPart.Questions.map(question => {
-    //   return question.S3key;
-    // });
-    // console.log(urls);
-    const waveform = <WaveSurferPlayer urls={urls} height={50} />;
+    const waveform = <WaveSurferPlayer urls={sampleAudios} height={200} />;
 
     const cardContent = (
       <>
