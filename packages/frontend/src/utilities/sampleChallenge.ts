@@ -1,8 +1,5 @@
 import { Challenge } from './planTypes';
 
-
-
-
 export const sampleChallenge: Challenge = {
   contextTitle:"Transcipt",
   context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
