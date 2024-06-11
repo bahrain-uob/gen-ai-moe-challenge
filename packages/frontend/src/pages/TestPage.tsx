@@ -9,6 +9,8 @@ import WaveSurferPlayer from './waveformListeningTest';
 import { AuthContext } from '../AuthContext';
 import { CountdownTimer } from '../components/CountdownTimer';
 
+import BarWaveSurferPlayer from '../components/ListeningAudioPlayer';
+
 async function _getCurrentUser() {
   try {
     await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
@@ -77,6 +79,18 @@ function TestPage() {
 
       <div className="mt-8 px-4">
         <WaveSurferPlayer audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
+      </div>
+
+      <div className="mt-8">
+        <BarWaveSurferPlayer
+          urls={[
+            'https://upload.wikimedia.org/wikipedia/commons/8/8a/De-Niesky.ogg',
+            'https://upload.wikimedia.org/wikipedia/commons/d/dc/De-Nittenau.ogg',
+            'https://upload.wikimedia.org/wikipedia/commons/9/91/De-Nordhorn.ogg',
+            'https://upload.wikimedia.org/wikipedia/commons/2/2a/De-Nordstemmen.ogg',
+          ]}
+          height={50}
+        />
       </div>
     </>
   );
