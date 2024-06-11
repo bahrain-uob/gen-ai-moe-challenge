@@ -7,6 +7,7 @@ import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { gradeReadingListening } from 'src/grading/readingListening';
 import { gradeSpeaking } from 'src/grading/speaking';
+import { calculateFinalScore, calculateLRFeedbackScore, calculateSpeakingFeedbackScore, calculateWritingFeedbackScore } from '../../../frontend/src/utilities/calculateFeedbackScore'
 import {
   FullTestItem,
   ListeningSection,
@@ -21,6 +22,7 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
+import { isWSError } from '../../../frontend/src/utilities/types';
 
 export const autoSave = async (
   DBClient: DynamoDBDocumentClient,
@@ -122,6 +124,7 @@ const triggerGrading = async (
 ) => {
   let updatedTest;
   let toPublish;
+  let sectionTestScore = 0;
 
   if (section === 'writingAnswer' && test.writingAnswer) {
     updatedTest = await gradeWriting(
@@ -134,6 +137,8 @@ const triggerGrading = async (
       // connectionId,
       // endpoint,
     );
+    sectionTestScore = calculateWritingFeedbackScore(updatedTest.writingAnswer?.feedback);
+
   } else if (section === 'listeningAnswer' && test.listeningAnswer) {
     updatedTest = await gradeReadingListening(
       test.PK,
@@ -145,6 +150,8 @@ const triggerGrading = async (
       // connectionId,
       // endpoint,
     );
+    sectionTestScore = calculateLRFeedbackScore(updatedTest.listeningAnswer?.feedback);
+
   } else if (section === 'readingAnswer' && test.readingAnswer) {
     updatedTest = await gradeReadingListening(
       test.PK,
@@ -156,6 +163,9 @@ const triggerGrading = async (
       // connectionId,
       // endpoint,
     );
+
+    sectionTestScore = calculateLRFeedbackScore(updatedTest.readingAnswer?.feedback);
+
   } else if (section === 'speakingAnswer' && test.speakingAnswer) {
     updatedTest = await gradeSpeaking(
       test.PK,
@@ -168,8 +178,10 @@ const triggerGrading = async (
       // endpoint,
       // true,
     );
+    sectionTestScore = calculateSpeakingFeedbackScore(updatedTest.speakingAnswer?.feedback)
     if (!isSectionTest(test)) {
-      await endTest(DBClient, test.PK, test.SK, 'full');
+      const finalScore = calculateFinalScore(test);
+      await endTest(DBClient, test.PK, test.SK, 'full', finalScore);
       toPublish = updatedTest;
     }
   }
@@ -179,7 +191,7 @@ const triggerGrading = async (
   }
 
   if (isSectionTest(test)) {
-    await endTest(DBClient, test.PK, test.SK, test.type);
+    await endTest(DBClient, test.PK, test.SK, test.type, sectionTestScore);
     toPublish = updatedTest;
   }
 
@@ -200,6 +212,7 @@ const endTest = async (
   PK: string,
   SK: string,
   type: testType | 'full',
+  score: number
 ) => {
   // Add the test ID to the list of previous tests
   // And remove it from the current test
@@ -212,7 +225,7 @@ const endTest = async (
     UpdateExpression:
       'SET inProgress = :empty, previous = list_append(if_not_exists(previous, :init), :testID)',
     ExpressionAttributeValues: {
-      ':testID': [SK],
+      ':testID': [{ testId: SK, score: score }],
       ':init': [],
       ':empty': '',
     },

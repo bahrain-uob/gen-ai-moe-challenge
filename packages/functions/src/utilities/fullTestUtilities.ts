@@ -163,7 +163,7 @@ export type WritingAnswer = {
   }; // WritingAnswer;
   feedback?: WritingFeedbackAll; // WritingFeedback;
   status: FeedbackStatus;
-}
+};
 
 //Reading and listening answer
 export interface RLAnswer {
@@ -273,3 +273,20 @@ export type startSectionTestResponse = {
     question: SectionQuestions;
   };
 };
+
+export type previousTests = {
+  PK: string; // the user id
+  SK: previousTestTypes;
+  inProgress: string; // Test id
+  previous: {
+    score: number;
+    testId: string;
+  }[];
+};
+
+export type previousTestTypes =
+  | 'fullTests'
+  | 'writingTests'
+  | 'readingTests'
+  | 'listeningTests'
+  | 'speakingTests';
