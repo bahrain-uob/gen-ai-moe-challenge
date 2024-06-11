@@ -111,8 +111,13 @@ export function ApiStack({ stack }: StackContext) {
           environment: { audioBucket: audiobucket.bucketName },
         },
       },
+      // get the test item when graded
       'GET /fullTestFeedback/{SK}':
         'packages/functions/src/getFullTestFeedback.main',
+
+      // get the list of previous tests
+      'GET /previousTest/{type}':
+        'packages/functions/src/getPreviousTests.main',
     },
   });
 
