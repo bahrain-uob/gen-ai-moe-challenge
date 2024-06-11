@@ -1,3 +1,7 @@
+import {
+  SpeakingPartAudio,
+  SpeakingPartCard,
+} from '../../../functions/src/utilities/fullTestUtilities';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 import { sampleAudios } from '../utilities/sampleFullTest';
 
@@ -12,9 +16,19 @@ import { sampleAudios } from '../utilities/sampleFullTest';
 //   }[];
 // };
 
-export const SpeakingBodyComponent = (
-  { speakingPart, partIndex }, //: {
-) =>
+type SpeakingBodyComponentProps = {
+  speakingPart: SpeakingPartAudio | SpeakingPartCard;
+  /** @deprecated */
+  partIndex: number;
+};
+
+/**
+ * This Comopnent handles the body of the speaking page.
+ */
+export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
+  speakingPart,
+  partIndex,
+}) =>
   //speakingPart: SpeakingPart;
   //partIndex: number;
   //}
@@ -34,26 +48,11 @@ export const SpeakingBodyComponent = (
 
     const waveform = <WaveSurferPlayer urls={sampleAudios} height={200} />;
 
-    const cardContent = (
-      <>
-        <h3 className="font-light text-lg mb-3 border-b-2">
-          {speakingPart.Task.text}
-        </h3>
-        <ul className="list-inside ml-4">
-          {speakingPart.Questions.map((question, index) => (
-            <li key={index} className="list-disc mb-1">
-              {question}
-            </li>
-          ))}
-        </ul>
-      </>
-    );
+    const cardContent = <SpeakingCardComponent part={speakingPart} />;
 
     const pageBody = (element: JSX.Element) => (
       <div className="flex flex-col h-full justify-evenly items-center px-6">
-        <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
-          {element}
-        </div>
+        {element}
       </div>
     );
 
@@ -77,3 +76,18 @@ export const SpeakingBodyComponent = (
 
     return <>{renderSwitch(partIndex)}</>;
   };
+
+const SpeakingCardComponent = ({ part }: { part: SpeakingPartCard }) => {
+  return (
+    <div className="w-full max-w-xl bg-white rounded-xl shadow-backdrop py-4 px-6">
+      <h3 className="font-light text-lg mb-3 border-b-2">{part.Task.text}</h3>
+      <ul className="list-inside ml-4">
+        {part.Questions.map((question, index) => (
+          <li key={index} className="list-disc mb-1">
+            {question}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
