@@ -100,7 +100,7 @@ export const main: APIGatewayProxyHandler = async event => {
 
   // if the section is in progress
   if (sectionStudentAnswer.status === 'In progress') {
-    submit(
+    await submit(
       dynamoDb,
       userId,
       testId,

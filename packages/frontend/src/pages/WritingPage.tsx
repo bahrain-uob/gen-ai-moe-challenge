@@ -3,50 +3,34 @@ import { WritingQuestion } from '../components/WritingQuestion';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { Modal } from '../components/Modal';
 import { TitleRow } from '../components/TestComponents';
-import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import {
+  WritingAnswer,
+  WritingSection,
+} from '../../../functions/src/utilities/fullTestUtilities';
 import { CountdownTimer } from '../components/CountdownTimer';
 
 interface WritingPageProps {
   writingSection: WritingSection;
   submitAnswers: (answer: any) => void;
   autoSaveAnswers: (answer: any) => void;
-  savedAnswers?: any;
+  savedAnswers?: WritingAnswer['answer'];
   time: number;
 }
 
+type TaskKeys = 'P1' | 'P2';
+
 export const WritingPage: React.FC<WritingPageProps> = ({
-  writingSection: __writingSection,
+  writingSection,
   submitAnswers,
   autoSaveAnswers,
   savedAnswers,
   time,
 }) => {
-  const writingSection = {
-    task1: {
-      question: __writingSection.P1.Question,
-      graphDescription: __writingSection.P1.GraphDescription,
-      graphUrl: __writingSection.P1.GraphKey,
-    },
-    task2: {
-      question: __writingSection.P2.Question,
-    },
-  };
-
   console.log('Recieved answers', { savedAnswers });
 
-  const [currentTaskKey, setCurrentTaskKey] = useState<'task1' | 'task2'>(
-    'task1',
-  );
-  const [answers, setAnswers] = useState<{ task1: string; task2: string }>(
-    savedAnswers
-      ? {
-          task1: savedAnswers.P1,
-          task2: savedAnswers.P2,
-        }
-      : {
-          task1: '',
-          task2: '',
-        },
+  const [currentTaskKey, setCurrentTaskKey] = useState<TaskKeys>('P1');
+  const [answers, setAnswers] = useState<{ P1: string; P2: string }>(
+    savedAnswers ?? { P1: '', P2: '' },
   );
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -58,7 +42,7 @@ export const WritingPage: React.FC<WritingPageProps> = ({
     }));
   };
 
-  const handleTaskSwitch = (key: 'task1' | 'task2') => {
+  const handleTaskSwitch = (key: TaskKeys) => {
     setCurrentTaskKey(key);
   };
 
@@ -76,30 +60,28 @@ export const WritingPage: React.FC<WritingPageProps> = ({
       <span className={linkStyling + ' mr-auto'}>
         <CountdownTimer
           start_time={time}
-          onTimeUp={() =>
-            submitAnswers({ P1: answers.task1, P2: answers.task2 })
-          }
+          onTimeUp={() => submitAnswers(answers)}
         />
       </span>
       <button
         className={
           linkStyling +
-          (currentTaskKey === 'task1'
+          (currentTaskKey === 'P1'
             ? ' bg-black bg-opacity-40'
             : ' hover-darken')
         }
-        onClick={() => handleTaskSwitch('task1')}
+        onClick={() => handleTaskSwitch('P1')}
       >
         Task 1
       </button>
       <button
         className={
           linkStyling +
-          (currentTaskKey === 'task2'
+          (currentTaskKey === 'P2'
             ? ' bg-black bg-opacity-40'
             : ' hover-darken')
         }
-        onClick={() => handleTaskSwitch('task2')}
+        onClick={() => handleTaskSwitch('P2')}
       >
         Task 2
       </button>
@@ -108,8 +90,8 @@ export const WritingPage: React.FC<WritingPageProps> = ({
   const titleRow = (
     <TitleRow
       title="Writing Test"
-      onSubmit={() => submitAnswers({ P1: answers.task1, P2: answers.task2 })}
-      onSave={() => autoSaveAnswers({ P1: answers.task1, P2: answers.task2 })}
+      onSubmit={() => submitAnswers(answers)}
+      onSave={() => autoSaveAnswers(answers)}
     />
   );
 

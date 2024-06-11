@@ -107,7 +107,7 @@ export const main: APIGatewayProxyHandler = async event => {
       // if the time is up auto submit the section
       if (totalTime > examSections[section].time) {
         //auto-submitted
-        submit(
+        await submit(
           dynamoDb,
           userId,
           testId,
