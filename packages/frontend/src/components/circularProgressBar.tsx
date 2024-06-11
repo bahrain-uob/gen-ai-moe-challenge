@@ -34,9 +34,9 @@ const CircularProgressBar = ({
         <text
           x="50"
           y="50"
-          font-family="Verdana"
-          text-anchor="middle"
-          alignment-baseline="middle"
+          fontFamily="Verdana"
+          textAnchor="middle"
+          alignmentBaseline="middle"
           className=" text-[0.5rem] font-Inter  "
         >
           {percentage}%
