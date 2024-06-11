@@ -66,7 +66,7 @@ export const calculateFinalScore = (test: FullTestItem): number => {
 };
 
 export const getEuropeanFrameworkGrade = (bandScore: number): string => {
-  const CEFR = bandScore / 4;
+  const CEFR = bandScore;
   if (CEFR >= 8.5) {
     return 'C2';
   } else if (CEFR >= 7 && CEFR <= 8) {
