@@ -1,13 +1,7 @@
-import { LRQuestion } from './LRUtilities';
+import { Challenge } from './planTypes';
 
-export type Challenge = {
-  contextTitle:string;
-  context: string;
-  contextAudio?: string;
-  tasks: LRQuestion[];
-  type: 'Reading' | 'Listening' | 'Speaking' | 'Writing';
-  level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
-};
+
+
 
 export const sampleChallenge: Challenge = {
   contextTitle:"Transcipt",
