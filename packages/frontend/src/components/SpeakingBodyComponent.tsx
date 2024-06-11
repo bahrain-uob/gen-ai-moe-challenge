@@ -4,6 +4,8 @@ import {
 } from '../../../functions/src/utilities/fullTestUtilities';
 import WaveSurferPlayer from '../components/ListeningAudioPlayer';
 import { sampleAudios } from '../utilities/sampleFullTest';
+import { MicButton } from './MicButton';
+import { useMicRecorder } from './useMicRecorder';
 
 // type SpeakingPart = {
 //   Task: {
@@ -33,6 +35,9 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   //partIndex: number;
   //}
   {
+    const { isRecording, startRecording, stopRecording, audioBlob } =
+      useMicRecorder();
+
     console.log(speakingPart);
 
     const renderSwitch = (partIndex: number) => {
@@ -74,7 +79,17 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
       </div>
     );
 
-    return <>{renderSwitch(partIndex)}</>;
+    return (
+      <div className="flex flex-col h-full justify-evenly items-center px-6">
+        {renderSwitch(partIndex)}
+        <MicButton
+          className="shadow-backdrop"
+          onStop={stopRecording}
+          onStart={startRecording}
+          isRecording={isRecording}
+        />
+      </div>
+    );
   };
 
 const SpeakingCardComponent = ({ part }: { part: SpeakingPartCard }) => {

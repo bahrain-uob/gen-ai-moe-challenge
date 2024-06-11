@@ -54,17 +54,14 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [response, setResponse] = useState<string[]>([]);
 
-  const { isRecording, startRecording, stopRecording, audioBlob } =
-    useMicRecorder();
-
-  useEffect(() => {
-    if (audioBlob) {
-      const responseFile = generateFileName();
-      submitAudioFile(responseFile, audioBlob);
-      response.push(responseFile);
-      setResponse(response);
-    }
-  }, [audioBlob]);
+  // useEffect(() => {
+  //   if (audioBlob) {
+  //     const responseFile = generateFileName();
+  //     submitAudioFile(responseFile, audioBlob);
+  //     response.push(responseFile);
+  //     setResponse(response);
+  //   }
+  // }, [audioBlob]);
 
   /* Bar */
   const linkStyling =
@@ -121,26 +118,15 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
     />
   );
 
-  const contentScreen = (
-    <div>
-      <SpeakingBodyComponent
-        speakingPart={parts[partIndex]}
-        partIndex={partIndex}
-      />
-    </div>
-  );
-
   return (
     <>
       <div className="h-[6svh] bg-blue-4">{barContent}</div>
       <div className="h-[6svh] lg:h-[8svh]">{titleRow}</div>
-      <div className="flex flex-col h-full justify-evenly items-center px-6">
-        <div className="h-[82svh] lg:h-[80svh] w-screen">{contentScreen}</div>
-        <MicButton
-          className="shadow-backdrop"
-          onStop={stopRecording}
-          onStart={startRecording}
-          isRecording={isRecording}
+      <div className="h-[82svh] lg:h-[80svh] w-screen">
+        <SpeakingBodyComponent
+          key={`speaking-part-${partIndex}`}
+          speakingPart={parts[partIndex]}
+          partIndex={partIndex}
         />
       </div>
       <Modal
