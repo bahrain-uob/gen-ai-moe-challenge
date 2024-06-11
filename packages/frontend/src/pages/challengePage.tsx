@@ -4,6 +4,7 @@ import {
   QuestionsComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
+import {Button} from '../components/Button';
 
 const ChallengePage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -42,32 +43,33 @@ const ChallengePage: React.FC = () => {
 
       <div className="flex justify-between items-center mb-5">
         <div>
-          <button
-            className={`bg-white p-2 px-4 text-black shadow-md  my-5 mr-5 rounded-lg hover:cursor-pointer hover:bg-blue-4 hover:text-white ${
-              currentQuestionIndex === 0 ? 'bg-blue-400 text-white' : ''
-            }`}
+
+
+           <Button
             onClick={handlePrevious}
             disabled={currentQuestionIndex === 0}
+            NoBackground
+            isActive={currentQuestionIndex===0}
+            
           >
             Task 1
-          </button>
+          </Button>
 
-          <button
-            className={`bg-white p-2 px-4 text-black shadow-md  my-5 mr-5 rounded-lg hover:cursor-pointer hover:bg-blue-4 hover:text-white ${
-              currentQuestionIndex === sampleChallenge.tasks.length - 1
-                ? 'bg-blue-400 text-white'
-                : ''
-            }`}
+          <Button
             onClick={handleNext}
             disabled={currentQuestionIndex === sampleChallenge.tasks.length - 1}
+            NoBackground
+            isActive={currentQuestionIndex === sampleChallenge.tasks.length - 1}
           >
             Task 2
-          </button>
-        </div>
+          </Button>        </div>
 
-        <button className=" p-2 px-4 text-blue-4 border-blue-4 border bg-white my-5 rounded-lg hover:cursor-pointer hover:shadow-md ">
-          submit
-        </button>
+          <Button className="my-5" >
+          Submit
+        </Button>
+    
+
+       
       </div>
 
       {sampleChallenge.type === 'Listening' && sampleChallenge.contextAudio && (
