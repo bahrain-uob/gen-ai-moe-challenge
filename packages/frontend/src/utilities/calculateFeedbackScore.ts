@@ -3,7 +3,6 @@ import {
   SpeakingFeedbackAll,
   WritingFeedbackAll,
 } from '../../../functions/src/utilities/fullTestUtilities';
-import { sampleFullTest } from './sampleFullTest';
 import { isWSError } from './types';
 
 export const calculateWritingFeedbackScore = (feedback: WritingFeedbackAll | undefined) => {
