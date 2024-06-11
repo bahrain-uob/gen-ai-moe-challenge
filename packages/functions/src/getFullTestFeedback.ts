@@ -1,15 +1,11 @@
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
   GetCommand,
-  PutCommand,
-  UpdateCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { FullTestItem } from './utilities/fullTestUtilities';
-import test from 'node:test';
 
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
