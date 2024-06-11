@@ -5,10 +5,10 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { setCachedFeedback, useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
-import ReadingQuestions from './ReadingQuestionsPage';
-import SpeakingQuestions from './SpeakingQuestionsPage';
+import { ReadingQuestionsPage } from './ReadingQuestionsPage';
+import { SpeakingQuestionsPage } from './SpeakingQuestionsPage';
 import { Spinner } from '../components/Spinner';
-import { WritingPage } from './WritingPage';
+import { WritingQuestionsPage } from './WritingQuestionsPage';
 import { IntermediatePage } from '../components/IntermediatePage';
 import { ToastContainer, toast } from 'react-toastify';
 import {
@@ -226,7 +226,7 @@ export const FullTestPage = () => {
 
           case 'reading':
             out = (
-              <ReadingQuestions
+              <ReadingQuestionsPage
                 readingSection={state.data.question as ReadingSection}
                 submitAnswers={submitAnswers}
                 autoSaveAnswers={autoSaveAnswers}
@@ -238,7 +238,7 @@ export const FullTestPage = () => {
 
           case 'writing':
             out = (
-              <WritingPage
+              <WritingQuestionsPage
                 writingSection={state.data.question as WritingSection}
                 submitAnswers={submitAnswers}
                 autoSaveAnswers={autoSaveAnswers}
@@ -250,7 +250,7 @@ export const FullTestPage = () => {
 
           case 'speaking':
             out = (
-              <SpeakingQuestions
+              <SpeakingQuestionsPage
                 speakingSection={state.data.question as SpeakingSection}
                 submitAnswers={submitAnswers}
               />

@@ -15,7 +15,7 @@ import {
   submitAudioFile,
 } from '../utilities/speakingUtilities';
 
-interface SpeakingQuestionsProps {
+interface SpeakingQuestionsPageProps {
   speakingSection: SpeakingSection;
   submitAnswers: (answer: any) => void;
 }
@@ -41,7 +41,7 @@ type SpeakingPartsArray = [
   SpeakingPartAudio,
 ];
 
-const SpeakingQuestions: React.FC<SpeakingQuestionsProps> = ({
+export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
   speakingSection,
   submitAnswers,
 }) => {
@@ -151,5 +151,3 @@ const SpeakingQuestions: React.FC<SpeakingQuestionsProps> = ({
     </>
   );
 };
-
-export default SpeakingQuestions;
