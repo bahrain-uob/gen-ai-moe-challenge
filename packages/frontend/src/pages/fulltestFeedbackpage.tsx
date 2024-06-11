@@ -21,19 +21,9 @@ const fulltestFeedback = () => {
       const total = calculateFinalScore(sampleFullTest);
 
       // Determine what to display as the text based on the 'total' value
-      let bandscore;
-      if (total === 'error') {
-        bandscore = 'Error'; // Handle the error case
-      } else {
-        bandscore = total.toFixed(2); // Convert number to string and format it
-      }
-      let CEFRdis;
-      const CEFR= getEuropeanFrameworkGrade(sampleFullTest);
-      if (CEFR === 'error') {
-        CEFRdis = 'Error'; // Handle the error case
-      } else {
-        CEFRdis = CEFR; // Convert number to string and format it
-      }
+      const bandscore = total.toFixed(2); // Convert number to string and format it;
+      const CEFR = getEuropeanFrameworkGrade(total);;
+ 
 
   return (
     <div>
@@ -42,7 +32,7 @@ const fulltestFeedback = () => {
           value: 0 * 4,
           maxValue: 36,
           // TODO Don't hard-code a band score
-          text: CEFRdis,
+          text: CEFR,
         }}
         rightCircleProps={{
           value: 0 * 4,

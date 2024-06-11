@@ -6,85 +6,68 @@ import {
 import { sampleFullTest } from './sampleFullTest';
 import { isWSError } from './types';
 
-export const calculateWritingFeedbackScore = (feedback: WritingFeedbackAll) => {
-  if (isWSError(feedback[0]) || isWSError(feedback[1])) {
+export const calculateWritingFeedbackScore = (feedback: WritingFeedbackAll | undefined) => {
+
+  if(!feedback){
     return 0;
   }
+  const p1score = isWSError(feedback[0]) ? 0 : feedback[0].score;
+  const p2score = isWSError(feedback[1]) ? 0 : feedback[1].score;
+
   const writingfeedbackscore =
-    0.4 * feedback[0].score + 0.6 * feedback[1].score;
+    0.4 * p1score + 0.6 * p2score;
+
   return writingfeedbackscore;
 };
 
 export const calculateSpeakingFeedbackScore = (
-  feedback: SpeakingFeedbackAll,
+  feedback: SpeakingFeedbackAll | undefined,
 ) => {
-  if (
-    isWSError(feedback[0]) ||
-    isWSError(feedback[1]) ||
-    isWSError(feedback[2])
-  ) {
+  if (!feedback){
     return 0;
   }
-  const writingfeedbackscore =
-    0.3 * feedback[0].score + 0.3 * feedback[1].score + 0.4 * feedback[2].score; // this needs confirmation from the speaking team
-  return writingfeedbackscore;
+  const p1score = isWSError(feedback[0]) ? 0 : feedback[0].score;
+  const p2score = isWSError(feedback[1]) ? 0 : feedback[1].score;
+  const p3score = isWSError(feedback[2]) ? 0 : feedback[2].score;
+
+  const speakingfeedbackscore =
+    0.3 * p1score + 0.3 * p2score + 0.4 * p3score; // this needs confirmation from the speaking team
+    
+  return speakingfeedbackscore;
 };
 
-export const calculateFinalScore = (test: FullTestItem): number | 'error' => {
+export const calculateFinalScore = (test: FullTestItem): number => {
   const readingFeedback = test.readingAnswer?.feedback;
   const writingFeedback = test.writingAnswer?.feedback;
   const speakingFeedback = test.speakingAnswer?.feedback;
   const listeningFeedback = test.listeningAnswer?.feedback;
 
-  if (!readingFeedback || isWSError(readingFeedback)) {
-    return 'error';
-  }
-
-  if (
-    !writingFeedback ||
-    isWSError(writingFeedback[0]) ||
-    isWSError(writingFeedback[1])
-  ) {
-    return 'error';
-  }
-
-  if (
-    !speakingFeedback ||
-    isWSError(speakingFeedback[0]) ||
-    isWSError(speakingFeedback[1]) ||
-    isWSError(speakingFeedback[2])
-  ) {
-    return 'error';
-  }
-
-  if (!listeningFeedback || isWSError(listeningFeedback)) {
-    return 'error';
-  }
+  const writingScore = calculateWritingFeedbackScore(writingFeedback);
+  const speakingScore = calculateSpeakingFeedbackScore(speakingFeedback);
+  const readingScore = !readingFeedback || isWSError(readingFeedback) ? 0 : readingFeedback.BandScore;
+  const listeningScore = !listeningFeedback || isWSError(listeningFeedback) ? 0 : listeningFeedback.BandScore;
 
   const total =
-    readingFeedback.BandScore +
-    listeningFeedback.BandScore +
-    calculateWritingFeedbackScore(writingFeedback) +
-    calculateSpeakingFeedbackScore(speakingFeedback);
+    readingScore +
+    listeningScore +
+    writingScore +
+    speakingScore;
 
   return total / 4;
 };
 
 
-export const  getEuropeanFrameworkGrade = (test: FullTestItem): string | 'error' =>{
-  const result = calculateFinalScore(sampleFullTest);
-  if(result == 'error'){
-    return 'error';
-  }
-  else if (result >= 36) {
+export const  getEuropeanFrameworkGrade = (bandScore: number): string =>{
+  
+  if (bandScore >= 36) {
     return 'C2';
-  } else if (result >= 32) {
+  } else if (bandScore >= 32) {
     return 'C1';
-  } else if (result >= 28) {
+  } else if (bandScore >= 28) {
     return 'B2';
-  } else if (result >= 24) {
+  } else if (bandScore >= 24) {
     return 'B1';
-  } else if (result >= 20) {
+  } else if (bandScore >= 20) {
     return 'A2';
   } else {
     return 'A1';
