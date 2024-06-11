@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { sampleChallenge } from '../utilities/sampleChallenge';
 import {
-  QuestionsComponent,
+  renderQuestionComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import {Button} from '../components/Button';
@@ -23,16 +23,16 @@ const ChallengePage: React.FC = () => {
   const renderCurrentQuestion = () => {
     return (
       <>
-        <QuestionsComponent
-          questions={[sampleChallenge.tasks[currentQuestionIndex]]}
-          answers={[answers[currentQuestionIndex]]}
-          setAnswers={newAnswers => {
-            const updatedAnswers = [...answers];
-            updatedAnswers[currentQuestionIndex] = newAnswers[0];
-            setAnswers(updatedAnswers);
-          }}
-          showCorrectAnswer={false}
-        />
+        {renderQuestionComponent(
+        sampleChallenge.tasks[currentQuestionIndex],
+        answers[currentQuestionIndex],
+        (newAnswer) => {
+          const updatedAnswers = [...answers];
+          updatedAnswers[currentQuestionIndex] = newAnswer;
+          setAnswers(updatedAnswers);
+        },
+        false
+      )}
       </>
     );
   };
