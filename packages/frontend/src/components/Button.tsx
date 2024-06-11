@@ -1,15 +1,17 @@
+import { Link, To } from 'react-router-dom';
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   isTransparent?: boolean;
   NoBackground?: boolean;
   isActive?: boolean;
+  to?: To;
 };
 
 export const Button: React.FC<ButtonProps> = ({
   isTransparent = false,
   NoBackground = false,
   isActive = false,
-
-  
+  to,
   ...props
 }) => {
   const style = NoBackground
@@ -20,7 +22,8 @@ export const Button: React.FC<ButtonProps> = ({
 
     const activeStyle = isActive ? 'bg-blue-300 text-white border-blue-3' : '';
     /*for some reason the blue-3 does not work , kept is as blue-300 for now should be modified */
-  return (
+
+  const button = (
     <button
       {...props}
       type="button"
@@ -29,4 +32,6 @@ export const Button: React.FC<ButtonProps> = ({
         transition-colors duration-200 sm:ml-3 sm:w-auto ${style} ${activeStyle}`}
     ></button>
   );
+
+  return to ? <Link to={to}>{button}</Link> : button;
 };
