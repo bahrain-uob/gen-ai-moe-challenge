@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import {
   ListeningSection,
   ReadingSection,
+  SpeakingSection,
   WritingAnswer,
   WritingSection,
   getQuestionResponse,
@@ -250,7 +251,7 @@ export const FullTestPage = () => {
           case 'speaking':
             out = (
               <SpeakingQuestions
-                speakingSection={state.data.question}
+                speakingSection={state.data.question as SpeakingSection}
                 submitAnswers={submitAnswers}
               />
             );

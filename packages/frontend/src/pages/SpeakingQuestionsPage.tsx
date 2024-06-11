@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
-import { SpeakingSection } from '../../../functions/src/utilities/fullTestUtilities';
+import {
+  SpeakingPartAudio,
+  SpeakingPartCard,
+  SpeakingSection,
+} from '../../../functions/src/utilities/fullTestUtilities';
 import { SpeakingBodyComponent } from '../components/SpeakingBodyComponent';
 import { MicButton } from '../components/MicButton';
 import { useMicRecorder } from '../components/useMicRecorder';
@@ -31,11 +35,21 @@ interface AnswersInterface {
   };
 }
 
+type SpeakingPartsArray = [
+  SpeakingPartAudio,
+  SpeakingPartCard,
+  SpeakingPartAudio,
+];
+
 const SpeakingQuestions: React.FC<SpeakingQuestionsProps> = ({
   speakingSection,
   submitAnswers,
 }) => {
-  const parts = [speakingSection.P1, speakingSection.P2, speakingSection.P3];
+  const parts: SpeakingPartsArray = [
+    speakingSection.P1,
+    speakingSection.P2,
+    speakingSection.P3,
+  ];
   const [partIndex, setPartIndex] = useState(0);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [response, setResponse] = useState<string[]>([]);
