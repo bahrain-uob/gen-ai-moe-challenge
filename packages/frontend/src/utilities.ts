@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
+import { formatRelative, subDays } from 'date-fns';
 
 // Note: I'm using requets type any, because I couldn't find a way to import
 // types from amplify
@@ -23,4 +24,9 @@ export const useSocketUrl = (): string | undefined => {
 
   // console.log(`URL is ${import.meta.env.VITE_WEBSOCKET_URL}?idToken=${token}`);
   return `${import.meta.env.VITE_WEBSOCKET_URL}?idToken=${token}`;
+};
+
+export const getRelativeTime = (examId: string): string => {
+  const date = new Date(Number(examId.split('-')[0]));
+  return formatRelative(subDays(date, 3), date);
 };
