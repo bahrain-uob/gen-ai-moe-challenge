@@ -101,7 +101,7 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the time is up auto submit the section
     if (totalTime > section.time) {
       //auto-submitted
-      await submit(
+      const submitValue = submit(
         dynamoDb,
         userId,
         testId,
@@ -122,6 +122,7 @@ export const main: APIGatewayProxyHandler = async event => {
       });
       await apiClient.send(autoSubmittedCommand);
       console.log('Auto-Submitting ', type);
+      await submitValue;
       return { statusCode: 200, body: 'Auto-Submitted' };
     }
     // else return the question and saved answer to continue
