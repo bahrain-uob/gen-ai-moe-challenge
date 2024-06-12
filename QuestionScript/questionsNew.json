@@ -6213,5 +6213,484 @@
         }
       }
     }
+  ],
+  "writingChallengeB2": [
+    {
+      "context": {
+        "S": "This gorgeous brown sofa made by grandsofas.com is excellent quality and extremely comfortable. It is in immaculate condition (see photo) and comes with a 25-yr guarantee. Material is cotton and it has a cool modern feel. Cushion covers are all removable and machine washable, with a quality foam filling, and it's super comfortable. Keeps its shape when you sit on it. The dark-coloured wooden legs can be easily removed to allow the sofa to fit through a standard doorway. No wear and tear as we've only had it for two years and kept it in good condition. Sofa comes from a smoke-free, pet-free home. Only selling it due to moving house as the new place isn't big enough for the sofa. Sofa measurements: Width: 182 cm, Overall height: 81 cm, Height without legs: 63 cm. Any questions, feel free to ask. Asking price: £250. **For collection ONLY**"
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Are the sentences true or false?"
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " Short adverts with the key details work best. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Don't give information about the condition of the item. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " Use clear paragraphs. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " You mustn't use bullet points. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Delivery information isn't necessary. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " You must always write in complete sentences. "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A Perfect\nB Square\nC due to\nD nearest\nE wear and tear\nF immediate\nG collection\nH design"
+          },
+          "ListTitle": {
+            "S": "List of words:"
+          },
+          "NumOfSubQuestions": {
+            "N": "8"
+          },
+          "Question": {
+            "S": "Complete the advert."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "Beautiful large white coffee table for -answer- sale."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "H"
+                  },
+                  "QuestionText": {
+                    "S": "Good condition. Sleek, modern -answer- with a solid wood base and a glass top."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": " -answer- shape, 120 x 120 x 50 cm."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": " -answer- for books, magazines, drinks or plates of snacks."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "Minor -answer- , not really noticeable."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "Selling -answer- moving house."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "Please call or message Alex at 09876 543210 to view. Asking price £50 or -answer- offer."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "G"
+                  },
+                  "QuestionText": {
+                    "S": "For -answer- only."
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
   ]
 }
