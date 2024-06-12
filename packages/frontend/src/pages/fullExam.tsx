@@ -1,14 +1,38 @@
+import { previousTestsList } from '../../../functions/src/utilities/fullTestUtilities';
 import Card from '../sections/currentExamCard';
 import PastTests from '../sections/pastTests';
+import { getRelativeTime } from '../utilities';
 
-const fullExam = () => {
+const fullExam = ({ list }: { list: previousTestsList }) => {
+  list = {
+    inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+    previous: [
+      {
+        score: 6,
+        testId: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+      },
+      {
+        score: 8,
+        testId: '1718026141537-c73c456c-13c8-47c3-8041-73dcad97390a',
+      },
+      {
+        score: 3,
+        testId: '1718088630445-12d5e02f-6e45-44c6-8a10-2a219014b0d7',
+      },
+      {
+        score: 0,
+        testId: '1718097841094-d099c101-2205-4e67-988f-ffd24d744ed6',
+      },
+    ],
+  };
+
   return (
     <>
       <section className="w-full h-4/6 flex justify-center my-8">
         <Card
-          title="IELTS - Full Exam"
+          title="IELTS - Full Test"
           remTime="34 : 21"
-          startDate="13-04-24"
+          startDate={getRelativeTime(list.inProgress)}
           timing="Remaining Time"
         />
       </section>
