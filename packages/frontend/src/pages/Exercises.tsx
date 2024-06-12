@@ -61,3 +61,24 @@ const Exercises: React.FC = () => {
 };
 
 export default Exercises;
+
+const entryTitle = (title: string, score: number) => (
+  <>
+    <div className="flex items-center justify-between max-md:flex-col max-md:items-start w-full">
+      <span className="font-light max-md:mb-2">{title}</span>
+      {/* <div className="w-1/2 bg-blue-1 h-full"></div> */}
+      <div className="bg-blue-1 flex w-1/2 max-md:w-full rounded-xl">
+        <div
+          className="bg-blue-4 inline-block h-4 rounded-xl"
+          style={{ width: ((score / 9) * 100).toFixed(2) + '%' }}
+        ></div>
+      </div>
+      {/* <div className="w-1/2 bg-blue-1">
+        <div
+          className="inline-block bg-blue-4 h-4 mr-4"
+          style={{ width: (score / 9) * 100 + '%' }}
+        ></div>
+      </div> */}
+    </div>
+  </>
+);
