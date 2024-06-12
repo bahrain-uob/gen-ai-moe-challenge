@@ -30,3 +30,28 @@ export const getRelativeTime = (examId: string): string => {
   const date = new Date(Number(examId.split('-')[0]));
   return formatRelative(subDays(date, 3), date);
 };
+
+////// Full Test Feedback Cache //////
+const getFeedbackKey = (testId: string) => `FeedbackItem-${testId}`;
+
+/**
+ * Pull cached feedback from browser storage
+ *
+ * @param testId  The `id` of the test.
+ * @returns the full test item if it exists, null otherwise
+ */
+export const getCachedFeedback = (testId: string) => {
+  const localData = sessionStorage.getItem(getFeedbackKey(testId));
+  if (localData) console.log('Using cached', { localData });
+  return localData ? JSON.parse(localData) : localData;
+};
+
+/**
+ * Cach feedback in browser storage.
+ *
+ * @param feedback  The feedback to store in cache
+ * @param testId  The `id` of the test.
+ */
+export const setCachedFeedback = (feedback: any, testId: string) => {
+  sessionStorage.setItem(getFeedbackKey(testId), JSON.stringify(feedback));
+};

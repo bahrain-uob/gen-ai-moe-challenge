@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from '../components/TButton';
+import { setCachedFeedback } from '../utilities';
+import { sampleFullTest } from '../utilities/sampleFullTest';
 
 const sections = () => (
   <>
@@ -38,8 +40,13 @@ const sections = () => (
     <Link to="/full-test">
       <Button label="full test" />
     </Link>
-    <Link to="/feedback/somethin">
-      <Button label="Feedback" />
+    <Link
+      to="/feedback/1717941628284-sample"
+      onClick={() =>
+        setCachedFeedback({ fullItem: sampleFullTest }, '1717941628284-sample')
+      }
+    >
+      <Button label="Sample Feedback" />
     </Link>
   </>
 );

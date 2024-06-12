@@ -192,7 +192,9 @@ const triggerGrading = async (
     if (!isSectionTest(test)) {
       const finalScore = calculateFinalScore(test);
       await endTest(DBClient, test.PK, test.SK, 'full', finalScore);
-      toPublish = updatedTest;
+      toPublish = {
+        fullItem: updatedTest,
+      };
     }
   }
 
