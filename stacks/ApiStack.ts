@@ -116,8 +116,7 @@ export function ApiStack({ stack }: StackContext) {
         'packages/functions/src/getFullTestFeedback.main',
 
       // get the list of previous tests
-      'GET /previousTest/{type}':
-        'packages/functions/src/getPreviousTests.main',
+      'GET /previousTest': 'packages/functions/src/getPreviousTests.main',
     },
   });
 
