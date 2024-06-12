@@ -11,7 +11,7 @@ const fullExam = ({
   type = 'full',
 }: {
   list?: previousTestsList;
-  type: testType | 'full';
+  type?: testType | 'full'; // remove optional parameter
 }) => {
   list = {
     inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
