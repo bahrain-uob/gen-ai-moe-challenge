@@ -11,7 +11,6 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
 import PlacementTest from './pages/PLTestPage.tsx';
 import { Layout } from './Layout.tsx';
@@ -29,6 +28,7 @@ import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
 import fulltestFeedback from './pages/fulltestFeedbackpage.tsx';
+import { PreviousTests } from './pages/PerviousTests.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -87,7 +87,7 @@ const notLandingRoutes: RouteObject[] = [
 
   {
     path: '/full-exam',
-    Component: FullExam,
+    Component: PreviousTests,
   },
   {
     path: '/test',
