@@ -56,6 +56,9 @@ const Exercises: React.FC = () => {
         ))}
       </Stepper>
       </div>
+      <div className='w-1/2 m-10'>
+      {buttonLabels.map(button => entryTitle(button, 5))}
+      </div>
     </main>
   );
 };
