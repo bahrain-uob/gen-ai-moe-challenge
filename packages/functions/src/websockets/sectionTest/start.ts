@@ -122,11 +122,14 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: type + 'Tests',
+        SK: 'Tests',
       },
-      UpdateExpression: 'SET inProgress = :testID',
+      UpdateExpression: 'SET #type.inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
+      },
+      ExpressionAttributeNames: {
+        '#type': type,
       },
     });
 

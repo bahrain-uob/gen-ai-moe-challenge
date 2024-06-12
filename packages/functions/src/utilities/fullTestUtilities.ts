@@ -274,19 +274,20 @@ export type startSectionTestResponse = {
   };
 };
 
-export type previousTests = {
+export type previousTestsLists = {
   PK: string; // the user id
-  SK: previousTestTypes;
+  SK: 'Tests';
+  full?: previousTestsList;
+  listening?: previousTestsList;
+  reading?: previousTestsList;
+  writing?: previousTestsList;
+  speaking?: previousTestsList;
+};
+
+export type previousTestsList = {
   inProgress: string; // Test id
   previous: {
     score: number;
     testId: string;
   }[];
 };
-
-export type previousTestTypes =
-  | 'fullTests'
-  | 'writingTests'
-  | 'readingTests'
-  | 'listeningTests'
-  | 'speakingTests';

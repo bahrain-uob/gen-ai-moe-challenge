@@ -111,15 +111,11 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: 'Tests',
       },
-      UpdateExpression: 'SET inProgress = :testID', //list_append(if_not_exists(#testType, :init), :testID)',
-      // ExpressionAttributeNames: {
-      //   '#testType': 'fullTests',
-      // },
+      UpdateExpression: 'SET full.inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
-        // ':init': [],
       },
     });
 
