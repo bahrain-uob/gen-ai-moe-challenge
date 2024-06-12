@@ -1,17 +1,10 @@
 import { previousTests } from '../../../functions/src/utilities/fullTestUtilities';
 import Card from '../components/pastTestCard';
-import { getRelativeTime } from '../utilities';
 
 const pastTests = ({ previousTests }: { previousTests: previousTests }) => {
   const rendered = previousTests.reverse().map((test, index) => {
     console.log(test);
-    return (
-      <Card
-        grade={test.score}
-        startTime={getRelativeTime(test.testId)}
-        key={index}
-      />
-    );
+    return <Card grade={test.score} testId={test.testId} key={index} />;
   });
 
   return (

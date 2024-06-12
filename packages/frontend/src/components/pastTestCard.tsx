@@ -1,4 +1,5 @@
 import Button from '../components/FButton';
+import { getRelativeTime } from '../utilities';
 
 const getColor = (grade: number): string => {
   if (grade < 5.5) {
@@ -10,13 +11,7 @@ const getColor = (grade: number): string => {
   }
 };
 
-const pastTestCard = ({
-  grade,
-  startTime,
-}: {
-  grade: number;
-  startTime: string;
-}) => {
+const pastTestCard = ({ grade, testId }: { grade: number; testId: string }) => {
   const color = getColor(grade);
 
   return (
@@ -31,11 +26,12 @@ const pastTestCard = ({
       </div>
       <div className="w-full h-1/3 flex flex-col pt-8 text-2xl max-md:text-base">
         <div className="w-full h-full flex flex-row justify-around pl-4 font-semibold">
-          <h3>Submitted {startTime}</h3>
+          <h3>Submitted {getRelativeTime(testId)}</h3>
         </div>
       </div>
       <div className="w-full h-1/3 flex justify-center items-center">
-        <Button label="View Report" tag="3B828E" />
+        <Button label="View Report" tag="3B828E" />{' '}
+        {/* TODO: Add a link to /feedback/{testId} */}
       </div>
     </div>
   );
