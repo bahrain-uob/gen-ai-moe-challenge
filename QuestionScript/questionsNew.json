@@ -3968,7 +3968,7 @@
   "listeningChallengeB2": [
     {
       "context": {
-        "S": "readingChallengeB2-1.mp3"
+        "S": "listeningChallengeB2-1.mp3"
       },
       "task1": {
         "M": {
@@ -4341,6 +4341,848 @@
                   },
                   "QuestionText": {
                     "S": "to expand -answer-"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "context": {
+        "S": "listeningChallengeB2-2.mp3"
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Are the sentences true or false?"
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " They have redesigned an old product. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " The product is aimed at men and women aged 18–40. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " The new design means you don't need two hands to use it. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " There's only one size now. Another one will follow in a few months. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " They will make a Gantt chart for the project next month. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " He finished the presentation with enough time to take some questions. "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A Do you have any questions?\nB As you can see ..., / You'll notice that ...\nC In summary, ...\nD As you know, ...\nE Firstly, ... / Next, ...\nF I'd now like to tell you about ...\nG Finally, I'm going to talk to you about ...\nH I'd like to talk you through the following (three) points"
+          },
+          "ListTitle": {
+            "S": "List of phrases:"
+          },
+          "NumOfSubQuestions": {
+            "N": "8"
+          },
+          "Question": {
+            "S": "Match the useful phrases with the tips."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "Refer to the audience's knowledge -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "Refer to what images you are showing -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "H"
+                  },
+                  "QuestionText": {
+                    "S": "Tell them the structure of your presentation -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "Use signal words to help them follow you -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "Tell them when you're moving on -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "G"
+                  },
+                  "QuestionText": {
+                    "S": "Show them when you're near the end -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "Tell them the main points one last time -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      },
+                      {
+                        "S": "G"
+                      },
+                      {
+                        "S": "H"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Open up the discussion -answer-"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "context": {
+        "S": "listeningChallengeB2-3.mp3"
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Are the sentences true or false?"
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " We try to motivate workers in the same way that we try to motivate our children. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " In the Glucksberg experiment, the people who were offered a reward finished faster than people who were not offered one. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " The people who were offered smaller rewards in Ariely's experiment performed better than those offered bigger rewards. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " In Ariely's experiment, people were more creative when they were concentrating on achieving a goal. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " In the future, jobs will require workers to be more creative. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " People always work better when they start the day later and work into the night. "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A they are not given an incentive.\nB they are doing the jobs of the future.\nC the experiment is repeated.\nD they are doing a simple task.\nE they can make choices about their work.\nF they are offered a bigger reward"
+          },
+          "ListTitle": {
+            "S": "List of sentence halves:"
+          },
+          "NumOfSubQuestions": {
+            "N": "6"
+          },
+          "Question": {
+            "S": "Match the sentence halves."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Glucksberg's experiment shows that people solve a problem faster when -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "Ariely's experiment shows that people are less creative when -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "The same results as Glucksberg's experiment have been found when -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "An incentive works for people when -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "Incentives will no longer work for motivating people at work when -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "The example of the big tech companies shows that people work better when -answer-"
                   }
                 }
               }
