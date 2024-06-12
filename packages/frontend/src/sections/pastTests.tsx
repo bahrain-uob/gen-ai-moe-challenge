@@ -1,6 +1,19 @@
+import { previousTests } from '../../../functions/src/utilities/fullTestUtilities';
 import Card from '../components/pastTestCard';
+import { getRelativeTime } from '../utilities';
 
-const pastTests = () => {
+const pastTests = ({ previousTests }: { previousTests: previousTests }) => {
+  const rendered = previousTests.reverse().map((test, index) => {
+    console.log(test);
+    return (
+      <Card
+        grade={test.score}
+        startTime={getRelativeTime(test.testId)}
+        key={index}
+      />
+    );
+  });
+
   return (
     <section className="h-full pb-6">
       <div className="w-full h-1/6 px-4 pb-8">
@@ -15,9 +28,7 @@ const pastTests = () => {
       </div>
 
       <div className="w-full flex flex-row flex-wrap gap-5 justify-between px-32 gap-y-9 max-[972px]:justify-center max-xl:px-7">
-        <Card grade={7.5} time="23 : 41" submitTime={`27-03-24`} />
-        <Card grade={3.5} time="23 : 41" submitTime={`27-03-24`} />
-        <Card grade={6.5} time="23 : 41" submitTime={`27-03-24`} />
+        {rendered}
       </div>
     </section>
   );

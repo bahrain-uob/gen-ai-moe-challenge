@@ -3,7 +3,7 @@ import Card from '../sections/currentExamCard';
 import PastTests from '../sections/pastTests';
 import { getRelativeTime } from '../utilities';
 
-const fullExam = ({ list }: { list: previousTestsList }) => {
+const fullExam = ({ list }: { list?: previousTestsList }) => {
   list = {
     inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
     previous: [
@@ -38,7 +38,7 @@ const fullExam = ({ list }: { list: previousTestsList }) => {
       </section>
 
       <section className="h-1/2">
-        <PastTests />
+        <PastTests previousTests={list.previous} />
       </section>
     </>
   );

@@ -286,8 +286,10 @@ export type previousTestsLists = {
 
 export type previousTestsList = {
   inProgress: string; // Test id
-  previous: {
-    score: number;
-    testId: string;
-  }[];
+  previous: previousTests;
 };
+
+export type previousTests = {
+  score: number;
+  testId: string;
+}[];
