@@ -28,7 +28,11 @@ const pastTests = ({ previousTests }: { previousTests: previousTests }) => {
       </div>
 
       <div className="w-full flex flex-row flex-wrap gap-5 justify-between px-32 gap-y-9 max-[972px]:justify-center max-xl:px-7">
-        {rendered}
+        {previousTests.length > 0 ? (
+          rendered
+        ) : (
+          <h3 className="text-4xl font-bold">No previous tests</h3>
+        )}
       </div>
     </section>
   );
