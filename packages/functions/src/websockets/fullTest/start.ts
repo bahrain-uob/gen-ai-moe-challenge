@@ -113,14 +113,44 @@ export const main: APIGatewayProxyHandler = async event => {
         PK: userId,
         SK: 'Tests',
       },
-      UpdateExpression: 'SET full.inProgress = :testID',
+      UpdateExpression: 'SET #type.inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
       },
+      ExpressionAttributeNames: {
+        '#type': 'full',
+      },
     });
 
+    // this will try to update if type attribute does not exist it will raise an error
+    // so we will catch it and initialize the type attribute
     await dynamoDb.send(putCommand);
-    await dynamoDb.send(updatePreviousTestsCommand);
+    try {
+      await dynamoDb.send(updatePreviousTestsCommand);
+    } catch (err: any) {
+      if (err.name === 'ValidationException') {
+        const initType = new UpdateCommand({
+          TableName: Table.Records.tableName,
+          Key: {
+            PK: userId,
+            SK: 'Tests',
+          },
+          UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
+          ExpressionAttributeValues: {
+            ':init': {
+              inProgress: testID,
+              previous: [],
+            },
+          },
+          ExpressionAttributeNames: {
+            '#type': 'full',
+          },
+        });
+        await dynamoDb.send(initType);
+      } else {
+        throw err;
+      }
+    }
 
     const listeningQuestion = await filterQuestion(questions.listening);
     console.log('Listening Question:', listeningQuestion);
