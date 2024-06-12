@@ -5191,5 +5191,1027 @@
         }
       }
     }
+  ],
+
+  "readingChallengeB2": [
+    {
+      "context": {
+        "S": "Sam squinted against the sun at the distant dust trail raked up by the car on its way up to the Big House. The horses kicked and flicked their tails at flies, not caring about their owner's first visit in ten months. Sam waited. Mr Carter didn't come out here unless he had to, which was just fine by Sam. The more he kept out of his boss's way, the longer he'd have a job. Carter came by later while Sam was chopping wood. Carter lifted his hat as if he were waiting for an appointment with the town priest, and then removed it completely as if he were talking to his mother. He pulled out a pile of paper from his back pocket and held it out. 'Don't pick up your mail often, do you?' Sam took it without a glance and dropped the envelopes onto the bench. 'Never,' he replied and waited for Carter to say why he was here. The fact it was Carter's house was no explanation and they both knew it. Carter twisted his hat round and round, licking his lips and clearing his throat. 'Nice work fixing those fences,' he said finally. 'I'll be back to the beginning soon,' Sam said. It wasn't a complaint. A fence that took a year to repair meant another year's work to the man who did it well. 'Don't you ever want to take a holiday?' 'And go where?' A holiday meant being back out in the real world, a place even people like Carter travelled to escape from. Sam's escape was his reality and he wasn't going back. Mr Carter wiped the sweat from the back of his neck. The damp patches on his shirt drew together like shapes in an atlas. His skin was already turning ruddy in the June sun. Otherwise he had the indoor tan of a man that made money while other people did the work. 'I've brought my son with me on this trip. He's had some trouble at school.' Mr Carter's eyes flicked up, blinked rapidly and then shifted back to the hat occupying his hands. 'Not much trouble out here for a young boy.' He attempted a laugh but it came out like a dog's bark. The two men looked towards the northern end of the property. It stretched as far as the eye could see. Even the fences were barely visible from where they stood. However bored and rebellious a teenage boy might get, it wasn't possible to escape on foot. Sam looked at the biggest of the horses, kicking at the ground with its heavy hooves. Could the boy ride? he wondered. There was a whole load of trouble a good rider could get into out here, miles away from anyone. But maybe there was even more trouble for someone who knew nothing about horses and wanted to get away from his father."
+      },
+      "task1": {
+        "M": {
+          "List": {
+            "S": "A Lives on the farm\nB Owns the farm\nC Has done something wrong"
+          },
+          "ListTitle": {
+            "S": "List of descriptions:"
+          },
+          "NumOfSubQuestions": {
+            "N": "3"
+          },
+          "Question": {
+            "S": "Match the descriptions with the characters."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Sam -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "Mr Carter -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "Mr Carter's son -answer-"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Choose the best answer."
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - Uninterested"
+                              },
+                              {
+                                "S": "B - Surprised"
+                              },
+                              {
+                                "S": "C - Afraid"
+                              },
+                              {
+                                "S": "D - Curious"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "A - Uninterested"
+                          },
+                          "QuestionText": {
+                            "S": " What is Sam's reaction to his letters? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - He feels safer on the farm."
+                              },
+                              {
+                                "S": "B - He can't afford it."
+                              },
+                              {
+                                "S": "C - He hasn't finished repairing the fences."
+                              },
+                              {
+                                "S": "D - He doesn't know where to choose."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "A - He feels safer on the farm."
+                          },
+                          "QuestionText": {
+                            "S": " Why does Sam not take holidays from work? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - He works hard."
+                              },
+                              {
+                                "S": "B - He's rich."
+                              },
+                              {
+                                "S": "C - He has tanned skin."
+                              },
+                              {
+                                "S": "D - He loves horses."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B - He's rich."
+                          },
+                          "QuestionText": {
+                            "S": " What can we guess about Mr Carter? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - He might leave on foot."
+                              },
+                              {
+                                "S": "B - He might do something dangerous while riding."
+                              },
+                              {
+                                "S": "C - He might break the fences."
+                              },
+                              {
+                                "S": "D - He might get into trouble with the neighbours."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B - He might do something dangerous while riding."
+                          },
+                          "QuestionText": {
+                            "S": " What does Sam think Carter's son might do during his stay at the farm? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - Angry"
+                              },
+                              {
+                                "S": "B - Impatient"
+                              },
+                              {
+                                "S": "C - Nervous"
+                              },
+                              {
+                                "S": "D - Excited"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C - Nervous"
+                          },
+                          "QuestionText": {
+                            "S": " How does Mr Carter feel while he's talking to Sam in this scene? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - Because he wants to give Sam his mail."
+                              },
+                              {
+                                "S": "B - Because he needs to check on the work on the fences."
+                              },
+                              {
+                                "S": "C - Because his son has had problems at school."
+                              },
+                              {
+                                "S": "D - Because his son needs a holiday."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C - Because his son has had problems at school."
+                          },
+                          "QuestionText": {
+                            "S": " Why has Mr Carter come to his house? "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "context": {
+        "S": "Hi! I've been meaning to write for ages and finally today I'm actually doing something about it. Not that I'm trying to make excuses for myself, it's been really hard to sit down and write, as I've been moving around so much. Since we last saw each other I've unpacked my bags in four different cities. This job has turned out to be more of a whirlwind than I expected, but it's all good! I went from London to Prague to set up a new regional office there. You know I'd always wanted to go, but maybe I was imagining Prague in spring when I used to talk about that. Winter was really hard, with minus 15 degrees in the mornings and dark really early in the evening. But at least it was blue skies and white snow and not days on end of grey skies and rain, like at home. It's tough being away from home over Christmas, though, and Skype on Christmas Day wasn't really the same as being with everyone. From there I was on another three-month mission to oversee the set-up of the office in New York. Loved, loved, loved New York! It's like being in one big TV show, as everywhere looks just a little bit familiar. I did every tourist thing you can think of when I wasn't working, and must have spent most of my salary on eating out. It was really hard to leave for the next job, especially as I kind of met someone (!) More about Michael later ... So then I was posted to LA, which felt like a whole other country compared with the East Coast. I could definitely get used to that kind of outdoor, beach lifestyle, but I didn't spend as much time getting to know California as I could have because I was flying back to see Michael every other weekend. He came to see me when he could, but his job means he's often working at weekends, so he couldn't make the flight very often. Those three months flew by and then I was off again, to Frankfurt, which is where I am now. And … so is Michael! He got a month off work and we're trying to work out how we can be in the same place at the same time for a while. We figure the first step in that direction is getting married, which is also why I wanted to write – I can't get married without my oldest friend there! The wedding's going to be at home in London in September and I hope you can come! Anyway, tell me all your news and I promise not to leave it so long this time! Lots of love, Kath"
+      },
+      "task1": {
+        "M": {
+          "List": {
+            "S": "A London\nB New York\nC Frankfurt\nD Prague\nE LA"
+          },
+          "ListTitle": {
+            "S": "List of cities:"
+          },
+          "NumOfSubQuestions": {
+            "N": "5"
+          },
+          "Question": {
+            "S": "Match the cities with the descriptions."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Where she will get married -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "A city that wasn't what she expected -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "An expensive place -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "A place she didn't really see much of -answer-"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "The most recent city she's lived in -answer-"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Choose the correct answers."
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - making an effort to email people she knows."
+                              },
+                              {
+                                "S": "B - too busy to even think about writing emails."
+                              },
+                              {
+                                "S": "C - thinking about writing an email to her friend."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C - thinking about writing an email to her friend."
+                          },
+                          "QuestionText": {
+                            "S": " Recently, Kath has been ..."
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - better than Kath imagined."
+                              },
+                              {
+                                "S": "B - just as Kath imagined."
+                              },
+                              {
+                                "S": "C - not as nice as Kath imagined."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "C - not as nice as Kath imagined."
+                          },
+                          "QuestionText": {
+                            "S": " Prague was ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - exciting because she was in a new place."
+                              },
+                              {
+                                "S": "B - difficult because she missed her family."
+                              },
+                              {
+                                "S": "C - as good as usual thanks to technology."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B - difficult because she missed her family."
+                          },
+                          "QuestionText": {
+                            "S": " Kath says Christmas was ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - tourist attractions."
+                              },
+                              {
+                                "S": "B - restaurants."
+                              },
+                              {
+                                "S": "C - a TV."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B - restaurants."
+                          },
+                          "QuestionText": {
+                            "S": " In New York, she spent most of her money on ... "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - It's nice for a holiday but not to live."
+                              },
+                              {
+                                "S": "B - She would have enjoyed spending more time at the beach."
+                              },
+                              {
+                                "S": "C - She didn't really like the beach part of the LA lifestyle."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "B - She would have enjoyed spending more time at the beach."
+                          },
+                          "QuestionText": {
+                            "S": " How did Kath feel about LA? "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "A - thinking about how to spend more time together."
+                              },
+                              {
+                                "S": "B - working out where to hold the wedding."
+                              },
+                              {
+                                "S": "C - planning to get engaged."
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "A - thinking about how to spend more time together."
+                          },
+                          "QuestionText": {
+                            "S": " Kath and Michael are ... "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "context": {
+        "S": "In Britain, the average person spends more than £1,000 on new clothes a year, which is around four per cent of their income. That might not sound like much, but that figure hides two far more worrying trends for society and for the environment. First, a lot of that consumer spending is via credit cards. British people currently owe approximately £670 per adult to credit card companies. That's 66 per cent of the average wardrobe budget. Also, not only are people spending money they don't have, they're using it to buy things they don't need. Britain throws away 300,000 tons of clothing a year, most of which goes into landfill sites. People might not realise they are part of the disposable clothing problem because they donate their unwanted clothes to charities. But charity shops can't sell all those unwanted clothes. 'Fast fashion' goes out of fashion as quickly as it came in and is often too poor quality to recycle; people don't want to buy it second-hand. Huge quantities end up being thrown away, and a lot of clothes that charities can't sell are sent abroad, causing even more economic and environmental problems. However, a different trend is springing up in opposition to consumerism – the 'buy nothing' trend. The idea originated in Canada in the early 1990s and then moved to the US, where it became a rejection of the overspending and overconsumption of Black Friday and Cyber Monday during Thanksgiving weekend. On Buy Nothing Day people organise various types of protests and cut up their credit cards. Throughout the year, Buy Nothing groups organise the exchange and repair of items they already own. The trend has now reached influencers on social media who usually share posts of clothing and make-up that they recommend for people to buy. Some YouTube stars now encourage their viewers not to buy anything at all for periods as long as a year. Two friends in Canada spent a year working towards buying only food. For the first three months they learned how to live without buying electrical goods, clothes or things for the house. For the next stage, they gave up services, for example haircuts, eating out at restaurants or buying petrol for their cars. In one year, they'd saved $55,000. The changes they made meant two fewer cars on the roads, a reduction in plastic and paper packaging and a positive impact on the environment from all the energy saved. If everyone followed a similar plan, the results would be impressive. But even if you can't manage a full year without going shopping, you can participate in the anti-consumerist movement by refusing to buy things you don't need. Buy Nothing groups send a clear message to companies that people are no longer willing to accept the environmental and human cost of overconsumption."
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "8"
+                  },
+                  "Question": {
+                    "S": "Are the sentences true or false?"
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " People buy clothes because they want to throw them away. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " The writer thinks it is worrying that people spend money on things they do not need. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " The amount the average Briton owes on credit cards is one third of the amount they spend on clothes each year. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Only a very small proportion of unwanted clothes are thrown away. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Charities can find ways to use clothes even if they are not very good quality. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Buy Nothing Day is a protest against credit cards. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " The two friends who did the 'buy nothing' experiment only bought food for 12 months. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " If everyone followed the Buy Nothing idea, the environment would benefit. "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A hand\nB shops\nC spending\nD sites\nE fashion\nF away"
+          },
+          "ListTitle": {
+            "S": "List of words:"
+          },
+          "NumOfSubQuestions": {
+            "N": "6"
+          },
+          "Question": {
+            "S": "Complete the sentences."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "Fast -answer- is made quickly and cheaply"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "Some clothing is so cheap that people can afford to wear it a couple of times and throw it -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "There is a worrying trend for more consumer -answer- on credit cards."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "Giving clothes to charity -answer- does not completely solve the problem."
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Make sure you only donate clothes that people will want to buy second- -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "A lot of clothes donated to charity cannot be reused and end up in landfill -answer- "
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
   ]
 }
