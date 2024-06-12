@@ -59,6 +59,11 @@ const Exercises: React.FC = () => {
       <div className='w-1/2 m-10'>
       {buttonLabels.map(button => entryTitle(button, 5))}
       </div>
+      <div className="w-3/4">
+        <h1 className="text-4xl font-bold underline underline-offset-[14px] decoration-4 decoration-blue-4">
+          What is it ?
+        </h1>
+      </div>
     </main>
   );
 };
