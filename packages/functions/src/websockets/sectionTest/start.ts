@@ -87,7 +87,8 @@ export const main: APIGatewayProxyHandler = async event => {
     // If he has a test in progress, return an error
     const userTests = (await dynamoDb.send(getUserTests))
       .Item as previousTestsLists;
-    if (!userTests[type]) {
+    const userSectionTest = userTests[type];
+    if (!userSectionTest) {
       const initType = new UpdateCommand({
         TableName: Table.Records.tableName,
         Key: {
@@ -106,7 +107,7 @@ export const main: APIGatewayProxyHandler = async event => {
         },
       });
       await dynamoDb.send(initType);
-    } else if (userTests[type].inProgress) {
+    } else if (userSectionTest.inProgress) {
       return wsError(
         apiClient,
         connectionId,
