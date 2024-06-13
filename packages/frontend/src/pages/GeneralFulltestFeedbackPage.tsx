@@ -1,4 +1,3 @@
-import { sampleFullTest } from '../utilities/sampleFullTest';
 import { DoubleCircles } from '../components/DoubleCirclesComponent';
 import {
   calculateFinalScore,
@@ -8,26 +7,29 @@ import {
   getEuropeanFrameworkGrade,
 } from '../utilities/calculateFeedbackScore';
 import { Button } from '../components/Button';
+import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
 
-type fulltestFeedbackPageProps = {
+type PageProps = {
+  fullTestItem: FullTestItem;
   onListeningNavigate?: () => void;
   onReadingNavigate?: () => void;
   onSpeakingNavigate?: () => void;
   onWritingNavigate?: () => void;
 };
 
-const fulltestFeedback: React.FC<fulltestFeedbackPageProps> = ({
+export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
+  fullTestItem,
   onListeningNavigate,
   onReadingNavigate,
   onSpeakingNavigate,
   onWritingNavigate,
 }) => {
-  const readingFeedback = sampleFullTest.readingAnswer?.feedback;
-  const writingFeedback = sampleFullTest?.writingAnswer?.feedback;
-  const listeningFeedback = sampleFullTest?.listeningAnswer?.feedback;
-  const speakingFeedback = sampleFullTest?.speakingAnswer?.feedback;
+  const readingFeedback = fullTestItem.readingAnswer?.feedback;
+  const writingFeedback = fullTestItem.writingAnswer?.feedback;
+  const listeningFeedback = fullTestItem.listeningAnswer?.feedback;
+  const speakingFeedback = fullTestItem.speakingAnswer?.feedback;
 
-  const total = calculateFinalScore(sampleFullTest);
+  const total = calculateFinalScore(fullTestItem);
 
   const bandscore = total.toFixed(2);
   const CEFR = getEuropeanFrameworkGrade(total);
@@ -97,5 +99,3 @@ const fulltestFeedback: React.FC<fulltestFeedbackPageProps> = ({
     </div>
   );
 };
-
-export default fulltestFeedback;
