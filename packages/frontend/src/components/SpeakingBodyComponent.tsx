@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import {
   SpeakingAudioAnswer,
   SpeakingCardAnswer,
   SpeakingPartAudio,
   SpeakingPartCard,
 } from '../../../functions/src/utilities/fullTestUtilities';
-import WaveSurferPlayer from '../components/ListeningAudioPlayer';
-import { sampleAudios } from '../utilities/sampleFullTest';
 import { MicButton } from './MicButton';
 import { useMicRecorder } from './useMicRecorder';
+import { SpeakingAudioPlayer } from './SpeakingAudioPlayer';
 
 // type SpeakingPart = {
 //   Task: {
@@ -51,13 +51,22 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
     const { isRecording, startRecording, stopRecording, audioBlob } =
       useMicRecorder();
 
+    const [questionIndex, setQuestionIndex] = useState(0);
+    const [allowRecording, setAllowRecording] = useState(false);
+
     console.log({ answer });
 
     let view;
     if (isCardPart(speakingPart)) {
       view = <SpeakingCardComponent part={speakingPart} />;
     } else {
-      view = <WaveSurferPlayer urls={sampleAudios} height={200} />;
+      view = (
+        <SpeakingAudioPlayer
+          urls={speakingPart.Questions.map(t => t.S3key)}
+          height={200}
+          onFinish={() => setAllowRecording(true)}
+        />
+      );
     }
 
     return (
@@ -68,6 +77,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
           onStop={stopRecording}
           onStart={startRecording}
           isRecording={isRecording}
+          disabled={!allowRecording}
         />
       </div>
     );
