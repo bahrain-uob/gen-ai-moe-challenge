@@ -63,18 +63,16 @@ const fulltestFeedback = () => {
         ].map((section, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md text-left flex items-center justify-between"
+            className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md text-left flex max-sm:flex-col md:items-center justify-between"
           >
-            <div>
+            <div className="max-sm:mb-4">
               <h2 className="text-lg md:text-xl font-semibold text-gray-800">
                 {section.title}
               </h2>
               <p className="text-gray-600">Score: {section.score}</p>
               <p className="text-gray-600">Grade: {section.grade}</p>
             </div>
-            <Button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-              More Details
-            </Button>
+            <Button>More Details</Button>
           </div>
         ))}
       </div>
