@@ -11,7 +11,6 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
 import PlacementTest from './pages/PLTestPage.tsx';
 import { Layout } from './Layout.tsx';
@@ -28,6 +27,8 @@ import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
+import fulltestFeedback from './pages/fulltestFeedbackpage.tsx';
+import { PreviousTests } from './pages/PerviousTests.tsx';
 import challengePage from './pages/challengePage.tsx';
 
 // These routes will have the landing nav bar
@@ -60,9 +61,14 @@ const notLandingRoutes: RouteObject[] = [
     Component: Sections,
   },
   {
+    path: '/fulltestFeedback',
+    Component: fulltestFeedback,
+  },
+  {
     path: '/SpeakingExercises',
     Component: SpeakingExercisesPage,
   },
+
   {
     path: '/SpeakingLongQuestion',
     Component: SpeakingLongQuestionPage,
@@ -82,18 +88,18 @@ const notLandingRoutes: RouteObject[] = [
 
   {
     path: '/full-exam',
-    Component: FullExam,
+    Component: PreviousTests,
   },
   {
     path: '/test',
     Component: TestPage,
   },
- 
+
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
-  
+
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -153,15 +159,15 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/test-speaking-audio-ui',
     Component: SpeakingAudioPage,
-  },{
+  },
+  {
     path: '/sign-in',
     Component: SignIn,
   },
   {
     path: '/sign-up',
     Component: SignUp,
-  }
- 
+  },
 ];
 
 // Place pages here
