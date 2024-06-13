@@ -180,26 +180,25 @@ export interface RLAnswer {
   status: FeedbackStatus;
 }
 
-export interface SpeakingAnswer {
+export type SpeakingAnswer = {
   start_time: number;
   end_time?: number;
   answer?: {
-    P1: {
-      audioFileNames: string[];
-      questions: string[];
-    };
-    P2: {
-      audioFileName: string;
-      question: string;
-    };
-    P3: {
-      audioFileNames: string[];
-      questions: string[];
-    };
+    P1: SpeakingAudioAnswer;
+    P2: SpeakingCardAnswer;
+    P3: SpeakingAudioAnswer;
   };
   feedback?: SpeakingFeedbackAll; // SpeakingFeedback
   status: FeedbackStatus;
-}
+};
+export type SpeakingAudioAnswer = {
+  audioFileNames: string[];
+  questions: string[];
+};
+export type SpeakingCardAnswer = {
+  audioFileName: string;
+  question: string;
+};
 
 export type SpeakingFeedbackAll = SpeakingFeedback[];
 
