@@ -4,6 +4,8 @@ import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
 import {
   SpeakingAnswer,
+  SpeakingAudioAnswer,
+  SpeakingCardAnswer,
   SpeakingSection,
 } from '../../../functions/src/utilities/fullTestUtilities';
 import { SpeakingBodyComponent } from '../components/SpeakingBodyComponent';
@@ -37,6 +39,15 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
       questions: [],
     },
   });
+
+  const updateResponseAtIndex = (
+    index: SpeakingPartIndex,
+    answer: SpeakingAudioAnswer | SpeakingCardAnswer,
+  ) => {
+    const responseCopy = { ...response };
+    responseCopy[index] = answer as SpeakingAudioAnswer & SpeakingCardAnswer;
+    setResponse(responseCopy);
+  };
 
   // useEffect(() => {
   //   if (audioBlob) {
@@ -113,6 +124,7 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
           key={`speaking-part-${partIndex}`}
           speakingPart={speakingSection[partIndex]}
           answer={response[partIndex]}
+          setAnswer={answer => updateResponseAtIndex(partIndex, answer)}
         />
       </div>
       <Modal
