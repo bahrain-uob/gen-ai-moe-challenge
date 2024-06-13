@@ -64,7 +64,7 @@ export const Layout = ({
 
   const navEntries = getNavEntries();
 
-  const containerClasses = noPadding ? '' : 'px-10 py-12';
+  const containerClasses = noPadding ? '' : 'px-6 py-8 sm:px-10 sm:py-12';
 
   if (!children) {
     children = useOutlet();
