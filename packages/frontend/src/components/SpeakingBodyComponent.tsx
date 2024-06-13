@@ -20,8 +20,6 @@ import { useMicRecorder } from './useMicRecorder';
 
 type SpeakingBodyComponentProps = {
   speakingPart: SpeakingPartAudio | SpeakingPartCard;
-  /** @deprecated */
-  partIndex: number;
 };
 
 /**
@@ -29,7 +27,6 @@ type SpeakingBodyComponentProps = {
  */
 export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   speakingPart,
-  partIndex,
 }) =>
   //speakingPart: SpeakingPart;
   //partIndex: number;
