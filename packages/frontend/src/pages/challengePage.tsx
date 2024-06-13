@@ -4,11 +4,13 @@ import {
   renderQuestionComponent,
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
-import {Button} from '../components/Button';
+import { Button } from '../components/Button';
 
 const ChallengePage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState(initialAnswer(sampleChallenge.tasks));
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleNext = () => {
     setCurrentQuestionIndex(prevIndex =>
@@ -20,19 +22,24 @@ const ChallengePage: React.FC = () => {
     setCurrentQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
   };
 
+  const handleSubmit = () => {
+    setShowCorrectAnswer(true); //to show the correct answers after submit
+    setIsSubmitted(true);
+  };
+
   const renderCurrentQuestion = () => {
     return (
       <>
         {renderQuestionComponent(
-        sampleChallenge.tasks[currentQuestionIndex],
-        answers[currentQuestionIndex],
-        (newAnswer) => {
-          const updatedAnswers = [...answers];
-          updatedAnswers[currentQuestionIndex] = newAnswer;
-          setAnswers(updatedAnswers);
-        },
-        false
-      )}
+          sampleChallenge.tasks[currentQuestionIndex],
+          answers[currentQuestionIndex],
+          newAnswer => {
+            const updatedAnswers = [...answers];
+            updatedAnswers[currentQuestionIndex] = newAnswer;
+            setAnswers(updatedAnswers);
+          },
+          showCorrectAnswer,
+        )}
       </>
     );
   };
@@ -43,18 +50,14 @@ const ChallengePage: React.FC = () => {
 
       <div className="flex justify-between items-center mb-5">
         <div>
-
-
-           <Button
+          <Button
             onClick={handlePrevious}
             disabled={currentQuestionIndex === 0}
             NoBackground
-            isActive={currentQuestionIndex===0}
-            
+            isActive={currentQuestionIndex === 0}
           >
             Task 1
           </Button>
-
           <Button
             onClick={handleNext}
             disabled={currentQuestionIndex === sampleChallenge.tasks.length - 1}
@@ -62,15 +65,19 @@ const ChallengePage: React.FC = () => {
             isActive={currentQuestionIndex === sampleChallenge.tasks.length - 1}
           >
             Task 2
-          </Button>        </div>
+          </Button>{' '}
+        </div>
 
-          <Button className="my-5" >
+        <Button className="my-5" onClick={handleSubmit}>
           Submit
         </Button>
-    
-
-       
       </div>
+
+      {isSubmitted && (
+        <div className="my-5 p-4 text-green-900 bg-green-100 border border-green-200 rounded shadow">
+          Your answers have been submitted successfully!
+        </div>
+      )}
 
       {sampleChallenge.type === 'Listening' && sampleChallenge.contextAudio && (
         <div className="my-5">
