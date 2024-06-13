@@ -1,9 +1,12 @@
 import { LRQuestion } from './LRUtilities';
 
 export type Challenge = {
+  contextTitle:string;
   context: string;
   contextAudio?: string;
   tasks: LRQuestion[];
+  type: 'Reading' | 'Listening' | 'Speaking' | 'Writing';
+  level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 };
 
 /** This is the structure of the hard-coded plans that will be stored in the

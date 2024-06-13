@@ -48,6 +48,9 @@ const sections = () => (
     >
       <Button label="Sample Feedback" />
     </Link>
+    <Link to="/challengePage">
+      <Button label="Sample Challenge" />
+    </Link>
   </>
 );
 
