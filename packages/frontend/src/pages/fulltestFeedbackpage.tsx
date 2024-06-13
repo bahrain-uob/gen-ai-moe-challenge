@@ -26,20 +26,18 @@ const fulltestFeedback = () => {
 
   return (
     <div className="p-4 md:p-10 max-w-6xl mx-auto">
-      <div className="flex justify-center mb-4">
-        <DoubleCircles
-          leftCircleProps={{
-            value: 0 * 4,
-            maxValue: 36,
-            text: CEFR,
-          }}
-          rightCircleProps={{
-            value: 0 * 4,
-            maxValue: 36,
-            text: bandscore,
-          }}
-        />
-      </div>
+      <DoubleCircles
+        leftCircleProps={{
+          value: 0 * 4,
+          maxValue: 36,
+          text: CEFR,
+        }}
+        rightCircleProps={{
+          value: 0 * 4,
+          maxValue: 36,
+          text: bandscore,
+        }}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {[
           {
