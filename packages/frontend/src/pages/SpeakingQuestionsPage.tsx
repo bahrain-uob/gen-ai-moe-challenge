@@ -1,20 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
 import {
   SpeakingAnswer,
-  SpeakingPartAudio,
-  SpeakingPartCard,
   SpeakingSection,
 } from '../../../functions/src/utilities/fullTestUtilities';
 import { SpeakingBodyComponent } from '../components/SpeakingBodyComponent';
-import { MicButton } from '../components/MicButton';
-import { useMicRecorder } from '../components/useMicRecorder';
-import {
-  generateFileName,
-  submitAudioFile,
-} from '../utilities/speakingUtilities';
 
 interface SpeakingQuestionsPageProps {
   speakingSection: SpeakingSection;
@@ -23,22 +15,13 @@ interface SpeakingQuestionsPageProps {
 
 type AnswersInterface = NonNullable<SpeakingAnswer['answer']>;
 
-type SpeakingPartsArray = [
-  SpeakingPartAudio,
-  SpeakingPartCard,
-  SpeakingPartAudio,
-];
+type SpeakingPartIndex = 'P1' | 'P2' | 'P3';
 
 export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
   speakingSection,
   submitAnswers,
 }) => {
-  const parts: SpeakingPartsArray = [
-    speakingSection.P1,
-    speakingSection.P2,
-    speakingSection.P3,
-  ];
-  const [partIndex, setPartIndex] = useState(0);
+  const [partIndex, setPartIndex] = useState<SpeakingPartIndex>('P1');
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [response, setResponse] = useState<AnswersInterface>({
     P1: {
@@ -77,13 +60,13 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
         <BsQuestionLg className="inline ml-2" size={16} />
       </button>
       <span className={linkStyling + ' mr-auto'}>00:10</span>
-      {parts.map((_, i) => (
+      {['P1', 'P2', 'P3'].map((part, i) => (
         <button
           className={
             linkStyling +
-            (i === partIndex ? 'bg-black bg-opacity-40' : 'hover-darken')
+            (part === partIndex ? 'bg-black bg-opacity-40' : 'hover-darken')
           }
-          onClick={() => setPartIndex(i)}
+          onClick={() => setPartIndex(part as SpeakingPartIndex)}
           key={i}
         >
           Part {i + 1}
@@ -128,7 +111,8 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
       <div className="h-[82svh] lg:h-[80svh] w-screen">
         <SpeakingBodyComponent
           key={`speaking-part-${partIndex}`}
-          speakingPart={parts[partIndex]}
+          speakingPart={speakingSection[partIndex]}
+          answer={response[partIndex]}
         />
       </div>
       <Modal

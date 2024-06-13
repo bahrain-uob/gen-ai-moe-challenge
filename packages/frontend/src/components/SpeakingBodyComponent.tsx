@@ -1,4 +1,6 @@
 import {
+  SpeakingAudioAnswer,
+  SpeakingCardAnswer,
   SpeakingPartAudio,
   SpeakingPartCard,
 } from '../../../functions/src/utilities/fullTestUtilities';
@@ -20,13 +22,25 @@ import { useMicRecorder } from './useMicRecorder';
 
 type SpeakingBodyComponentProps = {
   speakingPart: SpeakingPartAudio | SpeakingPartCard;
+  answer: SpeakingAudioAnswer | SpeakingCardAnswer;
 };
+
+// type SpeakingBodyComponentProps =
+//   | {
+//       speakingPart: SpeakingPartCard;
+//       answer: SpeakingCardAnswer;
+//     }
+//   | {
+//       speakingPart: SpeakingPartAudio;
+//       answer: SpeakingAudioAnswer;
+//     };
 
 /**
  * This Comopnent handles the body of the speaking page.
  */
 export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   speakingPart,
+  answer,
 }) =>
   //speakingPart: SpeakingPart;
   //partIndex: number;
@@ -35,7 +49,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
     const { isRecording, startRecording, stopRecording, audioBlob } =
       useMicRecorder();
 
-    console.log(speakingPart);
+    console.log({ answer });
 
     let view;
     if (isCardPart(speakingPart)) {
