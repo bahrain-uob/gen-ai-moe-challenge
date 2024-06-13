@@ -5,6 +5,7 @@ interface MicButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onStart: () => void;
   onStop: () => void;
   isRecording: boolean;
+  disabled?: boolean;
 }
 
 export const MicButton: React.FC<MicButtonProps> = ({
@@ -12,6 +13,7 @@ export const MicButton: React.FC<MicButtonProps> = ({
   onStart,
   onStop,
   isRecording,
+  disabled = false,
   ...props
 }) => {
   const [isOn, setOn] = useState(false);
@@ -23,14 +25,18 @@ export const MicButton: React.FC<MicButtonProps> = ({
     <BsFillMicMuteFill size={size} />
   );
   const style = isOn ? 'bg-red-400' : 'bg-white';
+  const moreStyle = disabled ? 'opacity-50' : '';
 
   return (
     <button
       {...props}
-      className={`${className} inline-block ${style} p-4 rounded-full border-2 transition-all duration-200`}
+      className={`${className} inline-block ${style} p-4 rounded-full
+          border-2 ${moreStyle} transition-all duration-200`}
       onClick={() => {
-        setOn(x => !x);
-        isRecording ? onStop() : onStart();
+        if (!disabled) {
+          setOn(x => !x);
+          isRecording ? onStop() : onStart();
+        }
       }}
     >
       {icon}
