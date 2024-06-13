@@ -9,7 +9,19 @@ import {
 } from '../utilities/calculateFeedbackScore';
 import { Button } from '../components/Button';
 
-const fulltestFeedback = () => {
+type fulltestFeedbackPageProps = {
+  onListeningNavigate?: () => void;
+  onReadingNavigate?: () => void;
+  onSpeakingNavigate?: () => void;
+  onWritingNavigate?: () => void;
+};
+
+const fulltestFeedback: React.FC<fulltestFeedbackPageProps> = ({
+  onListeningNavigate,
+  onReadingNavigate,
+  onSpeakingNavigate,
+  onWritingNavigate,
+}) => {
   const readingFeedback = sampleFullTest.readingAnswer?.feedback;
   const writingFeedback = sampleFullTest?.writingAnswer?.feedback;
   const listeningFeedback = sampleFullTest?.listeningAnswer?.feedback;
@@ -29,21 +41,25 @@ const fulltestFeedback = () => {
       title: 'Listening',
       score: listeningBandScore,
       grade: getEuropeanFrameworkGrade(listeningBandScore),
+      onNaviagte: onListeningNavigate,
     },
     {
       title: 'Reading',
       score: readingBandScore,
       grade: getEuropeanFrameworkGrade(readingBandScore),
+      onNaviagte: onReadingNavigate,
     },
     {
       title: 'Speaking',
       score: speakingBandScore,
       grade: getEuropeanFrameworkGrade(speakingBandScore),
+      onNaviagte: onSpeakingNavigate,
     },
     {
       title: 'Writing',
       score: writingBandScore,
       grade: getEuropeanFrameworkGrade(writingBandScore),
+      onNaviagte: onWritingNavigate,
     },
   ];
 
@@ -74,7 +90,7 @@ const fulltestFeedback = () => {
               <p className="text-gray-600">Score: {section.score}</p>
               <p className="text-gray-600">Grade: {section.grade}</p>
             </div>
-            <Button>More Details</Button>
+            <Button onClick={section.onNaviagte}>More Details</Button>
           </div>
         ))}
       </div>
