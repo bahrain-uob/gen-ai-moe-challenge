@@ -80,7 +80,7 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: type + 'Tests',
+        SK: 'Tests',
       },
     });
 
