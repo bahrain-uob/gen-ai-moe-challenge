@@ -16,11 +16,11 @@ export const TitleRow: React.FC<TitleRowProps> = ({
 }) => {
   return (
     <div className="w-full h-full flex items-center border-b-2">
-      <div className="w-1/3 h-full nav-item">
+      <div className="w-1/4 h-full nav-item">
         {onBack && <BackButton onBack={onBack} />}
       </div>
-      <div className="w-1/3 text-center font-light text-xl">{title}</div>
-      <div className="w-1/3 nav-item flex-row justify-end">
+      <div className="w-1/2 text-center font-light text-xl">{title}</div>
+      <div className="w-1/4 nav-item flex-row justify-end">
         {onSave && (
           <button onClick={onSave} className="mr-2">
             Save <BsFloppy2 className="inline max-sm:hidden mr-4" />
