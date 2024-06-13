@@ -24,6 +24,29 @@ const fulltestFeedback = () => {
   const speakingBandScore = calculateSpeakingFeedbackScore(speakingFeedback);
   const writingBandScore = calculateWritingFeedbackScore(writingFeedback);
 
+  const viewEntries = [
+    {
+      title: 'Listening',
+      score: listeningBandScore,
+      grade: getEuropeanFrameworkGrade(listeningBandScore),
+    },
+    {
+      title: 'Reading',
+      score: readingBandScore,
+      grade: getEuropeanFrameworkGrade(readingBandScore),
+    },
+    {
+      title: 'Speaking',
+      score: speakingBandScore,
+      grade: getEuropeanFrameworkGrade(speakingBandScore),
+    },
+    {
+      title: 'Writing',
+      score: writingBandScore,
+      grade: getEuropeanFrameworkGrade(writingBandScore),
+    },
+  ];
+
   return (
     <div className="p-4 md:p-10 max-w-6xl mx-auto">
       <DoubleCircles
@@ -39,28 +62,7 @@ const fulltestFeedback = () => {
         }}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-        {[
-          {
-            title: 'Listening',
-            score: listeningBandScore,
-            grade: getEuropeanFrameworkGrade(listeningBandScore),
-          },
-          {
-            title: 'Reading',
-            score: readingBandScore,
-            grade: getEuropeanFrameworkGrade(readingBandScore),
-          },
-          {
-            title: 'Speaking',
-            score: speakingBandScore,
-            grade: getEuropeanFrameworkGrade(speakingBandScore),
-          },
-          {
-            title: 'Writing',
-            score: writingBandScore,
-            grade: getEuropeanFrameworkGrade(writingBandScore),
-          },
-        ].map((section, index) => (
+        {viewEntries.map((section, index) => (
           <div
             key={index}
             className="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md text-left flex max-sm:flex-col md:items-center justify-between"
