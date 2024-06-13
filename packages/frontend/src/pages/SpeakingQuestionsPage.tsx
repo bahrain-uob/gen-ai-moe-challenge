@@ -3,6 +3,7 @@ import { BsQuestionLg } from 'react-icons/bs';
 import { TitleRow } from '../components/TestComponents';
 import { Modal } from '../components/Modal';
 import {
+  SpeakingAnswer,
   SpeakingPartAudio,
   SpeakingPartCard,
   SpeakingSection,
@@ -20,20 +21,7 @@ interface SpeakingQuestionsPageProps {
   submitAnswers: (answer: any) => void;
 }
 
-interface AnswersInterface {
-  P1: {
-    audioFileNames: string[];
-    questions: string[];
-  };
-  P2: {
-    audioFileName: string;
-    question: string;
-  };
-  P3: {
-    audioFileNames: string[];
-    questions: string[];
-  };
-}
+type AnswersInterface = NonNullable<SpeakingAnswer['answer']>;
 
 type SpeakingPartsArray = [
   SpeakingPartAudio,
@@ -52,7 +40,20 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
   ];
   const [partIndex, setPartIndex] = useState(0);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
-  const [response, setResponse] = useState<string[]>([]);
+  const [response, setResponse] = useState<AnswersInterface>({
+    P1: {
+      audioFileNames: [],
+      questions: [],
+    },
+    P2: {
+      audioFileName: '',
+      question: '',
+    },
+    P3: {
+      audioFileNames: [],
+      questions: [],
+    },
+  });
 
   // useEffect(() => {
   //   if (audioBlob) {
@@ -94,27 +95,29 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
   const titleRow = (
     <TitleRow
       title="Speaking Test"
-      onSubmit={() => {
-        const P1Questions = parts[0].Questions.map(question => question.text);
-        const P2Question = parts[1].Questions.join('\n');
-        const P3Questions = parts[2].Questions.map(question => question.text);
-
-        const stuAnswers: AnswersInterface = {
-          P1: {
-            audioFileNames: response.slice(0, P1Questions.length),
-            questions: P1Questions,
-          },
-          P2: {
-            audioFileName: response[P1Questions.length],
-            question: P2Question,
-          },
-          P3: {
-            audioFileNames: response.slice(P1Questions.length + 1),
-            questions: P3Questions,
-          },
-        };
-        submitAnswers(stuAnswers);
-      }}
+      onSubmit={
+        () => {}
+        //   () => {
+        //   const P1Questions = parts[0].Questions.map(question => question.text);
+        //   const P2Question = parts[1].Questions.join('\n');
+        //   const P3Questions = parts[2].Questions.map(question => question.text);
+        //   const stuAnswers: AnswersInterface = {
+        //     P1: {
+        //       audioFileNames: response.slice(0, P1Questions.length),
+        //       questions: P1Questions,
+        //     },
+        //     P2: {
+        //       audioFileName: response[P1Questions.length],
+        //       question: P2Question,
+        //     },
+        //     P3: {
+        //       audioFileNames: response.slice(P1Questions.length + 1),
+        //       questions: P3Questions,
+        //     },
+        //   };
+        //   submitAnswers(stuAnswers);
+        // }
+      }
     />
   );
 
@@ -126,7 +129,6 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
         <SpeakingBodyComponent
           key={`speaking-part-${partIndex}`}
           speakingPart={parts[partIndex]}
-          partIndex={partIndex}
         />
       </div>
       <Modal
