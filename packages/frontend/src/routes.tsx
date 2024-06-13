@@ -27,9 +27,10 @@ import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
-import fulltestFeedback from './pages/fulltestFeedbackpage.tsx';
+import { GeneralFulltestFeedbackPage } from './pages/GeneralFulltestFeedbackPage.tsx';
 import { PreviousTests } from './pages/PerviousTests.tsx';
 import challengePage from './pages/challengePage.tsx';
+import { sampleFullTest } from './utilities/sampleFullTest.ts';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -62,7 +63,7 @@ const notLandingRoutes: RouteObject[] = [
   },
   {
     path: '/fulltestFeedback',
-    Component: fulltestFeedback,
+    element: <GeneralFulltestFeedbackPage fullTestItem={sampleFullTest} />,
   },
   {
     path: '/SpeakingExercises',
