@@ -12,6 +12,8 @@ export const Button: React.FC<ButtonProps> = ({
   NoBackground = false,
   isActive = false,
   to,
+  // Theese are the class names passed to us
+  className: propClassName,
   ...props
 }) => {
   const style = NoBackground
@@ -27,9 +29,10 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       {...props}
       type="button"
-      className={`inline-flex w-full justify-center rounded-md px-3
+      className={`inline-flex w-auto justify-center rounded-md px-3
         py-2 text-sm font-semibold shadow-sm 
-        transition-colors duration-200 sm:ml-3 sm:w-auto ${style} ${activeStyle}`}
+        transition-colors duration-200 ml-2 sm:ml-3
+        ${style} ${activeStyle} ${propClassName}`}
     ></button>
   );
 
