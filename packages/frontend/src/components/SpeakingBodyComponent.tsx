@@ -37,48 +37,16 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
 
     console.log(speakingPart);
 
-    const renderSwitch = (partIndex: number) => {
-      switch (partIndex) {
-        case 0:
-          return SpeakingPart1;
-        case 1:
-          return SpeakingPart2;
-        case 2:
-          return SpeakingPart3;
-      }
-    };
-
-    const waveform = <WaveSurferPlayer urls={sampleAudios} height={200} />;
-
-    const cardContent = <SpeakingCardComponent part={speakingPart} />;
-
-    const pageBody = (element: JSX.Element) => (
-      <div className="flex flex-col h-full justify-evenly items-center px-6">
-        {element}
-      </div>
-    );
-
-    const SpeakingPart1 = (
-      <div className="h-[82svh] lg:h-[80svh] w-screen">
-        {pageBody(waveform)}
-      </div>
-    );
-
-    const SpeakingPart2 = (
-      <div className="h-[82svh] lg:h-[80svh] w-screen">
-        {pageBody(cardContent)}
-      </div>
-    );
-
-    const SpeakingPart3 = (
-      <div className="h-[82svh] lg:h-[80svh] w-screen">
-        {pageBody(waveform)}
-      </div>
-    );
+    let view;
+    if (isCardPart(speakingPart)) {
+      view = <SpeakingCardComponent part={speakingPart} />;
+    } else {
+      view = <WaveSurferPlayer urls={sampleAudios} height={200} />;
+    }
 
     return (
       <div className="flex flex-col h-full justify-evenly items-center px-6">
-        {renderSwitch(partIndex)}
+        {view}
         <MicButton
           className="shadow-backdrop"
           onStop={stopRecording}
@@ -102,4 +70,10 @@ const SpeakingCardComponent = ({ part }: { part: SpeakingPartCard }) => {
       </ul>
     </div>
   );
+};
+
+const isCardPart = (
+  speakingPart: SpeakingPartAudio | SpeakingPartCard,
+): speakingPart is SpeakingPartCard => {
+  return typeof speakingPart.Questions[0] === 'string';
 };
