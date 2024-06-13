@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
-import { Button } from './Button';
 import { get } from 'aws-amplify/api';
 import { getCachedFeedback, setCachedFeedback, toJSON } from '../utilities';
 import { Spinner } from './Spinner';
@@ -9,6 +8,7 @@ import LAnswersPage from '../pages/LAnswersPage';
 import { Layout } from '../Layout';
 import RAnswersPage from '../pages/RAnswersPage';
 import { WSFeedbackPage } from './WSFeedbackPage';
+import { GeneralFulltestFeedbackPage } from '../pages/GeneralFulltestFeedbackPage';
 
 type Screens = 'general' | 'listening' | 'reading' | 'writing' | 'speaking';
 type DataType = { fullItem: FullTestItem } | undefined | { message: string };
@@ -81,32 +81,22 @@ export const AllFeedbacks: React.FC = () => {
 
   switch (screen) {
     case 'general':
-      const readingScores =
-        readingFeedback && !('error' in readingFeedback)
-          ? readingFeedback.totalScore
-          : null;
+      const navigateFunctions = {
+        onListeningNavigate: () => setScreen('listening'),
+        onReadingNavigate: () => setScreen('reading'),
+        onWritingNavigate: () => setScreen('writing'),
+        onSpeakingNavigate: () => setScreen('speaking'),
+      };
 
       out = (
         <Layout>
-          <h3 className="text-lg font-light">Feedback</h3>
-          <div>
-            <p>Reading score: {JSON.stringify(readingScores)}</p>
-            <div className="mt-4"></div>
-            <Button onClick={() => setScreen('listening')}>
-              Listening Feedback
-            </Button>
-            <Button onClick={() => setScreen('reading')}>
-              Reading Feedback
-            </Button>
-            <Button onClick={() => setScreen('writing')}>
-              Writing Feedback
-            </Button>
-            <Button onClick={() => setScreen('speaking')}>
-              Speaking Feedback
-            </Button>
-          </div>
+          <GeneralFulltestFeedbackPage
+            fullTestItem={data.fullItem}
+            {...navigateFunctions}
+          />
         </Layout>
       );
+
       break;
 
     case 'listening':
