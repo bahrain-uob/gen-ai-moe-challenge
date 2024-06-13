@@ -71,6 +71,15 @@ function TestPage() {
 
       <ColorPalette />
 
+      <div className="my-8">
+        <Button isActive>regular</Button>
+        <Button isActive>isActive regular</Button>
+        <Button NoBackground>NoBackground</Button>
+        <Button NoBackground isActive>
+          isActive NoBackground
+        </Button>
+      </div>
+
       <CountdownTimer duration={5} onTimeUp={() => console.log('finished')} />
 
       <ModalDemo />
