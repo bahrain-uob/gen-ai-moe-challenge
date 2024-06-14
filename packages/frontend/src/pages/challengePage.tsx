@@ -9,8 +9,11 @@ import { Button } from '../components/Button';
 const ChallengePage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState(initialAnswer(sampleChallenge.tasks));
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [scores, setScores] = useState<(number | null)[]>(
+    Array(sampleChallenge.tasks.length).fill(null),
+  );
 
   const handleNext = () => {
     setCurrentQuestionIndex(prevIndex =>
@@ -23,8 +26,14 @@ const ChallengePage: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    setShowCorrectAnswer(true); //to show the correct answers after submit
+    setShowCorrectAnswers(true);
     setIsSubmitted(true);
+  };
+
+  const handleScore = (taskIndex: number, newScore: number) => {
+    const newScores = [...scores];
+    newScores[taskIndex] = newScore;
+    setScores(newScores);
   };
 
   const renderCurrentQuestion = () => {
@@ -38,7 +47,8 @@ const ChallengePage: React.FC = () => {
             updatedAnswers[currentQuestionIndex] = newAnswer;
             setAnswers(updatedAnswers);
           },
-          showCorrectAnswer,
+          showCorrectAnswers,
+          newScore => handleScore(currentQuestionIndex, newScore),
         )}
       </>
     );
@@ -76,6 +86,14 @@ const ChallengePage: React.FC = () => {
       {isSubmitted && (
         <div className="my-5 p-4 text-green-900 bg-green-100 border border-green-200 rounded shadow">
           Your answers have been submitted successfully!
+        </div>
+      )}
+
+      {scores[currentQuestionIndex] !== null && (
+        <div className="my-5 p-4 bg-white text-xl border-gray-300 rounded-lg shadow-md">
+          {' '}
+          Your score: {scores[currentQuestionIndex]} /{' '}
+          {sampleChallenge.tasks[currentQuestionIndex].SubQuestions.length}
         </div>
       )}
 

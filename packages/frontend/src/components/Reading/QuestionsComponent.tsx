@@ -11,11 +11,13 @@ export const QuestionsComponent = ({
   answers,
   setAnswers,
   showCorrectAnswer,
+  onScoreUpdate,
 }: {
   questions: LRQuestion[];
   answers: Answer[];
   setAnswers: (arg: Answer[]) => void;
   showCorrectAnswer: boolean;
+  onScoreUpdate?: (score: number) => void;
 }) => {
   const indexSetAnswer = function (i: number): SetAnswer {
     return (value: Answer) => {
@@ -38,6 +40,7 @@ export const QuestionsComponent = ({
             answers[index],
             indexSetAnswer(index),
             showCorrectAnswer,
+            onScoreUpdate,
           )}
         </div>
       ))}
@@ -55,6 +58,7 @@ export const renderQuestionComponent = (
   answer: Answer,
   setAnswer: SetAnswer,
   showCorrectAnswer: boolean,
+  onScoreUpdate?: (score: number) => void,
 ) => {
   switch (question.QuestionType) {
     case 'Table Completion':
@@ -86,6 +90,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     case 'Summary Completion':

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   QuestionComponentInput,
   QuestionMultipleChoice,
@@ -10,7 +10,10 @@ export const McqQuestionsComponent = ({
   answer,
   set,
   showCorrectAnswer,
-}: QuestionComponentInput<QuestionMultipleChoice>) => {
+  onScoreUpdate,
+}: QuestionComponentInput<QuestionMultipleChoice> & {
+  onScoreUpdate?: (score: number) => void;
+}) => {
   const handleSelectionChange = (subQuestionIndex: number, value: string) => {
     if (!showCorrectAnswer) {
       // Prevent changes when answers are being shown
@@ -20,6 +23,20 @@ export const McqQuestionsComponent = ({
       set(newSelections);
     }
   };
+
+  //return scores when requested by the parent component
+  useEffect(() => {
+    if (showCorrectAnswer && onScoreUpdate) {
+      let correctCount = 0;
+      question.SubQuestions.forEach((subQuestion, index) => {
+        if (answer[index] === subQuestion.CorrectAnswer) {
+          correctCount++;
+        }
+      });
+      onScoreUpdate(correctCount);
+    }
+  }, [showCorrectAnswer, answer, question.SubQuestions, onScoreUpdate]);
+
   // Render choices as radio buttons, each on a new line
   const renderRadioButtons = (subQuestion: SQMultipleChoice, index: number) => {
     const choices = subQuestion.Choices;
