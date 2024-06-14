@@ -1,11 +1,13 @@
 const CircularProgressBar = ({
+  radius,
   percentage,
   circleWidth,
 }: {
+  radius:number;
   percentage: number;
   circleWidth: number;
 }) => {
-  const radius = 15;
+
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (circumference * percentage) / 100;
 
