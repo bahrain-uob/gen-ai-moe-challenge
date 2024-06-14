@@ -6691,6 +6691,630 @@
           }
         }
       }
+    },
+    {
+      "context": {
+        "S": "A report on students' experiences of working abroad\nIntroduction\nCurrently, approximately 25 per cent of Hawthorne College students work abroad during the summer break. This report aims to show the benefits and drawbacks of working overseas in order to decide whether the college should recommend the experience to its students./nTo prepare for this report, a sample of 100 students were interviewed, 23 of whom had worked abroad. This is a summary of their comments./nBenefits/nAccording to the students interviewed, working overseas during the summer holidays can bring several benefits. Most of all, students can improve their foreign language skills by working in a non-English speaking country. This may help them get a better job in the future. Additionally, learning about a different culture and way of life makes people more open-minded. A further advantage is that students may become more confident when they learn practical skills to help them live independently later in life, for example, finding accommodation and cooking for themselves./nDrawbacks/nHowever, a large number of interviewees mentioned drawbacks as well. Students who need to study over the summer will find it difficult to do so while working abroad. Most significant of all are finance issues: only a minority of students are able to afford travel expenses, accommodation and visas. In addition, students may have to take low-income jobs if they are not fluent in the local language, so they may struggle to cover their expenses./nConclusion and recommendation /nWorking abroad may improve students' language skills and confidence. However, students often need to earn money during the holidays to support their studies and working abroad may not provide the opportunity to save. Also, the cost of travel means that only students who are able to afford it have the chance to do this. Therefore, the college should only recommend working abroad if there is financial support from the college for students that need it."
+      },
+      "task1": {
+        "M": {
+          "List": {
+            "S": "A Therefore, this is not a good idea for all students.\nB The main objective of this report is to ...\nC Students may have problems getting visas.\nD Students can improve their chances of ..."
+          },
+          "ListTitle": {
+            "S": "List of sentences:"
+          },
+          "NumOfSubQuestions": {
+            "N": "4"
+          },
+          "Question": {
+            "S": "Match the sentences with the sections of the report."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "Introduction -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "Advantages -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "Disadvantages -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Conclusion -answer- "
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A Given the points made above, it is recommended that ...\nB this report aims to ...\nC The majority of the students interviewed said that ...\nD This report is based on information from 100 interviews with students."
+          },
+          "ListTitle": {
+            "S": "List of phrases:"
+          },
+          "NumOfSubQuestions": {
+            "N": "4"
+          },
+          "Question": {
+            "S": "Match the phrases with the same function."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "The main objective of this report is to ... -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "To prepare for this report, 100 students were interviewed. -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "According to the students interviewed, ... -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "Taking all these factors into account, it is suggested that ... -answer- "
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "context": {
+        "S": "Hi Linda,\nHow's it going?/nSorry I haven't been in touch for such a long time but I've had exams so I've been studying every free minute. Anyway, I'd love to hear all your news and I'm hoping we can get together soon to catch up. We just moved to a bigger flat so maybe you can come and visit one weekend?/nHow's the new job?  /nLooking forward to hearing from you!/nHelga/nHi Helga,/nI've been meaning to write to you for ages now so don't worry! How did your exams go? When will you know your results? I'm sure you did brilliantly as always!/nAs for me, I'll have been in the new job three months by the end of next week so I'm feeling more settled in. At first I felt like I had no idea what I was doing but now I realise it's normal to feel like that. There was a lot to learn – there still is actually – and I soon had to get used to the idea that I can't know everything. I used to work late a lot and at weekends but I'm slowly getting into a normal routine./nWhich means I'd love to come and visit! We really need a good catch up! I can't believe we haven't seen each other since Carl's wedding. How does next month sound?/nAnyway, I'd better get back to work./nCongratulations on the new flat! Can't wait to see you!/nLove,/nLinda"
+      },
+      "task1": {
+        "M": {
+          "Questions": {
+            "L": [
+              {
+                "M": {
+                  "NumOfSubQuestions": {
+                    "N": "6"
+                  },
+                  "Question": {
+                    "S": "Are the sentences true or false?"
+                  },
+                  "QuestionType": {
+                    "S": "Multiple Choice"
+                  },
+                  "SubQuestions": {
+                    "L": [
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " 'Hi ...' is less formal than 'Dear ... ,'. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": "  'How's it going?' is an informal way to say 'How are you?'. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " It's important to give the reason for writing in the first sentence. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " Phrasal verbs like 'catch up' make your writing sound more formal. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "True"
+                          },
+                          "QuestionText": {
+                            "S": " 'How does ... sound?' is an informal way of suggesting something. "
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "Choices": {
+                            "L": [
+                              {
+                                "S": "True"
+                              },
+                              {
+                                "S": "False"
+                              }
+                            ]
+                          },
+                          "CorrectAnswer": {
+                            "S": "False"
+                          },
+                          "QuestionText": {
+                            "S": " People don't write in paragraphs in informal emails. "
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "task2": {
+        "M": {
+          "List": {
+            "S": "A Things have been good and ...\nB Sorry to hear that!\nC Don't worry! I've been super busy too.\nD So good to hear your news!\nE I'd love to. How about Tuesday?\nF Happy to help any way I can."
+          },
+          "ListTitle": {
+            "S": "List of replies:"
+          },
+          "NumOfSubQuestions": {
+            "N": "6"
+          },
+          "Question": {
+            "S": "Match the sentences and the replies."
+          },
+          "QuestionType": {
+            "S": "List Selection"
+          },
+          "SubQuestions": {
+            "L": [
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "E"
+                  },
+                  "QuestionText": {
+                    "S": "I was wondering if you want to go for dinner. -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "C"
+                  },
+                  "QuestionText": {
+                    "S": "I'm really sorry I've not been in touch. -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "A"
+                  },
+                  "QuestionText": {
+                    "S": "How are you doing? -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "D"
+                  },
+                  "QuestionText": {
+                    "S": "Just to let you know I passed my exams! -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "B"
+                  },
+                  "QuestionText": {
+                    "S": "I've been ill for most of the month so I couldn't come to your party. -answer- "
+                  }
+                }
+              },
+              {
+                "M": {
+                  "Choices": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      },
+                      {
+                        "S": "D"
+                      },
+                      {
+                        "S": "E"
+                      },
+                      {
+                        "S": "F"
+                      }
+                    ]
+                  },
+                  "CorrectAnswer": {
+                    "S": "F"
+                  },
+                  "QuestionText": {
+                    "S": "I was hoping you could do me a favour. -answer- "
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
     }
   ]
 }
