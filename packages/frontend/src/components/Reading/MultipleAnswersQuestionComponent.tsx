@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   QuestionComponentInput,
   QuestionMultipleAnswers,
@@ -9,7 +10,10 @@ export const MultipleAnswersQuestionComponent = ({
   answer,
   set,
   showCorrectAnswer,
-}: QuestionComponentInput<QuestionMultipleAnswers>) => {
+  onScoreUpdate,
+}: QuestionComponentInput<QuestionMultipleAnswers> & {
+  onScoreUpdate?: (score: number) => void;
+}) => {
   const handleCheckboxChange = (subQuestionIndex: number, choice: string) => {
     if (!showCorrectAnswer) {
       const newSelections = answer.map((selectedChoices, index) => {
@@ -40,6 +44,21 @@ export const MultipleAnswersQuestionComponent = ({
       set(newSelections as string[]);
     }
   };
+
+  useEffect(() => {
+    if (showCorrectAnswer && onScoreUpdate) {
+      let correctCount = 0;
+      question.SubQuestions.forEach((subQuestion, subIndex) => {
+        const correctAnswers = subQuestion.CorrectAnswers[0];
+        correctAnswers.forEach(correctAnswer => {
+          if (answer[subIndex].includes(correctAnswer)) {
+            correctCount++;
+          }
+        });
+      });
+      onScoreUpdate(correctCount);
+    }
+  }, [showCorrectAnswer, answer, question.SubQuestions, onScoreUpdate]);
 
   const renderCheckboxes = (
     subQuestion: SQMultipleAnswers,

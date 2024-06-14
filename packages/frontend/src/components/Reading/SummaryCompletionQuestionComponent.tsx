@@ -2,14 +2,17 @@ import {
   QuestionComponentInput,
   QuestionSummaryCompletion,
 } from '../../utilities/LRUtilities';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const SummaryCompletionQuestionComponent = ({
   question,
   answer,
   set,
   showCorrectAnswer,
-}: QuestionComponentInput<QuestionSummaryCompletion>) => {
+  onScoreUpdate,
+}: QuestionComponentInput<QuestionSummaryCompletion> & {
+  onScoreUpdate?: (score: number) => void;
+}) => {
   const handleInputChange = (
     subQuestionIndex: number,
     answerIndex: number,
@@ -24,6 +27,26 @@ export const SummaryCompletionQuestionComponent = ({
       set(newInputValues);
     }
   };
+
+  useEffect(() => {
+    if (showCorrectAnswer && onScoreUpdate) {
+      let correctCount = 0;
+      let totalQuestions = 0;
+      question.SubQuestions.forEach((subQuestion, subQuestionIndex) => {
+        subQuestion.CorrectAnswers.forEach((correctAnswer, partIndex) => {
+          totalQuestions++;
+          if (
+            correctAnswer.includes(
+              answer[subQuestionIndex][partIndex]?.trim() || '',
+            )
+          ) {
+            correctCount++;
+          }
+        });
+      });
+      onScoreUpdate(correctCount);
+    }
+  }, [showCorrectAnswer, answer, question.SubQuestions, onScoreUpdate]);
 
   // Render question text with text inputs replacing '-answer-'
   const renderQuestionTextWithInputs = (

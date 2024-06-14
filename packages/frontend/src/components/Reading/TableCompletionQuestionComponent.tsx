@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   QuestionComponentInput,
   QuestionTableCompletion,
@@ -9,7 +9,10 @@ export const TableCompletionQuestionComponent = ({
   answer,
   set,
   showCorrectAnswer,
-}: QuestionComponentInput<QuestionTableCompletion>) => {
+  onScoreUpdate,
+}: QuestionComponentInput<QuestionTableCompletion> & {
+  onScoreUpdate?: (score: number) => void;
+}) => {
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     rowIndex: number,
@@ -21,6 +24,24 @@ export const TableCompletionQuestionComponent = ({
       set(newInputValues);
     }
   };
+
+  useEffect(() => {
+    if (showCorrectAnswer && onScoreUpdate) {
+      let correctCount = 0;
+      let totalQuestions = 0;
+      question.SubQuestions.forEach((subQuestion, rowIndex) => {
+        subQuestion.CorrectAnswers.forEach((correctAnswer, colIndex) => {
+          totalQuestions++;
+          if (
+            correctAnswer.includes(answer[rowIndex][colIndex]?.trim() || '')
+          ) {
+            correctCount++;
+          }
+        });
+      });
+      onScoreUpdate(correctCount);
+    }
+  }, [showCorrectAnswer, answer, question.SubQuestions, onScoreUpdate]);
 
   const renderQuestionTextWithInputs = (text: string, rowIndex: number) => {
     const parts = text.split('-answer-');

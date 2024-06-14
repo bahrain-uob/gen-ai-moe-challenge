@@ -4,14 +4,17 @@ import {
   QuestionComponentInput,
   QuestionListSelection,
 } from '../../utilities/LRUtilities';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const ListSelectionQuestionComponent = ({
   question,
   answer,
   set,
   showCorrectAnswer,
-}: QuestionComponentInput<QuestionListSelection>) => {
+  onScoreUpdate,
+}: QuestionComponentInput<QuestionListSelection> & {
+  onScoreUpdate?: (score: number) => void;
+}) => {
   const handleSelectionChange = (index: number, value: string) => {
     if (!showCorrectAnswer) {
       const newSelections = [...answer] as string[];
@@ -20,6 +23,18 @@ export const ListSelectionQuestionComponent = ({
       set(newSelections);
     }
   };
+
+  useEffect(() => {
+    if (showCorrectAnswer && onScoreUpdate) {
+      let correctCount = 0;
+      question.SubQuestions.forEach((subQuestion, index) => {
+        if (answer[index] === subQuestion.CorrectAnswer) {
+          correctCount++;
+        }
+      });
+      onScoreUpdate(correctCount);
+    }
+  }, [showCorrectAnswer, answer, question.SubQuestions, onScoreUpdate]);
 
   const renderQuestionTextWithSelects = (text: string, index: number) => {
     const textBeforeAnswer = text.slice(0, text.indexOf('-answer-'));

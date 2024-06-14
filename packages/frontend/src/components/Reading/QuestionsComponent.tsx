@@ -68,6 +68,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     case 'List Selection':
@@ -77,6 +78,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     case 'Multiple Choice':
@@ -101,6 +103,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     case 'Multiple Answers':
@@ -110,6 +113,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     case 'Diagram Completion':
@@ -119,6 +123,7 @@ export const renderQuestionComponent = (
           answer={answer}
           set={setAnswer}
           showCorrectAnswer={showCorrectAnswer}
+          onScoreUpdate={onScoreUpdate}
         />
       );
     default:
