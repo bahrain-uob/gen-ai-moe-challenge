@@ -49,15 +49,6 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
     setResponse(responseCopy);
   };
 
-  // useEffect(() => {
-  //   if (audioBlob) {
-  //     const responseFile = generateFileName();
-  //     submitAudioFile(responseFile, audioBlob);
-  //     response.push(responseFile);
-  //     setResponse(response);
-  //   }
-  // }, [audioBlob]);
-
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
@@ -86,34 +77,7 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
     </div>
   );
 
-  const titleRow = (
-    <TitleRow
-      title="Speaking Test"
-      onSubmit={
-        () => {}
-        //   () => {
-        //   const P1Questions = parts[0].Questions.map(question => question.text);
-        //   const P2Question = parts[1].Questions.join('\n');
-        //   const P3Questions = parts[2].Questions.map(question => question.text);
-        //   const stuAnswers: AnswersInterface = {
-        //     P1: {
-        //       audioFileNames: response.slice(0, P1Questions.length),
-        //       questions: P1Questions,
-        //     },
-        //     P2: {
-        //       audioFileName: response[P1Questions.length],
-        //       question: P2Question,
-        //     },
-        //     P3: {
-        //       audioFileNames: response.slice(P1Questions.length + 1),
-        //       questions: P3Questions,
-        //     },
-        //   };
-        //   submitAnswers(stuAnswers);
-        // }
-      }
-    />
-  );
+  const titleRow = <TitleRow title="Speaking Test" onSubmit={() => {}} />;
 
   return (
     <>

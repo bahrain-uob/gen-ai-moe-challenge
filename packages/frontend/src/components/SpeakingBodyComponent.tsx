@@ -13,32 +13,11 @@ import {
   submitAudioFile,
 } from '../utilities/speakingUtilities';
 
-// type SpeakingPart = {
-//   Task: {
-//     S3key: string;
-//     text: number;
-//   };
-//   Questions: {
-//     text: string;
-//     S3Key?: string;
-//   }[];
-// };
-
 type SpeakingBodyComponentProps = {
   speakingPart: SpeakingPartAudio | SpeakingPartCard;
   answer: SpeakingAudioAnswer | SpeakingCardAnswer;
   setAnswer: (arg: SpeakingAudioAnswer | SpeakingCardAnswer) => void;
 };
-
-// type SpeakingBodyComponentProps =
-//   | {
-//       speakingPart: SpeakingPartCard;
-//       answer: SpeakingCardAnswer;
-//     }
-//   | {
-//       speakingPart: SpeakingPartAudio;
-//       answer: SpeakingAudioAnswer;
-//     };
 
 /**
  * This Comopnent handles the body of the speaking page.
@@ -47,104 +26,100 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   speakingPart,
   answer,
   setAnswer,
-}) =>
-  //speakingPart: SpeakingPart;
-  //partIndex: number;
-  //}
-  {
-    const { isRecording, startRecording, stopRecording } = useMicRecorder({
-      onStopRecording: blob => {
-        const url = URL.createObjectURL(blob);
-        const x = new Audio(url);
-        x.play();
+}) => {
+  const { isRecording, startRecording, stopRecording } = useMicRecorder({
+    onStopRecording: blob => {
+      const url = URL.createObjectURL(blob);
+      const x = new Audio(url);
+      x.play();
 
-        console.log({ blob, url });
+      console.log({ blob, url });
 
-        const fileName = generateFileName();
-        submitAudioFile(fileName, blob).then(() => {
-          if (isCardPart(speakingPart)) {
-            setAnswer({
-              audioFileName: fileName,
-              question: 'What is this?',
-            });
-          } else {
-            if ('audioFileNames' in answer) {
-              const answerCopy: SpeakingAudioAnswer = {
-                audioFileNames: [...answer.audioFileNames, fileName],
-                questions: [
-                  ...answer.questions,
-                  Math.random().toString(36).substring(2, 7),
-                ],
-              };
-              setAnswer(answerCopy);
-            } else {
-              setAnswer({
-                audioFileNames: [fileName],
-                questions: ['What is this?'],
-              });
-            }
-          }
-        });
-      },
-    });
-
-    const [questionIndex, setQuestionIndex] = useState(0);
-    const [allowRecording, setAllowRecording] = useState(
-      isCardPart(speakingPart),
-    );
-    const length = isCardPart(speakingPart) ? 1 : speakingPart.Questions.length;
-
-    console.log({ answer });
-
-    const toNextRecording = () => {
-      stopRecording();
-      setQuestionIndex(i => {
-        setAllowRecording(false);
-        if (i < length - 1) {
-          return i + 1;
+      const fileName = generateFileName();
+      submitAudioFile(fileName, blob).then(() => {
+        if (isCardPart(speakingPart)) {
+          setAnswer({
+            audioFileName: fileName,
+            question: 'What is this?',
+          });
         } else {
-          // TODO: handle finished
-          return i;
+          if ('audioFileNames' in answer) {
+            const answerCopy: SpeakingAudioAnswer = {
+              audioFileNames: [...answer.audioFileNames, fileName],
+              questions: [
+                ...answer.questions,
+                Math.random().toString(36).substring(2, 7),
+              ],
+            };
+            setAnswer(answerCopy);
+          } else {
+            setAnswer({
+              audioFileNames: [fileName],
+              questions: ['What is this?'],
+            });
+          }
         }
       });
-    };
+    },
+  });
 
-    const handleAudioFinish = () => {
-      setQuestionIndex(i => {
-        if (i < length - 1) {
-          setAllowRecording(true);
-        }
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [allowRecording, setAllowRecording] = useState(
+    isCardPart(speakingPart),
+  );
+  const length = isCardPart(speakingPart) ? 1 : speakingPart.Questions.length;
+
+  console.log({ answer });
+
+  const toNextRecording = () => {
+    stopRecording();
+    setQuestionIndex(i => {
+      setAllowRecording(false);
+      if (i < length - 1) {
+        return i + 1;
+      } else {
+        // TODO: handle finished
         return i;
-      });
-    };
-
-    let view;
-    if (isCardPart(speakingPart)) {
-      view = <SpeakingCardComponent part={speakingPart} />;
-    } else {
-      view = (
-        <SpeakingAudioPlayer
-          trackIndex={questionIndex}
-          url={speakingPart.Questions[questionIndex].S3key}
-          height={200}
-          onFinish={handleAudioFinish}
-        />
-      );
-    }
-
-    return (
-      <div className="flex flex-col h-full justify-evenly items-center px-6">
-        {view}
-        <MicButton
-          className="shadow-backdrop"
-          onStop={toNextRecording}
-          onStart={startRecording}
-          isRecording={isRecording}
-          disabled={!allowRecording}
-        />
-      </div>
-    );
+      }
+    });
   };
+
+  const handleAudioFinish = () => {
+    setQuestionIndex(i => {
+      if (i < length - 1) {
+        setAllowRecording(true);
+      }
+      return i;
+    });
+  };
+
+  let view;
+  if (isCardPart(speakingPart)) {
+    view = <SpeakingCardComponent part={speakingPart} />;
+  } else {
+    view = (
+      <SpeakingAudioPlayer
+        trackIndex={questionIndex}
+        url={speakingPart.Questions[questionIndex].S3key}
+        height={200}
+        onFinish={handleAudioFinish}
+      />
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-full justify-evenly items-center px-6">
+      {view}
+      <MicButton
+        className="shadow-backdrop"
+        onStop={toNextRecording}
+        onStart={startRecording}
+        isRecording={isRecording}
+        disabled={!allowRecording}
+      />
+    </div>
+  );
+};
 
 const SpeakingCardComponent = ({ part }: { part: SpeakingPartCard }) => {
   return (
