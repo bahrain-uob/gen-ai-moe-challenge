@@ -1,5 +1,5 @@
  import Progress from '../components/circularProgressBar';
-import Button from '../components/FButton';
+import Button from '../components/cardButton';
 
 const currentExamCard = ({
   title,
@@ -23,9 +23,9 @@ const currentExamCard = ({
           </div>
           <div className="pt-20 w-full flex flex-row items-start sm:mb-5">
             <div className="mr-3">
-              <Button label="Resume" tag="3B828E"  />
+              <Button label="Resume"   />
             </div>
-            <Button label="Start New" tag="3B828E" />
+            <Button label="Start New" />
           </div>
         </div>
         <div className="hidden lg:block md:hidden">
