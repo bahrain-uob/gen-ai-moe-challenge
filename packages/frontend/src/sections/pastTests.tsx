@@ -11,7 +11,7 @@ const pastTests = ({ previousTests }: { previousTests: previousTests }) => {
     <section className="h-full pb-6">
       <div className="w-full h-1/6 px-4 pb-8">
         <div className="h-2/3 w-full">
-          <h3 className="text-4xl text-[#363534] max-lg:text-3xl font-bold mb-6 mx-2 mt-10">
+          <h3 className="text-4xl text-[#363534] max-lg:text-3xl font-bold mb-6 mx-2 mt-">
             Past Tests
           </h3>
         </div>
