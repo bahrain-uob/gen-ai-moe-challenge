@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 
 interface MicButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,15 +15,14 @@ export const MicButton: React.FC<MicButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  const [isOn, setOn] = useState(false);
   const size = 28;
 
-  const icon = isOn ? (
+  const icon = isRecording ? (
     <BsFillMicFill size={size} />
   ) : (
     <BsFillMicMuteFill size={size} />
   );
-  const style = isOn ? 'bg-red-400' : 'bg-white';
+  const style = isRecording ? 'bg-red-400' : 'bg-white';
   const moreStyle = disabled ? 'opacity-50' : '';
 
   return (
@@ -34,7 +32,6 @@ export const MicButton: React.FC<MicButtonProps> = ({
           border-2 ${moreStyle} transition-all duration-200`}
       onClick={() => {
         if (!disabled) {
-          setOn(x => !x);
           isRecording ? onStop() : onStart();
         }
       }}
