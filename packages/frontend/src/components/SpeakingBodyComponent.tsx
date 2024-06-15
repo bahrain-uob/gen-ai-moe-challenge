@@ -8,6 +8,10 @@ import {
 import { MicButton } from './MicButton';
 import { useMicRecorder } from './useMicRecorder';
 import { SpeakingAudioPlayer } from './SpeakingAudioPlayer';
+import {
+  generateFileName,
+  submitAudioFile,
+} from '../utilities/speakingUtilities';
 
 // type SpeakingPart = {
 //   Task: {
@@ -55,6 +59,32 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
         x.play();
 
         console.log({ blob, url });
+
+        const fileName = generateFileName();
+        submitAudioFile(fileName, blob).then(() => {
+          if (isCardPart(speakingPart)) {
+            setAnswer({
+              audioFileName: fileName,
+              question: 'What is this?',
+            });
+          } else {
+            if ('audioFileNames' in answer) {
+              const answerCopy: SpeakingAudioAnswer = {
+                audioFileNames: [...answer.audioFileNames, fileName],
+                questions: [
+                  ...answer.questions,
+                  Math.random().toString(36).substring(2, 7),
+                ],
+              };
+              setAnswer(answerCopy);
+            } else {
+              setAnswer({
+                audioFileNames: [fileName],
+                questions: ['What is this?'],
+              });
+            }
+          }
+        });
       },
     });
 
