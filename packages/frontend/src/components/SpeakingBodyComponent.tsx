@@ -52,7 +52,10 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
       useMicRecorder();
 
     const [questionIndex, setQuestionIndex] = useState(0);
-    const [allowRecording, setAllowRecording] = useState(false);
+    const [allowRecording, setAllowRecording] = useState(
+      isCardPart(speakingPart),
+    );
+    const length = isCardPart(speakingPart) ? 1 : speakingPart.Questions.length;
 
     console.log({ answer });
 
@@ -60,7 +63,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
       stopRecording();
       setQuestionIndex(i => {
         setAllowRecording(false);
-        if (i < speakingPart.Questions.length - 1) {
+        if (i < length - 1) {
           return i + 1;
         } else {
           // TODO: handle finished
@@ -71,7 +74,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
 
     const handleAudioFinish = () => {
       setQuestionIndex(i => {
-        if (i < speakingPart.Questions.length - 1) {
+        if (i < length - 1) {
           setAllowRecording(true);
         }
         return i;
