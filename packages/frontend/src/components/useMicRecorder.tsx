@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 
-export const useMicRecorder = () => {
+type useMicRecorderProps = {
+  onStopRecording?: (audio: Blob) => void;
+};
+
+export const useMicRecorder = ({ onStopRecording }: useMicRecorderProps) => {
   const [isRecording, setIsRecording] = useState(false);
-  const [audioBlob, setAudioBlob] = useState<Blob>();
   const mediaRecorderRef = useRef<MediaRecorder>();
   const audioChunksRef = useRef<Blob[]>([]);
 
@@ -24,7 +27,9 @@ export const useMicRecorder = () => {
               type: 'audio/webm',
             });
             console.log(blob);
-            setAudioBlob(blob);
+            // setAudioBlob(blob);
+
+            onStopRecording?.(blob);
 
             audioChunksRef.current = [];
           };
@@ -51,5 +56,5 @@ export const useMicRecorder = () => {
     setIsRecording(false);
   };
 
-  return { isRecording, startRecording, stopRecording, audioBlob };
+  return { isRecording, startRecording, stopRecording };
 };

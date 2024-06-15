@@ -48,8 +48,15 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   //partIndex: number;
   //}
   {
-    const { isRecording, startRecording, stopRecording, audioBlob } =
-      useMicRecorder();
+    const { isRecording, startRecording, stopRecording } = useMicRecorder({
+      onStopRecording: blob => {
+        const url = URL.createObjectURL(blob);
+        const x = new Audio(url);
+        x.play();
+
+        console.log({ blob, url });
+      },
+    });
 
     const [questionIndex, setQuestionIndex] = useState(0);
     const [allowRecording, setAllowRecording] = useState(
