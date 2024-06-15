@@ -28,12 +28,10 @@ const currentExamCard = ({
             <Button label="Start New" size='large' noBackground />
           </div>
         </div>
-        <div className="hidden lg:block md:hidden">
+        <div className='h-full'>
             <Progress percentage={70} circleWidth={60} radius={27} percentageFontSize='0.8rem' />
           </div>
-          <div className="block md:hidden">
-            <Progress percentage={70} circleWidth={70} radius={30}  percentageFontSize='0.8rem' />
-          </div>
+         
       </div>
     </div>
   );
