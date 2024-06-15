@@ -5,12 +5,17 @@ import {
   initialAnswer,
 } from '../components/Reading/QuestionsComponent';
 import { Button } from '../components/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChallengePage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState(initialAnswer(sampleChallenge.tasks));
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [score, setScore] = useState<number[]>(
+    Array(sampleChallenge.tasks.length).fill(0),
+  );
 
   const handleNext = () => {
     setCurrentQuestionIndex(prevIndex =>
@@ -25,6 +30,52 @@ const ChallengePage: React.FC = () => {
   const handleSubmit = () => {
     setShowCorrectAnswer(true); //to show the correct answers after submit
     setIsSubmitted(true);
+    calculateScore();
+    toast.success('Your answers have been submitted successfully!');
+  };
+
+  const calculateScore = () => {
+    const newScore = answers.map((answer, index) => {
+      const task = sampleChallenge.tasks[index];
+      let taskScore = 0;
+
+      task.SubQuestions.forEach((subQuestion, subIndex) => {
+        const questionType = task.QuestionType;
+
+        if (
+          questionType === 'Multiple Choice' ||
+          questionType === 'List Selection'
+        ) {
+          const correctAnswer = subQuestion.CorrectAnswer;
+          const userAnswer = answer[subIndex];
+          if (userAnswer === correctAnswer) {
+            taskScore += 1;
+          }
+        } else if (
+          questionType === 'Diagram Completion' ||
+          questionType === 'Summary Completion' ||
+          questionType === 'Table Completion'
+        ) {
+          subQuestion.CorrectAnswers.forEach(
+            (correctAnswer: string[], partIndex: number) => {
+              const userAnswer = answer[subIndex][partIndex]?.trim();
+              if (correctAnswer.includes(userAnswer)) {
+                taskScore += 1;
+              }
+            },
+          );
+        } else if (questionType === 'Multiple Answers') {
+          const correctAnswers = subQuestion.CorrectAnswers;
+          if (correctAnswers.includes(answer[subIndex])) {
+            taskScore += 1;
+          }
+        }
+      });
+
+      return taskScore;
+    });
+
+    setScore(newScore);
   };
 
   const renderCurrentQuestion = () => {
@@ -47,7 +98,6 @@ const ChallengePage: React.FC = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-10">{sampleChallenge.type}</h1>
-
       <div className="flex justify-between items-center mb-5">
         <div>
           <Button
@@ -72,13 +122,21 @@ const ChallengePage: React.FC = () => {
           Submit
         </Button>
       </div>
-
       {isSubmitted && (
-        <div className="my-5 p-4 text-green-900 bg-green-100 border border-green-200 rounded shadow">
-          Your answers have been submitted successfully!
+        <div className="my-5 p-6 bg-white border border-gray-200 rounded-lg shadow">
+          <h2 className="font-semibold text-lg mb-3">Scores</h2>
+          {score.map((taskScore, index) => (
+            <div key={index} className="text-gray-800">
+              <span className="text-gray-900 font-semibold mr-2 mb-1">
+                Task {index + 1}:
+              </span>
+              {taskScore} / {sampleChallenge.tasks[index].SubQuestions.length}
+            </div>
+          ))}
         </div>
       )}
 
+      <ToastContainer />
       {sampleChallenge.type === 'Listening' && sampleChallenge.contextAudio && (
         <div className="my-5">
           <audio
@@ -89,14 +147,12 @@ const ChallengePage: React.FC = () => {
           />
         </div>
       )}
-
       <div className="bg-white p-10 mb-5 rounded-lg shadow-md">
         <h1 className="mb-3 text-xl font-bold text-center">
           {sampleChallenge.contextTitle}
         </h1>
         <h2>{sampleChallenge.context}</h2>
       </div>
-
       <div className="bg-white p-10 mb-10 rounded-lg shadow-md">
         {renderCurrentQuestion()}
       </div>
