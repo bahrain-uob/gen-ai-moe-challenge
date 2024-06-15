@@ -41,8 +41,7 @@ const pastTestCard = ({
       </div>
 
       <div className="w-full h-1/3 flex pt-12 justify-center items-center">
-        <Button label="View Report" />{' '}
-        {/* TODO: Add a link to /feedback/{testId} */}
+        <Button label="View Report" to={'/feedback/' + testId} />{' '}
       </div>
 
       <div className="w-full h-1/3 flex flex-col  max-md:text-base">
