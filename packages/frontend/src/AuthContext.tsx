@@ -29,7 +29,7 @@ export const AuthContext = createContext<AuthInfo>({
 });
 
 /** Retrieve the current `AuthInfo` */
-const getAuthInfo = async () => {
+const getAuthInfo = async (): Promise<PartialAuthInfo> => {
   try {
     const authSession = await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
     const user = await getCurrentUser();
