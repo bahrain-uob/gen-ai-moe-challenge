@@ -1,5 +1,5 @@
 import {
-  previousTestsList,
+  previousTestsListFrontend,
   testType,
 } from '../../../functions/src/utilities/fullTestUtilities';
 import Card from '../sections/currentExamCard';
@@ -10,12 +10,12 @@ const fullExam = ({
   list,
   type = 'full',
 }: {
-  list: previousTestsList | undefined;
+  list: previousTestsListFrontend | undefined;
   type: testType | 'full'; // remove optional parameter
 }) => {
   if (!list) {
     list = {
-      inProgress: '',
+      inProgress: { testId: '' },
       previous: [],
     };
   }
@@ -23,7 +23,7 @@ const fullExam = ({
   return (
     <>
       <section className="w-full h-4/6 flex justify-center my-8">
-        {list.inProgress ? (
+        {list.inProgress.testId && list.inProgress.progress ? (
           <Card
             title={
               'IELTS - ' +
@@ -31,9 +31,9 @@ const fullExam = ({
               type.slice(1) +
               ' Test'
             }
-            // remTime="34 : 21"
-            startDate={getRelativeTime(list.inProgress)}
-            // timing="Remaining Time"
+            startDate={getRelativeTime(list.inProgress.testId)}
+            progress={list.inProgress.progress}
+            testId={list.inProgress.testId}
           />
         ) : (
           <h3 className="text-4xl font-bold">No {type} test in progress</h3>

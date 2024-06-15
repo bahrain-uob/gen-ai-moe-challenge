@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  previousTestsLists,
+  previousTestsListsFrontend,
   testType,
 } from '../../../functions/src/utilities/fullTestUtilities';
 import FullExam from './fullExam';
@@ -11,11 +11,14 @@ export const PreviousTests = ({
 }: {
   type?: 'section' | 'full';
 }) => {
-  const previousTestsLists: previousTestsLists = {
+  const previousTestsLists: previousTestsListsFrontend = {
     PK: 'my uid',
     SK: 'Tests',
     full: {
-      inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+      inProgress: {
+        testId: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+        progress: 25,
+      },
       previous: [
         {
           score: 6,
@@ -36,7 +39,10 @@ export const PreviousTests = ({
       ],
     },
     writing: {
-      inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+      inProgress: {
+        testId: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+        progress: 50,
+      },
       previous: [
         {
           score: 6,
@@ -57,7 +63,9 @@ export const PreviousTests = ({
       ],
     },
     speaking: {
-      inProgress: '',
+      inProgress: {
+        testId: '',
+      },
       previous: [
         {
           score: 6,
@@ -78,11 +86,14 @@ export const PreviousTests = ({
       ],
     },
     listening: {
-      inProgress: '',
+      inProgress: { testId: '' },
       previous: [],
     },
     reading: {
-      inProgress: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+      inProgress: {
+        testId: '1718023891366-41bbe8b1-38e5-40bf-8d85-14c0ca40b1b1',
+        progress: 75,
+      },
       previous: [],
     },
   };

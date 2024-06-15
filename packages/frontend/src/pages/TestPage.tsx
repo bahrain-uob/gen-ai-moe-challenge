@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { post } from 'aws-amplify/api';
+import { get, post } from 'aws-amplify/api';
 import { getCurrentUser, AuthUser, fetchAuthSession } from 'aws-amplify/auth';
 import { useContext, useEffect, useState } from 'react';
 import { toJSON } from '../utilities';
@@ -28,9 +28,9 @@ function TestPage() {
 
   const testAPIAccess = async () => {
     const response = await toJSON(
-      post({
+      get({
         apiName: 'myAPI',
-        path: '/',
+        path: '/previousTest',
       }),
     );
 

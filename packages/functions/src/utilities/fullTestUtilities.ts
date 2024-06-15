@@ -284,6 +284,24 @@ export type previousTestsLists = {
   speaking?: previousTestsList;
 };
 
+export type previousTestsListsFrontend = {
+  PK: string; // the user id
+  SK: 'Tests';
+  full?: previousTestsListFrontend;
+  listening?: previousTestsListFrontend;
+  reading?: previousTestsListFrontend;
+  writing?: previousTestsListFrontend;
+  speaking?: previousTestsListFrontend;
+};
+
+export type previousTestsListFrontend = {
+  inProgress: {
+    testId: string; // Test id
+    progress?: number;
+  };
+  previous: previousTests;
+};
+
 export type previousTestsList = {
   inProgress: string; // Test id
   previous: previousTests;
