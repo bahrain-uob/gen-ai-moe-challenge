@@ -31,6 +31,7 @@ import { GeneralFulltestFeedbackPage } from './pages/GeneralFulltestFeedbackPage
 import { PreviousTests } from './pages/PerviousTests.tsx';
 import challengePage from './pages/challengePage.tsx';
 import { sampleFullTest } from './utilities/sampleFullTest.ts';
+import { RequireAuth } from './utilities/authUtilities.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -180,7 +181,11 @@ export const routes = createBrowserRouter([
   },
   /* Include all the routes that may affect authentication info here */
   {
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: notLandingRoutes,
   },
   // Note that home page doesn't need a padding, because of the slider
