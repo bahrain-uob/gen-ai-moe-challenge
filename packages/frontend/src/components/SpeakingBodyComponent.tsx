@@ -56,13 +56,27 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
 
     console.log({ answer });
 
+    const toNextRecording = () => {
+      stopRecording();
+      setQuestionIndex(i => {
+        setAllowRecording(false);
+        if (i < speakingPart.Questions.length - 1) {
+          return i + 1;
+        } else {
+          // TODO: handle finished
+          return i;
+        }
+      });
+    };
+
     let view;
     if (isCardPart(speakingPart)) {
       view = <SpeakingCardComponent part={speakingPart} />;
     } else {
       view = (
         <SpeakingAudioPlayer
-          urls={speakingPart.Questions.map(t => t.S3key)}
+          trackIndex={questionIndex}
+          url={speakingPart.Questions[questionIndex].S3key}
           height={200}
           onFinish={() => setAllowRecording(true)}
         />
@@ -74,7 +88,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
         {view}
         <MicButton
           className="shadow-backdrop"
-          onStop={stopRecording}
+          onStop={toNextRecording}
           onStart={startRecording}
           isRecording={isRecording}
           disabled={!allowRecording}
