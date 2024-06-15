@@ -2,23 +2,24 @@ import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
 interface ComponentProps {
-  urls: string[];
+  trackIndex: number;
+  url: string;
   height: number;
   onFinish?: () => void;
 }
 
 export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
-  urls,
+  trackIndex,
+  url,
   height,
   onFinish,
 }) => {
   const wavesurferContainerRef = useRef<HTMLDivElement | null>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
-  const [trackIndex, setTrackIndex] = useState(0);
   const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (urls.length && wavesurferContainerRef.current) {
+    if (wavesurferContainerRef.current) {
       if (wavesurferRef.current) {
         wavesurferRef.current.destroy();
       }
@@ -36,17 +37,11 @@ export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
       });
     }
 
-    wavesurferRef.current?.on('finish', () => {
-      onFinish?.();
+    // wavesurferRef.current?.load(url);
 
-      setTrackIndex(prevIndex => {
-        if (prevIndex < urls.length - 1) {
-          setAudioPlayed(false); // Reset audioPlayed for the next track
-          return prevIndex + 1;
-        } else {
-          return prevIndex;
-        }
-      });
+    wavesurferRef.current?.on('finish', () => {
+      setAudioPlayed(false);
+      onFinish?.();
     });
 
     return () => {
@@ -58,8 +53,8 @@ export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
   }, []);
 
   useEffect(() => {
-    wavesurferRef.current?.load(urls[trackIndex]);
-  }, [trackIndex]);
+    wavesurferRef.current?.load(url);
+  }, [url]);
 
   const handlePlay = () => {
     if (wavesurferRef.current) {
