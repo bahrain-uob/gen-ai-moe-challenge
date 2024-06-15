@@ -2,7 +2,7 @@
 
 
 import CircularBar from './circularProgressBar';
-import CardButton from './cardButton';
+import Button from './cardButton';
 
 const resumeCard = ({
   title,
@@ -24,9 +24,9 @@ const resumeCard = ({
       </div>
 
       <div className="w-full h-1/6 flex justify-center items-center pt-5 pb-20 px-6">
-      <CardButton label='Resume'>
+      <Button label='Resume' size='small'>
        
-        </CardButton>
+        </Button>
       </div>
     </div>
   );
