@@ -84,7 +84,7 @@ export const main = async (
   const testTypes: testType[] = ['writing', 'speaking', 'reading', 'listening'];
 
   const testProgress = testTypes.map((type: testType) => {
-    if (list[type]?.inProgress) {
+    if (list[type] && list[type].inProgress) {
       const elapsedTime =
         Number(list[type].inProgress.split('-')[0]) - new Date().getTime();
       const percentage = Math.floor(
