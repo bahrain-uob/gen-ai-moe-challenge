@@ -41,7 +41,7 @@ const fullExam = ({
       </section>
 
       <section className="h-1/2">
-        <PastTests previousTests={list.previous} />
+        <PastTests previousTests={list.previous} type={type} />
       </section>
     </>
   );
