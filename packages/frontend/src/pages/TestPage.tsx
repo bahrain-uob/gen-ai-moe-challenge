@@ -8,6 +8,7 @@ import { Modal } from '../components/Modal';
 import WaveSurferPlayer from './waveformListeningTest';
 import { AuthContext } from '../AuthContext';
 import { CountdownTimer } from '../components/CountdownTimer';
+import { sampleFullTest } from '../utilities/sampleFullTest';
 
 async function _getCurrentUser() {
   try {
@@ -49,6 +50,9 @@ function TestPage() {
   return (
     <>
       <h2> This is a test page</h2>
+
+      <Button onClick={() => recurs(sampleFullTest)}> Test recurs </Button>
+
       <p>{user ? JSON.stringify(user) : 'No current User'}</p>
 
       <p className="mt-4 font-light text-lg">Get info using Auth Stack</p>
@@ -135,4 +139,36 @@ const ModalDemo = () => {
       />
     </div>
   );
+};
+
+const recurs = (input: any) => {
+  // Base case
+  if (typeof input !== 'object') {
+    return input;
+  }
+
+  // Array case
+  if (Array.isArray(input)) {
+    for (let i = 0; i < input.length; i++) {
+      recurs(input[i]);
+    }
+  }
+
+  // Object case
+  else {
+    const keys = Object.keys(input);
+
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+
+      // Match with keys
+      if (key.toLowerCase().endsWith('key')) {
+        console.log('Found', { key, value: input[key] });
+
+        input[key] = 'blah';
+      }
+
+      recurs(input[key]);
+    }
+  }
 };
