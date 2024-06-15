@@ -1,4 +1,4 @@
-// import Progress from '../components/circularProgressBar';
+ import Progress from '../components/circularProgressBar';
 import Button from '../components/FButton';
 
 const currentExamCard = ({
@@ -13,25 +13,27 @@ const currentExamCard = ({
   // timing: string;
 }) => {
   return (
-    <div className=" h-full w-3/4 bg-[#FEFDFA] rounded-xl flex flex-col items-center py-5 text-center">
-      <div className=" h-1/6 w-full flex items-center justify-center">
-        <h3 className="text-4xl font-bold">{title}</h3>
-      </div>
-      {/* <div className=" h-3/6 w-full flex justify-center items-center">
-        <Progress percentage={70} circleWidth={370} />
-      </div> */}
-      <div className=" h-1/6 w-full flex flex-col text-3xl max-md:text-xl max-sm:text-sm">
-        {/* <div className="h-full w-full flex flex-row justify-around p-6">
-          <h4 className="text-[#989896] font-medium">{timing}</h4>
-          <h4 className="font-bold">{remTime}</h4>
-        </div> */}
-        <div className="h-full w-full flex flex-row justify-around gap-x-11 p-6">
-          <h4 className="text-[#989896] font-medium">Start Date</h4>
-          <h4 className="font-bold">{startDate}</h4>
+    <div className="h-full w-2/4 bg-[#FEFDFA] rounded-xl flex flex-col items-center py-2 text-center shadow-md ">
+      <div className="w-full flex justify-between items-start  px-5">
+        <div className="flex flex-col items-start pt-10">
+        <h3 className="text-4xl font-semibold md:text-3xl sm:text-xl">{title}</h3>
+          <div className="flex flex-row mt-2">
+            <h4 className="text-[#989896] ">Start Date :</h4>
+            <h4 className="text-[#989896] ">{startDate}</h4>
+          </div>
+          <div className="pt-20 w-full flex flex-row items-start">
+            <div className="mx-6">
+              <Button label="Resume" tag="3B828E" />
+            </div>
+            <Button label="Start New" tag="3B828E" />
+          </div>
         </div>
-      </div>
-      <div className="pt-9 w-1/2 flex gap-x-20 max-sm:gap-x-5">
-        <Button label="Resume" tag="3B828E" />
+        <div className="hidden md:block sm:hidden">
+            <Progress percentage={70} circleWidth={60} radius={27} />
+          </div>
+          <div className="block md:hidden">
+            <Progress percentage={70} circleWidth={70} radius={32} />
+          </div>
       </div>
     </div>
   );

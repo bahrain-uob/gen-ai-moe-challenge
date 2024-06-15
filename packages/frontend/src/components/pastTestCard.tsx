@@ -1,4 +1,4 @@
-import Button from '../components/FButton';
+import CardButton from './cardButton';
 import { getRelativeTime } from '../utilities';
 
 const getColor = (grade: number): string => {
@@ -15,23 +15,26 @@ const pastTestCard = ({ grade, testId }: { grade: number; testId: string }) => {
   const color = getColor(grade);
 
   return (
-    <div className=" w-[28rem] h-96 bg-white rounded-lg hover:w-[30rem] hover:h-[26rem] duration-500">
-      <div className="w-full h-1/3 flex justify-center items-center">
-        <h3 className="text-5xl font-semibold">
-          <span className={`text-7xl font-bold`} style={{ color: color }}>
+    <div className=" w-[20rem] h-72  bg-white rounded-lg shadow-lg flex flex-col items-center pt-6  ">
+     
+      <div className="w-full h-1/3 flex justify-center items-center pt-10">
+        <h3 className="text-4xl font-semibold">
+          <span className={`text-5xl font-bold`} style={{ color: color }}>
             {grade}
           </span>{' '}
           / 9
         </h3>
       </div>
-      <div className="w-full h-1/3 flex flex-col pt-8 text-2xl max-md:text-base">
-        <div className="w-full h-full flex flex-row justify-around pl-4 font-semibold">
-          <h3>Submitted {getRelativeTime(testId)}</h3>
-        </div>
-      </div>
-      <div className="w-full h-1/3 flex justify-center items-center">
-        <Button label="View Report" tag="3B828E" />{' '}
+     
+      <div className="w-full h-1/3 flex pt-20 justify-center items-center">
+        <CardButton label="View Report"  />{' '}
         {/* TODO: Add a link to /feedback/{testId} */}
+      </div>
+
+      <div className="w-full h-1/3 flex flex-col  max-md:text-base">
+        <div className="w-full h-full flex flex-row  pl-2 pt-12">
+          <h3 className='text-[#989896] text-sm'>Submitted {getRelativeTime(testId)}</h3>
+        </div>
       </div>
     </div>
   );
