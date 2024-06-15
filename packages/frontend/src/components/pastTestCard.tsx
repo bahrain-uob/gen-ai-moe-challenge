@@ -19,8 +19,8 @@ const pastTestCard = ({grade, testId }: { grade: number; testId: string }) => {
     <div className=" w-[20rem] h-72  bg-white rounded-lg shadow-lg flex flex-col items-center pt-6  ">
         <h3 className='text-xl  text-center max-sm:text-lg'>IELTS-Full Test</h3>
       <div className="w-full h-1/3 flex justify-center items-center pt-10">
-        <h3 className="text-5xl font-semibold">
-          <span className={`text-5xl font-bold`} style={{ color: color }}>
+        <h3 className="text-4xl  font-semibold lg:text-5xl">
+          <span className={`text-4xl font-bold lg:text-5xl`} style={{ color: color }}>
             {grade}
           </span>{' '}
           / 9
