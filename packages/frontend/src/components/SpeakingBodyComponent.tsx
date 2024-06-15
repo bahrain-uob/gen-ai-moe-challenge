@@ -69,6 +69,15 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
       });
     };
 
+    const handleAudioFinish = () => {
+      setQuestionIndex(i => {
+        if (i < speakingPart.Questions.length - 1) {
+          setAllowRecording(true);
+        }
+        return i;
+      });
+    };
+
     let view;
     if (isCardPart(speakingPart)) {
       view = <SpeakingCardComponent part={speakingPart} />;
@@ -78,7 +87,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
           trackIndex={questionIndex}
           url={speakingPart.Questions[questionIndex].S3key}
           height={200}
-          onFinish={() => setAllowRecording(true)}
+          onFinish={handleAudioFinish}
         />
       );
     }
