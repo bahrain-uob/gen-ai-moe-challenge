@@ -39,38 +39,34 @@ const ChallengePage: React.FC = () => {
       const task = sampleChallenge.tasks[index];
       let taskScore = 0;
 
-      task.SubQuestions.forEach((subQuestion, subIndex) => {
-        const questionType = task.QuestionType;
+      for (let subIndex = 0; subIndex < task.SubQuestions.length; subIndex++) {
+        const subQuestion = task.SubQuestions[subIndex];
 
-        if (
-          questionType === 'Multiple Choice' ||
-          questionType === 'List Selection'
-        ) {
+        if ('CorrectAnswer' in subQuestion) {
+          // Handle single correct answer ( Multiple Choice, List Selection)
           const correctAnswer = subQuestion.CorrectAnswer;
           const userAnswer = answer[subIndex];
           if (userAnswer === correctAnswer) {
             taskScore += 1;
           }
         } else if (
-          questionType === 'Diagram Completion' ||
-          questionType === 'Summary Completion' ||
-          questionType === 'Table Completion'
+          'CorrectAnswers' in subQuestion &&
+          Array.isArray(subQuestion.CorrectAnswers)
         ) {
-          subQuestion.CorrectAnswers.forEach(
-            (correctAnswer: string[], partIndex: number) => {
-              const userAnswer = answer[subIndex][partIndex]?.trim();
-              if (correctAnswer.includes(userAnswer)) {
-                taskScore += 1;
-              }
-            },
-          );
-        } else if (questionType === 'Multiple Answers') {
-          const correctAnswers = subQuestion.CorrectAnswers;
-          if (correctAnswers.includes(answer[subIndex])) {
-            taskScore += 1;
+          // Handle multiple correct answers ( Diagram Completion, Summary Completion, Table Completion, Multiple Answers)
+          for (
+            let partIndex = 0;
+            partIndex < subQuestion.CorrectAnswers.length;
+            partIndex++
+          ) {
+            const correctAnswer = subQuestion.CorrectAnswers[partIndex];
+            const userAnswer = answer[subIndex][partIndex]?.trim();
+            if (correctAnswer.includes(userAnswer)) {
+              taskScore += 1;
+            }
           }
         }
-      });
+      }
 
       return taskScore;
     });
