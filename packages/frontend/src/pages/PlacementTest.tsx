@@ -1,4 +1,4 @@
-import { Nav } from '../components/Nav';
+
 import Button from '../components/FButton';
 import { useState } from 'react';
 import { sections } from './Questions';
@@ -102,7 +102,6 @@ const PlacementTest = () => {
 
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
-      <Nav />
       {showResult ? (
         <section className="w-full flex items-center h-1/3 flex-col gap-y-48">
           <div className="w-1/2 flex flex-col gap-10">
