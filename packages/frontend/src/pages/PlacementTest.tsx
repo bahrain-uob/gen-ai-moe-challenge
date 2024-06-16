@@ -2,6 +2,8 @@
 import Button from '../components/FButton';
 import { useState } from 'react';
 import { sections } from './Questions';
+import { BsCheckCircleFill , BsXCircleFill } from 'react-icons/bs';
+
 
 export interface Question {
   text: string;
@@ -23,7 +25,7 @@ export interface Selected {
 }
 
 const optionsStyle =
-  'bg-[#3B828E] rounded-md p-2 text-white text-xl font-semibold w-1/3 mx-10 my-1 h-16 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
+  'bg-white border border-black rounded-md p-2 text-black text-xl w-1/3 mx-10 my-2 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
 
 const PlacementTest = () => {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -34,6 +36,7 @@ const PlacementTest = () => {
   const [sectionScore, setSectionScore] = useState(0);
   const [level, setLevel] = useState('');
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
+  
 
   const optionClicked = (text: string) => {
     const currentSectionQuestions = sections[currentSection - 1];
@@ -103,36 +106,61 @@ const PlacementTest = () => {
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
       {showResult ? (
-        <section className="w-full flex items-center h-1/3 flex-col gap-y-48">
-          <div className="w-1/2 flex flex-col gap-10">
-            <h1 className="text-6xl font-extrabold">Your Level is</h1>
+        <section className="w-full flex items-center h-1/3 flex-col gap-y-10 ">
+          <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col items-center gap-10 p-8 ">
+            <h1 className="text-4xl font-bold">Your Level is</h1>
             <img
               src={`assets/Levels/${level}.png`}
               alt={`${level} CEFR Level`}
-              className=" size-1/2"
+              className="w-1/2 h-auto"
             />
           </div>
+          <Button label="Continue" tag="3B828E"></Button>
         </section>
       ) : (
         <section className="w-full flex items-center h-3/4 flex-col justify-center">
           {showFeedback ? (
-            <div className="w-1/2 flex flex-col gap-10">
+            <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col gap-5 ">
               <div>
-                <h1 className="text-4xl font-bold">Section Result</h1>
+                <h1 className="text-3xl mb-10">Section Result</h1>
               </div>
-              {sectionSummary.map((summary, index) => (
+              {sectionSummary.map((summary, index) => {
+                 const isCorrect = summary.chosen === summary.correct;
+                 const currentQuestionObj = sections[summary.section - 1].find(
+                  q => q.text === summary.question
+                );
+                 return (  
                 <div key={index}>
-                  <div>
-                    <h2 className="text-2xl font-semibold">
-                      {summary.question}
+                  <div className='bg-white border py-4 px-4 '>
+                  <div className='flex items-center' >  
+                  {isCorrect ? <BsCheckCircleFill className="text-teal-500 inline-block " /> : <BsXCircleFill className="text-red-500 inline-block " />}
+                    <h1 className='text-lg font-bold ml-2'>Question {index + 1} </h1>
+                    
+                  </div>  
+                    <h2 className="text-md mt-3 mb-5">
+                     {summary.question}
                     </h2>
-                    <h4 className="text-lg">Your Choice: {summary.chosen}</h4>
-                    <h4 className="text-lg">
-                      Correct Answer: {summary.correct}
-                    </h4>
+                    <h2>{summary.correct}</h2>
+                    <h2>{summary.chosen}</h2>
+                     {currentQuestionObj && currentQuestionObj.options.map(option => (
+                   <div
+                       key={option.id}
+                       className={`text-lg border p-2 mt-3 ${
+                        option.text === summary.correct
+                          ? 'border-teal-500'
+                          : option.text === summary.chosen
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      }`}
+                    >
+            {option.text}
+          </div>
+        ))}
+                   
                   </div>
                 </div>
-              ))}
+                 );
+})}
 
               {score >= 5 && currentSection + 1 <= sections.length ? (
                 <div className="w-1/2" onClick={handleNextSection}>
@@ -145,14 +173,16 @@ const PlacementTest = () => {
               )}
             </div>
           ) : (
-            <div className="w-1/2 flex flex-col items-center rounded-xl">
-              <h3 className="font-bold text-4xl pb-12">
+            
+            <div className="w-1/2 flex flex-col items-center rounded-xl bg-white p-10 border">
+              <h2 className='text-3xl pb-12 font-semibold'>Placment Test</h2>
+              <h3 className="text-3xl pb-12 pt-10">
                 {sections[currentSection - 1][currentQuestion].text}
               </h3>
-              <h5 className="font-bold text-2xl pb-12">
+              <h5 className="text-2xl pb-12">
                 {sections[currentSection - 1][currentQuestion].sub}
               </h5>
-              <div className="flex flex-row w-full flex-wrap justify-between">
+              <div className="flex flex-row w-full flex-wrap ">
                 {sections[currentSection - 1][currentQuestion].options.map(
                   option => {
                     return (
@@ -167,7 +197,13 @@ const PlacementTest = () => {
                   },
                 )}
               </div>
+
+              
             </div>
+
+            
+            
+            
           )}
         </section>
       )}
