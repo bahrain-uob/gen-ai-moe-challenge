@@ -84,16 +84,16 @@ export const main = async (
   const testTypes: testType[] = ['writing', 'speaking', 'reading', 'listening'];
 
   const testProgress = testTypes.map((type: testType) => {
-    if (list[type] && list[type].inProgress) {
+    if (list[type]?.inProgress) {
       const elapsedTime =
-        Number(list[type].inProgress.split('-')[0]) - new Date().getTime();
+        Number(list[type]?.inProgress.split('-')[0]) - new Date().getTime();
       const percentage = Math.floor(
         (Math.min(elapsedTime, examSectionObject[type].time) /
           examSectionObject[type].time) *
           100,
       );
       newList[type].inProgress = {
-        testId: list[type].inProgress,
+        testId: list[type]?.inProgress,
         progress: percentage,
       };
     } else if (list[type]) {
