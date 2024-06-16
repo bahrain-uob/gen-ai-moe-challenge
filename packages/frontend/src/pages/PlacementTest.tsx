@@ -25,7 +25,7 @@ export interface Selected {
 }
 
 const optionsStyle =
-  'bg-white border border-black rounded-md p-2 text-black text-xl w-1/3 mx-10 my-2 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
+  'bg-white border border-gray-300 p-2 text-black text-lg my-4  hover:cursor-pointer hover:bg-gray-300';
 
 const PlacementTest = () => {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -36,6 +36,7 @@ const PlacementTest = () => {
   const [sectionScore, setSectionScore] = useState(0);
   const [level, setLevel] = useState('');
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
+  
   
 
   const optionClicked = (text: string) => {
@@ -129,6 +130,9 @@ const PlacementTest = () => {
                  const currentQuestionObj = sections[summary.section - 1].find(
                   q => q.text === summary.question
                 );
+
+        console.log('Summary:', summary);
+        console.log('Current Question Obj:', currentQuestionObj);
                  return (  
                 <div key={index}>
                   <div className='bg-white border py-4 px-4 '>
@@ -173,16 +177,17 @@ const PlacementTest = () => {
               )}
             </div>
           ) : (
-            
-            <div className="w-1/2 flex flex-col items-center rounded-xl bg-white p-10 border">
-              <h2 className='text-3xl pb-12 font-semibold'>Placment Test</h2>
-              <h3 className="text-3xl pb-12 pt-10">
+            <>
+            <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10">
+              <h2 className='text-3xl pb-12 font-semiboldb text-center text-blue-4'>Placment Test</h2>
+              <h3 className="text-xl  pt-8 ">
                 {sections[currentSection - 1][currentQuestion].text}
               </h3>
-              <h5 className="text-2xl pb-12">
+              <h5 className="text-xl pb-12">
                 {sections[currentSection - 1][currentQuestion].sub}
               </h5>
-              <div className="flex flex-row w-full flex-wrap ">
+              
+              <div className="">
                 {sections[currentSection - 1][currentQuestion].options.map(
                   option => {
                     return (
@@ -199,9 +204,14 @@ const PlacementTest = () => {
               </div>
 
               
+              
             </div>
 
-            
+            <div className='w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col items-center border p-5 mt-5'>
+               
+              </div>
+              </>
+
             
             
           )}
