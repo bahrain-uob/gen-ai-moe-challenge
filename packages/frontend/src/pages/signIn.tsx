@@ -65,13 +65,13 @@ export default function SignIn() {
     <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[30rem] flex flex-col justify-center px-6 py-6 lg:py-10 lg:px-8 bg-white rounded-md shadow-lg">
         
       <ToastContainer />
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mb-6 mt-8 lg:mb-10 lg: text-center text-2xl md:text-3xl font-roboto leading-9  tracking-tight text-gray-900">
+      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 className="mb-6 mt-3 lg:mb-10 lg: text-center text-3xl font-roboto leading-9  tracking-tight text-gray-900">
           Sign in
         </h1>
       </div>
 
-      <div className="lg:mt-5">
+      <div className="mt-7">
         <label className="block text-sm font-medium leading-6 text-gray-900">
           Email address
         </label>
@@ -123,7 +123,7 @@ export default function SignIn() {
         </button>
       </div>
 
-      <p className="mt-7  mb-6  text-center text-sm text-gray-500" >
+      <p className="mt-7    text-center text-sm text-gray-500" >
         Don't have an account? {''}
         <Link
           to="/sign-up"
