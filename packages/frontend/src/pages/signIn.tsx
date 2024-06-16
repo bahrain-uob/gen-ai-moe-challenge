@@ -55,23 +55,23 @@ export default function SignIn() {
     <div className="min-h-screen flex flex-col bg-grey-1">
 
 
-     <div className="w-full flex justify-between items-center px-10 py-5 ">
+     <div className="w-full flex justify-between items-center px-5 lg:px-10 py-5 ">
       <h1 className="text-xl font-bold text-blue-4">LINGUI</h1>
       <Link to="/" className="text-xl text-blue-4">Home</Link>
     </div>
 
 
-    <div className="flex flex-1 items-center justify-center px-20">
-    <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[29rem] flex flex-col justify-center px-6 py-10 lg:px-8 bg-white rounded-md shadow-lg">
+    <div className="flex flex-1 items-center justify-center px-5 ">
+    <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[30rem] flex flex-col justify-center px-6 py-6 lg:py-10 lg:px-8 bg-white rounded-md shadow-lg">
         
       <ToastContainer />
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-2 mb-10 text-center text-3xl  font-roboto leading-9  tracking-tight text-gray-900">
+        <h1 className="mb-6 mt-8 lg:mb-10 lg: text-center text-2xl md:text-3xl font-roboto leading-9  tracking-tight text-gray-900">
           Sign in
         </h1>
       </div>
 
-      <div className="mt-5">
+      <div className="lg:mt-5">
         <label className="block text-sm font-medium leading-6 text-gray-900">
           Email address
         </label>
@@ -123,7 +123,7 @@ export default function SignIn() {
         </button>
       </div>
 
-      <p className="mt-7 text-center text-sm text-gray-500">
+      <p className="mt-7  mb-6  text-center text-sm text-gray-500" >
         Don't have an account? {''}
         <Link
           to="/sign-up"
