@@ -60,6 +60,9 @@ export const PLTestPage = () => {
   const handleResult = async () => {
     console.log('handleResult function started');
 
+    const highestScoringLevel = getHighestScoringLevel(cf); // Get the highest scoring level
+    console.log('Highest scoring level:', highestScoringLevel);
+
     try {
       const response = await toJSON(
         post({
@@ -72,6 +75,7 @@ export const PLTestPage = () => {
             },
             body: {
               planType: 'vocab',
+              level: highestScoringLevel, // Include the level in the request body
             },
           },
         }),

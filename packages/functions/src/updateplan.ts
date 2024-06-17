@@ -33,8 +33,10 @@ export const main = async (
     };
   }
 
-  const planType = data.planType; // Value sent from client
+  const planType = data.planType;
   console.log('Received plan type:', planType);
+  const level = data.level;
+  console.log('Received level:', level);
 
   const userId = event.requestContext.authorizer?.jwt.claims.sub;
   console.log('user id: ', userId);
