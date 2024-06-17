@@ -20,6 +20,7 @@ export interface Option {
 
 export interface Selected {
   section: number;
+  questionIndex: number;
   question: string;
   chosen: string;
   correct: string;
@@ -57,6 +58,7 @@ const PlacementTest = () => {
       ...prev,
       {
         section: currentSection,
+        questionIndex: currentQuestion, 
         question,
         chosen: text,
         correct: correctAnswer,
@@ -111,8 +113,8 @@ const PlacementTest = () => {
     <main className="bg-[#FBF9F1] h-full min-h-screen">
       {showResult ? (
         <section className="w-full flex items-center h-1/3 flex-col gap-y-10 ">
-          <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col items-center gap-10 p-8 ">
-            <h1 className="text-3xl">Your Level is</h1>
+          <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col items-center gap-10 p-8  ">
+            <h1 className="text-3xl">Your current Level is</h1>
             <img
               src={`assets/Levels/${level}.png`}
               alt={`${level} CEFR Level`}
@@ -130,9 +132,7 @@ const PlacementTest = () => {
               </div>
               {sectionSummary.map((summary, index) => {
                  const isCorrect = summary.chosen === summary.correct;
-                 const currentQuestionObj = sections[summary.section - 1].find(
-                  q => q.text === summary.question
-                );
+                 const currentQuestionObj = sections[summary.section - 1][summary.questionIndex]; 
 
         console.log('Summary:', summary);
         console.log('Current Question Obj:', currentQuestionObj);
@@ -141,23 +141,22 @@ const PlacementTest = () => {
                   <div className='bg-white border py-4 px-4 '>
                   <div className='flex items-center' >  
                   {isCorrect ? <BsCheckCircleFill className="text-teal-500 inline-block " /> : <BsXCircleFill className="text-red-500 inline-block " />}
-                    <h1 className='text-lg font-bold ml-2'>Question {index + 1} </h1>
+                    <h1 className='text-lg font-bold ml-2'>Question {summary.questionIndex +1} </h1>
                     
                   </div>  
                     <h2 className="text-md mt-3 mb-5">
                      {summary.question}
                     </h2>
-                    <h2>{summary.correct}</h2>
-                    <h2>{summary.chosen}</h2>
+                    
                      {currentQuestionObj && currentQuestionObj.options.map(option => (
                    <div
                        key={option.id}
-                       className={`text-lg border p-2 mt-3 ${
+                       className={`text-lg border  p-2 mt-3 ${
                         option.text === summary.correct
-                          ? 'border-teal-500'
+                          ? 'border-teal-500 border-2'
                           : option.text === summary.chosen
-                          ? 'border-red-500'
-                          : 'border-gray-300'
+                          ? 'border-red-500 border-2'
+                          : 'border-gray-400 text-gray-400'
                       }`}
                     >
             {option.text}
