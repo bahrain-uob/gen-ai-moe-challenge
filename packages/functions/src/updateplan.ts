@@ -4,56 +4,65 @@ import {
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 const client = new DynamoDBClient({});
 const dynamoDb = DynamoDBDocumentClient.from(client);
 
-interface UpdateParams {
-  TableName: string;
-  Key: {
-    userId: string;
-    plan: string;
-  };
-  UpdateExpression: string;
-  ExpressionAttributeValues: {
-    [key: string]: any; // Allow any type of value
-  };
-  ReturnValues: 'ALL_NEW';
-}
-
 export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
-  console.log('Lambda function invoked'); // Log when the function is invoked
-  console.log('Event: ', JSON.stringify(event)); // Log the event object
+  console.log('Lambda function invoked');
+  console.log('Event body:', event.body);
 
-  const data = JSON.parse(event.body!);
-  const planType = data.planType;
+  let data;
+  try {
+    if (!event.body) {
+      throw new Error('Request body is missing');
+    }
+    const body = event.isBase64Encoded
+      ? Buffer.from(event.body, 'base64').toString('utf-8')
+      : event.body;
+    data = JSON.parse(body);
+  } catch (err) {
+    console.error('Error parsing request body:', err.message);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid JSON in request body' }),
+    };
+  }
 
-  // Accessing user ID from the event object
+  const planType = data.planType; // Value sent from client
+  console.log('Received plan type:', planType);
+
   const userId = event.requestContext.authorizer?.jwt.claims.sub;
+  console.log('user id: ', userId);
 
   if (!userId) {
-    console.log('User ID not found in the token');
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'User ID not found in the token' }),
     };
   }
 
-  const tableName = process.env.TABLE_NAME;
+  const tableName = Table.Records.tableName;
 
-  const getParams = {
-    TableName: tableName!,
-    Key: {
-      userId: userId,
-      plan: planType,
-    },
+  if (!tableName) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Table name not set' }),
+    };
+  }
+
+  const key = {
+    PK: userId,
+    SK: 'plan', // Fixed SK value
   };
 
   try {
-    // Fetch the existing record
+    console.log('Fetching existing item...');
+    const getParams = { TableName: tableName, Key: key };
     const getCommand = new GetCommand(getParams);
     const result = await dynamoDb.send(getCommand);
     const existingItem = result.Item;
@@ -66,23 +75,22 @@ export const main = async (
       };
     }
 
-    // Update the record
-    const updateParams: UpdateParams = {
-      TableName: tableName!,
-      Key: {
-        userId: userId,
-        plan: planType,
+    console.log('Item found, updating...');
+    const updateParams = {
+      TableName: tableName,
+      Key: key,
+      UpdateExpression: `set #planType = :value`,
+      ExpressionAttributeNames: {
+        '#planType': planType,
       },
-      UpdateExpression: `set ${planType} = :value`,
       ExpressionAttributeValues: {
-        ':value': 'test',
+        ':value': 'test', // Update with the value you want
       },
-      ReturnValues: 'ALL_NEW',
+      ReturnValues: 'ALL_NEW' as const,
     };
 
     const updateCommand = new UpdateCommand(updateParams);
     const updateResult = await dynamoDb.send(updateCommand);
-
     console.log('Item updated successfully');
 
     return {
@@ -93,12 +101,12 @@ export const main = async (
       }),
     };
   } catch (error) {
-    console.log('Error updating item: ', error);
+    console.error('Error updating item:', error.message);
     return {
       statusCode: 500,
       body: JSON.stringify({
         error: 'Could not update item',
-        details: (error as Error).message,
+        details: error.message,
       }),
     };
   }

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import FButton from '../components/FButton';
 import TButton from '../components/TButton';
 import { post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
 const knowledgeBase = {
   correct: {
@@ -60,16 +61,21 @@ export const PLTestPage = () => {
     console.log('handleResult function started');
 
     try {
-      const response = await post({
-        apiName: 'myAPI',
-        path: '/addPlan',
-        body: {
-          planType: 'vocab',
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: '/addPlan',
+          options: {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: {
+              planType: 'vocab',
+            },
+          },
+        }),
+      );
 
       console.log('Response from Lambda:', response);
     } catch (error) {

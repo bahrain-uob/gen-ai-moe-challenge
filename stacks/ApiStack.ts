@@ -104,7 +104,6 @@ export function ApiStack({ stack }: StackContext) {
       'POST /addPlan': {
         function: {
           handler: 'packages/functions/src/updateplan.main',
-          runtime: 'python3.11',
           permissions: ['dynamodb:*'],
           timeout: '60 seconds',
         },
