@@ -1,7 +1,8 @@
 import { Nav } from '../components/Nav';
 import Button from '../components/FButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sections } from './Questions';
+import { post } from 'aws-amplify/api';
 
 export interface Question {
   text: string;
@@ -34,6 +35,7 @@ const PlacementTest = () => {
   const [sectionScore, setSectionScore] = useState(0);
   const [level, setLevel] = useState('');
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
+  const [resultHandled, setResultHandled] = useState(false); // New state
 
   const optionClicked = (text: string) => {
     const currentSectionQuestions = sections[currentSection - 1];
@@ -74,31 +76,66 @@ const PlacementTest = () => {
       setCurrentQuestion(0); // Start from the first question
       setSectionSummary([]); // Clear the summary array
       setShowFeedback(false); // Hide the feedback section
+    } else {
+      handleResult(); // Call handleResult before showing the result
     }
   };
-  const handleResult = () => {
+
+  const handleResult = async () => {
+    console.log('handleResult function started');
     let updatedScore = sectionScore;
 
     if (score >= 5) {
       updatedScore += 1;
     }
 
+    console.log('Calculated updatedScore:', updatedScore);
+
     if (updatedScore < 2) {
       setLevel('A1');
+      console.log('Level set to A1');
     } else if (updatedScore === 2) {
       setLevel('A2');
+      console.log('Level set to A2');
     } else if (updatedScore === 3) {
       setLevel('B1');
+      console.log('Level set to B1');
     } else if (updatedScore === 4) {
       setLevel('B2');
+      console.log('Level set to B2');
     } else if (updatedScore === 5) {
       setLevel('C1');
+      console.log('Level set to C1');
     } else if (updatedScore === 6) {
       setLevel('C2');
+      console.log('Level set to C2');
+    }
+    console.log('Invoking Lambda function via API.post');
+
+    try {
+      console.log('Invoking Lambda function via API.post');
+      const response = await post({
+        apiName: 'myAPI',
+        path: '/addPlan',
+        body: {
+          planType: 'vocab',
+        },
+      });
+
+      console.log('Response from Lambda:', response);
+    } catch (error) {
+      console.error('There was a problem with the API operation:', error);
     }
 
-    setShowResult(true);
+    setResultHandled(true); // Mark result as handled
+    setShowResult(true); // Show the result after handling it
   };
+
+  useEffect(() => {
+    if (showResult && !resultHandled) {
+      handleResult();
+    }
+  }, [showResult, resultHandled]);
 
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
@@ -140,7 +177,7 @@ const PlacementTest = () => {
                   <Button label="Next Section" tag="3B828E" />
                 </div>
               ) : (
-                <div className="w-1/2" onClick={handleResult}>
+                <div className="w-1/2" onClick={() => setShowResult(true)}>
                   <Button label="Show Result" tag="3B828E" />
                 </div>
               )}

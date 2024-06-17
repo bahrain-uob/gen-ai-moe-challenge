@@ -25,6 +25,9 @@ interface UpdateParams {
 export const main = async (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
+  console.log('Lambda function invoked'); // Log when the function is invoked
+  console.log('Event: ', JSON.stringify(event)); // Log the event object
+
   const data = JSON.parse(event.body!);
   const planType = data.planType;
 
@@ -32,6 +35,7 @@ export const main = async (
   const userId = event.requestContext.authorizer?.jwt.claims.sub;
 
   if (!userId) {
+    console.log('User ID not found in the token');
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'User ID not found in the token' }),
@@ -55,6 +59,7 @@ export const main = async (
     const existingItem = result.Item;
 
     if (!existingItem) {
+      console.log('Item not found');
       return {
         statusCode: 404,
         body: JSON.stringify({ error: 'Item not found' }),
@@ -78,6 +83,8 @@ export const main = async (
     const updateCommand = new UpdateCommand(updateParams);
     const updateResult = await dynamoDb.send(updateCommand);
 
+    console.log('Item updated successfully');
+
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -86,6 +93,7 @@ export const main = async (
       }),
     };
   } catch (error) {
+    console.log('Error updating item: ', error);
     return {
       statusCode: 500,
       body: JSON.stringify({
