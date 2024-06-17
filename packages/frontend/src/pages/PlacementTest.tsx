@@ -3,6 +3,7 @@ import Button from '../components/FButton';
 import { useState } from 'react';
 import { sections } from './Questions';
 import { BsCheckCircleFill , BsXCircleFill } from 'react-icons/bs';
+import { ProgressBar } from '../components/ProgressBar';
 
 
 export interface Question {
@@ -104,12 +105,14 @@ const PlacementTest = () => {
     setShowResult(true);
   };
 
+  const progressPercentage = (currentQuestion + 1) / sections[currentSection - 1].length;
+
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
       {showResult ? (
         <section className="w-full flex items-center h-1/3 flex-col gap-y-10 ">
           <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col items-center gap-10 p-8 ">
-            <h1 className="text-4xl font-bold">Your Level is</h1>
+            <h1 className="text-3xl">Your Level is</h1>
             <img
               src={`assets/Levels/${level}.png`}
               alt={`${level} CEFR Level`}
@@ -179,11 +182,12 @@ const PlacementTest = () => {
           ) : (
             <>
             <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10">
-              <h2 className='text-3xl pb-12 font-semiboldb text-center text-blue-4'>Placment Test</h2>
+              <h2 className='text-2xl md:text-3xl  pb-8 font-semiboldb text-center text-blue-4'>Placment Test</h2>
+             
               <h3 className="text-xl  pt-8 ">
-                {sections[currentSection - 1][currentQuestion].text}
+               {currentQuestion+1} . {sections[currentSection - 1][currentQuestion].text}
               </h3>
-              <h5 className="text-xl pb-12">
+              <h5 className="text-lg pt-4 pb-8">
                 {sections[currentSection - 1][currentQuestion].sub}
               </h5>
               
@@ -207,8 +211,9 @@ const PlacementTest = () => {
               
             </div>
 
-            <div className='w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col items-center border p-5 mt-5'>
-               
+            <div className='w-full sm:w-3/4 md:w-1/2  bg-white flex items-center border p-5 mt-5'>
+               <ProgressBar percentage={progressPercentage}></ProgressBar>
+               <span className='text-gray-500 text-sm ml-3'>{currentQuestion+1}/7</span>
               </div>
               </>
 
