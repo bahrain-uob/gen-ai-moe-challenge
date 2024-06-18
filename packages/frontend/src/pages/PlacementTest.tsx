@@ -1,10 +1,8 @@
-
 import Button from '../components/FButton';
 import { useState } from 'react';
 import { sections } from './Questions';
-import { BsCheckCircleFill , BsXCircleFill } from 'react-icons/bs';
+import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs';
 import { ProgressBar } from '../components/ProgressBar';
-
 
 export interface Question {
   text: string;
@@ -38,8 +36,6 @@ const PlacementTest = () => {
   const [sectionScore, setSectionScore] = useState(0);
   const [level, setLevel] = useState('');
   const [sectionSummary, setSectionSummary] = useState<Selected[]>([]);
-  
-  
 
   const optionClicked = (text: string) => {
     const currentSectionQuestions = sections[currentSection - 1];
@@ -58,7 +54,7 @@ const PlacementTest = () => {
       ...prev,
       {
         section: currentSection,
-        questionIndex: currentQuestion, 
+        questionIndex: currentQuestion,
         question,
         chosen: text,
         correct: correctAnswer,
@@ -107,7 +103,8 @@ const PlacementTest = () => {
     setShowResult(true);
   };
 
-  const progressPercentage = (currentQuestion + 1) / sections[currentSection - 1].length;
+  const progressPercentage =
+    (currentQuestion + 1) / sections[currentSection - 1].length;
 
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
@@ -131,42 +128,46 @@ const PlacementTest = () => {
                 <h1 className="text-3xl mb-10">Section Result</h1>
               </div>
               {sectionSummary.map((summary, index) => {
-                 const isCorrect = summary.chosen === summary.correct;
-                 const currentQuestionObj = sections[summary.section - 1][summary.questionIndex]; 
+                const isCorrect = summary.chosen === summary.correct;
+                const currentQuestionObj =
+                  sections[summary.section - 1][summary.questionIndex];
 
-        console.log('Summary:', summary);
-        console.log('Current Question Obj:', currentQuestionObj);
-                 return (  
-                <div key={index}>
-                  <div className='bg-white border py-4 px-4 '>
-                  <div className='flex items-center' >  
-                  {isCorrect ? <BsCheckCircleFill className="text-teal-500 inline-block " /> : <BsXCircleFill className="text-red-500 inline-block " />}
-                    <h1 className='text-lg font-bold ml-2'>Question {summary.questionIndex +1} </h1>
-                    
-                  </div>  
-                    <h2 className="text-md mt-3 mb-5">
-                     {summary.question}
-                    </h2>
-                    
-                     {currentQuestionObj && currentQuestionObj.options.map(option => (
-                   <div
-                       key={option.id}
-                       className={`text-lg border  p-2 mt-3 ${
-                        option.text === summary.correct
-                          ? 'border-teal-500 border-2'
-                          : option.text === summary.chosen
-                          ? 'border-red-500 border-2'
-                          : 'border-gray-400 text-gray-400'
-                      }`}
-                    >
-            {option.text}
-          </div>
-        ))}
-                   
+                console.log('Summary:', summary);
+                console.log('Current Question Obj:', currentQuestionObj);
+                return (
+                  <div key={index}>
+                    <div className="bg-white border py-4 px-4 ">
+                      <div className="flex items-center">
+                        {isCorrect ? (
+                          <BsCheckCircleFill className="text-teal-500 inline-block " />
+                        ) : (
+                          <BsXCircleFill className="text-red-500 inline-block " />
+                        )}
+                        <h1 className="text-lg font-bold ml-2">
+                          Question {summary.questionIndex + 1}{' '}
+                        </h1>
+                      </div>
+                      <h2 className="text-md mt-3 mb-5">{summary.question}</h2>
+
+                      {currentQuestionObj &&
+                        currentQuestionObj.options.map(option => (
+                          <div
+                            key={option.id}
+                            className={`text-lg border  p-2 mt-3 ${
+                              option.text === summary.correct
+                                ? 'border-teal-500 border-2'
+                                : option.text === summary.chosen
+                                ? 'border-red-500 border-2'
+                                : 'border-gray-400 text-gray-400'
+                            }`}
+                          >
+                            {option.text}
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-                 );
-})}
+                );
+              })}
 
               {score >= 5 && currentSection + 1 <= sections.length ? (
                 <div className="w-1/2" onClick={handleNextSection}>
@@ -180,44 +181,46 @@ const PlacementTest = () => {
             </div>
           ) : (
             <>
-            <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10" key={`Placement-Question-${currentQuestion}`}>
-              <h2 className='text-2xl md:text-3xl  pb-8 font-semiboldb text-center text-blue-4'>Placment Test</h2>
-             
-              <h3 className="text-xl  pt-8 ">
-               {currentQuestion+1} . {sections[currentSection - 1][currentQuestion].text}
-              </h3>
-              <h5 className="text-lg pt-4 pb-8">
-                {sections[currentSection - 1][currentQuestion].sub}
-              </h5>
-              
-              <div className="">
-                {sections[currentSection - 1][currentQuestion].options.map(
-                  option => {
-                    return (
-                      <div
-                        key={option.id}
-                        className={optionsStyle}
-                        onClick={() => optionClicked(option.text)}
-                      >
-                        {option.text}
-                      </div>
-                    );
-                  },
-                )}
+              <div
+                className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10"
+                key={`Placement-Question-${currentQuestion}`}
+              >
+                <h2 className="text-2xl md:text-3xl  pb-8 font-semiboldb text-center text-blue-4">
+                  Placment Test
+                </h2>
+
+                <h3 className="text-xl  pt-8 ">
+                  {currentQuestion + 1} .{' '}
+                  {sections[currentSection - 1][currentQuestion].text}
+                </h3>
+                <h5 className="text-lg pt-4 pb-8">
+                  {sections[currentSection - 1][currentQuestion].sub}
+                </h5>
+
+                <div className="">
+                  {sections[currentSection - 1][currentQuestion].options.map(
+                    option => {
+                      return (
+                        <div
+                          key={option.id}
+                          className={optionsStyle}
+                          onClick={() => optionClicked(option.text)}
+                        >
+                          {option.text}
+                        </div>
+                      );
+                    },
+                  )}
+                </div>
               </div>
 
-              
-              
-            </div>
-
-            <div className='w-full sm:w-3/4 md:w-1/2  bg-white flex items-center border p-5 mt-5'>
-               <ProgressBar percentage={progressPercentage}></ProgressBar>
-               <span className='text-gray-500 text-sm ml-3'>{currentQuestion+1}/7</span>
+              <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex items-center border p-5 mt-5">
+                <ProgressBar percentage={progressPercentage}></ProgressBar>
+                <span className="text-gray-500 text-sm ml-3">
+                  {currentQuestion + 1}/7
+                </span>
               </div>
-              </>
-
-            
-            
+            </>
           )}
         </section>
       )}
