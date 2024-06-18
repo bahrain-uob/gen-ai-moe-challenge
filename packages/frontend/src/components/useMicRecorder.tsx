@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 type useMicRecorderProps = {
+  /**
+   * Triggered when recording is stopped.  Audio blob is provided as the first
+   * argument.
+   */
   onStopRecording?: (audio: Blob) => void;
 };
 

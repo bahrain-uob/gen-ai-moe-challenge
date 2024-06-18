@@ -31,11 +31,10 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
 }) => {
   const { isRecording, startRecording, stopRecording } = useMicRecorder({
     onStopRecording: blob => {
-      const url = URL.createObjectURL(blob);
-      const x = new Audio(url);
-      x.play();
-
-      console.log({ blob, url });
+      // const url = URL.createObjectURL(blob);
+      // const x = new Audio(url);
+      // x.play();
+      // console.log({ blob, url });
 
       const fileName = generateFileName();
       submitAudioFile(fileName, blob).then(() => {
@@ -65,7 +64,9 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
     },
   });
 
+  /** Handles the current index (used to match between questions and recordings). */
   const [questionIndex, setQuestionIndex] = useState(0);
+  /** Used to disable mic recording button, until the audio is played. */
   const [allowRecording, setAllowRecording] = useState(
     isCardPart(speakingPart),
   );
