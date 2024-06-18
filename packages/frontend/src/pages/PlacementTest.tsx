@@ -180,7 +180,7 @@ const PlacementTest = () => {
             </div>
           ) : (
             <>
-            <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10">
+            <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10" key={`Placement-Question-${currentQuestion}`}>
               <h2 className='text-2xl md:text-3xl  pb-8 font-semiboldb text-center text-blue-4'>Placment Test</h2>
              
               <h3 className="text-xl  pt-8 ">
