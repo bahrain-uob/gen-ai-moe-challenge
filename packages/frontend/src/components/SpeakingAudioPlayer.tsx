@@ -39,11 +39,6 @@ export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
 
     // wavesurferRef.current?.load(url);
 
-    wavesurferRef.current?.on('finish', () => {
-      setAudioPlayed(false);
-      onFinish?.();
-    });
-
     return () => {
       if (wavesurferRef.current) {
         wavesurferRef.current.destroy();
@@ -51,6 +46,17 @@ export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
       }
     };
   }, []);
+
+  // I'm using separate `useEffect` for finish event listener so that it will be
+  // updated on updates of the `onFinish` callback
+  useEffect(() => {
+    const finishUnsub = wavesurferRef.current?.on('finish', () => {
+      setAudioPlayed(false);
+      onFinish?.();
+    });
+
+    return () => finishUnsub?.();
+  }, [onFinish]);
 
   useEffect(() => {
     wavesurferRef.current?.load(url);

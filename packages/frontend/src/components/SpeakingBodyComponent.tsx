@@ -85,12 +85,14 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   };
 
   const handleAudioFinish = () => {
-    setQuestionIndex(i => {
-      if (i < length - 1) {
-        setAllowRecording(true);
-      }
-      return i;
-    });
+    // Note: if the user records answer for last question and plays audio again,
+    // he is allowed to record another *additional* answer.  This shouldn't be
+    // an issue if (A) the user is switched to the next part once he records an
+    // answer, (B) we disable playing the question again, or (C) we check the
+    // answer length.  For now, solution (A) is easier to implement, though
+    // solution (C) seems to be the better one.
+    setAllowRecording(true);
+    console.log(questionIndex);
   };
 
   let view;
