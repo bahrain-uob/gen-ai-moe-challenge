@@ -206,7 +206,6 @@ export const FullTestPage = () => {
       else if ('fullItem' in state) {
         return JSON.stringify(state);
       } else {
-        let dummySubmit: any;
         const time = Number(testId.slice(0, testId.indexOf('-')));
         const savedAnswers =
           'answer' in state.data ? state.data.answer?.answer : undefined;
