@@ -86,10 +86,11 @@ export const MultipleAnswersQuestionComponent = ({
   console.log(answer);
   return (
     <div>
-      <p>{question.Question}</p>
+      <p style={{ fontWeight: 'bold' }}>{question.Question}</p>
       <ul>
         {question.SubQuestions.map((subQuestion, subIndex) => (
           <li key={subIndex}>
+            <hr />
             <p>{subQuestion.QuestionText}</p>
             {renderCheckboxes(subQuestion, subIndex)}
           </li>

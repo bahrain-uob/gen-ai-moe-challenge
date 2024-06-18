@@ -117,19 +117,26 @@ export const McqQuestionsComponent = ({
   console.log(answer);
   return (
     <div>
-      <p>{question.Question}</p>
+      
+      <p style={{ fontWeight: 'bold' }}>{question.Question}</p>
+      <hr/>
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
+            <hr/>
+            <br />
             {question.QuestionType === 'Multiple Choice' ? (
-              <p>{subQuestion.QuestionText}</p> // Text for Multiple Choice
+              <p style={{ fontWeight: 'bold' }}>{subQuestion.QuestionText}</p> // Text for Multiple Choice
             ) : null}
             {question.QuestionType === 'Multiple Choice'
               ? renderRadioButtons(subQuestion, index)
               : renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
+            
           </li>
+          
         ))}
       </ul>
+  
     </div>
   );
 };

@@ -71,7 +71,7 @@ export const DiagramCompletionQuestionComponent = ({
   console.log(answer);
   return (
     <div>
-      <p>{question.Question}</p>
+      <p style={{ fontWeight: 'bold' }}>{question.Question}</p>
       <img
         src={question.Diagram}
         alt="Question's Diagram"
@@ -80,6 +80,7 @@ export const DiagramCompletionQuestionComponent = ({
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
+            <hr /><br />
             <p>
               {renderQuestionTextWithInputs(subQuestion.QuestionText, index)}
             </p>

@@ -76,7 +76,7 @@ export const SummaryCompletionQuestionComponent = ({
   console.log(answer);
   return (
     <div>
-      <p>{question.Question}</p>
+      <p style={{ fontWeight: 'bold' }}>{question.Question}</p>
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>

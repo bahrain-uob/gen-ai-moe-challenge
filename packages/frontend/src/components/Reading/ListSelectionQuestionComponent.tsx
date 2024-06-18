@@ -61,15 +61,19 @@ export const ListSelectionQuestionComponent = ({
   console.log(answer);
   return (
     <div>
-      <p>{question.Question}</p>
+      <hr />
+      <p style={{ fontWeight: 'bold' }}>{question.Question}</p>
+      <hr />
       <h4>{question.ListTitle}</h4>
       <p className="whitespace-pre-line">{question.List}</p>
       <ul>
         {question.SubQuestions.map((subQuestion, index) => (
           <li key={index}>
+            <hr /><br />
             {renderQuestionTextWithSelects(subQuestion.QuestionText, index)}
           </li>
         ))}
+        <br />
       </ul>
     </div>
   );
