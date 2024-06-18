@@ -49,6 +49,21 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
     setResponse(responseCopy);
   };
 
+  const onNextPart = () => {
+    switch (partIndex) {
+      case 'P1':
+        setPartIndex('P2');
+        break;
+      case 'P2':
+        setPartIndex('P3');
+        break;
+      case 'P3':
+        console.log('Submitting answer', { response });
+        submitAnswers(response);
+        break;
+    }
+  };
+
   /* Bar */
   const linkStyling =
     'px-3 lg:px-5 transition -colors duration-200 flex items-center leading-normal ';
@@ -68,6 +83,7 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
             linkStyling +
             (part === partIndex ? 'bg-black bg-opacity-40' : 'hover-darken')
           }
+          // TODO: disable switching between the parts
           onClick={() => setPartIndex(part as SpeakingPartIndex)}
           key={i}
         >
@@ -89,6 +105,7 @@ export const SpeakingQuestionsPage: React.FC<SpeakingQuestionsPageProps> = ({
           speakingPart={speakingSection[partIndex]}
           answer={response[partIndex]}
           setAnswer={answer => updateResponseAtIndex(partIndex, answer)}
+          onNextPart={onNextPart}
         />
       </div>
       <Modal

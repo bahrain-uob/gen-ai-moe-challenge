@@ -17,6 +17,7 @@ type SpeakingBodyComponentProps = {
   speakingPart: SpeakingPartAudio | SpeakingPartCard;
   answer: SpeakingAudioAnswer | SpeakingCardAnswer;
   setAnswer: (arg: SpeakingAudioAnswer | SpeakingCardAnswer) => void;
+  onNextPart: () => void;
 };
 
 /**
@@ -26,6 +27,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
   speakingPart,
   answer,
   setAnswer,
+  onNextPart,
 }) => {
   const { isRecording, startRecording, stopRecording } = useMicRecorder({
     onStopRecording: blob => {
@@ -78,7 +80,7 @@ export const SpeakingBodyComponent: React.FC<SpeakingBodyComponentProps> = ({
       if (i < length - 1) {
         return i + 1;
       } else {
-        // TODO: handle finished
+        onNextPart();
         return i;
       }
     });
