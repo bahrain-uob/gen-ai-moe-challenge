@@ -11,9 +11,8 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PLTestPage.tsx';
+import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -29,6 +28,9 @@ import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
 import { SpeakingQuestionsPage } from './pages/SpeakingQuestionsPage.tsx';
+import { GeneralFulltestFeedbackPage } from './pages/GeneralFulltestFeedbackPage.tsx';
+import { PreviousTests } from './pages/PerviousTests.tsx';
+import challengePage from './pages/challengePage.tsx';
 import { sampleFullTest } from './utilities/sampleFullTest.ts';
 
 // These routes will have the landing nav bar
@@ -61,9 +63,14 @@ const notLandingRoutes: RouteObject[] = [
     Component: Sections,
   },
   {
+    path: '/fulltestFeedback',
+    element: <GeneralFulltestFeedbackPage fullTestItem={sampleFullTest} />,
+  },
+  {
     path: '/SpeakingExercises',
     Component: SpeakingExercisesPage,
   },
+
   {
     path: '/SpeakingLongQuestion',
     Component: SpeakingLongQuestionPage,
@@ -83,7 +90,7 @@ const notLandingRoutes: RouteObject[] = [
 
   {
     path: '/full-exam',
-    Component: FullExam,
+    Component: PreviousTests,
   },
   {
     path: '/test',
@@ -102,6 +109,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/PlacementTest',
     Component: PlacementTest,
+  },
+  {
+    path: '/challengePage',
+    Component: challengePage,
   },
 ];
 

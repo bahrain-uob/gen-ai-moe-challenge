@@ -99,7 +99,7 @@ export const main: APIGatewayProxyHandler = async event => {
     // if the section is in progress
     if (sectionAnswer.status === 'In progress') {
       if (type === examSections[section].type) {
-        await submit(
+        const submitValue = submit(
           dynamoDb,
           userId,
           testId,
@@ -119,6 +119,7 @@ export const main: APIGatewayProxyHandler = async event => {
           Data: JSON.stringify(response),
         });
         await apiClient.send(autoSubmittedCommand);
+        await submitValue;
         return { statusCode: 200, body: 'Submitted' };
       } else {
         return wsError(

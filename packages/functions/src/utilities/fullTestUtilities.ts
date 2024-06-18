@@ -278,3 +278,23 @@ export type startSectionTestResponse = {
     question: SectionQuestions;
   };
 };
+
+export type previousTestsLists = {
+  PK: string; // the user id
+  SK: 'Tests';
+  full?: previousTestsList;
+  listening?: previousTestsList;
+  reading?: previousTestsList;
+  writing?: previousTestsList;
+  speaking?: previousTestsList;
+};
+
+export type previousTestsList = {
+  inProgress: string; // Test id
+  previous: previousTests;
+};
+
+export type previousTests = {
+  score: number;
+  testId: string;
+}[];
