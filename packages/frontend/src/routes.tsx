@@ -190,7 +190,11 @@ export const routes = createBrowserRouter([
   },
   // Note that home page doesn't need a padding, because of the slider
   {
-    element: <Layout noPadding />,
+    element: (
+      <RequireAuth>
+        <Layout noPadding />
+      </RequireAuth>
+    ),
     children: [
       {
         path: '/home',
