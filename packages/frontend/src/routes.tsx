@@ -12,7 +12,7 @@ import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PLTestPage.tsx';
+import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -32,6 +32,7 @@ import { PreviousTests } from './pages/PerviousTests.tsx';
 import challengePage from './pages/challengePage.tsx';
 import { sampleFullTest } from './utilities/sampleFullTest.ts';
 import { RequireAuth } from './utilities/authUtilities.tsx';
+import { DevPage } from './pages/DevPage.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -39,14 +40,7 @@ const landingRoutes: RouteObject[] = [
     path: '/',
     Component: App,
   },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
+ 
 ];
 
 const notLandingRoutes: RouteObject[] = [
@@ -70,7 +64,6 @@ const notLandingRoutes: RouteObject[] = [
     path: '/SpeakingExercises',
     Component: SpeakingExercisesPage,
   },
-
   {
     path: '/SpeakingLongQuestion',
     Component: SpeakingLongQuestionPage,
@@ -87,7 +80,6 @@ const notLandingRoutes: RouteObject[] = [
     path: '/Listening/addQuestion/success',
     Component: SuccessAddListeningQPage,
   },
-
   {
     path: '/full-exam',
     Component: PreviousTests,
@@ -96,12 +88,10 @@ const notLandingRoutes: RouteObject[] = [
     path: '/test',
     Component: TestPage,
   },
-
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
-
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -113,6 +103,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/challengePage',
     Component: challengePage,
+  },
+  {
+    path: '/dev/',
+    Component: DevPage,
   },
 ];
 
