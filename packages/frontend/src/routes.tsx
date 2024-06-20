@@ -4,7 +4,7 @@ import TestPage from './pages/TestPage.tsx';
 // import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
 // import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
-import Sections from './pages/sections.tsx';
+// import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
 import SignIn from './pages/signIn.tsx';
 import Exercises from './pages/Exercises.tsx';
