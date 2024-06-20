@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { signUp } from 'aws-amplify/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRedirectBack } from '../utilities/authUtilities';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -13,19 +14,20 @@ export default function SignUp() {
   //TODO: make the institution list dynamic by fetching the list of institutions from the backend
   const authInfo = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate();
+
+  const { redirectBack } = useRedirectBack();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
   const handleToastClose = () => {
-    navigate('/home');
+    redirectBack();
   };
 
   useEffect(() => {
     if (authInfo.authSession !== undefined) {
-      navigate('/home');
+      redirectBack();
     }
   }, []);
 
