@@ -77,7 +77,7 @@ const Exercises: React.FC = () => {
         {LChallenges.map((label, index) => (
           <Step key={label}>
             <StepButton color="inherit" onClick={handleStep(index)}>
-              {label}
+              
             </StepButton>
           </Step>
         ))}
