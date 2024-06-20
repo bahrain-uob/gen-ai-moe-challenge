@@ -16,26 +16,11 @@ type ButtonLabel = (typeof buttonLabels)[number];
 
 const listeningPlan: Plan = {
   challenges: [
-    {
-      challengeId: 'listen1',
-      isCompleted: false,
-    },
-    {
-      challengeId: 'listen2',
-      isCompleted: false,
-    },
-    {
-      challengeId: 'listen3',
-      isCompleted: false,
-    },
-    {
-      challengeId: 'listen4',
-      isCompleted: true,
-    },
-    {
-      challengeId: 'listen5',
-      isCompleted: false,
-    },
+    { challengeId: 'listen1', isCompleted: false },
+    { challengeId: 'listen2', isCompleted: false },
+    { challengeId: 'listen3', isCompleted: false },
+    { challengeId: 'listen4', isCompleted: false },
+    { challengeId: 'listen5', isCompleted: false },
   ],
   level: 'B1' as CefrLevel,
 };
@@ -74,21 +59,22 @@ const Exercises: React.FC = () => {
           </Button>
         ))}
       </div>
-      <div className="w-1/2">
-        <Stepper nonLinear activeStep={activeStep}>
-          {LChallenges.map((label, index) => (
-            <Step
-              key={label}
-              completed={listeningPlan.challenges[index].isCompleted}
-            >
-              <StepButton
-                color="inherit"
-                onClick={handleStep(index)}
-              ></StepButton>
-            </Step>
-          ))}
-        </Stepper>
-      </div>
+      {LChallenges.length === 0 ? (
+        <div className="w-1/2 border-2 min-h-52 flex flex-col items-center justify-center">
+          <h1>You need to take Initial Test!</h1>
+          <Button variant="contained" color="primary">Take Test</Button>
+        </div>
+      ) : (
+        <div className="w-1/2 border-2 min-h-52">
+          <Stepper nonLinear activeStep={activeStep}>
+            {LChallenges.map((label, index) => (
+              <Step key={label} completed={listeningPlan.challenges[index].isCompleted}>
+                <StepButton color="inherit" onClick={handleStep(index)}></StepButton>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+      )}
       <div className="w-1/2 m-10">
         {buttonLabels.map(button => entryTitle(button, 5))}
       </div>
