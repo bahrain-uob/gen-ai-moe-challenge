@@ -18,7 +18,7 @@ const listeningPlan: Plan = {
   challenges: [
     {
       challengeId: 'listen1',
-      isCompleted: false,
+      isCompleted: true,
     },
     {
       challengeId: 'listen2',
@@ -30,7 +30,7 @@ const listeningPlan: Plan = {
     },
     {
       challengeId: 'listen4',
-      isCompleted: false,
+      isCompleted: true,
     },
     {
       challengeId: 'listen5',
@@ -75,7 +75,7 @@ const Exercises: React.FC = () => {
       <div className='w-1/2'>
       <Stepper nonLinear activeStep={activeStep}>
         {LChallenges.map((label, index) => (
-          <Step key={label}>
+          <Step key={label} completed={listeningPlan.challenges[index].isCompleted}>
             <StepButton color="inherit" onClick={handleStep(index)}>
               
             </StepButton>
