@@ -74,7 +74,7 @@ const Exercises: React.FC = () => {
       </div>
       <div className='w-1/2'>
       <Stepper nonLinear activeStep={activeStep}>
-        {Challenges.map((label, index) => (
+        {LChallenges.map((label, index) => (
           <Step key={label}>
             <StepButton color="inherit" onClick={handleStep(index)}>
               {label}
