@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
+import {Plan , CefrLevel} from '../utilities/planTypes';
 
 const buttonLabels = [
   'Listening',
@@ -13,7 +14,33 @@ const buttonLabels = [
 ] as const;
 type ButtonLabel = (typeof buttonLabels)[number];
 
-const Challenges = ['Challenge 1', 'Challenge 2', 'Challenge 3' , 'Challenge 4' , 'Challenge 5'];
+const listeningPlan: Plan = {
+  challenges: [
+    {
+      challengeId: 'listen1',
+      isCompleted: false,
+    },
+    {
+      challengeId: 'listen2',
+      isCompleted: false,
+    },
+    {
+      challengeId: 'listen3',
+      isCompleted: false,
+    },
+    {
+      challengeId: 'listen4',
+      isCompleted: false,
+    },
+    {
+      challengeId: 'listen5',
+      isCompleted: false,
+    },
+  ],
+  level: 'B1' as CefrLevel,
+};
+
+const LChallenges = listeningPlan.challenges.map(challenge=>challenge.challengeId);
 
 const Exercises: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0);
