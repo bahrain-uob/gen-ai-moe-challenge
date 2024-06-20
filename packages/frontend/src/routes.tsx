@@ -41,7 +41,6 @@ const landingRoutes: RouteObject[] = [
     path: '/',
     Component: App,
   },
- 
 ];
 
 const notLandingRoutes: RouteObject[] = [
@@ -55,7 +54,7 @@ const notLandingRoutes: RouteObject[] = [
   },
   {
     path: '/sections',
-    Component: Sections,
+    element: <PreviousTests type="section" />,
   },
   {
     path: '/fulltestFeedback',
