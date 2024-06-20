@@ -35,7 +35,7 @@ const plans: { [key in ButtonLabel]: Plan } = {
   },
   'Grammer & Vocabulary': {
     challenges: [],
-    level: 'A2'
+    level: 'A2',
   },
   Reading: {
     challenges: [],
@@ -44,10 +44,8 @@ const plans: { [key in ButtonLabel]: Plan } = {
   Writing: {
     challenges: [],
     level: 'A1' as CefrLevel,
-  }
+  },
 };
-
-
 
 const Exercises: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -61,7 +59,9 @@ const Exercises: React.FC = () => {
   };
 
   const currentPlan = plans[activeButton];
-  const currentChallenges = currentPlan.challenges.map((challenge) => challenge.challengeId);
+  const currentChallenges = currentPlan.challenges.map(
+    challenge => challenge.challengeId,
+  );
 
   return (
     <main className="flex flex-col items-center gap-y-16">
@@ -85,14 +85,22 @@ const Exercises: React.FC = () => {
       {currentChallenges.length === 0 ? (
         <div className="w-1/2 border-2 min-h-52 flex flex-col items-center justify-center">
           <h1>You need to take Initial Test!</h1>
-          <Button variant="contained" color="primary">Take Test</Button>
+          <Button variant="contained" color="primary">
+            Take Test
+          </Button>
         </div>
       ) : (
         <div className="w-1/2 border-2 min-h-52">
           <Stepper nonLinear activeStep={activeStep}>
             {currentChallenges.map((label, index) => (
-              <Step key={label} completed={currentPlan.challenges[index].isCompleted}>
-                <StepButton color="inherit" onClick={handleStep(index)}></StepButton>
+              <Step
+                key={label}
+                completed={currentPlan.challenges[index].isCompleted}
+              >
+                <StepButton
+                  color="inherit"
+                  onClick={handleStep(index)}
+                ></StepButton>
               </Step>
             ))}
           </Stepper>
