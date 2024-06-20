@@ -1,14 +1,19 @@
+import { Link, To } from 'react-router-dom';
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   isTransparent?: boolean;
   NoBackground?: boolean;
   isActive?: boolean;
+  to?: To;
 };
 
 export const Button: React.FC<ButtonProps> = ({
   isTransparent = false,
   NoBackground = false,
   isActive = false,
-
+  to,
+  // Theese are the class names passed to us
+  className: propClassName,
   ...props
 }) => {
   const style = NoBackground
@@ -19,13 +24,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   const activeStyle = isActive ? 'bg-blue-300 text-white border-blue-3' : '';
   /*for some reason the blue-3 does not work , kept is as blue-300 for now should be modified */
-  return (
+
+  const button = (
     <button
       {...props}
       type="button"
-      className={`inline-flex w-full justify-center rounded-md px-3
+      className={`inline-flex w-auto justify-center rounded-md px-3
         py-2 text-sm font-semibold shadow-sm 
-        transition-colors duration-200 sm:ml-3 sm:w-auto ${style} ${activeStyle}`}
+        transition-colors duration-200 ml-2 sm:ml-3
+        ${style} ${activeStyle} ${propClassName}`}
     ></button>
   );
+
+  return to ? <Link to={to}>{button}</Link> : button;
 };
