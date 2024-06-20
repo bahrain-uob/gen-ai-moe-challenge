@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
 import {
   ListeningSection,
+  previousTestsLists,
   questions,
   ReadingSection,
   SpeakingSection,
@@ -75,12 +76,33 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: 'Tests',
       },
     });
 
-    const userTests = await dynamoDb.send(getUserTests);
-    if (userTests.Item?.inProgress) {
+    const userTests = (await dynamoDb.send(getUserTests))
+      .Item as previousTestsLists;
+
+    if (!userTests.full) {
+      const initType = new UpdateCommand({
+        TableName: Table.Records.tableName,
+        Key: {
+          PK: userId,
+          SK: 'Tests',
+        },
+        UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
+        ExpressionAttributeValues: {
+          ':init': {
+            inProgress: '',
+            previous: [],
+          },
+        },
+        ExpressionAttributeNames: {
+          '#type': 'full',
+        },
+      });
+      await dynamoDb.send(initType);
+    } else if (userTests.full.inProgress) {
       return wsError(
         apiClient,
         connectionId,
@@ -125,32 +147,7 @@ export const main: APIGatewayProxyHandler = async event => {
     // this will try to update if type attribute does not exist it will raise an error
     // so we will catch it and initialize the type attribute
     await dynamoDb.send(putCommand);
-    try {
-      await dynamoDb.send(updatePreviousTestsCommand);
-    } catch (err: any) {
-      if (err.name === 'ValidationException') {
-        const initType = new UpdateCommand({
-          TableName: Table.Records.tableName,
-          Key: {
-            PK: userId,
-            SK: 'Tests',
-          },
-          UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
-          ExpressionAttributeValues: {
-            ':init': {
-              inProgress: testID,
-              previous: [],
-            },
-          },
-          ExpressionAttributeNames: {
-            '#type': 'full',
-          },
-        });
-        await dynamoDb.send(initType);
-      } else {
-        throw err;
-      }
-    }
+    await dynamoDb.send(updatePreviousTestsCommand);
 
     const listeningQuestion = await filterQuestion(questions.listening);
     console.log('Listening Question:', listeningQuestion);

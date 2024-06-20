@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 type Props = {
   onTimeUp?: () => void;
@@ -10,6 +10,7 @@ type Props = {
 );
 
 export const CountdownTimer: React.FC<Props> = props => {
+  const timerId = useRef<NodeJS.Timeout>();
   const [remainingTime, setRemainingTime] = useState<number>(
     'start_time' in props
       ? Math.floor((props.start_time - Date.now() + 60 * 60 * 1000) / 1000)
@@ -17,21 +18,19 @@ export const CountdownTimer: React.FC<Props> = props => {
   );
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    timerId.current = setInterval(() => {
       setRemainingTime(r => {
-        // console.log({ r }, r <= 0, r === 1);
         if (r <= 0) {
-          return 0;
-        } else if (r === 1) {
           props.onTimeUp?.();
-          return r - 1;
+          clearInterval(timerId.current);
+          return 0;
         } else {
           return r - 1;
         }
       });
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(timerId.current);
   }, []);
 
   return <span>{formatTime(remainingTime)}</span>;

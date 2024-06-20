@@ -4,7 +4,8 @@ import '../stylesheets/exam.css';
 import { listeningParts } from '../utilities/LRSampleQuestions';
 
 import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
-import { BsArrowLeft, BsQuestionLg } from 'react-icons/bs';
+import { BsQuestionLg } from 'react-icons/bs';
+import { TitleRow } from '../components/TestComponents';
 
 type LAnswersPageProps = {
   studentAnswers: any;
@@ -52,19 +53,7 @@ const LAnswersPage: React.FC<LAnswersPageProps> = ({
     </div>
   );
 
-  const TitleRow = (
-    <div className="w-full h-full flex items-center border-b-2">
-      <div className="sm:w-1/3 w-1/2 h-full nav-item">
-        <button className="hover:text-gray-700" onClick={onBack}>
-          <BsArrowLeft className="inline mr-2" />
-          <span>Back</span>
-        </button>
-      </div>
-      <div className="w-1/2 sm:w-1/3 text-center font-light text-xl">
-        <span>Listening Test Answers</span>
-      </div>
-    </div>
-  );
+  const titleRow = <TitleRow title="Listening Answers" onBack={onBack} />;
 
   /** this will be commented for now, might add it with audio controls if the sponsors wanted to  */
   /* Listening Audio */
@@ -84,7 +73,7 @@ const LAnswersPage: React.FC<LAnswersPageProps> = ({
   return (
     <>
       <div className="h-[6dvh] bg-blue-4">{barContent}</div>
-      <div className="h-[6dvh] lg:h-[8dvh]">{TitleRow}</div>
+      <div className="h-[6dvh] lg:h-[8dvh]">{titleRow}</div>
       <div className={`h-[88dvh] lg:h-[86dvh] w-screen bg-white`}>
         {questionsScreen}
       </div>
