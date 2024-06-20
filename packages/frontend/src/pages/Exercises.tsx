@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
-import {Plan , CefrLevel} from '../utilities/planTypes';
+import { Plan, CefrLevel } from '../utilities/planTypes';
 
 const buttonLabels = [
   'Listening',
@@ -18,7 +18,7 @@ const listeningPlan: Plan = {
   challenges: [
     {
       challengeId: 'listen1',
-      isCompleted: true,
+      isCompleted: false,
     },
     {
       challengeId: 'listen2',
@@ -40,7 +40,9 @@ const listeningPlan: Plan = {
   level: 'B1' as CefrLevel,
 };
 
-const LChallenges = listeningPlan.challenges.map(challenge=>challenge.challengeId);
+const LChallenges = listeningPlan.challenges.map(
+  challenge => challenge.challengeId,
+);
 
 const Exercises: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -72,19 +74,23 @@ const Exercises: React.FC = () => {
           </Button>
         ))}
       </div>
-      <div className='w-1/2'>
-      <Stepper nonLinear activeStep={activeStep}>
-        {LChallenges.map((label, index) => (
-          <Step key={label} completed={listeningPlan.challenges[index].isCompleted}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
+      <div className="w-1/2">
+        <Stepper nonLinear activeStep={activeStep}>
+          {LChallenges.map((label, index) => (
+            <Step
+              key={label}
+              completed={listeningPlan.challenges[index].isCompleted}
+            >
+              <StepButton
+                color="inherit"
+                onClick={handleStep(index)}
+              ></StepButton>
+            </Step>
+          ))}
+        </Stepper>
       </div>
-      <div className='w-1/2 m-10'>
-      {buttonLabels.map(button => entryTitle(button, 5))}
+      <div className="w-1/2 m-10">
+        {buttonLabels.map(button => entryTitle(button, 5))}
       </div>
       <div className="w-3/4">
         <h1 className="text-4xl font-bold underline underline-offset-[14px] decoration-4 decoration-blue-4">
