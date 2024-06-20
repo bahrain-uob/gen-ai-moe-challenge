@@ -2,7 +2,7 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
 // import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
-import Speaking from './pages/speaking.tsx';
+// import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
@@ -21,12 +21,13 @@ import ErrorPage from './pages/ErrorPage.tsx';
 // import { WritingPage } from './pages/WritingPage.tsx';
 //import { writingSection } from './utilities.ts';
 // import RAnswersPage from './pages/RAnswersPage.tsx';
-import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
-import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
+// import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
+// import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
+import { SpeakingQuestionsPage } from './pages/SpeakingQuestionsPage.tsx';
 import { GeneralFulltestFeedbackPage } from './pages/GeneralFulltestFeedbackPage.tsx';
 import { PreviousTests } from './pages/PerviousTests.tsx';
 import challengePage from './pages/challengePage.tsx';
@@ -44,10 +45,10 @@ const landingRoutes: RouteObject[] = [
 ];
 
 const notLandingRoutes: RouteObject[] = [
-  {
-    path: '/speaking',
-    Component: Speaking,
-  },
+  // {
+  //   path: '/speaking',
+  //   Component: Speaking,
+  // },
   {
     path: '/Exercises',
     Component: Exercises,
@@ -148,14 +149,14 @@ const noLayoutRoutes: RouteObject[] = [
   //   path: '/answers/listening/:sk',
   //   Component: LAnswersPage,
   // },
-  {
-    path: '/test-speaking-card-ui',
-    Component: SpeakingCardPage,
-  },
-  {
-    path: '/test-speaking-audio-ui',
-    Component: SpeakingAudioPage,
-  },
+  // {
+  //   path: '/test-speaking-card-ui',
+  //   Component: SpeakingCardPage,
+  // },
+  // {
+  //   path: '/test-speaking-audio-ui',
+  //   Component: SpeakingAudioPage,
+  // },
   {
     path: '/sign-in',
     Component: SignIn,
@@ -163,6 +164,15 @@ const noLayoutRoutes: RouteObject[] = [
   {
     path: '/sign-up',
     Component: SignUp,
+  },
+  {
+    path: '/sample-speaking',
+    element: (
+      <SpeakingQuestionsPage
+        speakingSection={sampleFullTest.questions.speaking}
+        submitAnswers={console.log}
+      />
+    ),
   },
 ];
 

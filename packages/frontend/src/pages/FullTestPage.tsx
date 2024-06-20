@@ -5,14 +5,16 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { setCachedFeedback, useSocketUrl } from '../utilities';
 import { useState } from 'react';
 import { ListeningQuestionsPage } from './ListeningQuestionsPage';
-import ReadingQuestions from './ReadingQuestionsPage';
+import { ReadingQuestionsPage } from './ReadingQuestionsPage';
+import { SpeakingQuestionsPage } from './SpeakingQuestionsPage';
 import { Spinner } from '../components/Spinner';
-import { WritingPage } from './WritingPage';
+import { WritingQuestionsPage } from './WritingQuestionsPage';
 import { IntermediatePage } from '../components/IntermediatePage';
 import { ToastContainer, toast } from 'react-toastify';
 import {
   ListeningSection,
   ReadingSection,
+  SpeakingSection,
   WritingAnswer,
   WritingSection,
   getQuestionResponse,
@@ -204,7 +206,6 @@ export const FullTestPage = () => {
       else if ('fullItem' in state) {
         return JSON.stringify(state);
       } else {
-        let dummySubmit: any;
         const time = Number(testId.slice(0, testId.indexOf('-')));
         const savedAnswers =
           'answer' in state.data ? state.data.answer?.answer : undefined;
@@ -224,7 +225,7 @@ export const FullTestPage = () => {
 
           case 'reading':
             out = (
-              <ReadingQuestions
+              <ReadingQuestionsPage
                 readingSection={state.data.question as ReadingSection}
                 submitAnswers={submitAnswers}
                 autoSaveAnswers={autoSaveAnswers}
@@ -236,7 +237,7 @@ export const FullTestPage = () => {
 
           case 'writing':
             out = (
-              <WritingPage
+              <WritingQuestionsPage
                 writingSection={state.data.question as WritingSection}
                 submitAnswers={submitAnswers}
                 autoSaveAnswers={autoSaveAnswers}
@@ -247,27 +248,11 @@ export const FullTestPage = () => {
             break;
 
           case 'speaking':
-            dummySubmit = () =>
-              submitAnswers({
-                P1: {
-                  audioFileNames: [],
-                  questions: [],
-                },
-                P2: {
-                  audioFileName: [],
-                  question: [],
-                },
-                P3: {
-                  audioFileNames: [],
-                  questions: [],
-                },
-              });
-
             out = (
-              <Layout>
-                <h3>Speaking assesment</h3>
-                <button onClick={() => dummySubmit()}> Submit </button>
-              </Layout>
+              <SpeakingQuestionsPage
+                speakingSection={state.data.question as SpeakingSection}
+                submitAnswers={submitAnswers}
+              />
             );
             break;
         }

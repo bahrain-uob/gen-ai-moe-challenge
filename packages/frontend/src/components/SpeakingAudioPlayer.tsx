@@ -1,22 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
-interface WaveSurferPlayerProps {
-  urls: string[];
+interface ComponentProps {
+  trackIndex: number;
+  url: string;
   height: number;
+  onFinish?: () => void;
 }
 
-const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
-  urls,
+export const SpeakingAudioPlayer: React.FC<ComponentProps> = ({
+  trackIndex,
+  url,
   height,
+  onFinish,
 }) => {
   const wavesurferContainerRef = useRef<HTMLDivElement | null>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
-  const [trackIndex, setTrackIndex] = useState(0);
   const [audioPlayed, setAudioPlayed] = useState(false);
 
   useEffect(() => {
-    if (urls.length && wavesurferContainerRef.current) {
+    if (wavesurferContainerRef.current) {
       if (wavesurferRef.current) {
         wavesurferRef.current.destroy();
       }
@@ -34,16 +37,7 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
       });
     }
 
-    wavesurferRef.current?.on('finish', () => {
-      setTrackIndex(prevIndex => {
-        if (prevIndex < urls.length - 1) {
-          setAudioPlayed(false); // Reset audioPlayed for the next track
-          return prevIndex + 1;
-        } else {
-          return prevIndex;
-        }
-      });
-    });
+    // wavesurferRef.current?.load(url);
 
     return () => {
       if (wavesurferRef.current) {
@@ -53,9 +47,20 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
     };
   }, []);
 
+  // I'm using separate `useEffect` for finish event listener so that it will be
+  // updated on updates of the `onFinish` callback
   useEffect(() => {
-    wavesurferRef.current?.load(urls[trackIndex]);
-  }, [trackIndex]);
+    const finishUnsub = wavesurferRef.current?.on('finish', () => {
+      setAudioPlayed(false);
+      onFinish?.();
+    });
+
+    return () => finishUnsub?.();
+  }, [onFinish]);
+
+  useEffect(() => {
+    wavesurferRef.current?.load(url);
+  }, [url]);
 
   const handlePlay = () => {
     if (wavesurferRef.current) {
@@ -65,12 +70,14 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
   };
 
   return (
-    <div className="flex w-full items-center">
-      <span className="px-4">Part {trackIndex + 1}</span>
+    <div className="flex flex-col w-full items-center">
+      <span className="px-4 text-xl font-bold mb-8">
+        Question {trackIndex + 1}
+      </span>
       <div
         ref={wavesurferContainerRef}
         style={{ height: height }}
-        className="flex-grow"
+        className="w-full mb-8"
       />
       {!audioPlayed && (
         <button
@@ -87,5 +94,3 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
     </div>
   );
 };
-
-export default WaveSurferPlayer;

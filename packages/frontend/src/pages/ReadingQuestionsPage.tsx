@@ -15,7 +15,7 @@ import { CountdownTimer } from '../components/CountdownTimer';
 
 type setType = (arg: Answer[]) => void;
 
-interface ReadingQuestionsProps {
+interface ReadingQuestionsPageProps {
   readingSection: ReadingSection;
   submitAnswers: (answer: any) => void;
   autoSaveAnswers: (answer: any) => void;
@@ -23,7 +23,7 @@ interface ReadingQuestionsProps {
   time: number;
 }
 
-const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
+export const ReadingQuestionsPage: React.FC<ReadingQuestionsPageProps> = ({
   readingSection,
   submitAnswers,
   autoSaveAnswers,
@@ -198,5 +198,3 @@ const ReadingQuestions: React.FC<ReadingQuestionsProps> = ({
     </>
   );
 };
-
-export default ReadingQuestions;
