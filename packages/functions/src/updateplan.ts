@@ -97,10 +97,20 @@ export const main = async (
         body: JSON.stringify({ error: 'Item not found' }),
       };
     }
+    // Determine the type suffix for challengesKey
+    let typeSuffix;
+    if (
+      planType.toLowerCase() === 'reading' ||
+      planType.toLowerCase() === 'vocab'
+    ) {
+      typeSuffix = 'reading';
+    } else {
+      typeSuffix = planType.toLowerCase();
+    }
 
     // Fetch challenges from fixed PK and SK
     const challengesKey = {
-      PK: 'plan-B2-reading',
+      PK: `plan-B2-${typeSuffix}`,
       SK: '0',
     };
 
