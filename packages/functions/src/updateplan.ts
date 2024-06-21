@@ -98,16 +98,42 @@ export const main = async (
       };
     }
 
+    // Fetch challenges from fixed PK and SK
+    const challengesKey = {
+      PK: 'plan-B2-reading',
+      SK: '0',
+    };
+
+    console.log('Fetching challenges...');
+    const challengesGetParams = { TableName: tableName, Key: challengesKey };
+    const challengesGetCommand = new GetCommand(challengesGetParams);
+    const challengesResult = await dynamoDb.send(challengesGetCommand);
+    const challengesItem = challengesResult.Item;
+
+    if (!challengesItem || !challengesItem.challenges) {
+      console.log('Challenges not found');
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Challenges not found' }),
+      };
+    }
+
+    const challenges = challengesItem.challenges;
+    console.log('Challenges fetched:', challenges);
+
     console.log('Item found, updating...');
     const updateParams = {
       TableName: tableName,
       Key: key,
-      UpdateExpression: `set #planType = :value`,
+      UpdateExpression: `set #planType = :planType`,
       ExpressionAttributeNames: {
         '#planType': planType,
       },
       ExpressionAttributeValues: {
-        ':value': 'test', // Update with the value you want
+        ':planType': {
+          challenges: challenges,
+          level: level,
+        },
       },
       ReturnValues: 'ALL_NEW' as const,
     };
