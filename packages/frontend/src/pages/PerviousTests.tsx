@@ -8,6 +8,7 @@ import { Button } from '../components/Button';
 import { get } from 'aws-amplify/api';
 import { toJSON } from '../utilities';
 import { Spinner } from '../components/Spinner';
+import { BsFillPencilFill,BsHeadphones,BsMic,BsBook } from 'react-icons/bs';
 
 export const PreviousTests = ({
   type = 'full',
@@ -139,11 +140,34 @@ export const PreviousTests = ({
 
   return (
     <>
-      <div>
-        <Button onClick={() => setSelected('reading')}>Reading</Button>
-        <Button onClick={() => setSelected('listening')}>Listening</Button>
-        <Button onClick={() => setSelected('writing')}>Writing</Button>
-        <Button onClick={() => setSelected('speaking')}>Speaking</Button>
+      <div className='flex justify-center space-x-8'>
+        <Button onClick={() => setSelected('reading')} NoBackground>
+            <div className="flex items-center space-x-2">
+            <BsBook />
+            <span>Reading</span>
+            </div>
+        </Button>
+        <Button onClick={() => setSelected('listening')} NoBackground>
+            <div className="flex items-center space-x-2">
+            <BsHeadphones />
+            <span>Listening</span>
+            </div>
+        
+       </Button>
+        <Button onClick={() => setSelected('writing')} NoBackground>
+        
+        <div className="flex items-center space-x-2">
+        <BsFillPencilFill />
+         <span>Writing</span>
+        </div>
+        </Button>
+        <Button onClick={() => setSelected('speaking')} NoBackground>
+          
+         <div className="flex items-center space-x-2">
+          <BsMic />
+          <span>Speaking</span>
+          </div>
+        </Button>
       </div>
       <FullExam list={previousTests[selected]} type={selected} />
     </>

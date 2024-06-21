@@ -32,7 +32,7 @@ const pastTests = ({
         {previousTests.length > 0 ? (
           rendered
         ) : (
-          <h3 className="text-4xl font-bold ">No previous tests</h3>
+          <h3 className="text-xl text-gray-400">No previous tests</h3>
         )}
       </div>
     </section>

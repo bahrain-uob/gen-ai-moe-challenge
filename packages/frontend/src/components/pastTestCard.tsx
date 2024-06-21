@@ -29,9 +29,9 @@ const pastTestCard = ({
         {'IELTS - ' + type.charAt(0).toUpperCase() + type.slice(1) + ' Test'}
       </h3>
       <div className="w-full h-1/3 flex justify-center items-center pt-10">
-        <h3 className="text-4xl  font-semibold lg:text-5xl">
+        <h3 className="text-3xl  text-gray-500  ">
           <span
-            className={`text-4xl font-bold lg:text-5xl`}
+            className={`text-5xl `}
             style={{ color: color }}
           >
             {grade}
