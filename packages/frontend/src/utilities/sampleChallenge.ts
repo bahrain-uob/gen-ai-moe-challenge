@@ -1,8 +1,8 @@
 import { Challenge } from './planTypes';
 
 export const sampleChallenge: Challenge = {
-  PK: '',
-  SK: '',
+  PK: 'challenge-B2-listening',
+  SK: 'ghjkgkjgjk',
   contextTitle: 'A Business Interview',
   context:
     'Listen to the business interview to practise and improve your listening skills.',
