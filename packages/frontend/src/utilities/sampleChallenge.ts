@@ -1,11 +1,11 @@
 import { Challenge } from './planTypes';
 
 export const sampleChallenge: Challenge = {
+  PK: '',
+  SK: '',
   contextTitle: 'Transcipt',
   context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
   contextAudio: 'readingChallengeB2-1.mp3',
-  type: 'Listening',
-  level: 'B2',
   tasks: [
     {
       // Here was a Question[] and the question is inside it but I changed it to LRQuestion immediately (need confirmation from Sayed)
