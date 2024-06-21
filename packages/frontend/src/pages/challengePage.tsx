@@ -90,10 +90,13 @@ const ChallengePage: React.FC = () => {
       </>
     );
   };
+  const challengeType =
+    sampleChallenge.PK.split('-')[2].charAt(0).toUpperCase() +
+    sampleChallenge.PK.split('-')[2].slice(1);
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-10">{sampleChallenge.type}</h1>
+      <h1 className="text-3xl font-bold mb-10">{challengeType}</h1>
       <div className="flex justify-between items-center mb-5">
         <div>
           <Button
@@ -133,7 +136,7 @@ const ChallengePage: React.FC = () => {
       )}
 
       <ToastContainer />
-      {sampleChallenge.type === 'Listening' && sampleChallenge.contextAudio && (
+      {challengeType === 'Listening' && sampleChallenge.contextAudio && (
         <div className="my-5">
           <audio
             src={sampleChallenge.contextAudio}
