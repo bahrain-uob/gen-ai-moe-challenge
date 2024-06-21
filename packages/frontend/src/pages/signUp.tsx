@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { signUp } from 'aws-amplify/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRedirectBack } from '../utilities/authUtilities';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -13,19 +14,20 @@ export default function SignUp() {
   //TODO: make the institution list dynamic by fetching the list of institutions from the backend
   const authInfo = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate();
+
+  const { redirectBack } = useRedirectBack();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
   const handleToastClose = () => {
-    navigate('/home');
+    redirectBack();
   };
 
   useEffect(() => {
     if (authInfo.authSession !== undefined) {
-      navigate('/home');
+      redirectBack();
     }
   }, []);
 
@@ -55,23 +57,23 @@ export default function SignUp() {
     <div className="min-h-screen flex flex-col bg-grey-1">
 
 
-    <div className="w-full flex justify-between items-center px-10 py-5 ">
+    <div className="w-full flex justify-between items-center  px-5 lg:px-10 py-5 ">
      <h1 className="text-xl font-bold text-blue-4">LINGUI</h1>
      <Link to="/" className="text-xl text-blue-4">Home</Link>
    </div>
 
     
-   <div className="flex flex-1 items-center justify-center px-20">
-    <div className="w-full sm:max-w-[28rem] md:max-w-[28rem] lg:max-w-[31rem] flex flex-col justify-center px-6 py-10 lg:px-8 bg-white rounded-md shadow-lg">
+   <div className="flex flex-1 items-center justify-center px-5">
+    <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[30rem] flex flex-col justify-center px-6 py-6 lg:py-10 lg:px-8 bg-white rounded-md shadow-lg">
         
       <ToastContainer />
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-4 mb-5 text-center text-3xl  font-roboto leading-9 tracking-tight text-gray-900">
+      <div className=" mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 className="mb-7 lg:mb-10 text-center text-3xl  font-roboto leading-9  tracking-tight text-gray-900">
           Sign up
         </h1>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-7">
         <label className="block text-sm font-medium leading-6 text-gray-900">
           Email address
         </label>

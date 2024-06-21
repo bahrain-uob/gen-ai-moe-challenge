@@ -1,8 +1,9 @@
-import { Nav } from '../components/Nav';
 import Button from '../components/FButton';
 import { useState, useEffect } from 'react';
 import { sections } from './Questions';
 import { post } from 'aws-amplify/api';
+import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs';
+import { ProgressBar } from '../components/ProgressBar';
 
 export interface Question {
   text: string;
@@ -18,13 +19,14 @@ export interface Option {
 
 export interface Selected {
   section: number;
+  questionIndex: number;
   question: string;
   chosen: string;
   correct: string;
 }
 
 const optionsStyle =
-  'bg-[#3B828E] rounded-md p-2 text-white text-xl font-semibold w-1/3 mx-10 my-1 h-16 flex items-center hover:cursor-pointer hover:bg-[#2F6A75] duration-300';
+  'bg-white border border-gray-300 p-2 text-black text-lg my-4  hover:cursor-pointer hover:bg-gray-300';
 
 const PlacementTest = () => {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -54,6 +56,7 @@ const PlacementTest = () => {
       ...prev,
       {
         section: currentSection,
+        questionIndex: currentQuestion,
         question,
         chosen: text,
         correct: correctAnswer,
@@ -138,41 +141,72 @@ const PlacementTest = () => {
       handleResult();
     }
   }, [showResult, resultHandled]);
+    
+  const progressPercentage =
+    (currentQuestion + 1) / sections[currentSection - 1].length;
 
   return (
     <main className="bg-[#FBF9F1] h-full min-h-screen">
-      <Nav />
       {showResult ? (
-        <section className="w-full flex items-center h-1/3 flex-col gap-y-48">
-          <div className="w-1/2 flex flex-col gap-10">
-            <h1 className="text-6xl font-extrabold">Your Level is</h1>
+        <section className="w-full flex items-center h-1/3 flex-col gap-y-10 ">
+          <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col items-center gap-10 p-8  ">
+            <h1 className="text-3xl">Your current Level is</h1>
             <img
               src={`assets/Levels/${level}.png`}
               alt={`${level} CEFR Level`}
-              className=" size-1/2"
+              className="w-1/2 h-auto"
             />
           </div>
+          <Button label="Continue" tag="3B828E"></Button>
         </section>
       ) : (
         <section className="w-full flex items-center h-3/4 flex-col justify-center">
           {showFeedback ? (
-            <div className="w-1/2 flex flex-col gap-10">
+            <div className="w-full sm:w-3/4 md:w-1/2 flex flex-col gap-5 ">
               <div>
-                <h1 className="text-4xl font-bold">Section Result</h1>
+                <h1 className="text-3xl mb-10">Section Result</h1>
               </div>
-              {sectionSummary.map((summary, index) => (
-                <div key={index}>
-                  <div>
-                    <h2 className="text-2xl font-semibold">
-                      {summary.question}
-                    </h2>
-                    <h4 className="text-lg">Your Choice: {summary.chosen}</h4>
-                    <h4 className="text-lg">
-                      Correct Answer: {summary.correct}
-                    </h4>
+              {sectionSummary.map((summary, index) => {
+                const isCorrect = summary.chosen === summary.correct;
+                const currentQuestionObj =
+                  sections[summary.section - 1][summary.questionIndex];
+
+                console.log('Summary:', summary);
+                console.log('Current Question Obj:', currentQuestionObj);
+                return (
+                  <div key={index}>
+                    <div className="bg-white border py-4 px-4 ">
+                      <div className="flex items-center">
+                        {isCorrect ? (
+                          <BsCheckCircleFill className="text-teal-500 inline-block " />
+                        ) : (
+                          <BsXCircleFill className="text-red-500 inline-block " />
+                        )}
+                        <h1 className="text-lg font-bold ml-2">
+                          Question {summary.questionIndex + 1}{' '}
+                        </h1>
+                      </div>
+                      <h2 className="text-md mt-3 mb-5">{summary.question}</h2>
+
+                      {currentQuestionObj &&
+                        currentQuestionObj.options.map(option => (
+                          <div
+                            key={option.id}
+                            className={`text-lg border  p-2 mt-3 ${
+                              option.text === summary.correct
+                                ? 'border-teal-500 border-2'
+                                : option.text === summary.chosen
+                                ? 'border-red-500 border-2'
+                                : 'border-gray-400 text-gray-400'
+                            }`}
+                          >
+                            {option.text}
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
               {score >= 5 && currentSection + 1 <= sections.length ? (
                 <div className="w-1/2" onClick={handleNextSection}>
@@ -185,29 +219,47 @@ const PlacementTest = () => {
               )}
             </div>
           ) : (
-            <div className="w-1/2 flex flex-col items-center rounded-xl">
-              <h3 className="font-bold text-4xl pb-12">
-                {sections[currentSection - 1][currentQuestion].text}
-              </h3>
-              <h5 className="font-bold text-2xl pb-12">
-                {sections[currentSection - 1][currentQuestion].sub}
-              </h5>
-              <div className="flex flex-row w-full flex-wrap justify-between">
-                {sections[currentSection - 1][currentQuestion].options.map(
-                  option => {
-                    return (
-                      <div
-                        key={option.id}
-                        className={optionsStyle}
-                        onClick={() => optionClicked(option.text)}
-                      >
-                        {option.text}
-                      </div>
-                    );
-                  },
-                )}
+            <>
+              <div
+                className="w-full sm:w-3/4 md:w-1/2  bg-white flex flex-col  border p-10"
+                key={`Placement-Question-${currentQuestion}`}
+              >
+                <h2 className="text-2xl md:text-3xl  pb-8 font-semiboldb text-center text-blue-4">
+                  Placment Test
+                </h2>
+
+                <h3 className="text-xl  pt-8 ">
+                  {currentQuestion + 1} .{' '}
+                  {sections[currentSection - 1][currentQuestion].text}
+                </h3>
+                <h5 className="text-lg pt-4 pb-8">
+                  {sections[currentSection - 1][currentQuestion].sub}
+                </h5>
+
+                <div className="">
+                  {sections[currentSection - 1][currentQuestion].options.map(
+                    option => {
+                      return (
+                        <div
+                          key={option.id}
+                          className={optionsStyle}
+                          onClick={() => optionClicked(option.text)}
+                        >
+                          {option.text}
+                        </div>
+                      );
+                    },
+                  )}
+                </div>
               </div>
-            </div>
+
+              <div className="w-full sm:w-3/4 md:w-1/2  bg-white flex items-center border p-5 mt-5">
+                <ProgressBar percentage={progressPercentage}></ProgressBar>
+                <span className="text-gray-500 text-sm ml-3">
+                  {currentQuestion + 1}/7
+                </span>
+              </div>
+            </>
           )}
         </section>
       )}
