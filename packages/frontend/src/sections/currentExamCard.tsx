@@ -21,10 +21,7 @@ const currentExamCard = ({
           </h3>
           <div className="flex flex-row mt-2 ">
             <h4 className="text-[#989896] lg:text-md md:text-sm text-xs">
-              Start Date :
-            </h4>
-            <h4 className="text-[#989896] lg:text-md md:text-sm text-xs">
-              {startDate}
+              Start Date: {startDate}
             </h4>
           </div>
           <div className="pt-20 w-full flex flex-row items-start mb-7">
@@ -32,7 +29,8 @@ const currentExamCard = ({
               <Button label="Resume" size="large" to={'/' + testId} />
               {/* TODO: navigate to the correct test page */}
             </div>
-            <Button label="Start New" size="large" noBackground />
+            {/* <Button label="Start New" size="large" noBackground /> */}
+            {/* For now we don't have the feature to start a new exam when one is in progress */}
           </div>
         </div>
         <div className="h-full">

@@ -2,6 +2,7 @@ import {
   previousTestsListFrontend,
   testType,
 } from '../../../functions/src/utilities/fullTestUtilities';
+import { Button } from '../components/Button';
 import Card from '../sections/currentExamCard';
 import PastTests from '../sections/pastTests';
 import { getRelativeTime } from '../utilities';
@@ -36,7 +37,12 @@ const fullExam = ({
             testId={list.inProgress.testId}
           />
         ) : (
-          <h3 className="text-4xl font-bold">No {type} test in progress</h3>
+          <>
+            <h3 className="text-4xl font-bold">No {type} test in progress</h3>
+
+            <Button to="/full-test">Start a new test</Button>
+            {/* TODO: dynamiclly determine the path */}
+          </>
         )}
       </section>
 
