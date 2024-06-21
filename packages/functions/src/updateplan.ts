@@ -50,7 +50,7 @@ export const main = async (
   // Validate level
   const level = data.level;
   console.log('Received level:', level);
-  if (!validLevels.includes(level.toLowerCase())) {
+  if (!validLevels.includes(level)) {
     console.error('Invalid level:', level);
     return {
       statusCode: 400,
