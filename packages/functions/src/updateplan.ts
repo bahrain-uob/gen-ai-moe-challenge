@@ -33,10 +33,31 @@ export const main = async (
     };
   }
 
+  // Define valid values for planType and level
+  const validPlanTypes = [
+    'vocab',
+    'speaking',
+    'writing',
+    'reading',
+    'listening',
+  ];
+  const validLevels = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'];
+
+  // Validate planType
   const planType = data.planType;
   console.log('Received plan type:', planType);
+  if (!validPlanTypes.includes(planType.toLowerCase())) {
+    console.error('Invalid plan type:', planType);
+    throw new Error(`Invalid plan type: ${planType}`);
+  }
+
+  // Validate level
   const level = data.level;
   console.log('Received level:', level);
+  if (!validLevels.includes(level.toLowerCase())) {
+    console.error('Invalid level:', level);
+    throw new Error(`Invalid level: ${level}`);
+  }
 
   const userId = event.requestContext.authorizer?.jwt.claims.sub;
   console.log('user id: ', userId);
