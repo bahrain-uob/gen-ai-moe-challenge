@@ -94,23 +94,30 @@ const PlacementTest = () => {
 
     console.log('Calculated updatedScore:', updatedScore);
 
+    let sendLevel = '';
     if (updatedScore < 2) {
       setLevel('A1');
+      sendLevel = 'A1';
       console.log('Level set to A1');
     } else if (updatedScore === 2) {
       setLevel('A2');
+      sendLevel = 'A2';
       console.log('Level set to A2');
     } else if (updatedScore === 3) {
       setLevel('B1');
+      sendLevel = 'B1';
       console.log('Level set to B1');
     } else if (updatedScore === 4) {
       setLevel('B2');
+      sendLevel = 'B2';
       console.log('Level set to B2');
     } else if (updatedScore === 5) {
       setLevel('C1');
+      sendLevel = 'C1';
       console.log('Level set to C1');
     } else if (updatedScore === 6) {
       setLevel('C2');
+      sendLevel = 'C2';
       console.log('Level set to C2');
     }
     console.log('Invoking Lambda function via API.post');
@@ -123,6 +130,7 @@ const PlacementTest = () => {
         options: {
           body: {
             planType: 'vocab',
+            level: sendLevel,
           },
         },
       });
@@ -141,7 +149,7 @@ const PlacementTest = () => {
       handleResult();
     }
   }, [showResult, resultHandled]);
-    
+
   const progressPercentage =
     (currentQuestion + 1) / sections[currentSection - 1].length;
 
