@@ -117,8 +117,10 @@ const PlacementTest = () => {
       const response = await post({
         apiName: 'myAPI',
         path: '/addPlan',
-        body: {
-          planType: 'vocab',
+        options: {
+          body: {
+            planType: 'vocab',
+          },
         },
       });
 

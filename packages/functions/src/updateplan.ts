@@ -16,22 +16,13 @@ export const main = async (
   console.log('Lambda function invoked');
   console.log('Event body:', event.body);
 
-  let data;
-  try {
-    if (!event.body) {
-      throw new Error('Request body is missing');
-    }
-    const body = event.isBase64Encoded
-      ? Buffer.from(event.body, 'base64').toString('utf-8')
-      : event.body;
-    data = JSON.parse(body);
-  } catch (err) {
-    console.error('Error parsing request body:', err.message);
+  if (!event.body) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Invalid JSON in request body' }),
+      body: JSON.stringify({ error: 'No data received' }),
     };
   }
+  const data = JSON.parse(event.body);
 
   // Define valid values for planType and level
   const validPlanTypes = [
@@ -46,9 +37,13 @@ export const main = async (
   // Validate planType
   const planType = data.planType;
   console.log('Received plan type:', planType);
+
   if (!validPlanTypes.includes(planType.toLowerCase())) {
     console.error('Invalid plan type:', planType);
-    throw new Error(`Invalid plan type: ${planType}`);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid plan type' }),
+    };
   }
 
   // Validate level
@@ -56,7 +51,10 @@ export const main = async (
   console.log('Received level:', level);
   if (!validLevels.includes(level.toLowerCase())) {
     console.error('Invalid level:', level);
-    throw new Error(`Invalid level: ${level}`);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid level' }),
+    };
   }
 
   const userId = event.requestContext.authorizer?.jwt.claims.sub;
@@ -71,32 +69,12 @@ export const main = async (
 
   const tableName = Table.Records.tableName;
 
-  if (!tableName) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Table name not set' }),
-    };
-  }
-
   const key = {
     PK: userId,
     SK: 'plan', // Fixed SK value
   };
 
   try {
-    console.log('Fetching existing item...');
-    const getParams = { TableName: tableName, Key: key };
-    const getCommand = new GetCommand(getParams);
-    const result = await dynamoDb.send(getCommand);
-    const existingItem = result.Item;
-
-    if (!existingItem) {
-      console.log('Item not found');
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ error: 'Item not found' }),
-      };
-    }
     // Determine the type suffix for challengesKey
     let typeSuffix;
     if (
@@ -107,6 +85,8 @@ export const main = async (
     } else {
       typeSuffix = planType.toLowerCase();
     }
+
+    //TODO: Add dynamic level but for now we only have plan for B2
 
     // Fetch challenges from fixed PK and SK
     const challengesKey = {
@@ -160,12 +140,12 @@ export const main = async (
       }),
     };
   } catch (error) {
-    console.error('Error updating item:', error.message);
+    console.error('Error updating item:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({
         error: 'Could not update item',
-        details: error.message,
+        details: error,
       }),
     };
   }
