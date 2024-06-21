@@ -6,6 +6,7 @@ import {
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { Table } from 'sst/node/table';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { CefrLevel } from '../../frontend/src/utilities/planTypes';
 
 const client = new DynamoDBClient({});
 const dynamoDb = DynamoDBDocumentClient.from(client);
@@ -32,13 +33,13 @@ export const main = async (
     'reading',
     'listening',
   ];
-  const validLevels = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'];
+  const validLevels: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   // Validate planType
   const planType = data.planType;
   console.log('Received plan type:', planType);
 
-  if (!validPlanTypes.includes(planType.toLowerCase())) {
+  if (!validPlanTypes.includes(planType)) {
     console.error('Invalid plan type:', planType);
     return {
       statusCode: 400,
