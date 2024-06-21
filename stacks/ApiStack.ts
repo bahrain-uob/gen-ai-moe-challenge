@@ -111,7 +111,8 @@ export function ApiStack({ stack }: StackContext) {
       'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
       'GET /Listening/audio': {
         function: {
-          handler: 'packages/functions/src/startTest.main',
+          handler:
+            'packages/functions/src/sample-python-lambda/getListeningAudio.main',
           runtime: 'python3.11',
           permissions: ['s3:*'],
           timeout: '60 seconds',
