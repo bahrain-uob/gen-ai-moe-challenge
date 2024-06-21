@@ -111,6 +111,12 @@ export function ApiStack({ stack }: StackContext) {
           environment: { audioBucket: audiobucket.bucketName },
         },
       },
+      // get the test item when graded
+      'GET /fullTestFeedback/{SK}':
+        'packages/functions/src/getFullTestFeedback.main',
+
+      // get the list of previous tests
+      'GET /previousTest': 'packages/functions/src/getPreviousTests.main',
     },
   });
 
@@ -131,9 +137,15 @@ export function ApiStack({ stack }: StackContext) {
     defaults: {
       function: {
         bind: [table, uploads_bucket],
-        permissions: ['bedrock:InvokeModel', 's3:GetObject'],
+        permissions: [
+          'bedrock:InvokeModel',
+          's3:GetObject',
+          'transcribe:StartTranscriptionJob',
+          'transcribe:GetTranscriptionJob',
+        ],
         environment: {
           speakingPollyBucket: speakingPollyBucket.bucketName,
+          grammerToolDNS: grammarToolDNS,
         },
       },
     },
@@ -160,9 +172,6 @@ export function ApiStack({ stack }: StackContext) {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/autoSave.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
         },
       },
       fullTestGetQuestion: {
@@ -170,18 +179,37 @@ export function ApiStack({ stack }: StackContext) {
           handler:
             'packages/functions/src/websockets/fullTest/getQuestion.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
         },
       },
       fullTestSubmit: {
         function: {
           handler: 'packages/functions/src/websockets/fullTest/submit.main',
           timeout: '120 seconds',
-          environment: {
-            grammerToolDNS: grammarToolDNS,
-          },
+        },
+      },
+      sectionTestStart: {
+        function: {
+          handler: 'packages/functions/src/websockets/sectionTest/start.main',
+        },
+      },
+      sectionTestAutoSave: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/sectionTest/autoSave.main',
+          timeout: '120 seconds',
+        },
+      },
+      sectionTestGetQuestion: {
+        function: {
+          handler:
+            'packages/functions/src/websockets/sectionTest/getQuestion.main',
+          timeout: '120 seconds',
+        },
+      },
+      sectionTestSubmit: {
+        function: {
+          handler: 'packages/functions/src/websockets/sectionTest/submit.main',
+          timeout: '120 seconds',
         },
       },
       gradeSpeakingP1: {

@@ -3,6 +3,7 @@ import {
   ListeningSection,
   ReadingPart,
   ReadingSection,
+  RLFeedbackAll,
 } from 'src/utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
 import { Answer } from '../../../frontend/src/utilities/LRUtilities';
@@ -17,15 +18,11 @@ export const gradeReadingListening = async (
   SK: string,
   questions: ListeningSection | ReadingSection,
   answer: RLAnswer,
-  connectionId: string,
-  endpoint: string,
-  publish: boolean = false,
+  // connectionId: string,
+  // endpoint: string,
+  // publish: boolean = false,
 ) => {
-  if (!answer.answer) {
-    return { error: 'No answer provided' };
-  }
-
-  const feedback = gradeRL(questions, answer.answer);
+  const feedback: RLFeedbackAll = gradeRL(questions, answer.answer);
 
   console.log('Feedback:', feedback);
   const sectionAnswer =
@@ -33,21 +30,26 @@ export const gradeReadingListening = async (
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, sectionAnswer, feedback);
-  // Send feedback to the client
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: endpoint,
-  });
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify(publish ? newTestItem : questions.PK + ' graded'),
-  });
-  const response = await apiClient.send(command);
+  // // Send feedback to the client
+  // const apiClient = new ApiGatewayManagementApiClient({
+  //   endpoint: endpoint,
+  // });
+  // const command = new PostToConnectionCommand({
+  //   ConnectionId: connectionId,
+  //   Data: JSON.stringify(publish ? newTestItem : questions.PK + ' graded'),
+  // });
+  // const response = await apiClient.send(command);
+
+  return newTestItem;
 };
 
 const gradeRL = (
   question: ListeningSection | ReadingSection,
   answer: Answer,
-) => {
+): RLFeedbackAll => {
+  if (!answer) {
+    return { error: 'No answer provided' };
+  }
   const studentAnswers = answer;
 
   const flattenedStudentAnswers = studentAnswers.flat(3);

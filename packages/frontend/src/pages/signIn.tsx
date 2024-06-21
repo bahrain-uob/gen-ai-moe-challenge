@@ -1,29 +1,30 @@
 import { useContext, useEffect, useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRedirectBack } from '../utilities/authUtilities';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const authInfo = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate();
+  const { redirectBack } = useRedirectBack();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
   const handleToastClose = () => {
-    navigate('/home');
+    redirectBack();
   };
 
   useEffect(() => {
     if (authInfo.authSession !== undefined) {
-      navigate('/home');
+      redirectBack();
     }
   }, []);
 
@@ -34,7 +35,7 @@ export default function SignIn() {
          * https://docs.amplify.aws/react/build-a-backend/auth/enable-sign-up/#sign-in
          */
         if (user.nextStep.signInStep === 'DONE') {
-          toast.success('Signed up successfully', {
+          toast.success('Signed in successfully', {
             onClose: handleToastClose,
           });
         } else {
@@ -50,15 +51,26 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-full mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-1/3 flex-col justify-center px-6 py-10 lg:px-8 bg-stone-300 rounded-md shadow-md mt-10">
+    <div className="min-h-screen flex flex-col bg-grey-1">
+
+
+     <div className="w-full flex justify-between items-center px-5 lg:px-10 py-5 ">
+      <h1 className="text-xl font-bold text-blue-4">LINGUI</h1>
+      <Link to="/" className="text-xl text-blue-4">Home</Link>
+    </div>
+
+
+    <div className="flex flex-1 items-center justify-center px-5 ">
+    <div className="w-full sm:max-w-[26rem] md:max-w-[26rem] lg:max-w-[30rem] flex flex-col justify-center px-6 py-6 lg:py-10 lg:px-8 bg-white rounded-md shadow-lg">
+        
       <ToastContainer />
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-4 mb-5 text-center text-3xl  font-roboto leading-9 tracking-tight text-gray-900">
+      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 className="mb-6 mt-3 lg:mb-10 lg: text-center text-3xl font-roboto leading-9  tracking-tight text-gray-900">
           Sign in
         </h1>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-7">
         <label className="block text-sm font-medium leading-6 text-gray-900">
           Email address
         </label>
@@ -68,7 +80,7 @@ export default function SignIn() {
             type="email"
             autoComplete="off"
             onChange={e => setEmail(e.target.value)}
-            className="block w-full rounded-md border-0 py-1.5 pl-4 "
+            className="block w-full rounded-md border border-blue-4 py-1.5 pl-4 "
           />
         </div>
       </div>
@@ -82,7 +94,7 @@ export default function SignIn() {
           <input
             type={passwordShown ? 'text' : 'password'}
             onChange={e => setPassword(e.target.value)}
-            className="block w-full rounded-md border-0 py-1.5 pl-4 pr-10 "
+            className="block w-full rounded-md border border-blue-4 py-1.5 pl-4 pr-10 "
           />
 
           {passwordShown ? (
@@ -110,7 +122,7 @@ export default function SignIn() {
         </button>
       </div>
 
-      <p className="mt-7 text-center text-sm text-gray-500">
+      <p className="mt-7    text-center text-sm text-gray-500" >
         Don't have an account? {''}
         <Link
           to="/sign-up"
@@ -120,12 +132,9 @@ export default function SignIn() {
         </Link>
       </p>
 
-      <div>
-        <Link to="/" className="text-blue-4">
-          {' '}
-          Back{' '}
-        </Link>
-      </div>
+      
+    </div>
+    </div>
     </div>
   );
 }

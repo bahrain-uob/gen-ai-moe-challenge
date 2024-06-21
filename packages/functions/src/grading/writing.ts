@@ -4,18 +4,25 @@ import {
   ApiGatewayManagementApiClient,
   PostToConnectionCommand,
 } from '@aws-sdk/client-apigatewaymanagementapi';
-import { WritingSection, WritingAnswer } from '../utilities/fullTestUtilities';
+import {
+  WritingSection,
+  WritingAnswer,
+  WritingFeedbackAll,
+} from '../utilities/fullTestUtilities';
 import { saveFeedback } from 'src/utilities/fullTestFunctions';
-import { WritingFeedback } from '../../../frontend/src/utilities/types';
+import {
+  WritingFeedback,
+  WritingFeedbackSuccess,
+} from '../../../frontend/src/utilities/types';
 
 export const gradeWriting = async (
   PK: string,
   SK: string,
   questions: WritingSection,
   answer: WritingAnswer,
-  connectionId: string,
-  endpoint: string,
-  publish: boolean = false,
+  // connectionId: string,
+  // endpoint: string,
+  // publish: boolean = false,
 ) => {
   const grading = [
     gradeWritingPart(
@@ -28,23 +35,21 @@ export const gradeWriting = async (
   ];
   const _feedbacks = await Promise.all(grading);
 
-  const feedback = {
-    P1: _feedbacks[0],
-    P2: _feedbacks[1],
-  };
+  const feedback: WritingFeedbackAll = _feedbacks;
 
   // Save feedback to the DB
   const newTestItem = await saveFeedback(PK, SK, 'writingAnswer', feedback);
-  // Send feedback to the client
-  const apiClient = new ApiGatewayManagementApiClient({
-    endpoint: endpoint,
-  });
+  // // Send feedback to the client
+  // const apiClient = new ApiGatewayManagementApiClient({
+  //   endpoint: endpoint,
+  // });
 
-  const command = new PostToConnectionCommand({
-    ConnectionId: connectionId,
-    Data: JSON.stringify(publish ? newTestItem : 'Writing graded'),
-  });
-  const response = await apiClient.send(command);
+  // const command = new PostToConnectionCommand({
+  //   ConnectionId: connectionId,
+  //   Data: JSON.stringify(publish ? newTestItem : 'Writing graded'),
+  // });
+  // const response = await apiClient.send(command);
+  return newTestItem;
 };
 
 export const gradeWritingPart = async (
@@ -52,7 +57,7 @@ export const gradeWritingPart = async (
   answer: string,
   writingTask: 'Task 1' | 'Task 2',
   graphDescription: string | undefined = undefined,
-) => {
+): Promise<WritingFeedback> => {
   // Ensure answer and question exist in body
   if (!answer || !question || !writingTask) {
     return {
@@ -272,16 +277,16 @@ parts of the student's answer relevant to your grading.
  * Create a prompt to unify the feedbacks into one.  Takes as input a Record
  * with the criteria as the key, and the feedback text as the value.
  */
-function promptToUnifyFeedbacks(feedbacks: WritingFeedback) {
-  const feedbacksSection = Object.entries(feedbacks)
-    // Convert to XML-like format
-    .map(([criteria, feedback]) =>
-      criteria === 'Combined Feedback' || // Exclude combined feedback from Object
-      criteria === 'Grammer Tool Feedback' || // Exclude Grammar Tool Feedback from Object
-      criteria === 'score' // Exclude score from Object
-        ? ''
-        : `<${criteria}>\n${feedback.text}\n</${criteria}>`,
-    )
+function promptToUnifyFeedbacks(feedbacks: WritingFeedbackSuccess) {
+  const filteredFeedbacks = {
+    'Coherence & Cohesion': feedbacks['Coherence & Cohesion'].text,
+    'Grammatical Range & Accuracy':
+      feedbacks['Grammatical Range & Accuracy'].text,
+    'Lexical Resource': feedbacks['Lexical Resource'].text,
+    'Task Responce': feedbacks['Task Responce'].text,
+  };
+  const feedbacksSection = Object.entries(filteredFeedbacks)
+    .map(([criteria, feedback]) => `<${criteria}>\n${feedback}\n</${criteria}>`)
     .reduce((prev, curr) => prev + '\n' + curr);
 
   return `

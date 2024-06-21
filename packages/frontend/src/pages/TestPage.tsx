@@ -9,6 +9,9 @@ import WaveSurferPlayer from './waveformListeningTest';
 import { AuthContext } from '../AuthContext';
 import { CountdownTimer } from '../components/CountdownTimer';
 
+import BarWaveSurferPlayer from '../components/ListeningAudioPlayer';
+import { sampleAudios } from '../utilities/sampleFullTest';
+
 async function _getCurrentUser() {
   try {
     await fetchAuthSession({ forceRefresh: true }); // try to refresh the session first
@@ -71,12 +74,25 @@ function TestPage() {
 
       <ColorPalette />
 
+      <div className="my-8">
+        <Button isActive>regular</Button>
+        <Button isActive>isActive regular</Button>
+        <Button NoBackground>NoBackground</Button>
+        <Button NoBackground isActive>
+          isActive NoBackground
+        </Button>
+      </div>
+
       <CountdownTimer duration={5} onTimeUp={() => console.log('finished')} />
 
       <ModalDemo />
 
       <div className="mt-8 px-4">
         <WaveSurferPlayer audioUrl="https://upload.wikimedia.org/wikipedia/commons/e/ef/Beijing_Subway_Line_4_train_announcement_from_Zhongguancun_to_Haidianhuangzhuang_20200323.ogg" />
+      </div>
+
+      <div className="mt-8">
+        <BarWaveSurferPlayer urls={sampleAudios} height={50} />
       </div>
     </>
   );

@@ -13,7 +13,15 @@ import { Table } from 'sst/node/table';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
-import { questions, WritingSection } from 'src/utilities/fullTestUtilities';
+import {
+  ListeningSection,
+  previousTestsLists,
+  questions,
+  ReadingSection,
+  SpeakingSection,
+  startFullTestResponse,
+  WritingSection,
+} from 'src/utilities/fullTestUtilities';
 import { filterQuestion } from 'src/utilities/fullTestFunctions';
 
 const client = new DynamoDBClient();
@@ -60,10 +68,48 @@ export const main: APIGatewayProxyHandler = async event => {
     const QuestionsArray = await Promise.all(_Questions);
     questions = {
       writing: QuestionsArray[0] as WritingSection,
-      reading: QuestionsArray[1],
-      listening: QuestionsArray[2],
-      speaking: QuestionsArray[3],
+      reading: QuestionsArray[1] as ReadingSection,
+      listening: QuestionsArray[2] as ListeningSection,
+      speaking: QuestionsArray[3] as SpeakingSection,
     };
+    const getUserTests = new GetCommand({
+      TableName: Table.Records.tableName,
+      Key: {
+        PK: userId,
+        SK: 'Tests',
+      },
+    });
+
+    const userTests = (await dynamoDb.send(getUserTests))
+      .Item as previousTestsLists;
+
+    if (!userTests.full) {
+      const initType = new UpdateCommand({
+        TableName: Table.Records.tableName,
+        Key: {
+          PK: userId,
+          SK: 'Tests',
+        },
+        UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
+        ExpressionAttributeValues: {
+          ':init': {
+            inProgress: '',
+            previous: [],
+          },
+        },
+        ExpressionAttributeNames: {
+          '#type': 'full',
+        },
+      });
+      await dynamoDb.send(initType);
+    } else if (userTests.full.inProgress) {
+      return wsError(
+        apiClient,
+        connectionId,
+        400,
+        'You already have a test in progress',
+      );
+    }
 
     const start_time = Date.now();
     const testID = `${start_time.toString()}-${uuidv4()}`;
@@ -78,7 +124,6 @@ export const main: APIGatewayProxyHandler = async event => {
         listeningAnswer: {
           start_time: start_time,
           status: 'In progress',
-          answer: [],
         },
       },
     });
@@ -88,32 +133,34 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'previousTests',
+        SK: 'Tests',
       },
-      UpdateExpression:
-        'SET #testType = list_append(if_not_exists(#testType, :init), :testID)',
-      ExpressionAttributeNames: {
-        '#testType': 'fullTests',
-      },
+      UpdateExpression: 'SET #type.inProgress = :testID',
       ExpressionAttributeValues: {
-        ':testID': [testID],
-        ':init': [],
+        ':testID': testID,
+      },
+      ExpressionAttributeNames: {
+        '#type': 'full',
       },
     });
 
+    // this will try to update if type attribute does not exist it will raise an error
+    // so we will catch it and initialize the type attribute
     await dynamoDb.send(putCommand);
     await dynamoDb.send(updatePreviousTestsCommand);
 
     const listeningQuestion = await filterQuestion(questions.listening);
     console.log('Listening Question:', listeningQuestion);
 
+    const response: startFullTestResponse = {
+      testID,
+      type: 'listening',
+      data: { question: listeningQuestion },
+    };
+
     const success = new PostToConnectionCommand({
       ConnectionId: connectionId,
-      Data: JSON.stringify({
-        testID,
-        type: 'listening',
-        data: { question: listeningQuestion },
-      }),
+      Data: JSON.stringify(response),
     });
     await apiClient.send(success);
 

@@ -32,16 +32,18 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
         barRadius: 4,
         barGap: 3,
       });
+    }
 
-      wavesurferRef.current.load(urls[trackIndex]);
-
-      wavesurferRef.current.on('finish', () => {
-        if (trackIndex < urls.length - 1) {
-          setTrackIndex(prevIndex => prevIndex + 1);
+    wavesurferRef.current?.on('finish', () => {
+      setTrackIndex(prevIndex => {
+        if (prevIndex < urls.length - 1) {
           setAudioPlayed(false); // Reset audioPlayed for the next track
+          return prevIndex + 1;
+        } else {
+          return prevIndex;
         }
       });
-    }
+    });
 
     return () => {
       if (wavesurferRef.current) {
@@ -50,6 +52,10 @@ const WaveSurferPlayer: React.FC<WaveSurferPlayerProps> = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    wavesurferRef.current?.load(urls[trackIndex]);
+  }, [trackIndex]);
 
   const handlePlay = () => {
     if (wavesurferRef.current) {

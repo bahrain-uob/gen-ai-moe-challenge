@@ -1,37 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, To } from 'react-router-dom'; // Ensure To is imported
 import {
   BsArrowRight,
   BsBoxArrowRight,
   BsList,
   BsPersonCircle,
 } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import type { To } from 'react-router-dom';
+import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 
 type NavProps = {
   showLogo?: boolean;
   entries?: Entry[];
+  isLanding?: boolean;
 };
+
 type Entry = { text: string; to: To };
 
-// Common styles
-const _containerStyling =
-  'flex flex-1 font-montserrat text-md font-bold text-white ';
+const _containerStyling = 'flex flex-1 font-montserrat text-md text-white ';
 
 export const Nav: React.FC<NavProps> = props => {
-  const { showLogo = true, entries = [] } = props;
+  const { showLogo = true, entries = [], isLanding = false } = props;
+
+  const [user, setUser] = useState<AuthUser | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await fetchAuthSession({ forceRefresh: true });
+        const user = await getCurrentUser();
+        setUser(user);
+      } catch (error: any) {
+        if (error.name === 'UserUnAuthenticatedException') {
+          console.log('Not logged in');
+        } else {
+          console.error('Error fetching user:', error);
+        }
+      }
+    };
+    fetchUser();
+  }, []);
 
   const itemStyle = 'nav-item hover-darken';
 
   const logo = showLogo ? (
-    <Link className={itemStyle} to="">
-      <img className="w-12" src="assets/Logo.png" />
+    <Link className={`${itemStyle} text-xl font-bold px-7`} to="/home">
+      <div>LINGUI</div>
     </Link>
   ) : null;
 
-  // Nav content (hidden on mobile)
+  const getLinkClass = (text: string) => {
+    if (text === 'SIGN IN') {
+      return `${itemStyle} font-bold ml-auto`;
+    }
+    return itemStyle;
+  };
+
   const links = entries.map(({ text, to }, index) => (
-    <Link className={itemStyle + ' max-md:hidden'} to={to} key={index}>
+    <Link className={getLinkClass(text) + ' max-md:hidden'} to={to} key={index}>
       <div>{text}</div>
     </Link>
   ));
@@ -39,11 +64,10 @@ export const Nav: React.FC<NavProps> = props => {
   return (
     <header className="z-10 w-full">
       <nav className="bg-blue-4 h-14">
-        <div className={_containerStyling + 'h-full'}>
+        <div className={`${_containerStyling} h-full`}>
           {logo}
           {links}
-          <ProfileMenu />
-
+          {!isLanding && <ProfileMenu user={user} />}
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}
             entries={entries}
@@ -76,7 +100,7 @@ const MobileMenu = ({
 
   return (
     <>
-      <button className={className} onClick={() => toggleMenu()}>
+      <button className={className} onClick={toggleMenu}>
         <BsList size="35" />
       </button>
       <div
@@ -85,15 +109,12 @@ const MobileMenu = ({
             isOpen ? 'max-w-[60vw] ' : 'max-w-0'
           } transition-all duration-300 overflow-hidden`}
       >
-        <div className={_containerStyling + 'flex-col w-[60vw] h-dvh'}>
-          <button className={itemStyle} onClick={() => toggleMenu()}>
+        <div className={`${_containerStyling} flex-col w-[60vw] h-dvh`}>
+          <button className={itemStyle} onClick={toggleMenu}>
             <span>Back</span>
             <BsArrowRight className="ml-auto" />
           </button>
-
           {links}
-
-          {/* TODO: change sign or sign out based on whether the user login */}
           <button className={`${itemStyle} mt-auto`}>
             <span>Sign out</span>
             <BsBoxArrowRight className="ml-auto" />
@@ -110,21 +131,37 @@ const MobileMenu = ({
   );
 };
 
-const ProfileMenu = () => {
+const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
+  const navigate = useNavigate();
 
-  // Same as mobile menu
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
   const menuContent = (
     <>
-      <Link className={linkStyling} to="../profilePage">
-        <div>View Profile</div>
-      </Link>
-      <Link className={linkStyling} to="">
-        <div>Sign Out</div>
-      </Link>
+      {user && (
+        <Link className={linkStyling} to="../profilePage">
+          <div>View Profile</div>
+        </Link>
+      )}
+      {user === undefined ? (
+        <Link className={linkStyling} to="sign-in">
+          <div>Sign In</div>
+        </Link>
+      ) : (
+        <Link
+          className={linkStyling}
+          to="sign-out"
+          onClick={() => {
+            // Sign out logic can be placed here if needed
+            navigate('/');
+            navigate(0);
+          }}
+        >
+          <div>Sign Out</div>
+        </Link>
+      )}
     </>
   );
 

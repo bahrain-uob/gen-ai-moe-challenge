@@ -91,7 +91,7 @@ export const main: APIGatewayProxyHandler = async event => {
       // if the time is up auto submit the section
       if (totalTime > examSections[section].time) {
         //should be auto-submitted
-        submit(
+        const submitValue = submit(
           dynamoDb,
           userId,
           testId,
@@ -110,12 +110,13 @@ export const main: APIGatewayProxyHandler = async event => {
         });
         await apiClient.send(autoSubmittedCommand);
         console.log('Auto-Submitting ', examSections[section].type);
+        await submitValue;
         return { statusCode: 200, body: 'Auto-Submitted' };
       }
       // make sure the provided answer is for the right section
       else if (type === examSections[section].type) {
         // auto - save
-        autoSave(
+        await autoSave(
           dynamoDb,
           userId,
           testId,
@@ -129,7 +130,7 @@ export const main: APIGatewayProxyHandler = async event => {
           apiClient,
           connectionId,
           400,
-          'Wrong section you are in: ' + examSections[section].type,
+          'You are in wrong section',
         );
       }
       break;

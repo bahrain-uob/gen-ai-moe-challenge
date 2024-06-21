@@ -8,9 +8,9 @@ export const ConfirmFullTestStart: React.FC<ConfirmFullTestStartProps> = ({
   onConfirm,
 }) => {
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-opacity-75 z-50">
-      <div className="p-8 rounded w-90 h-100">
-        <h2 className="text-2xl font-bold mb-4">IELTS Exam Instructions</h2>
+    <div className="top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-opacity-75 z-50  text-justify">
+      <div className="p-2 rounded w-90 h-100">
+        <h2 className="lg:text-2xl md:text-2xl text-xl font-bold mb-4 ">IELTS Exam Instructions</h2>
         <p className="mb-4">
           The IELTS exam consists of four sections. Please read the instructions
           carefully before starting the exam.
@@ -53,15 +53,15 @@ export const ConfirmFullTestStart: React.FC<ConfirmFullTestStartProps> = ({
           </p>
         </div>
 
-        <div>
-          <h3 className="text-lg font-bold mb-2 inline mr-4">
+        <div className="flex flex-col md:flex-row md:justify-between">
+          <h3 className="text-lg font-bold mb-4 md:mb-0 inline mr-4">
             Are you sure you want to start?
           </h3>
           <button
             className="bg-blue-3 hover:bg-blue-4 text-white font-bold py-2 px-4 rounded"
             onClick={onConfirm}
           >
-            Yes
+            Start
           </button>
         </div>
       </div>
