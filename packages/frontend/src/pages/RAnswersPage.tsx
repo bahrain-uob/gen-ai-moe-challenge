@@ -4,8 +4,8 @@ import '../stylesheets/exam.css';
 import { PassageComponent } from '../components/Reading/PassageComponent';
 import { BsChevronUp, BsQuestionLg } from 'react-icons/bs';
 import { QuestionsComponent } from '../components/Reading/QuestionsComponent';
-import { BsArrowLeft } from 'react-icons/bs';
 import { ReadingPart } from '../../../functions/src/utilities/fullTestUtilities';
+import { TitleRow } from '../components/TestComponents';
 
 type RAnswersPageProps = {
   readingParts: ReadingPart[];
@@ -21,19 +21,7 @@ const RAnswersPage: React.FC<RAnswersPageProps> = ({
   const [partIndex, setPartIndex] = useState(0);
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const TitleRow = (
-    <div className="w-full h-full flex items-center border-b-2">
-      <div className="sm:w-1/3 w-1/2 h-full nav-item">
-        <button className="hover:text-gray-700" onClick={onBack}>
-          <BsArrowLeft className="inline mr-2" />
-          <span>Back</span>
-        </button>
-      </div>
-      <div className="w-1/2 sm:w-1/3 text-center font-light text-xl">
-        <span>Reading Test Answers</span>
-      </div>
-    </div>
-  );
+  const titleRow = <TitleRow title="Reading Answers" onBack={onBack} />;
 
   /* Bar */
   const linkStyling =
@@ -113,7 +101,7 @@ const RAnswersPage: React.FC<RAnswersPageProps> = ({
   return (
     <>
       <div className="h-[6dvh] bg-blue-4">{barContent}</div>
-      <div className="h-[6dvh] lg:h-[8dvh]">{TitleRow}</div>
+      <div className="h-[6dvh] lg:h-[8dvh]">{titleRow}</div>
       <div className="flex flex-col lg:flex-row h-[88dvh] lg:h-[86dvh] w-screen overflow-y-hidden">
         <div className={passageContainerStyle}>{passageScreen}</div>
         <div className={questionsContainerStyle}>{questionsScreen}</div>

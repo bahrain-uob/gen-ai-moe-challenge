@@ -1,6 +1,9 @@
 import { LRQuestion } from './LRUtilities';
 
 export type Challenge = {
+  PK: string; // this will be challenge-{level}-{type}
+  SK: string; //random string
+  contextTitle?: string;
   context: string;
   contextAudio?: string;
   tasks: LRQuestion[];

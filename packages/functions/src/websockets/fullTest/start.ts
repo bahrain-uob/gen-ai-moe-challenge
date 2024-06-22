@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
 import {
   ListeningSection,
+  previousTestsLists,
   questions,
   ReadingSection,
   SpeakingSection,
@@ -75,12 +76,33 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: 'Tests',
       },
     });
 
-    const userTests = await dynamoDb.send(getUserTests);
-    if (userTests.Item?.inProgress) {
+    const userTests = (await dynamoDb.send(getUserTests))
+      .Item as previousTestsLists;
+
+    if (!userTests.full) {
+      const initType = new UpdateCommand({
+        TableName: Table.Records.tableName,
+        Key: {
+          PK: userId,
+          SK: 'Tests',
+        },
+        UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
+        ExpressionAttributeValues: {
+          ':init': {
+            inProgress: '',
+            previous: [],
+          },
+        },
+        ExpressionAttributeNames: {
+          '#type': 'full',
+        },
+      });
+      await dynamoDb.send(initType);
+    } else if (userTests.full.inProgress) {
       return wsError(
         apiClient,
         connectionId,
@@ -111,18 +133,19 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: 'fullTests',
+        SK: 'Tests',
       },
-      UpdateExpression: 'SET inProgress = :testID', //list_append(if_not_exists(#testType, :init), :testID)',
-      // ExpressionAttributeNames: {
-      //   '#testType': 'fullTests',
-      // },
+      UpdateExpression: 'SET #type.inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
-        // ':init': [],
+      },
+      ExpressionAttributeNames: {
+        '#type': 'full',
       },
     });
 
+    // this will try to update if type attribute does not exist it will raise an error
+    // so we will catch it and initialize the type attribute
     await dynamoDb.send(putCommand);
     await dynamoDb.send(updatePreviousTestsCommand);
 

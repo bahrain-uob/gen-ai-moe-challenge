@@ -50,7 +50,7 @@ export const QuestionsComponent = ({
  * This requires `answer` and `setAnswer` to give children access to parent's
  * state
  */
-const renderQuestionComponent = (
+export const renderQuestionComponent = (
   question: LRQuestion,
   answer: Answer,
   setAnswer: SetAnswer,

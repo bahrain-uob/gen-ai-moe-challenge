@@ -1,3 +1,4 @@
+import { RLFeedbackAll } from '../../../functions/src/utilities/fullTestUtilities';
 import { WritingSection } from '../../../functions/src/utilities/fullTestUtilities';
 
 /**
@@ -84,4 +85,12 @@ export type SpeakingError = {
 
 export type RLError = {
   error: 'No answer provided' | 'Internal Server Error';
+};
+
+export const isWSError = (
+  feedback: WritingFeedback | SpeakingFeedback | RLFeedbackAll,
+): feedback is WritingError | SpeakingError | RLError => {
+  return (
+    (feedback as WritingError | SpeakingError | RLError).error !== undefined
+  );
 };

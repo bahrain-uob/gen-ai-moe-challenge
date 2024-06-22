@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { wsError } from '../../utilities';
 import {
   examSectionObject,
+  previousTestsLists,
   SectionQuestions,
   SectionTestItem,
   startSectionTestResponse,
@@ -79,13 +80,34 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: type + 'Tests',
+        SK: 'Tests',
       },
     });
 
     // If he has a test in progress, return an error
-    const userTests = await dynamoDb.send(getUserTests);
-    if (userTests.Item?.inProgress) {
+    const userTests = (await dynamoDb.send(getUserTests))
+      .Item as previousTestsLists;
+    const userSectionTest = userTests[type];
+    if (!userSectionTest) {
+      const initType = new UpdateCommand({
+        TableName: Table.Records.tableName,
+        Key: {
+          PK: userId,
+          SK: 'Tests',
+        },
+        UpdateExpression: 'SET #type = if_not_exists(#type, :init)',
+        ExpressionAttributeValues: {
+          ':init': {
+            inProgress: '',
+            previous: [],
+          },
+        },
+        ExpressionAttributeNames: {
+          '#type': type,
+        },
+      });
+      await dynamoDb.send(initType);
+    } else if (userSectionTest.inProgress) {
       return wsError(
         apiClient,
         connectionId,
@@ -122,11 +144,14 @@ export const main: APIGatewayProxyHandler = async event => {
       TableName: Table.Records.tableName,
       Key: {
         PK: userId,
-        SK: type + 'Tests',
+        SK: 'Tests',
       },
-      UpdateExpression: 'SET inProgress = :testID',
+      UpdateExpression: 'SET #type.inProgress = :testID',
       ExpressionAttributeValues: {
         ':testID': testID,
+      },
+      ExpressionAttributeNames: {
+        '#type': type,
       },
     });
 

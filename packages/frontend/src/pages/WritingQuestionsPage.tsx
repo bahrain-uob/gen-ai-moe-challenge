@@ -9,7 +9,7 @@ import {
 } from '../../../functions/src/utilities/fullTestUtilities';
 import { CountdownTimer } from '../components/CountdownTimer';
 
-interface WritingPageProps {
+interface WritingQuestionsPageProps {
   writingSection: WritingSection;
   submitAnswers: (answer: any) => void;
   autoSaveAnswers: (answer: any) => void;
@@ -19,7 +19,7 @@ interface WritingPageProps {
 
 type TaskKeys = 'P1' | 'P2';
 
-export const WritingPage: React.FC<WritingPageProps> = ({
+export const WritingQuestionsPage: React.FC<WritingQuestionsPageProps> = ({
   writingSection,
   submitAnswers,
   autoSaveAnswers,

@@ -2,7 +2,7 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import TestPage from './pages/TestPage.tsx';
 // import ReadingQuestions from './pages/ReadingQuestionsPage.tsx';
-import Speaking from './pages/speaking.tsx';
+// import Speaking from './pages/speaking.tsx';
 import Home from './pages/home.tsx';
 import Sections from './pages/sections.tsx';
 import SignUp from './pages/signUp.tsx';
@@ -11,9 +11,8 @@ import Exercises from './pages/Exercises.tsx';
 import { SpeakingExercisesPage } from './pages/SpeakingExercisesPage.tsx';
 import { SpeakingLongQuestionPage } from './pages/SpeakingLongQuestionPage.tsx';
 import { SpeakingConversationPage } from './pages/SpeakingConversationPage.tsx';
-import FullExam from './pages/fullExam.tsx';
 import LRFeedbackPage from './pages/LRFeedbackPage.tsx';
-import PlacementTest from './pages/PLTestPage.tsx';
+import PlacementTest from './pages/PlacementTest.tsx';
 import { Layout } from './Layout.tsx';
 import { AddListeningQPage } from './pages/AddListeningQPage.tsx';
 import { SuccessAddListeningQPage } from './pages/SuccessAddListeningQPage.tsx';
@@ -22,12 +21,19 @@ import ErrorPage from './pages/ErrorPage.tsx';
 // import { WritingPage } from './pages/WritingPage.tsx';
 //import { writingSection } from './utilities.ts';
 // import RAnswersPage from './pages/RAnswersPage.tsx';
-import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
-import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
+// import { SpeakingAudioPage } from './pages/SpeakingAudioPage.tsx';
+// import { SpeakingCardPage } from './pages/SpeakingCardPage.tsx';
 // import { ListeningQuestionsPage } from './pages/ListeningQuestionsPage.tsx';
 import { FullTestPage } from './pages/FullTestPage.tsx';
 import { ProfilePage } from './pages/ProfilePage.tsx';
 import { AllFeedbacks } from './components/AllFeedbacks.tsx';
+import { SpeakingQuestionsPage } from './pages/SpeakingQuestionsPage.tsx';
+import { GeneralFulltestFeedbackPage } from './pages/GeneralFulltestFeedbackPage.tsx';
+import { PreviousTests } from './pages/PerviousTests.tsx';
+import challengePage from './pages/challengePage.tsx';
+import { sampleFullTest } from './utilities/sampleFullTest.ts';
+import { RequireAuth } from './utilities/authUtilities.tsx';
+import { DevPage } from './pages/DevPage.tsx';
 
 // These routes will have the landing nav bar
 const landingRoutes: RouteObject[] = [
@@ -35,21 +41,14 @@ const landingRoutes: RouteObject[] = [
     path: '/',
     Component: App,
   },
-  {
-    path: '/sign-up',
-    Component: SignUp,
-  },
-  {
-    path: '/sign-in',
-    Component: SignIn,
-  },
+ 
 ];
 
 const notLandingRoutes: RouteObject[] = [
-  {
-    path: '/speaking',
-    Component: Speaking,
-  },
+  // {
+  //   path: '/speaking',
+  //   Component: Speaking,
+  // },
   {
     path: '/Exercises',
     Component: Exercises,
@@ -57,6 +56,10 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/sections',
     Component: Sections,
+  },
+  {
+    path: '/fulltestFeedback',
+    element: <GeneralFulltestFeedbackPage fullTestItem={sampleFullTest} />,
   },
   {
     path: '/SpeakingExercises',
@@ -78,21 +81,18 @@ const notLandingRoutes: RouteObject[] = [
     path: '/Listening/addQuestion/success',
     Component: SuccessAddListeningQPage,
   },
-
   {
     path: '/full-exam',
-    Component: FullExam,
+    Component: PreviousTests,
   },
   {
     path: '/test',
     Component: TestPage,
   },
- 
   {
     path: '/sign-out',
     Component: SignOutPage,
   },
-  
   {
     path: '/profilePage',
     Component: ProfilePage,
@@ -100,6 +100,14 @@ const notLandingRoutes: RouteObject[] = [
   {
     path: '/PlacementTest',
     Component: PlacementTest,
+  },
+  {
+    path: '/challengePage',
+    Component: challengePage,
+  },
+  {
+    path: '/dev/',
+    Component: DevPage,
   },
 ];
 
@@ -141,22 +149,31 @@ const noLayoutRoutes: RouteObject[] = [
   //   path: '/answers/listening/:sk',
   //   Component: LAnswersPage,
   // },
+  // {
+  //   path: '/test-speaking-card-ui',
+  //   Component: SpeakingCardPage,
+  // },
+  // {
+  //   path: '/test-speaking-audio-ui',
+  //   Component: SpeakingAudioPage,
+  // },
   {
-    path: '/test-speaking-card-ui',
-    Component: SpeakingCardPage,
-  },
-  {
-    path: '/test-speaking-audio-ui',
-    Component: SpeakingAudioPage,
-  },{
     path: '/sign-in',
     Component: SignIn,
   },
   {
     path: '/sign-up',
     Component: SignUp,
-  }
- 
+  },
+  {
+    path: '/sample-speaking',
+    element: (
+      <SpeakingQuestionsPage
+        speakingSection={sampleFullTest.questions.speaking}
+        submitAnswers={console.log}
+      />
+    ),
+  },
 ];
 
 // Place pages here
@@ -168,12 +185,20 @@ export const routes = createBrowserRouter([
   },
   /* Include all the routes that may affect authentication info here */
   {
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: notLandingRoutes,
   },
   // Note that home page doesn't need a padding, because of the slider
   {
-    element: <Layout noPadding />,
+    element: (
+      <RequireAuth>
+        <Layout noPadding />
+      </RequireAuth>
+    ),
     children: [
       {
         path: '/home',

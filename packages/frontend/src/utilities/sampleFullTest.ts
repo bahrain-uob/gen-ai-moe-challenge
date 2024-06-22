@@ -1,5 +1,12 @@
 import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
 
+export const sampleAudios = [
+  'https://upload.wikimedia.org/wikipedia/commons/8/8a/De-Niesky.ogg',
+  'https://upload.wikimedia.org/wikipedia/commons/d/dc/De-Nittenau.ogg',
+  'https://upload.wikimedia.org/wikipedia/commons/9/91/De-Nordhorn.ogg',
+  'https://upload.wikimedia.org/wikipedia/commons/2/2a/De-Nordstemmen.ogg',
+];
+
 export const sampleFullTest: FullTestItem = {
   writingAnswer: {
     answer: { P1: 'This is it.', P2: '' },
@@ -876,15 +883,15 @@ export const sampleFullTest: FullTestItem = {
         },
         Questions: [
           {
-            S3key: '48c5456f-9c36-4df3-8e07-1c38ad4b6d7c.mp3',
+            S3key: sampleAudios[0],
             text: 'How do you spend your free time?',
           },
           {
-            S3key: '40fbff26-da82-4a4c-b004-3ad9d9d2d7f8.mp3',
+            S3key: sampleAudios[1],
             text: 'Do you enjoy hanging out with friends?',
           },
           {
-            S3key: '1d3c3be3-12d9-4dcd-8009-cd5b638f557c.mp3',
+            S3key: sampleAudios[2],
             text: 'Do you think friends are important in our life? Why?',
           },
         ],
@@ -909,19 +916,19 @@ export const sampleFullTest: FullTestItem = {
         },
         Questions: [
           {
-            S3key: 'c395bb1a-df38-4bd6-804b-b6b6d086a088.mp3',
+            S3key: sampleAudios[0],
             text: 'Do you think money is important in our life?',
           },
           {
-            S3key: '3275dedf-40b9-455c-8211-21b933ba3ab8.mp3',
+            S3key: sampleAudios[1],
             text: 'How can people manage their money wisely?',
           },
           {
-            S3key: 'e38530a3-811d-4c3d-b08f-ace817ff2b31.mp3',
+            S3key: sampleAudios[2],
             text: 'Do you think too much shopping is one of the main reasons some people are wasting their money nowadays?',
           },
           {
-            S3key: '0039dc03-00a5-462b-9915-2d1ca8be8b1f.mp3',
+            S3key: sampleAudios[3],
             text: 'How do you think shopping can help the economy grow and flourish?',
           },
         ],

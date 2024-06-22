@@ -32,6 +32,6 @@ export const IntermediatePage: React.FC<IntermediatePageProps> = ({
       </div>
     </>
   ) : (
-    "You have finished your test! Soon you'll be able to see your feedback!"
+    "You have finished your test! You'll be able to see your feedback in a minute!"
   );
 };
