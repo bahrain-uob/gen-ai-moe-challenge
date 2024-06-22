@@ -114,16 +114,6 @@ const Exercises: React.FC = () => {
           What is it ?
         </h1>
       </div>
-      <div className='hidden'>
-        <Button variant="contained" color="primary">
-            Take Test
-          </Button>
-          <Stepper nonLinear activeStep={activeStep}>
-            <Step key={'Hello'}>
-              <StepButton></StepButton>
-            </Step>
-          </Stepper>
-      </div>
     </main>
   );
 };
