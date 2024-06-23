@@ -1,7 +1,7 @@
-import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Nav } from './components/Nav';
 import { useOutlet } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 export const Layout = ({
   noPadding = false,
@@ -12,33 +12,19 @@ export const Layout = ({
   children?: any;
   isLanding?: boolean;
 }) => {
-  const [user, setUser] = useState<AuthUser | undefined>(undefined);
-  const [showSignIn, setShowSignIn] = useState(false);
+  const authInfo = useContext(AuthContext);
+  const showSignIn = authInfo.user === undefined;
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        await fetchAuthSession({ forceRefresh: true });
-        const currentUser = await getCurrentUser();
-        setUser(currentUser);
-      } catch (error: any) {
-        console.error('Error fetching current user:', error);
-        setUser(undefined);
-      }
-    };
+  // TOOD: move this logic inside `AuthContext`
+  // useEffect(() => {
+  //   if (user === undefined && isLanding) {
+  //     const timeoutId = setTimeout(() => {
+  //       setShowSignIn(true);
+  //     }, 1000);
 
-    fetchCurrentUser();
-  }, []);
-
-  useEffect(() => {
-    if (user === undefined && isLanding) {
-      const timeoutId = setTimeout(() => {
-        setShowSignIn(true);
-      }, 1000);
-
-      return () => clearTimeout(timeoutId); // Cleanup timeout
-    }
-  }, [user, isLanding]);
+  //     return () => clearTimeout(timeoutId); // Cleanup timeout
+  //   }
+  // }, [user, isLanding]);
 
   const getNavEntries = () => {
     if (isLanding) {
@@ -47,7 +33,7 @@ export const Layout = ({
         { text: 'How to use', to: '"' },
         ...(showSignIn ? [{ text: 'Sign in', to: '/sign-in' }] : []),
       ];
-    } else if (user) {
+    } else if (authInfo.user) {
       return [
         { text: 'Full Exams', to: '/Full-Exam' },
         { text: 'Section Exams', to: '/Sections' },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate, To } from 'react-router-dom'; // Ensure To is imported
 import {
   BsArrowRight,
@@ -6,7 +6,8 @@ import {
   BsList,
   BsPersonCircle,
 } from 'react-icons/bs';
-import { AuthUser, fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
+import { AuthUser } from '@aws-amplify/auth';
+import { AuthContext } from '../AuthContext';
 
 type NavProps = {
   showLogo?: boolean;
@@ -21,24 +22,7 @@ const _containerStyling = 'flex flex-1 font-montserrat text-md text-white ';
 export const Nav: React.FC<NavProps> = props => {
   const { showLogo = true, entries = [], isLanding = false } = props;
 
-  const [user, setUser] = useState<AuthUser | undefined>(undefined);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        await fetchAuthSession({ forceRefresh: true });
-        const user = await getCurrentUser();
-        setUser(user);
-      } catch (error: any) {
-        if (error.name === 'UserUnAuthenticatedException') {
-          console.log('Not logged in');
-        } else {
-          console.error('Error fetching user:', error);
-        }
-      }
-    };
-    fetchUser();
-  }, []);
+  const authInfo = useContext(AuthContext);
 
   const itemStyle = 'nav-item hover-darken';
 
@@ -67,7 +51,7 @@ export const Nav: React.FC<NavProps> = props => {
         <div className={`${_containerStyling} h-full`}>
           {logo}
           {links}
-          {!isLanding && <ProfileMenu user={user} />}
+          {!isLanding && <ProfileMenu user={authInfo.user} />}
           <MobileMenu
             className={`${itemStyle} md:hidden ml-auto`}
             entries={entries}
