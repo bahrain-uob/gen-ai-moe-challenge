@@ -15,17 +15,6 @@ export const Layout = ({
   const authInfo = useContext(AuthContext);
   const showSignIn = authInfo.user === undefined;
 
-  // TOOD: move this logic inside `AuthContext`
-  // useEffect(() => {
-  //   if (user === undefined && isLanding) {
-  //     const timeoutId = setTimeout(() => {
-  //       setShowSignIn(true);
-  //     }, 1000);
-
-  //     return () => clearTimeout(timeoutId); // Cleanup timeout
-  //   }
-  // }, [user, isLanding]);
-
   const getNavEntries = () => {
     if (isLanding) {
       return [
