@@ -7,14 +7,14 @@ import {
 import { createContext, useEffect, useState } from 'react';
 
 // This will be our authentication state
-type PartialAuthInfo = {
-  authSession?: AuthSession;
-  user?: AuthUser;
+export type PartialAuthInfo = {
+  authSession?: AuthSession | undefined | null;
+  user?: AuthUser | undefined | null;
 };
 
 // This is the exported object.  It has an additional update, so that any
 // component can trigger an update.
-type AuthInfo = PartialAuthInfo & {
+export type AuthInfo = PartialAuthInfo & {
   update: () => Promise<void>;
 };
 

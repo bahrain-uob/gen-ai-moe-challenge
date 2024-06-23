@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate, To } from 'react-router-dom'; // Ensure To is imported
+import { Link, To } from 'react-router-dom'; // Ensure To is imported
 import {
   BsArrowRight,
   BsBoxArrowRight,
   BsList,
   BsPersonCircle,
 } from 'react-icons/bs';
-import { AuthUser } from '@aws-amplify/auth';
-import { AuthContext } from '../AuthContext';
+import { AuthContext, AuthInfo } from '../AuthContext';
 
 type NavProps = {
   showLogo?: boolean;
@@ -115,7 +114,7 @@ const MobileMenu = ({
   );
 };
 
-const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
+const ProfileMenu: React.FC<{ user: AuthInfo['user'] }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
 
