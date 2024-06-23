@@ -118,7 +118,6 @@ const MobileMenu = ({
 const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(s => !s);
-  const navigate = useNavigate();
 
   const linkStyling = 'nav-item hover-darken py-3 flex-row text-gray-700 ';
 
@@ -134,15 +133,7 @@ const ProfileMenu: React.FC<{ user: AuthUser | undefined }> = ({ user }) => {
           <div>Sign In</div>
         </Link>
       ) : (
-        <Link
-          className={linkStyling}
-          to="sign-out"
-          onClick={() => {
-            // Sign out logic can be placed here if needed
-            navigate('/');
-            navigate(0);
-          }}
-        >
+        <Link className={linkStyling} to="sign-out">
           <div>Sign Out</div>
         </Link>
       )}
