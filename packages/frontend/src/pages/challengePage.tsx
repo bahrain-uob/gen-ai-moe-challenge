@@ -7,6 +7,9 @@ import {
 import { Button } from '../components/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import axios from 'axios';
+import { get } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
 const ChallengePage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -94,6 +97,20 @@ const ChallengePage: React.FC = () => {
     sampleChallenge.PK.split('-')[2].charAt(0).toUpperCase() +
     sampleChallenge.PK.split('-')[2].slice(1);
 
+  const invokeLambda = async () => {
+    try {
+      const response = await toJSON(
+        get({
+          apiName: 'myAPI',
+          path: `/challenges/challenge-B2-writing.07ca232a-42eb-4dc9-b62a-178b472f0991`,
+        }),
+      );
+      console.log(response);
+    } catch (error) {
+      console.error('Error invoking Lambda:', error);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-10">{challengeType}</h1>
@@ -114,7 +131,10 @@ const ChallengePage: React.FC = () => {
             isActive={currentQuestionIndex === sampleChallenge.tasks.length - 1}
           >
             Task 2
-          </Button>{' '}
+          </Button>
+          <Button onClick={invokeLambda} NoBackground>
+            Invoke Lambda
+          </Button>
         </div>
 
         <Button className="my-5" onClick={handleSubmit}>

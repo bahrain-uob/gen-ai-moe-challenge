@@ -50,8 +50,8 @@ export const getChallenge: APIGatewayProxyHandler = async event => {
     };
   }
 
-  // Assuming challengeID is formatted as "PK-SK"
-  const [PK, SK] = challengeID.split('-');
+  // Assuming challengeID is formatted as "PK.SK"
+  const [PK, SK] = challengeID.split('.');
   if (!PK || !SK) {
     return {
       statusCode: 400,
@@ -67,8 +67,13 @@ export const getChallenge: APIGatewayProxyHandler = async event => {
     },
   };
 
+  console.log('Table Name:', params.TableName);
+  console.log('Query Params:', params);
+
   try {
     const result = await dynamoDb.get(params).promise();
+
+    console.log('Query Result:', result);
 
     if (!result.Item) {
       return {
