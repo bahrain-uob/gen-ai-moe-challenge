@@ -117,6 +117,14 @@ export function ApiStack({ stack }: StackContext) {
 
       // get the list of previous tests
       'GET /previousTest': 'packages/functions/src/getPreviousTests.main',
+
+      //get challenge
+      'GET /challenges/{challengeID}': {
+        function: {
+          handler: 'packages/functions/src/getChallenge.getChallenge',
+          permissions: ['dynamodb:GetItem'],
+        },
+      },
     },
   });
 
