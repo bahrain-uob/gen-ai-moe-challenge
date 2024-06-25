@@ -57,6 +57,24 @@ const buttonsTheme = createTheme({
   },
 });
 
+const circleTheme = createTheme({
+  components: {
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          '&.Mui-active': {
+            color: '#3B828E', // Custom color for the active step
+          },
+          '&.Mui-completed': {
+            color: '#3B828E', // Custom color for the completed step
+          },
+          color: 'gray', // Default color for the step (Not active)
+        },
+      },
+    },
+  },
+});
+
 const Exercises: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeButton, setActiveButton] = useState<ButtonLabel>('Listening');
@@ -103,31 +121,33 @@ const Exercises: React.FC = () => {
         </div>
       ) : (
         <div className="w-1/2 border-2 min-h-52">
-          <Stepper nonLinear activeStep={activeStep}>
-            {currentChallenges.map((label, index) => (
-              <Step
-                key={label}
-                completed={currentPlan.challenges[index].isCompleted}
-                sx={{
-                  '& .MuiStepLabel-label': {
-                    fontSize: '0.875rem', // Adjust font size
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: '3rem', // Adjust circle size
-                  },
-                }}
-              >
-                <StepButton
-                  color="inherit"
-                  onClick={handleStep(index)}
+          <ThemeProvider theme={circleTheme}>
+            <Stepper nonLinear activeStep={activeStep}>
+              {currentChallenges.map((label, index) => (
+                <Step
+                  key={label}
+                  completed={currentPlan.challenges[index].isCompleted}
                   sx={{
-                    minHeight: '4rem', // Adjust button size (Not visible unless clicking)
-                    minWidth: '4rem',
+                    '& .MuiStepLabel-label': {
+                      fontSize: '0.875rem', // Adjust font size
+                    },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: '3rem', // Adjust circle size
+                    },
                   }}
-                ></StepButton>
-              </Step>
-            ))}
-          </Stepper>
+                >
+                  <StepButton
+                    color="inherit"
+                    onClick={handleStep(index)}
+                    sx={{
+                      minHeight: '4rem', // Adjust button size (Not visible unless clicking)
+                      minWidth: '4rem',
+                    }}
+                  ></StepButton>
+                </Step>
+              ))}
+            </Stepper>
+          </ThemeProvider>
         </div>
       )}
       <div className="w-1/2 m-10">
