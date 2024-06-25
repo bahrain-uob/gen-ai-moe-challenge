@@ -120,34 +120,36 @@ const Exercises: React.FC = () => {
           </Button>
         </div>
       ) : (
-        <div className="w-1/2 border-2 min-h-52">
-          <ThemeProvider theme={circleTheme}>
-            <Stepper nonLinear activeStep={activeStep}>
-              {currentChallenges.map((label, index) => (
-                <Step
-                  key={label}
-                  completed={currentPlan.challenges[index].isCompleted}
-                  sx={{
-                    '& .MuiStepLabel-label': {
-                      fontSize: '0.875rem', // Adjust font size
-                    },
-                    '& .MuiSvgIcon-root': {
-                      fontSize: '3rem', // Adjust circle size
-                    },
-                  }}
-                >
-                  <StepButton
-                    color="inherit"
-                    onClick={handleStep(index)}
+        <div className="w-1/2 border-2 min-h-52 flex justify-center items-center">
+          <div className="w-5/6">
+            <ThemeProvider theme={circleTheme}>
+              <Stepper nonLinear activeStep={activeStep}>
+                {currentChallenges.map((label, index) => (
+                  <Step
+                    key={label}
+                    completed={currentPlan.challenges[index].isCompleted}
                     sx={{
-                      minHeight: '4rem', // Adjust button size (Not visible unless clicking)
-                      minWidth: '4rem',
+                      '& .MuiStepLabel-label': {
+                        fontSize: '0.875rem', // Adjust font size
+                      },
+                      '& .MuiSvgIcon-root': {
+                        fontSize: '3rem', // Adjust circle size
+                      },
                     }}
-                  ></StepButton>
-                </Step>
-              ))}
-            </Stepper>
-          </ThemeProvider>
+                  >
+                    <StepButton
+                      color="inherit"
+                      onClick={handleStep(index)}
+                      sx={{
+                        minHeight: '4rem', // Adjust button size (Not visible unless clicking)
+                        minWidth: '4rem',
+                      }}
+                    ></StepButton>
+                  </Step>
+                ))}
+              </Stepper>
+            </ThemeProvider>
+          </div>
         </div>
       )}
       <div className="w-1/2 m-10">
