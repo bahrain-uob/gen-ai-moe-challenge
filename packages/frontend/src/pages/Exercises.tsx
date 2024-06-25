@@ -113,7 +113,7 @@ const Exercises: React.FC = () => {
         ))}
       </div>
       {currentChallenges.length === 0 ? (
-        <div className="w-1/2 border-2 min-h-52 flex flex-col items-center justify-center gap-y-5">
+        <div className="w-1/2 border-2 rounded-lg min-h-52 flex flex-col items-center justify-center gap-y-5">
           <h1 className="font-semibold text-xl">You need to take Initial Test!</h1>
           <ThemeProvider theme={buttonsTheme}>
             <Button variant="contained" color="primary">
@@ -122,7 +122,7 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <div className="w-1/2 border-2 min-h-52 flex justify-center items-center">
+        <div className="w-1/2 border-2 rounded-lg min-h-52 flex justify-center items-center">
           <div className="w-5/6">
             <ThemeProvider theme={circleTheme}>
               <Stepper nonLinear activeStep={activeStep}>
