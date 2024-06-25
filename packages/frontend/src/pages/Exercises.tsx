@@ -113,8 +113,8 @@ const Exercises: React.FC = () => {
         ))}
       </div>
       {currentChallenges.length === 0 ? (
-        <div className="w-1/2 border-2 min-h-52 flex flex-col items-center justify-center">
-          <h1>You need to take Initial Test!</h1>
+        <div className="w-1/2 border-2 min-h-52 flex flex-col items-center justify-center gap-y-5">
+          <h1 className="font-semibold text-xl">You need to take Initial Test!</h1>
           <ThemeProvider theme={buttonsTheme}>
             <Button variant="contained" color="primary">
               Take Test
