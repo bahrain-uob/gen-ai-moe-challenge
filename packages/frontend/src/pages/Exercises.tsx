@@ -4,6 +4,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import { Plan, CefrLevel } from '../utilities/planTypes';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const buttonLabels = [
   'Listening',
