@@ -108,10 +108,22 @@ const Exercises: React.FC = () => {
               <Step
                 key={label}
                 completed={currentPlan.challenges[index].isCompleted}
+                sx={{
+                  '& .MuiStepLabel-label': {
+                    fontSize: '0.875rem', // Adjust font size
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: '3rem', // Adjust circle size
+                  },
+                }}
               >
                 <StepButton
                   color="inherit"
                   onClick={handleStep(index)}
+                  sx={{
+                    minHeight: '4rem', // Adjust button size (Not visible unless clicking)
+                    minWidth: '4rem',
+                  }}
                 ></StepButton>
               </Step>
             ))}
