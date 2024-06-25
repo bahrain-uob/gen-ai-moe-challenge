@@ -48,6 +48,15 @@ const plans: { [key in ButtonLabel]: Plan } = {
   },
 };
 
+const buttonsTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#000000',
+      contrastText: '#ffffff',
+    },
+  },
+});
+
 const Exercises: React.FC = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeButton, setActiveButton] = useState<ButtonLabel>('Listening');
@@ -73,14 +82,16 @@ const Exercises: React.FC = () => {
       </div>
       <div className="w-1/2 flex justify-between">
         {buttonLabels.map(button => (
-          <Button
-            key={button}
-            variant={activeButton === button ? 'contained' : 'outlined'}
-            color="primary"
-            onClick={() => handleClick(button)}
-          >
-            <h1 className="font-semibold">{button}</h1>
-          </Button>
+          <ThemeProvider theme={buttonsTheme}>
+            <Button
+              key={button}
+              variant={activeButton === button ? 'contained' : 'outlined'}
+              color="primary"
+              onClick={() => handleClick(button)}
+            >
+              <h1 className="font-semibold">{button}</h1>
+            </Button>
+          </ThemeProvider>
         ))}
       </div>
       {currentChallenges.length === 0 ? (
@@ -115,8 +126,8 @@ const Exercises: React.FC = () => {
           What is it ?
         </h1>
       </div>
-      <div className='flex flex-wrap w-3/4 justify-center gap-16'>
-      {buttonLabels.map(button => LevelCard(button, "A1" , "Hello"))}
+      <div className="flex flex-wrap w-3/4 justify-center gap-16">
+        {buttonLabels.map(button => LevelCard(button, 'A1', 'Hello'))}
       </div>
     </main>
   );
@@ -145,16 +156,15 @@ const entryTitle = (title: string, score: number) => (
   </>
 );
 const LevelCard = (icon: string, level: string, description: string) => (
-    <div className="flex items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-1/3">
-      <div className="flex-shrink-0">
-        <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-200">
-          {icon}
-        </div>
-      </div>
-      <div className="flex-grow ml-4">
-        <div className="text-4xl font-bold text-gray-800">{level}</div>
-        <div className="text-gray-500 mt-1">{description}</div>
+  <div className="flex items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-1/3">
+    <div className="flex-shrink-0">
+      <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-200">
+        {icon}
       </div>
     </div>
-  );
-
+    <div className="flex-grow ml-4">
+      <div className="text-4xl font-bold text-gray-800">{level}</div>
+      <div className="text-gray-500 mt-1">{description}</div>
+    </div>
+  </div>
+);
