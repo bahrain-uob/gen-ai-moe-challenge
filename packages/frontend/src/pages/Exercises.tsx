@@ -51,7 +51,7 @@ const plans: { [key in ButtonLabel]: Plan } = {
 const buttonsTheme = createTheme({
   palette: {
     primary: {
-      main: '#000000',
+      main: '#3B828E',
       contrastText: '#ffffff',
     },
   },
