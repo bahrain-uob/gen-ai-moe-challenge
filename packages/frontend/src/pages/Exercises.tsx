@@ -119,7 +119,7 @@ const circleTheme = createTheme({
       styleOverrides: {
         root: {
           '&.Mui-active': {
-            color: '#3B828E', // Custom color for the active step
+            color: 'gray', // Custom color for the active step
           },
           '&.Mui-completed': {
             color: '#3B828E', // Custom color for the completed step
