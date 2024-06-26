@@ -160,7 +160,7 @@ const Exercises: React.FC = () => {
 
   return (
     <main className="flex flex-col items-center gap-y-16">
-      <div className="w-3/4">
+      <div className="w-full md:w-3/4">
         <h1 className="text-4xl font-bold underline underline-offset-[14px] decoration-4 decoration-blue-4">
           Study Plan
         </h1>
@@ -178,7 +178,7 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         ))}
       </div>
-      <div className="md:hidden w-1/2">
+      <div className="md:hidden w-3/4">
         <ThemeProvider theme={buttonsTheme}>
           <FormControl fullWidth>
             <InputLabel id="plan-select-label">Select Plan</InputLabel>
@@ -210,7 +210,7 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <div className="w-1/2 border-2 rounded-lg min-h-52 flex justify-center items-center">
+        <div className="w-3/4 border-2 rounded-lg min-h-52 flex justify-center items-center md:w-1/2">
           <div className="w-full overflow-x-auto min-h-52">
             <ThemeProvider theme={circleTheme}>
               <Stepper nonLinear activeStep={activeStep}>
@@ -242,17 +242,17 @@ const Exercises: React.FC = () => {
           </div>
         </div>
       )}
-      <div className="w-1/2 m-10">
+      <div className="w-3/4 m-10 md:w-1/2">
         {buttonLabels.map(button =>
           entryTitle(button, calculateScore(plans[button])),
         )}
       </div>
-      <div className="w-3/4">
+      <div className="w-full md:w-3/4">
         <h1 className="text-4xl font-bold underline underline-offset-[14px] decoration-4 decoration-blue-4">
           What is it ?
         </h1>
       </div>
-      <div className="flex flex-wrap w-3/4 justify-center gap-16">
+      <div className="flex flex-wrap w-full md:w-3/4 justify-center gap-16 max-md:flex-col">
         {levelCardLabels.map(button => {
           const plan = plans[button];
           const level = plan.challenges.length > 0 ? plan.level : '--';
@@ -291,19 +291,21 @@ const entryTitle = (title: string, score: number) => (
 );
 
 const LevelCard = (icon: string, level: string, description: string) => (
-  <div className="flex items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-1/3">
-    <div className="flex-shrink-0">
-      <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-200">
+  <div className="flex flex-col md:flex-row items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-full md:w-1/3 mb-4 md:mb-0">
+    <div className="flex-shrink-0 mb-4 md:mb-0">
+      <div className="flex items-center justify-center w-12 h-12 md:w-12 md:h-12 rounded-full border-2 border-gray-200">
         <img
           src={`assets/Sections/${icon}.png`}
           alt={icon}
-          className="w-8 h-8"
+          className="w-8 h-8 md:w-12 md:h-12"
         />
       </div>
     </div>
-    <div className="flex flex-col items-center flex-grow ml-4">
-      <div className="text-4xl font-bold text-gray-800">{level}</div>
-      <div className="text-gray-500 mt-1 text-center max-w-full">
+    <div className="flex flex-col items-center md:items-start flex-grow ml-0 md:ml-4">
+      <div className="text-2xl md:text-4xl font-bold text-gray-800">
+        {level}
+      </div>
+      <div className="text-sm md:text-base text-gray-500 mt-1 text-center md:text-left max-w-full">
         {description}
       </div>
     </div>
