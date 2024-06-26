@@ -297,7 +297,7 @@ const LevelCard = (icon: string, level: string, description: string) => (
         <img
           src={`assets/Sections/${icon}.png`}
           alt={icon}
-          className="w-8 h-8 md:w-12 md:h-12"
+          className="w-8 h-8"
         />
       </div>
     </div>
