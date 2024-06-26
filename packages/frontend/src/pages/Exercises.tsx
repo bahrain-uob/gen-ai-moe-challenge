@@ -178,7 +178,7 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         ))}
       </div>
-      <div className="md:hidden w-3/4">
+      <div className="md:hidden w-1/2">
         <ThemeProvider theme={buttonsTheme}>
           <FormControl fullWidth>
             <InputLabel id="plan-select-label">Select Plan</InputLabel>
@@ -211,7 +211,7 @@ const Exercises: React.FC = () => {
         </div>
       ) : (
         <div className="w-1/2 border-2 rounded-lg min-h-52 flex justify-center items-center">
-          <div className="w-full overflow-x-auto">
+          <div className="w-full overflow-x-auto min-h-52">
             <ThemeProvider theme={circleTheme}>
               <Stepper nonLinear activeStep={activeStep}>
                 {currentChallenges.map((label, index) => (
