@@ -27,8 +27,11 @@ export const useSocketUrl = (): string | undefined => {
 };
 
 export const getRelativeTime = (examId: string): string => {
+
+
   const date = new Date(Number(examId.split('-')[0]));
-  return formatRelative(subDays(date, 3), date);
+  // return formatRelative(subDays(date, 3), date) ;
+  return date.toDateString();
 };
 
 ////// Full Test Feedback Cache //////
