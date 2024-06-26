@@ -267,7 +267,11 @@ const LevelCard = (icon: string, level: string, description: string) => (
   <div className="flex items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-1/3">
     <div className="flex-shrink-0">
       <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-200">
-        {icon}
+        <img
+          src={`assets/Sections/${icon}.png`}
+          alt={icon}
+          className="w-8 h-8"
+        />
       </div>
     </div>
     <div className="flex-grow ml-4">
