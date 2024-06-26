@@ -57,6 +57,58 @@ const buttonsTheme = createTheme({
   },
 });
 
+const sectionDescriptions: {
+  [key in ButtonLabel]: { [key in CefrLevel]: string };
+} = {
+  Listening: {
+    A1: 'A1 Listening',
+    A2: 'A2 Listening',
+    B1: 'B1 Listening',
+    B2: 'B2 Listening',
+    C1: 'C1 Listening',
+    C2: 'C2 Listening',
+  },
+  Speaking: {
+    A1: 'A1 Speaking',
+    A2: 'A2 Speaking',
+    B1: 'B1 Speaking',
+    B2: 'B2 Speaking',
+    C1: 'C1 Speaking',
+    C2: 'C2 Speaking',
+  },
+  'Grammer & Vocabulary': {
+    A1: 'A1 Grammer & Vocabulary',
+    A2: 'A2 Grammer & Vocabulary',
+    B1: 'B1 Grammer & Vocabulary',
+    B2: 'B2 Grammer & Vocabulary',
+    C1: 'C1 Grammer & Vocabulary',
+    C2: 'C2 Grammer & Vocabulary',
+  },
+  Reading: {
+    A1: 'A1 Reading',
+    A2: 'A2 Reading',
+    B1: 'B1 Reading',
+    B2: 'B2 Reading',
+    C1: 'C1 Reading',
+    C2: 'C2 Reading',
+  },
+  Writing: {
+    A1: 'A1 Writing',
+    A2: 'A2 Writing',
+    B1: 'B1 Writing',
+    B2: 'B2 Writing',
+    C1: 'C1 Writing',
+    C2: 'C2 Writing',
+  },
+};
+
+const levelCardLabels = [
+  'Listening',
+  'Speaking',
+  'Reading',
+  'Writing',
+] as const;
+
 const circleTheme = createTheme({
   components: {
     MuiStepIcon: {
@@ -175,7 +227,13 @@ const Exercises: React.FC = () => {
         </h1>
       </div>
       <div className="flex flex-wrap w-3/4 justify-center gap-16">
-        {buttonLabels.map(button => LevelCard(button, 'A1', 'Hello'))}
+        {levelCardLabels.map(button =>
+          LevelCard(
+            button,
+            plans[button].level,
+            sectionDescriptions[button][plans[button].level],
+          ),
+        )}
       </div>
     </main>
   );
