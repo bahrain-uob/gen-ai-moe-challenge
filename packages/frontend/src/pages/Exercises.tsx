@@ -274,9 +274,11 @@ const LevelCard = (icon: string, level: string, description: string) => (
         />
       </div>
     </div>
-    <div className="flex-grow ml-4">
+    <div className="flex flex-col items-center flex-grow ml-4">
       <div className="text-4xl font-bold text-gray-800">{level}</div>
-      <div className="text-gray-500 mt-1">{description}</div>
+      <div className="text-gray-500 mt-1 text-center max-w-full">
+        {description}
+      </div>
     </div>
   </div>
 );
