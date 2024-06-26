@@ -31,7 +31,7 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
 
   const total = calculateFinalScore(fullTestItem);
 
-  const bandscore = total.toFixed(2);
+  const bandscore = (Math.round(total*2)/2).toFixed(1);
   const CEFR = getEuropeanFrameworkGrade(total);
   const listeningBandScore = calculateLRFeedbackScore(listeningFeedback);
   const readingBandScore = calculateLRFeedbackScore(readingFeedback);
