@@ -7,9 +7,11 @@ import Button from './cardButton';
 const resumeCard = ({
   title,
   percentage,
+  testId
 }: {
   title: string;
   percentage: number;
+  testId: string
 }) => {
   return (
     <div className="w-[20rem] h-72  bg-white rounded-lg shadow-lg flex flex-col items-center pt-6 ">
@@ -24,9 +26,7 @@ const resumeCard = ({
       </div>
 
       <div className="w-full h-1/6 flex justify-center items-center pt-5 pb-20 px-6">
-      <Button label='Resume' size='small'>
-       
-        </Button>
+      <Button label="View Report" to={'/full-test/' + testId} />
       </div>
     </div>
   );

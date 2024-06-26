@@ -11,6 +11,8 @@ const pastTests = ({
   previousTests: previousTests;
   type: testType | 'full';
 }) => {
+
+
   const rendered = previousTests.reverse().map((test, index) => {
     console.log(test);
     return (
