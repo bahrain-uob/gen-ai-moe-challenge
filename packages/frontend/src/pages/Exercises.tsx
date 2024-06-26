@@ -210,8 +210,8 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <div className="w-3/4 border-2 rounded-lg min-h-52 flex justify-center items-center md:w-1/2">
-          <div className="w-full overflow-x-auto min-h-52">
+        <div className="w-3/4 border-2 rounded-lg min-h-28 flex justify-center items-center md:w-1/2">
+          <div className="w-full overflow-x-auto min-h-28">
             <ThemeProvider theme={circleTheme}>
               <Stepper nonLinear activeStep={activeStep}>
                 {currentChallenges.map((label, index) => (
