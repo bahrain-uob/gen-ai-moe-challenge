@@ -199,7 +199,7 @@ const Exercises: React.FC = () => {
         </ThemeProvider>
       </div>
       {currentChallenges.length === 0 ? (
-        <div className="w-3/4 border-2 rounded-lg min-h-52 flex flex-col items-center justify-center gap-y-5 md:w-1/2">
+        <div className="w-3/4 border-2 rounded-lg min-h-28 flex flex-col items-center justify-center gap-y-5 md:w-1/2">
           <h1 className="font-semibold text-xl text-center">
             You need to take Initial Test!
           </h1>
