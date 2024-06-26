@@ -91,6 +91,16 @@ const Exercises: React.FC = () => {
     challenge => challenge.challengeId,
   );
 
+  const calculateScore = (plan: Plan) => {
+    const totalChallenges = plan.challenges.length;
+    const completedChallenges = plan.challenges.filter(
+      challenge => challenge.isCompleted,
+    ).length;
+    return totalChallenges > 0
+      ? `${completedChallenges}/${totalChallenges}`
+      : '0/0';
+  };
+
   return (
     <main className="flex flex-col items-center gap-y-16">
       <div className="w-3/4">
@@ -114,7 +124,9 @@ const Exercises: React.FC = () => {
       </div>
       {currentChallenges.length === 0 ? (
         <div className="w-1/2 border-2 rounded-lg min-h-52 flex flex-col items-center justify-center gap-y-5">
-          <h1 className="font-semibold text-xl">You need to take Initial Test!</h1>
+          <h1 className="font-semibold text-xl">
+            You need to take Initial Test!
+          </h1>
           <ThemeProvider theme={buttonsTheme}>
             <Button variant="contained" color="primary">
               Take Test
@@ -179,7 +191,7 @@ const entryTitle = (title: string, score: number) => (
       <div className="bg-blue-1 flex w-1/2 max-md:w-full rounded-xl">
         <div
           className="bg-blue-4 inline-block h-4 rounded-xl"
-          style={{ width: (score  * 100).toFixed(2) + '%' }}
+          style={{ width: (score * 100).toFixed(2) + '%' }}
         ></div>
       </div>
       {/* <div className="w-1/2 bg-blue-1">
