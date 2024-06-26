@@ -179,7 +179,7 @@ const Exercises: React.FC = () => {
           </ThemeProvider>
         ))}
       </div>
-      <div className="md:hidden w-full">
+      <div className="md:hidden w-3/4">
         <ThemeProvider theme={buttonsTheme}>
           <FormControl fullWidth>
             <InputLabel id="plan-select-label">Select Plan</InputLabel>
@@ -224,7 +224,7 @@ const Exercises: React.FC = () => {
                         fontSize: '0.875rem', // Adjust font size
                       },
                       '& .MuiSvgIcon-root': {
-                        fontSize: '3rem', // Adjust circle size
+                        fontSize: '2rem', // Adjust circle size
                       },
                     }}
                   >
