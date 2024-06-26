@@ -19,7 +19,7 @@ const plans: { [key in ButtonLabel]: Plan } = {
   Listening: {
     challenges: [
       { challengeId: 'listen1', isCompleted: false },
-      { challengeId: 'listen2', isCompleted: false },
+      { challengeId: 'listen2', isCompleted: true },
       { challengeId: 'listen3', isCompleted: false },
       { challengeId: 'listen4', isCompleted: false },
       { challengeId: 'listen5', isCompleted: false },
@@ -28,7 +28,7 @@ const plans: { [key in ButtonLabel]: Plan } = {
   },
   Speaking: {
     challenges: [
-      { challengeId: 'speak1', isCompleted: false },
+      { challengeId: 'speak1', isCompleted: true },
       { challengeId: 'speak2', isCompleted: false },
       { challengeId: 'speak3', isCompleted: false },
     ],
@@ -96,9 +96,7 @@ const Exercises: React.FC = () => {
     const completedChallenges = plan.challenges.filter(
       challenge => challenge.isCompleted,
     ).length;
-    return totalChallenges > 0
-      ? `${completedChallenges}/${totalChallenges}`
-      : '0/0';
+    return totalChallenges > 0 ? completedChallenges / totalChallenges : 0;
   };
 
   return (
@@ -167,7 +165,9 @@ const Exercises: React.FC = () => {
         </div>
       )}
       <div className="w-1/2 m-10">
-        {buttonLabels.map(button => entryTitle(button, 5))}
+        {buttonLabels.map(button =>
+          entryTitle(button, calculateScore(plans[button])),
+        )}
       </div>
       <div className="w-3/4">
         <h1 className="text-4xl font-bold underline underline-offset-[14px] decoration-4 decoration-blue-4">
