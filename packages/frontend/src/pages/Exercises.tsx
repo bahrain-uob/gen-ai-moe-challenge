@@ -167,9 +167,8 @@ const Exercises: React.FC = () => {
       </div>
       <div className="hidden md:flex w-1/2 justify-between">
         {buttonLabels.map(button => (
-          <ThemeProvider theme={buttonsTheme}>
+          <ThemeProvider theme={buttonsTheme} key={button}>
             <Button
-              key={button}
               variant={activeButton === button ? 'contained' : 'outlined'}
               color="primary"
               onClick={() => handleClick(button)}
@@ -212,7 +211,7 @@ const Exercises: React.FC = () => {
         </div>
       ) : (
         <div className="w-1/2 border-2 rounded-lg min-h-52 flex justify-center items-center">
-          <div className="w-5/6">
+          <div className="w-full overflow-x-auto">
             <ThemeProvider theme={circleTheme}>
               <Stepper nonLinear activeStep={activeStep}>
                 {currentChallenges.map((label, index) => (
@@ -290,6 +289,7 @@ const entryTitle = (title: string, score: number) => (
     </div>
   </>
 );
+
 const LevelCard = (icon: string, level: string, description: string) => (
   <div className="flex items-center border-2 border-gray-200 p-4 rounded-lg bg-white shadow-md w-1/3">
     <div className="flex-shrink-0">
