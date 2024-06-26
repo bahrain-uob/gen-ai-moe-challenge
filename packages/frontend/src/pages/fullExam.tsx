@@ -24,7 +24,7 @@ const fullExam = ({
   return (
     <>
       <section className="w-full h-4/6 flex justify-center my-8">
-        {list.inProgress.testId && list.inProgress.progress ? (
+        {list.inProgress.testId ? (
           <Card
             title={
               'IELTS - ' +
@@ -33,7 +33,7 @@ const fullExam = ({
               ' Test'
             }
             startDate={getRelativeTime(list.inProgress.testId)}
-            progress={list.inProgress.progress}
+            progress={list.inProgress.progress ?? 0}
             testId={list.inProgress.testId}
           />
         ) : (

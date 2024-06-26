@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ResumeCard from '../components/resumeCard';
 import {
   previousTestsListsFrontend,
-  testType,
 } from '../../../functions/src/utilities/fullTestUtilities';
 import { toJSON } from '../utilities';
 import { get } from 'aws-amplify/api';
@@ -12,8 +11,6 @@ const continuePast = () => {
   const [previousTests, setPreviousTests] =
     useState<previousTestsListsFrontend>();
   const [error, setError] = useState();
-
-  const [selected, setSelected] = useState<testType>('reading');
 
   useEffect(() => {
     toJSON(
@@ -41,15 +38,15 @@ const continuePast = () => {
     continueTests = <Spinner message={'Loading your previous tests'} />;
   }
 
-  if (previousTests?.full?.inProgress?.progress) {
+  if (previousTests?.full?.inProgress) {
     continueTests = (
       <ResumeCard
         title="IELTS - Full Test"
-        percentage={previousTests.full.inProgress.progress}
+        percentage={previousTests.full.inProgress.progress ?? 0}
         testId={previousTests.full.inProgress.testId}
       />
     );
-  } else {
+  } else if(previousTests?.full) {
     continueTests = (
       <h3 className="text-2xl text-[#363534] max-lg:text-3xl mb-6 mx-6">
         No tests to continue
