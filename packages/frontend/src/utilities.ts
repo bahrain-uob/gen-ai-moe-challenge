@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
-import { formatRelative, subDays } from 'date-fns';
+// import { formatRelative, subDays } from 'date-fns';
 
 // Note: I'm using requets type any, because I couldn't find a way to import
 // types from amplify
