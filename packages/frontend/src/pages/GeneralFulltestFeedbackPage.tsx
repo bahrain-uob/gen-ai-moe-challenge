@@ -8,6 +8,7 @@ import {
 } from '../utilities/calculateFeedbackScore';
 import { Button } from '../components/Button';
 import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
+import { roundToHalf } from '../utilities';
 
 type PageProps = {
   fullTestItem: FullTestItem;
@@ -31,7 +32,7 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
 
   const total = calculateFinalScore(fullTestItem);
 
-  const bandscore = (Math.round(total*2)/2).toFixed(1);
+  const bandscore = roundToHalf(total);
   const CEFR = getEuropeanFrameworkGrade(total);
   const listeningBandScore = calculateLRFeedbackScore(listeningFeedback);
   const readingBandScore = calculateLRFeedbackScore(readingFeedback);
@@ -41,25 +42,25 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
   const viewEntries = [
     {
       title: 'Listening',
-      score: listeningBandScore.toFixed(1),
+      score: roundToHalf(listeningBandScore),
       grade: getEuropeanFrameworkGrade(listeningBandScore),
       onNaviagte: onListeningNavigate,
     },
     {
       title: 'Reading',
-      score: readingBandScore.toFixed(1),
+      score: roundToHalf(readingBandScore),
       grade: getEuropeanFrameworkGrade(readingBandScore),
       onNaviagte: onReadingNavigate,
     },
     {
       title: 'Speaking',
-      score: speakingBandScore.toFixed(1),
+      score: roundToHalf(speakingBandScore),
       grade: getEuropeanFrameworkGrade(speakingBandScore),
       onNaviagte: onSpeakingNavigate,
     },
     {
       title: 'Writing',
-      score: writingBandScore.toFixed(1),
+      score: roundToHalf(writingBandScore),
       grade: getEuropeanFrameworkGrade(writingBandScore),
       onNaviagte: onWritingNavigate,
     },

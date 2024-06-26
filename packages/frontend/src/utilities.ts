@@ -55,3 +55,5 @@ export const getCachedFeedback = (testId: string) => {
 export const setCachedFeedback = (feedback: any, testId: string) => {
   sessionStorage.setItem(getFeedbackKey(testId), JSON.stringify(feedback));
 };
+
+export const roundToHalf = (n: number) => (Math.round(n * 2) / 2).toFixed(1);
