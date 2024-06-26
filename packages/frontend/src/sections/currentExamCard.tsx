@@ -26,7 +26,7 @@ const currentExamCard = ({
           </div>
           <div className="pt-20 w-full flex flex-row items-start mb-7">
             <div className="mr-3">
-              <Button label="Resume" size="large" to={'/' + testId} />
+              <Button label="Resume" size="large" to={'/full-test/' + testId} />
               {/* TODO: navigate to the correct test page */}
             </div>
             {/* <Button label="Start New" size="large" noBackground /> */}
