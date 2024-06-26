@@ -41,25 +41,25 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
   const viewEntries = [
     {
       title: 'Listening',
-      score: listeningBandScore,
+      score: listeningBandScore.toFixed(1),
       grade: getEuropeanFrameworkGrade(listeningBandScore),
       onNaviagte: onListeningNavigate,
     },
     {
       title: 'Reading',
-      score: readingBandScore,
+      score: readingBandScore.toFixed(1),
       grade: getEuropeanFrameworkGrade(readingBandScore),
       onNaviagte: onReadingNavigate,
     },
     {
       title: 'Speaking',
-      score: speakingBandScore,
+      score: speakingBandScore.toFixed(1),
       grade: getEuropeanFrameworkGrade(speakingBandScore),
       onNaviagte: onSpeakingNavigate,
     },
     {
       title: 'Writing',
-      score: writingBandScore,
+      score: writingBandScore.toFixed(1),
       grade: getEuropeanFrameworkGrade(writingBandScore),
       onNaviagte: onWritingNavigate,
     },
@@ -69,13 +69,14 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
     <div className="p-4 md:p-10 max-w-6xl mx-auto">
       <DoubleCircles
         leftCircleProps={{
-          value: 0 * 4,
-          maxValue: 36,
+          value: total,
+          maxValue: 9,
           text: CEFR,
+          
         }}
         rightCircleProps={{
-          value: 0 * 4,
-          maxValue: 36,
+          value: total,
+          maxValue: 9,
           text: bandscore,
         }}
       />
