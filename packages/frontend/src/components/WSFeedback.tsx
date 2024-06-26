@@ -1,3 +1,4 @@
+import { getEuropeanFrameworkGrade } from '../utilities/calculateFeedbackScore';
 import {
   Feedback,
   SpeakingError,
@@ -7,6 +8,7 @@ import {
   WritingFeedbackSuccess,
 } from '../utilities/types';
 import { DoubleCircles } from './DoubleCirclesComponent';
+import { ProgressBar } from './ProgressBar';
 import CollapsableCard from './collapsableCard';
 
 /** Display feedback for both writing and speaking */
@@ -22,15 +24,15 @@ export const WSFeedbackComponent = ({
   const circularFeedback = (
     <DoubleCircles
       leftCircleProps={{
-        value: feedback.score * 4,
-        maxValue: 36,
+        value: feedback.score,
+        maxValue: 9,
         // TODO Don't hard-code a band score
-        text: 'B1',
+        text: getEuropeanFrameworkGrade(feedback.score),
       }}
       rightCircleProps={{
-        value: feedback.score * 4,
-        maxValue: 36,
-        text: (feedback.score * 4).toFixed() + ' / 36',
+        value: feedback.score,
+        maxValue: 9,
+        text: feedback.score.toFixed() + ' / 9',
       }}
     />
   );
@@ -60,9 +62,20 @@ export const WSFeedbackComponent = ({
   const grammarMistakes = isWritingFeedback(feedback)
     ? displayGrammarMistakes(feedback['Grammer Tool Feedback'])
     : null;
+    console.log(grammarMistakes)
 
   const textFeedback = entries.map(([title, { score, text }]) => (
-    <CollapsableCard key={title} title={entryTitle(title, score)}>
+    <CollapsableCard
+      key={title}
+      title={
+        <div className="flex items-center justify-between max-md:flex-col max-md:items-start w-full">
+          <span className="font-light max-md:mb-2">{title}</span>
+          <div className="w-1/2">
+            <ProgressBar percentage={score / 9} isAnimated />
+          </div>
+        </div>
+      }
+    >
       <p className={pClassname}>{text}</p>
 
       {/* Display grammar mistakes under grammatical range */}
@@ -78,27 +91,6 @@ export const WSFeedbackComponent = ({
   );
 };
 
-const entryTitle = (title: string, score: number) => (
-  <>
-    <div className="flex items-center justify-between max-md:flex-col max-md:items-start w-full">
-      <span className="font-light max-md:mb-2">{title}</span>
-      {/* <div className="w-1/2 bg-blue-1 h-full"></div> */}
-      <div className="bg-blue-1 flex w-1/2 max-md:w-full rounded-xl">
-        <div
-          className="bg-blue-4 inline-block h-4 rounded-xl"
-          style={{ width: ((score / 9) * 100).toFixed(2) + '%' }}
-        ></div>
-      </div>
-      {/* <div className="w-1/2 bg-blue-1">
-        <div
-          className="inline-block bg-blue-4 h-4 mr-4"
-          style={{ width: (score / 9) * 100 + '%' }}
-        ></div>
-      </div> */}
-    </div>
-  </>
-);
-
 function isError(
   Feedback: SpeakingFeedback | WritingFeedback,
 ): Feedback is WritingError | SpeakingError {
@@ -108,7 +100,7 @@ function isError(
 const displayGrammarMistakes = (
   grammarMisktakes: WritingFeedbackSuccess['Grammer Tool Feedback'],
 ) => {
-  console.log(grammarMisktakes);
+  console.log({ grammarMisktakes });
   if (!grammarMisktakes) return;
 
   return grammarMisktakes.map((mistake, index) => {
