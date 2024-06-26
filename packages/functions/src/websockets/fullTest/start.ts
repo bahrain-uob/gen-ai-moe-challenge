@@ -83,7 +83,7 @@ export const main: APIGatewayProxyHandler = async event => {
     const userTests = (await dynamoDb.send(getUserTests))
       .Item as previousTestsLists;
 
-    if (!userTests.full) {
+    if (!userTests?.full) {
       const initType = new UpdateCommand({
         TableName: Table.Records.tableName,
         Key: {
