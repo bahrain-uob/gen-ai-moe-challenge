@@ -5,6 +5,10 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import { Plan, CefrLevel } from '../utilities/planTypes';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 const buttonLabels = [
   'Listening',
@@ -134,6 +138,9 @@ const Exercises: React.FC = () => {
   const handleClick = (button: ButtonLabel) => {
     setActiveButton(button);
   };
+  const handleChange = (event: SelectChangeEvent<ButtonLabel>) => {
+    setActiveButton(event.target.value as ButtonLabel);
+  };
   const handleStep = (step: number) => () => {
     setActiveStep(step);
   };
@@ -158,7 +165,7 @@ const Exercises: React.FC = () => {
           Study Plan
         </h1>
       </div>
-      <div className="w-1/2 flex justify-between">
+      <div className="hidden md:flex w-1/2 justify-between">
         {buttonLabels.map(button => (
           <ThemeProvider theme={buttonsTheme}>
             <Button
@@ -171,6 +178,26 @@ const Exercises: React.FC = () => {
             </Button>
           </ThemeProvider>
         ))}
+      </div>
+      <div className="md:hidden w-full">
+        <ThemeProvider theme={buttonsTheme}>
+          <FormControl fullWidth>
+            <InputLabel id="plan-select-label">Select Plan</InputLabel>
+            <Select
+              labelId="plan-select-label"
+              id="plan-select"
+              value={activeButton}
+              label="Select Plan"
+              onChange={handleChange}
+            >
+              {buttonLabels.map(button => (
+                <MenuItem key={button} value={button}>
+                  {button}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </ThemeProvider>
       </div>
       {currentChallenges.length === 0 ? (
         <div className="w-1/2 border-2 rounded-lg min-h-52 flex flex-col items-center justify-center gap-y-5">
