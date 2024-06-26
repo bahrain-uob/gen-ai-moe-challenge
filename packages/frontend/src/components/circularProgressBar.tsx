@@ -1,11 +1,16 @@
 const CircularProgressBar = ({
+  radius,
   percentage,
   circleWidth,
+  percentageFontSize = '0.5rem',
 }: {
+  radius:number;
   percentage: number;
   circleWidth: number;
+  percentageFontSize?: string;
+  
 }) => {
-  const radius = 15;
+
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (circumference * percentage) / 100;
 
@@ -37,7 +42,8 @@ const CircularProgressBar = ({
           fontFamily="Verdana"
           textAnchor="middle"
           alignmentBaseline="middle"
-          className=" text-[0.5rem] font-Inter  "
+          className=" font-Inter  "
+          style={{ fontSize: percentageFontSize }}
         >
           {percentage}%
         </text>

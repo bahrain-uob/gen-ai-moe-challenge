@@ -1,30 +1,40 @@
-import { previousTests } from '../../../functions/src/utilities/fullTestUtilities';
+import {
+  previousTests,
+  testType,
+} from '../../../functions/src/utilities/fullTestUtilities';
 import Card from '../components/pastTestCard';
 
-const pastTests = ({ previousTests }: { previousTests: previousTests }) => {
+const pastTests = ({
+  previousTests,
+  type,
+}: {
+  previousTests: previousTests;
+  type: testType | 'full';
+}) => {
+
+
   const rendered = previousTests.reverse().map((test, index) => {
     console.log(test);
-    return <Card grade={test.score} testId={test.testId} key={index} />;
+    return (
+      <Card grade={test.score} testId={test.testId} key={index} type={type} />
+    );
   });
 
   return (
     <section className="h-full pb-6">
       <div className="w-full h-1/6 px-4 pb-8">
         <div className="h-2/3 w-full">
-          <h3 className="text-[65px] font-extrabold text-[#363534] max-lg:text-[55px]">
+          <h3 className="text-4xl text-[#363534] max-lg:text-3xl font-bold mb-6 mx-2 mt-">
             Past Tests
           </h3>
         </div>
-        <div className="h-2/3 w-full">
-          <div className="h-3 w-4/12 bg-[#74ACB5] max-md:w-10/12"></div>
-        </div>
       </div>
 
-      <div className="w-full flex flex-row flex-wrap gap-5 justify-between px-32 gap-y-9 max-[972px]:justify-center max-xl:px-7">
+      <div className="w-full flex flex-row flex-wrap justify-around mx-4 gap-x-3 gap-y-12 max-[972px]:justify-center max-md:px-4 max-md:gap-x-4 max-md:gap-y-6">
         {previousTests.length > 0 ? (
           rendered
         ) : (
-          <h3 className="text-4xl font-bold">No previous tests</h3>
+          <h3 className="text-xl text-gray-400">No previous tests</h3>
         )}
       </div>
     </section>

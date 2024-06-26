@@ -17,6 +17,7 @@ export const DevPage = () => {
         <Button to="/listening/1">Listening</Button>
         <Button to="/reading/2">Reading</Button>
         <Button to="/speaking">Speaking</Button>
+        <Button to="/speakingExercises"> Speaking practcise </Button>
       </div>
       <div className={containerStyle}>
         <Button to="/test-speaking-audio-ui">Speaking Audio UI</Button>

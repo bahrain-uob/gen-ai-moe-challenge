@@ -1,7 +1,8 @@
 import {
-  previousTestsList,
+  previousTestsListFrontend,
   testType,
 } from '../../../functions/src/utilities/fullTestUtilities';
+import { Button } from '../components/Button';
 import Card from '../sections/currentExamCard';
 import PastTests from '../sections/pastTests';
 import { getRelativeTime } from '../utilities';
@@ -10,12 +11,12 @@ const fullExam = ({
   list,
   type = 'full',
 }: {
-  list: previousTestsList | undefined;
+  list: previousTestsListFrontend | undefined;
   type: testType | 'full'; // remove optional parameter
 }) => {
   if (!list) {
     list = {
-      inProgress: '',
+      inProgress: { testId: '' },
       previous: [],
     };
   }
@@ -23,7 +24,7 @@ const fullExam = ({
   return (
     <>
       <section className="w-full h-4/6 flex justify-center my-8">
-        {list.inProgress ? (
+        {list.inProgress.testId ? (
           <Card
             title={
               'IELTS - ' +
@@ -31,17 +32,22 @@ const fullExam = ({
               type.slice(1) +
               ' Test'
             }
-            // remTime="34 : 21"
-            startDate={getRelativeTime(list.inProgress)}
-            // timing="Remaining Time"
+            startDate={getRelativeTime(list.inProgress.testId)}
+            progress={list.inProgress.progress ?? 0}
+            testId={list.inProgress.testId}
           />
         ) : (
-          <h3 className="text-4xl font-bold">No {type} test in progress</h3>
+          <>
+            <h3 className="text-4xl font-bold">No {type} test in progress</h3>
+
+            <Button to="/full-test">Start a new test</Button>
+            {/* TODO: dynamiclly determine the path */}
+          </>
         )}
       </section>
 
       <section className="h-1/2">
-        <PastTests previousTests={list.previous} />
+        <PastTests previousTests={list.previous} type={type} />
       </section>
     </>
   );
