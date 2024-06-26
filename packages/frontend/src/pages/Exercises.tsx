@@ -227,13 +227,15 @@ const Exercises: React.FC = () => {
         </h1>
       </div>
       <div className="flex flex-wrap w-3/4 justify-center gap-16">
-        {levelCardLabels.map(button =>
-          LevelCard(
-            button,
-            plans[button].level,
-            sectionDescriptions[button][plans[button].level],
-          ),
-        )}
+        {levelCardLabels.map(button => {
+          const plan = plans[button];
+          const level = plan.challenges.length > 0 ? plan.level : '--';
+          const description =
+            plan.challenges.length > 0
+              ? sectionDescriptions[button][plan.level]
+              : '';
+          return LevelCard(button, level, description);
+        })}
       </div>
     </main>
   );
