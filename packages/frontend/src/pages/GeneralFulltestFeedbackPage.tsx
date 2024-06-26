@@ -8,6 +8,7 @@ import {
 } from '../utilities/calculateFeedbackScore';
 import { Button } from '../components/Button';
 import { FullTestItem } from '../../../functions/src/utilities/fullTestUtilities';
+import { roundToHalf } from '../utilities';
 
 type PageProps = {
   fullTestItem: FullTestItem;
@@ -31,7 +32,7 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
 
   const total = calculateFinalScore(fullTestItem);
 
-  const bandscore = total.toFixed(2);
+  const bandscore = roundToHalf(total);
   const CEFR = getEuropeanFrameworkGrade(total);
   const listeningBandScore = calculateLRFeedbackScore(listeningFeedback);
   const readingBandScore = calculateLRFeedbackScore(readingFeedback);
@@ -41,25 +42,25 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
   const viewEntries = [
     {
       title: 'Listening',
-      score: listeningBandScore,
+      score: roundToHalf(listeningBandScore),
       grade: getEuropeanFrameworkGrade(listeningBandScore),
       onNaviagte: onListeningNavigate,
     },
     {
       title: 'Reading',
-      score: readingBandScore,
+      score: roundToHalf(readingBandScore),
       grade: getEuropeanFrameworkGrade(readingBandScore),
       onNaviagte: onReadingNavigate,
     },
     {
       title: 'Speaking',
-      score: speakingBandScore,
+      score: roundToHalf(speakingBandScore),
       grade: getEuropeanFrameworkGrade(speakingBandScore),
       onNaviagte: onSpeakingNavigate,
     },
     {
       title: 'Writing',
-      score: writingBandScore,
+      score: roundToHalf(writingBandScore),
       grade: getEuropeanFrameworkGrade(writingBandScore),
       onNaviagte: onWritingNavigate,
     },
@@ -69,13 +70,14 @@ export const GeneralFulltestFeedbackPage: React.FC<PageProps> = ({
     <div className="p-4 md:p-10 max-w-6xl mx-auto">
       <DoubleCircles
         leftCircleProps={{
-          value: 0 * 4,
-          maxValue: 36,
+          value: total,
+          maxValue: 9,
           text: CEFR,
+          
         }}
         rightCircleProps={{
-          value: 0 * 4,
-          maxValue: 36,
+          value: total,
+          maxValue: 9,
           text: bandscore,
         }}
       />

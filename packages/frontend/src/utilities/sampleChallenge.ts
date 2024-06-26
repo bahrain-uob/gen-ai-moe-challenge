@@ -1,14 +1,14 @@
 import { Challenge } from './planTypes';
 
 export const sampleChallenge: Challenge = {
-  contextTitle:"Transcipt",
-  context: 'Here should be a context paragraph', // I added this and moved the audio file to contextAudio
-  contextAudio: 'readingChallengeB2-1.mp3',
-  type: 'Listening',
-  level: 'B2',
+  PK: 'challenge-B2-listening',
+  SK: 'ghjkgkjgjk',
+  contextTitle: 'A Business Interview',
+  context:
+    'Listen to the business interview to practise and improve your listening skills.',
+  contextAudio: 'listeningChallengeB2-1.mp3',
   tasks: [
     {
-      // Here was a Question[] and the question is inside it but I changed it to LRQuestion immediately (need confirmation from Sayed)
       NumOfSubQuestions: 6,
       Question: 'Choose the correct answer, A, B or C.',
       QuestionType: 'Multiple Choice',
@@ -70,7 +70,6 @@ export const sampleChallenge: Challenge = {
         },
       ],
     },
-
     {
       List: 'A a problem\nB a need\nC itself\nD the range of services\nE an idea\nF funding',
       ListTitle: 'List of nouns:',

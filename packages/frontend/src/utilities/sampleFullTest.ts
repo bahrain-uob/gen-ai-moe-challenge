@@ -9,126 +9,199 @@ export const sampleAudios = [
 
 export const sampleFullTest: FullTestItem = {
   writingAnswer: {
-    answer: { P1: 'This is it.', P2: '' },
-    end_time: 1717941735438,
+    answer: {
+      P1: 'In 1990 and 2010, data on children\'s school commute modes in a particular country reveal noteworthy trends. Initially, the primary modes of transport were "Car/bus/van" and "Walk/cycle/other," each accounting for roughly 50 and 40 trips respectively in 1990. Over the subsequent two decades, there was a marginal rise in trips using "Car/bus/van" to about 55, while "Walk/cycle/other" experienced a slight decline to approximately 35 trips by 2010. Consequently, although the total number of trips remained relatively consistent at around 90, there was a discernible shift in transport preferences. This data highlights a subtle inclination towards motorized vehicles for school commuting, accompanied by a modest decrease in walking and cycling. Such developments underscore evolving transportation choices among schoolchildren, reflecting broader societal shifts towards increased motorization over traditional active commuting methods.',
+      P2: "The question of whether money spent on space exploration is justified or should be allocated to more pressing needs is complex and multifaceted. While it's true that space exploration entails significant costs, it also offers substantial benefits and advancements that can indirectly contribute to addressing important global challenges.\n\nFirstly, space exploration drives technological innovation and scientific discovery. Many of the technologies developed for space missions, such as satellite communication, GPS systems, and medical advancements like telemedicine, have practical applications that benefit society as a whole. These innovations not only improve daily life but also contribute to economic growth and global connectivity.\n\nSecondly, space exploration fosters international collaboration and cooperation. Projects like the International Space Station (ISS) involve multiple countries working together towards shared goals, promoting diplomacy and peaceful interaction on a global scale. This collaboration extends beyond space missions to scientific research and environmental monitoring, which are crucial for addressing global issues like climate change and natural disasters.\n\nMoreover, investing in space exploration inspires and educates future generations. The pursuit of space exploration ignites curiosity and encourages young people to pursue careers in science, technology, engineering, and mathematics (STEM) fields. These disciplines are essential for addressing the challenges of the future, from renewable energy to sustainable development.\n\nWhile it's important to prioritize funding for pressing issues such as healthcare, education, and poverty alleviation, dismissing space exploration as too expensive overlooks its long-term benefits and potential contributions to humanity's advancement. A balanced approach that considers both immediate needs and future opportunities in space exploration can lead to a more sustainable and prosperous global society. Therefore, I believe that while cost-effectiveness and accountability in spending are crucial, investing in space exploration can yield significant dividends for humanity's progress and should not be disregarded as frivolous expenditure.",
+    },
+    end_time: 1719397164405,
     feedback: [
       {
         'Grammer Tool Feedback': [],
-        score: 0.25,
+        score: 6,
         'Combined Feedback':
-          '\nHere is a combined feedback for the student:\n\nYour response to the question was inadequate and did not meet the minimum word requirement. You provided a single sentence that was unrelated to the task and did not provide any information or analysis of the data in the graph. Your use of language was basic, and there were numerous errors in word formation and spelling, which significantly impeded meaning. You also did not make any comparisons between the two periods shown in the graph, as required.\n\nTo improve your response, you should demonstrate more understanding of the task and the information provided. You should use appropriate language and sentence structures to summarize the information and make comparisons where relevant. Additionally, you should ensure that your response meets the minimum word requirement of 150 words.\n\nRemember to proofread your work carefully before submitting it, and consider seeking help or guidance if you are struggling with the task.',
+          '\nOverall, the student has demonstrated a good understanding of the task and has attempted to provide a comprehensive overview of the information. However, there are some areas where the student could improve their accuracy and clarity. By reviewing the feedback and making the necessary corrections, the student can enhance their score on the Task Response criteria.',
         'Coherence & Cohesion': {
-          score: 0,
-          text: "The student's answer received a score of 0. The answer is incomprehensible and does not meet the minimum word requirement. The student did not attempt to answer the question and provided a statement that is unrelated to the task.\n\nThe rubric for evaluating the student's answer is as follows:\n\nScore: 0\n\nShould only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate’s answer has been totally memorised.",
+          score: 6,
+          text: 'The student\'s answer received a score of 6.\n\nThe answer demonstrates a clear and logical organization of ideas, with a clear progression from 1990 to 2010. The student effectively highlights the main features of the data, including the increase in car trips, the decline in walking and cycling trips, and the shift towards bus trips. The use of cohesive devices such as "and" and "although" helps to maintain coherence within the response. However, there are a few areas where the student could improve.\n\nFirstly, the use of the word "approximately" in the sentence "In 1990 and 2010, data on children\'s school commute modes in a particular country reveal noteworthy trends. Initially, the primary modes of transport were "Car/bus/van" and "Walk/cycle/other," each accounting for roughly 50 and 40 trips respectively in 1990." This introduces uncertainty and may confuse the reader. It would be more accurate to use precise numbers or percentages to convey the data accurately.\n\nSecondly, in the sentence "Over the subsequent two decades, there was a marginal rise in trips using "Car/bus/van" to about 55, while "Walk/cycle/other" experienced a slight decline to approximately 35 trips by 2010." The use of "approximately" again introduces uncertainty. It would be better to use precise numbers or percentages to convey the trends more accurately.\n\nThirdly, in the sentence "Consequently, although the total number of trips remained relatively consistent at around 90, there was a discernible shift in transport preferences." The use of "although" is somewhat repetitive and may not add much clarity to the sentence. It would be more effective to directly state the shift in transport preferences without using the word "although."\n\nTo improve the score, the student should focus on using precise numbers and percentages to convey the data accurately, and avoid using ambiguous words such as "approximately" that introduce uncertainty. Additionally, the use of repetitive words or phrases can be avoided to enhance the clarity and coherence of the response.',
         },
         'Grammatical Range & Accuracy': {
-          score: 0,
-          text: "The student's answer is rated as 0. The student did not attempt the question and provided only a single sentence, \"This is it.\" This does not meet the minimum requirement of 150 words and does not demonstrate any understanding of the task. The student's response is rated as 0 because it does not meet the criteria for a score of 1.\n\nFeedback:\n- The student did not provide any information or analysis of the data in the graph.\n- The student did not use appropriate language or sentence structures to summarize the information.\n- The student did not make any comparisons between the two periods shown in the graph.\n- The student's response is very short and does not meet the minimum word count requirement.\n\nIn conclusion, the student's answer is inadequate and does not meet the requirements of the task. The student needs to demonstrate more understanding of the task and the information provided, and should use appropriate language and sentence structures to summarize the information and make comparisons where relevant.",
+          score: 6,
+          text: 'The student\'s answer is rated as 6.\n\nThe answer demonstrates a good understanding of the task and a reasonable level of language proficiency. The student has used a variety of sentence structures, including complex ones, to convey their ideas effectively. However, there are a few areas where the student could improve their grammar and accuracy.\n\nIn the first sentence, the word "initially" is incorrect. It should be "Initially" or "At first."\n\nIn the second sentence, the word "accounting" is incorrect. It should be "accounted for."\n\nIn the third sentence, the word "approximately" is incorrect. It should be "about."\n\nIn the fourth sentence, the word "remained" is incorrect. It should be "remained relatively consistent."\n\nIn the fifth sentence, the word "shift" is incorrect. It should be "shift in."\n\nIn the sixth sentence, the word "accompanied" is incorrect. It should be "accompanied by."\n\nIn the seventh sentence, the word "modest" is incorrect. It should be "modest decrease."\n\nIn the eighth sentence, the word "schoolchildren" is incorrect. It should be "schoolchildren."\n\nIn the ninth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the tenth sentence, the word "method" is incorrect. It should be "commuting method."\n\nIn the eleventh sentence, the word "broader" is incorrect. It should be "broader societal."\n\nIn the twelfth sentence, the word "societal" is incorrect. It should be "societal shifts."\n\nIn the thirteenth sentence, the word "shifts" is incorrect. It should be "shifts towards."\n\nIn the fourteenth sentence, the word "motorization" is incorrect. It should be "motorization."\n\nIn the fifteenth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the sixteenth sentence, the word "schoolchildren" is incorrect. It should be "schoolchildren."\n\nIn the seventeenth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the eighteenth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the nineteenth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the twentieth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the twenty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the twenty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the twenty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the twenty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the twenty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the twenty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the twenty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the twenty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the twenty-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the thirtieth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the thirty-first sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the thirty-second sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the thirty-third sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the thirty-fourth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the thirty-fifth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the thirty-sixth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the thirty-seventh sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the thirty-eighth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the thirty-ninth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the forty-th sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the forty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the forty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the forty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the forty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the forty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the forty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the forty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the forty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the forty-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the fiftieth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the fifty-first sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the fifty-second sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the fifty-third sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the fifty-fourth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the fifty-fifth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the fifty-sixth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the fifty-seventh sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the fifty-eighth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the fifty-ninth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the sixtieth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the sixty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the sixty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the sixty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the sixty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the sixty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the sixty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the sixty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the sixty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the sixty-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the seventy-th sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the seventy-first sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the seventy-second sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the seventy-third sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the seventy-fourth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the seventy-fifth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the seventy-sixth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the seventy-seventh sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the seventy-eighth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the seventy-ninth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the eighty-th sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the eighty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the eighty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the eighty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the eighty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the eighty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the eighty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the eighty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the eighty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the eighty-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the ninety-th sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the ninety-first sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the ninety-second sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the ninety-third sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the ninety-fourth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the ninety-fifth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the ninety-sixth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the ninety-seventh sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the ninety-eighth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the ninety-ninth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundredth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-tenth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-eleventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-twelfth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-thirteenth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-fourteenth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-fifteenth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-sixteenth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-seventeenth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-eighteenth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-nineteenth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-twentieth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-twenty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-twenty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-twenty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-twenty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-twenty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-twenty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-twenty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-twenty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-twenty-ninth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-thirtieth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-fortieth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-forty-first sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-forty-second sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-forty-third sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-forty-fourth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-forty-fifth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-forty-sixth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-forty-seventh sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-forty-eighth sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-forty-ninth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-fifty-first sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-fifty-second sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-fifty-third sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-fifty-fourth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-fifty-fifth sentence, the word "commuting" is incorrect. It should be "commuting to school."\n\nIn the one-hundred-fifty-sixth sentence, the word "methods" is incorrect. It should be "commuting methods."\n\nIn the one-hundred-fifty-seventh sentence, the word "traditional" is incorrect. It should be "traditional active commuting methods."\n\nIn the one-hundred-fifty-eighth sentence, the word "active" is incorrect. It should be "active commuting."\n\nIn the one-hundred-fifty-ninth sentence, the word "comm',
         },
         'Lexical Resource': {
-          score: 1,
-          text: "The student's answer is rated as 1. The student provided a response of 20 words or fewer, which is rated at Band 1. The student did not provide any information to summarize, and there are no comparisons made in the student's answer. The student's response is very limited and does not meet the minimum requirement of 150 words. The student's use of vocabulary is basic, and there are no recognizable strings apart from memorised phrases. The student's control of word choice and spelling is very limited, and there are numerous errors in word formation and spelling. These errors significantly impede meaning, and the student's response is inadequate for the task.",
+          score: 6,
+          text: 'The student\'s answer is rated as 6.\n\nThe student\'s answer demonstrates a good understanding of the task and the information provided. The student accurately identifies the main features of the graph and provides a clear and concise summary of the data.\n\nThe student also makes comparisons between the different modes of transport in 1990 and 2010, highlighting the shifts in their usage. This shows a good analytical and comparative skills.\n\nHowever, there are a few areas where the student\'s answer could be improved.\n\nThe first issue is with the lexical resource. While the student uses a wide range of vocabulary, there are some instances of inaccuracy and inappropriateness. For example, the word "marginal" is used incorrectly, and the word "discernible" is not the most suitable word to describe the shift in transport preferences.\n\nThe second issue is with the grammar and sentence structure. There are a few grammatical errors, such as the use of the word "comparisons" instead of "comparisons between," and the use of the word "accompanied" instead of "accompanied by." These errors can distract the reader and affect the overall clarity of the answer.\n\nTo improve the student\'s answer, the following suggestions can be made:\n\nThe student should review the lexical resource and ensure that all words are used accurately and appropriately. The use of a thesaurus can be helpful in finding the right words to express the student\'s ideas.\n\nThe student should review the grammar and sentence structure and make any necessary corrections. A grammar checker or a teacher can provide feedback on these areas.\n\nThe student should consider adding more detail to the answer to provide a more comprehensive analysis of the data. For example, the student could discuss the reasons behind the shifts in transport preferences or the potential impact of these changes on the environment.\n\nOverall, the student\'s answer is a good starting point, but there is room for improvement in terms of lexical resource, grammar, and sentence structure. With some attention to these areas, the student can improve their score on the Lexical Resource criteria.',
         },
         'Task Responce': {
-          score: 0,
-          text: "The student's answer is rated as 0. The student did not attempt the question and provided an answer of 20 words or fewer. The content is wholly unrelated to the task.\n\nThe rubric states that responses of 20 words or fewer are rated at Band 1. Therefore, the student's answer receives a score of 0.",
+          score: 6,
+          text: "The student's answer is rated as 6.\n\nThe response focuses on the requirements of the task and an appropriate format is used.\n\nKey features which are selected are covered and adequately highlighted. A relevant overview is attempted. Information is appropriately selected and supported using figures/data.\n\nSome irrelevant, inappropriate or inaccurate information may occur in areas of detail or when illustrating or extending the main points.\n\nSome details may be missing (or excessive) and further extension or illustration may be needed.\n\nThe inclusion of irrelevant, inappropriate or inaccurate material in key areas detracts from the task achievement.\n\nThere is limited detail when extending and illustrating the main points.",
         },
       },
-      { error: 'Missing answer or question or writing task' },
+      {
+        'Grammer Tool Feedback': [
+          {
+            sentence:
+              'The question of whether money spent on space exploration is justified or should be allocated to more pressing needs is complex and multifaceted.',
+            contextForSureMatch: 0,
+            ignoreForIncompleteSentence: false,
+            offset: 0,
+            shortMessage: 'Wordiness',
+            length: 23,
+            context: {
+              offset: 0,
+              length: 23,
+              text: 'The question of whether money spent on space exploration is jus...',
+            },
+            rule: {
+              subId: '3',
+              issueType: 'style',
+              urls: [
+                {
+                  value:
+                    'https://languagetool.org/insights/post/whether-vs-if/#when-to-use-%E2%80%9Cwhether%E2%80%9D',
+                },
+              ],
+              description: 'the question whether (whether) etc.',
+              id: 'WHETHER',
+              category: {
+                name: 'Redundant Phrases',
+                id: 'REDUNDANCY',
+              },
+              sourceFile: 'style.xml',
+            },
+            replacements: [
+              {
+                value: 'Whether',
+              },
+              {
+                value: 'The question whether',
+              },
+            ],
+            message: 'Wordiness: Consider shortening this phrase.',
+            type: {
+              typeName: 'Hint',
+            },
+          },
+        ],
+        score: 7,
+        'Combined Feedback':
+          '\nOverall, the student has demonstrated a good understanding of the topic and effective communication skills. The response is well-organized, with a clear progression of ideas and a logical flow. The use of cohesive devices and a wide range of vocabulary helps to enhance the coherence and clarity of the writing. However, there are a few areas where the student can improve, such as refining the transition between ideas, adding more persuasive evidence, and avoiding repetition. With these revisions, the student can further enhance their score and produce a more polished essay.',
+        'Coherence & Cohesion': {
+          score: 7,
+          text: 'The student\'s answer receives a score of 7.\n\nThe response demonstrates a clear and logical organization of ideas, with a clear progression throughout the paragraphs. The use of cohesive devices, such as reference and substitution, is effective, although there may be some inaccuracies or over/under use. The paragraphs are well-structured, and the central topic is clear.\n\nHowever, there are a few minor lapses in coherence and cohesion. In the second paragraph, the transition between the two main ideas (space exploration\'s benefits and its indirect contributions to global challenges) could be smoother. Additionally, there is some repetition in certain phrases, such as "space exploration drives technological innovation" and "space exploration fosters international collaboration."\n\nOverall, the student\'s answer is well-written and coherent, showcasing a good understanding of the topic and effective use of cohesive devices. With a few minor revisions, this response could achieve a higher score.',
+        },
+        'Grammatical Range & Accuracy': {
+          score: 7,
+          text: 'Score: 7\n\nThe student demonstrates a good range of structures with some flexibility and accuracy. The majority of sentences are error-free, and grammar and punctuation are generally well controlled. A few errors in grammar may persist, but these do not impede communication.\n\nThe student effectively addresses the topic and presents a well-structured argument. They provide a balanced view by highlighting the benefits of space exploration, including technological innovation, scientific discovery, international collaboration, and education. The use of supporting examples and logical reasoning strengthens the argument.\n\nHowever, there are a few areas where the student could improve:\n\n- Minor errors in word choice and sentence structure: The student uses a few words that may be less common or less appropriate in the context. For example, "frivolous expenditure" may not be the best choice to describe space exploration, as it suggests that it is not valuable. Instead, the student could use terms like "high-cost endeavor" or "resource-intensive project."\n\n- Repetition of certain phrases: The student uses the phrase "space exploration entails significant costs" multiple times. While it is true, it might be more effective to vary the language to avoid repetition.\n\nOverall, the student\'s answer demonstrates a good understanding of the topic and effective communication. With a few minor revisions, they can further enhance their grammatical accuracy and clarity.',
+        },
+        'Lexical Resource': {
+          score: 7,
+          text: 'The student\'s answer is rated as 7.\n\nThe student demonstrates a good command of the English language, with a wide range of vocabulary and accurate word usage. The answer is well-structured, with clear paragraphs and a logical flow of ideas. The student addresses the topic from different perspectives, highlighting the benefits of space exploration and its indirect contributions to global challenges.\n\nHowever, there are a few minor errors in spelling and word formation that do not significantly impact the overall clarity of the answer. For example, "fostering" should be "fostering," and "disregarding" should be "discarding." These errors are relatively common among non-native speakers and do not detract from the overall quality of the writing.\n\nOverall, the student\'s answer demonstrates a good understanding of the topic and effective communication skills. A score of 7 reflects a well-developed resource that allows some flexibility and precision, with a limited range of less common and/or idiomatic items. The student\'s awareness of style and collocation is evident, and there are only a few errors in spelling and/or word formation that do not impede communication.',
+        },
+        'Task Responce': {
+          score: 7,
+          text: "The student's answer receives a score of 7.\n\nThe student addresses the prompt appropriately and presents a clear and well-developed position. The main ideas are extended and supported, and the position is directly relevant to the question. The writer demonstrates a good understanding of the topic and provides relevant examples and evidence to support their arguments.\n\nHowever, there are a few areas where the student could improve. The conclusion could be more concise and focused, and some of the supporting arguments could be more persuasive. Additionally, there may be some repetition in certain parts of the response, which could be avoided to enhance clarity.\n\nOverall, the student's answer demonstrates a good level of understanding and analysis of the topic, and it is well-structured and organized. With a few minor improvements, the student could score higher on the Task Response criteria.",
+        },
+      },
     ],
-    start_time: 1717941686327,
+    start_time: 1719397058509,
     status: 'Submitted',
   },
   readingAnswer: {
     answer: [
       [
-        ['A', 'A', 'C', 'D', 'D', '', '', '', ''],
-        ['', '', '', '', ''],
+        [['obsecure'], ['793'], ['sfedf'], ['dsffs', 'relegious']],
+        ['C', 'E', 'D', 'A', 'G', 'C', 'H', 'B'],
+        ['Interpretations of Viking history'],
       ],
       [
-        ['', '', '', '', '', ''],
-        ['', '', ''],
-        ['', '', '', ''],
+        ['No', 'Yes', 'Yes', 'Not Given', 'No', 'Yes'],
+        [['climate', 'volcanos', 'light', 'crater', 'ice age', 'rockets']],
+        [
+          'to prove that generally held beliefs about the future are all mistaken',
+        ],
       ],
       [
-        ['', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', ''],
+        ['C', 'A', 'B', 'G', 'F', 'E', 'D'],
+        ['False', 'False', 'True', 'Not Given', 'True', 'True'],
       ],
     ],
-    end_time: 1717941681636,
+    end_time: 1719397057047,
     feedback: {
       studentAnswers: [
         [
-          ['A', 'A', 'C', 'D', 'D', '', '', '', ''],
-          ['', '', '', '', ''],
+          [['obsecure'], ['793'], ['sfedf'], ['dsffs', 'relegious']],
+          ['C', 'E', 'D', 'A', 'G', 'C', 'H', 'B'],
+          ['Interpretations of Viking history'],
         ],
         [
-          ['', '', '', '', '', ''],
-          ['', '', ''],
-          ['', '', '', ''],
+          ['No', 'Yes', 'Yes', 'Not Given', 'No', 'Yes'],
+          [['climate', 'volcanos', 'light', 'crater', 'ice age', 'rockets']],
+          [
+            'to prove that generally held beliefs about the future are all mistaken',
+          ],
         ],
         [
-          ['', '', '', '', '', '', '', '', ''],
-          ['', '', '', '', ''],
+          ['C', 'A', 'B', 'G', 'F', 'E', 'D'],
+          ['False', 'False', 'True', 'Not Given', 'True', 'True'],
         ],
       ],
-      BandScore: 0,
+      BandScore: 4,
       CorrectAnswers: [
-        'C',
-        'E',
+        ['obscure'],
+        ['793'],
+        ['Northwest Africa'],
+        ['local populations'],
+        ['religious'],
         'F',
+        'D',
+        'E',
         'A',
-        'B',
         'G',
+        'B',
         'C',
-        'F',
-        'E',
-        'Not Given',
+        'H',
+        'Interpretations of Viking history',
         'Yes',
         'No',
         'Yes',
         'Not Given',
+        'No',
+        'Not Given',
+        ['temperature'],
+        ['molten rock', 'rock', 'ash'],
+        ['food'],
+        ['tidal wave'],
+        ['ice age'],
+        ['rockets'],
+        'to argue the need for a general change in behavior',
         'D',
-        'E',
-        'D',
-        'E',
+        'G',
+        'F',
         'A',
-        'F',
-        'H',
-        'F',
+        'E',
+        'B',
         'C',
+        'Not Given',
+        'False',
         'True',
         'True',
         'False',
         'Not Given',
-        'A controversial range of prices',
-        'A re-evaluation of documentary evidence',
-        'Manual woodworking techniques',
-        'Applying technology to violin production',
-        'The mathematical basis of earlier design',
-        'The advantages of older wood',
-        'An analysis of protective coatings',
-        'The use of saturated wood',
-        'Preferences of top musicians',
-        'True',
-        'False',
-        'Not Given',
-        'True',
-        'False',
       ],
       scores: [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
+        1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
       ],
-      totalScore: 0,
+      totalScore: 11,
       europeanFrameworkGrade: 'A1',
     },
-    start_time: 1717941648683,
+    start_time: 1719396655954,
     status: 'Submitted',
   },
   questions: {
     listening: {
-      SK: '7a7fc2d4-6923-4d68-9dea-320f84f17345',
+      SK: '9b603b90-aa60-4b12-be2e-917167f6a0e8',
       P1: {
         NumOfQuestions: 1,
         Questions: [
@@ -435,447 +508,324 @@ export const sampleFullTest: FullTestItem = {
       },
     },
     reading: {
-      SK: '9dbb6dbb-dc22-433c-b1ae-2dc395b0114f',
+      SK: 'f95ff817-da6e-4c9e-8927-18596eaf2262',
       P1: {
         Questions: [
           {
-            QuestionType: 'Matching Paragraph Information',
+            QuestionType: 'Table Completion',
             Question:
-              'Reading Passage has seven paragraphs, A-G.\nWhich paragraph contains the following information?\nWrite the correct lette, A-G, in boxes 1-9 on your answer sheet.\nNB You may use any letter more than once.',
-            NumOfSubQuestions: 9,
+              'Complete the notes below.\n\nWrite NO MORE THAN TWO WORDS OR A NUMBER for each answer\n\nWrite your answers in boxes 1-5 on your answer sheet.',
+            NumOfSubQuestions: 4,
             SubQuestions: [
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'C',
                 QuestionText:
-                  'An overview of the range of methods that have been used over time to document history. -answer-',
+                  'Word ‘Viking’ is -answer-\n Vikings came from Scandinavia.',
+                RowTitle: 'Origins',
+                CorrectAnswers: [['obscure']],
+                QuestionWeight: 1,
               },
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'E',
                 QuestionText:
-                  'The main reason why many historians are unwilling to use films in their work -answer-',
+                  'In Britain: AD -answer- -1066\nLength varies elsewhere',
+                RowTitle: 'Dates of the Viking Age',
+                CorrectAnswers: [['793']],
+                QuestionWeight: 1,
               },
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'F',
                 QuestionText:
-                  'A reference to some differences between oral and written communication -answer-',
+                  'In doubt – but most of Europe\nPossibly raided as far away as -answer-',
+                RowTitle: 'Territorial extent',
+                CorrectAnswers: [['Northwest Africa']],
+                QuestionWeight: 1,
               },
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'A',
                 QuestionText:
-                  'How most citizens today gain an understanding of history -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'B',
-                QuestionText:
-                  'How current student events are sometimes captured for future audiences -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'G',
-                QuestionText:
-                  'Mention of the fact that the advantages of film are greater than the disadvantages -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'C',
-                QuestionText:
-                  'The claim that there is no official title for film-based historical work -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'F',
-                QuestionText:
-                  'Reference to the active role the audience plays when watching films -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-                CorrectAnswer: 'E',
-                QuestionText:
-                  'A list of requirements that historians see as obstacles to their use of film to record history -answer-',
+                  'Vikings had assimilated into -answer- , & adopted a new -answer- system.',
+                RowTitle: 'End of the Viking Age',
+                CorrectAnswers: [['local populations'], ['religious']],
+                QuestionWeight: 2,
               },
             ],
           },
           {
-            QuestionType: 'Yes No Not Given',
+            QuestionType: 'List Selection',
+            List: 'A In the UK today\nB In 19th-century Norway\nC In 19th-century Sweden\nD In 19th-century England\nE In Denmark today\nF In 9th-century Persia\nG In mid-20th century Soviet Union\nH In Russia today',
             Question:
-              'Do the following statements agree with the claims of the writer in Reading Passage?\n\nIn boxes 1-5 on your answer sheet, write:\nYes, if the statement agrees with the views of the writer.\n No, if the statement contradicts the views of the writer.\n Not Given, if it is impossible to say what the writer thinks about this.',
-            NumOfSubQuestions: 5,
+              'Look at the following statements and the list of times and places below.\n\nMatch each statement with the correct place or time: A-H.\n\nWrite the correct letter, A-H, in boxes 1-8 on your answer sheet.',
+            NumOfSubQuestions: 8,
+            ListTitle: 'List of times & places:',
             SubQuestions: [
               {
-                Choices: ['Yes', 'No', 'Not Given'],
-                CorrectAnswer: 'Not Given',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'F',
                 QuestionText:
-                  'The needs of students in school have led to improvements in the teaching of history. -answer-',
+                  'A geographer documents Viking culture as it happens. -answer-',
               },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'D',
+                QuestionText:
+                  ' A philosopher classifies cultures hierarchically. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'E',
+                QuestionText:
+                  'Historians assert that Viking history is based more on legends than facts. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'A',
+                QuestionText:
+                  'Young people learn about Viking cultural and economic activities. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'G',
+                QuestionText:
+                  'People see themselves as unrelated to Vikings. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'B',
+                QuestionText:
+                  'An historian claims Viking colonists to modem-day Canada came from his land. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'C',
+                QuestionText:
+                  'Viking conquests are exaggerated to bolster the country’s ego after a territorial loss. -answer-',
+              },
+              {
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                CorrectAnswer: 'H',
+                QuestionText:
+                  'DNA tests show locals are closely related to Swedes. -answer-',
+              },
+            ],
+          },
+          {
+            QuestionType: 'Multiple Choice',
+            Question:
+              'Choose the correct letter A-E.\n\nWrite the correct letter in box 1 on your answer sheet',
+            NumOfSubQuestions: 1,
+            SubQuestions: [
+              {
+                Choices: [
+                  'A brief history of Vikings',
+                  'Recent Viking discoveries',
+                  'A modem fascination with Vikings',
+                  'Interpretations of Viking history',
+                  'Viking history and nationalism',
+                ],
+                CorrectAnswer: 'Interpretations of Viking history',
+                QuestionText: 'Which might be a suitable title for passage?',
+              },
+            ],
+          },
+        ],
+        Passage:
+          'In the last century, Vikings have been perceived in numerous diﬀerent ways – vilified as conquerors and romanticised as adventurers. How Vikings have been employed in nation-building is a topic of some interest.\n\nIn English, Vikings are also known as Norse or Norsemen. Their language greatly inﬂuenced English, with the nouns, ‘Hell’, ‘husband’, ‘law’, and ‘window’, and the verbs, ‘blunder’, ‘snub’, ‘take’, and ‘want’, all coming from Old Norse. However, the origins of the word ‘Viking’, itself, are obscure: it may mean ‘a Scandinavian pirate’, or it may refer to ‘an inlet’, or a place called Vik, in modem-day Norway, from where the pirates came. These various names – Vikings, Norse, or Norsemen, and doubts about the very word ‘Viking’ suggest historical confusion.\n\nLoosely speaking, the Viking Age endured from the late eighth to the mid-eleventh centuries. Vikings sailed to England in AD 793 to storm coastal monasteries, and subsequently, large swathes of England fell under Viking rule – indeed several Viking kings sat on the English throne. It is generally agreed that the Battle of Hastings, in 1066, when the Norman French invaded, marks the end of the English Viking Age, but the Irish Viking age ended earlier, while Viking colonies in Iceland and Greenland did not dissolve until around AD 1500.\n\nHow much territory Vikings controlled is also in dispute – Scandinavia and Western Europe certainly, but their reach east and south is uncertain. They plundered and settled down the Volga and Dnieper rivers, and traded with modem-day Istanbul, but the archaeological record has yet to verify that Vikings raided as far away as Northwest Africa, as some writers claim.\n\nThe issue of control and extent is complex because many Vikings did not return to Scandinavia after raiding but assimilated into local populations, often becoming Christian. To some degree, the Viking Age is defined by religion. Initially, Vikings were polytheists, believing in many gods, but by the end of the age, they had permanently accepted a new monotheistic religious system – Christianity.\n\nThis transition from so-called pagan plunderers to civilised Christians is significant and is the view promulgated throughout much of recent history. In the UK, in the 1970s for example, schoolchildren were taught that until the Vikings accepted Christianity they were nasty heathens who rampaged throughout Britain. By contrast, today’s children can visit museums where Vikings are celebrated as merchants, pastoralists, and artists with a unique worldview as well as conquerors.\n\nWhat are some other interpretations of Vikings? In the nineteenth century, historians in Denmark, Norway, and Sweden constructed their own Viking ages for nationalistic reasons. At that time, all three countries were in crisis. Denmark had been beaten in war and ceded territory to what is now Germany. Norway had become independent from Sweden in 1905 but was economically vulnerable, so Norwegians sought to create a separate identity for themselves in the past as well as the present. The Norwegian historian, Gustav Storm, was adamant it was his forebears and not the Swedes’ or Danes’ who had colonised Iceland, Greenland, and Vinland, in what is now Canada. Sweden, meanwhile, had relinquished Norway to the Norwegians and Finland to the Russians; thus, in the late nineteenth century, Sweden was keen to boost its image with rich archaeological finds to show the glory of its Viking past.\n\nIn addition to augmenting nationalism, nineteenth-century thinkers were influenced by an Englishman, Herbert Spencer, who described peoples and cultures in evolutionary terms similar to those of Charles Darwin. Spencer coined the phrase ‘survival of the fittest’, which includes the notion that, over time, there is not only technological but also moral progress. Therefore, Viking heathens’ adoption of Christianity was considered an advantageous move. These days, historians do not compare cultures in the same way, especially since, in this case, the archaeological record seems to show that heathen Vikings and Christian Europeans were equally brutal.\n\nViews of Vikings change according to not only to forces aﬀecting historians at the time of their research but also according to the materials they read. Since much knowledge of Vikings comes from literature composed up to 300 years after the events they chronicle, some Danish historians cal1 these sources ‘mere legends’.\n\nVikings did have a written language carved on large stones, but as few of these survive today, the most reliable contemporary sources on Vikings come from writers from other cultures, like the ninth-century Persian geographer, Ibn Khordadbeh.\n\nIn the last four decades, there have been wildly varying interpretations of the Viking inﬂuence in Russia. Most non-Russian scholars believe the Vikings created a kingdom in western Russia and modern-day Ukraine led by a man called Rurik. After AD 862, Rurik’s descendants continued to rule. There is considerable evidence of this colonisation: in Sweden, carved stones, still standing, describe the conquerors’ journeys; both Russian and Ukrainian have loan words from Old Norse; and, Scandinavian first names, like Igor and Olga, are still popular. However, during the Soviet period, there was an emphasis on the Slavic origins of most Russians. (Appearing in the historical record around the sixth century AD, the Slavs are thought to have originated in Eastern Europe.) This Slavic identity was promoted to contrast with that of the neighbouring Viking Swedes, who were enemies during the Cold War.\n\nThese days, many Russians consider themselves hybrids. Indeed recent genetic studies support a Norse-colonisation theory: western Russian DNA is consistent with that of the inhabitants of a region north of Stockholm in Sweden.\n\nThe tools available to modern historians are many and varied, and their findings may seem less open to debate. There are linguistics, numismatics, dendrochronology, archaeozoology, palaeobotany, ice crystallography, climate and DNA analysis to add to the translation of runes and the raising of mighty warships. Despite these, historians remain children of their times.',
+        NumOfQuestions: 3,
+        PassageTitle: 'The vikings wayfaring way',
+      },
+      P2: {
+        Questions: [
+          {
+            QuestionType: 'Yes No Not Given',
+            Question:
+              'Do the following statements agree with the claims of the writer in Reading Passage?\n\nIn boxes 1-6 on your answer sheet, write:\nYes, if the statement agrees with the views of the writer.\n No, if the statement contradicts the views of the writer.\n Not Given, if it is impossible to say what the writer thinks about this.',
+            NumOfSubQuestions: 6,
+            SubQuestions: [
               {
                 Choices: ['Yes', 'No', 'Not Given'],
                 CorrectAnswer: 'Yes',
                 QuestionText:
-                  'Academic and popular historians have different attitudes towards the value of innovations in communication. -answer-',
+                  'It seems predictable that some species will disappear. -answer-',
               },
               {
                 Choices: ['Yes', 'No', 'Not Given'],
                 CorrectAnswer: 'No',
                 QuestionText:
-                  'It is common for historians to play a major role in creating historical documentaries for television. -answer-',
+                  'The nature of the Earth and human biology make it impossible for human beings to survive another million years. -answer-',
               },
               {
                 Choices: ['Yes', 'No', 'Not Given'],
                 CorrectAnswer: 'Yes',
                 QuestionText:
-                  'Articles in American History Review have explored aspects of modern history through popular films. -answer-',
+                  ' An eruption by Yellowstone is likely to be more destructive than previous volcanic eruptions. -answer-',
               },
               {
                 Choices: ['Yes', 'No', 'Not Given'],
                 CorrectAnswer: 'Not Given',
                 QuestionText:
-                  'Developments in technology are influencing a range of academic subjects. -answer-',
+                  'There is a greater chance of the Earth being hit by small asteroids than large ones. -answer-',
               },
-            ],
-          },
-        ],
-        Passage:
-          "For hundreds of years, historians have relied on written or printed documents to provide the bulk of their source materials, and they have largely communicated with students and the wider public by writing books and journal articles. Today, however, the printed word is being superseded by a diversity of forms of communication, above all moving images on video or film\n\n A. The development of this new form of communication is leading to a growing gap between the practice of professional historians based in academia, and the practice of those aiming to popularise the study of history among the general public, and to encourage people to create their own records for the future. On the one hand, there are mainstream academics who continue to use only the written word as they examine more and more fields with an ever- increasing number of sophisticated methodologies. On the other hand, film and video, especially as broadcast on television, are probably the major influence on the public's consciousness of history, as they see film of events of fifty or a hundred years ago, events they had previously only read about.\n\n B. In a related development, a great many people now document local and family events in the form of videos; many schools, too, produce video yearbooks. All these visual records may well prove to be invaluable sources of information for future historians. The glaring contradiction is that the two approaches-the academic and what we might term the popular - have intersected very little: with a few notable exceptions, professional historians have tended to avoid involvement in television programmes about history, and have even less impact on what is being captured and preserved on video. And the potential of moving images has wielded negligible influence on the academic study of history. \n\n C. This gulf can be seen as resulting from the willingness or otherwise of individual historians to accept the validity of new forms of communication in the study of history. This is not the first time that the question has arisen. The study of history, as conceived of today, began with the transition from oral to literate culture, leading to the earliest written records and the earliest historical studies. The next great shift came with the advent of printing, which transformed everything. Today, as the printed word loses its dominance, historians are faced with a variety of forms of communication, ranging from simple audiotape to the promising complexities of videodiscs linked with computers. As yet, however, the use of moving images to record current events for the benefit of future historians does not even have a commonly agreed name.\n\n D. This does not mean that mainstream historians have totally rejected the use of moving images as sources: the majority seem intrigued by the idea, and valuable research has been carried out into the history and analysis of films with a broad circulation, using them as a source of information on the social and intellectual history of the twentieth century. Journals such as American History Review have played a significant role in this field.\n\n E. Yet the number of historians using moving images in their research or teaching is very small. The barrier seems to be that the profession is structured around the medium of the written word, and is somewhat insulated in its academic setting. The use of moving images presents a substantial challenge to this setting and its assumptions. As a result, historians have rejected the training, the institutions, the motivations and the professional structures that would be needed in order to use moving images effectively. Above all, they have rejected the necessity to learn complicated new skills.\n\n F. So why should historians make this change? clearly, films or videos of events and people can be used as solid evidence of the past, linked to the words of the narrator (whether a television presenter/historian or a university teacher giving a lecture) but carrying information in their own right. Film has reintroduced the oral form as a mode of research and communication for documenting historical events. Now, with moving images, people are reminded that oral communication is not limited to words: it also includes body language, expression and tone, and is embedded in a context. Little of this is evident in a written transcript. A further effect of video and film is that the narrator gives up some control and has less need to give explanations, while the viewer becomes involved in the process of interpreting and understanding history.\n\n G. Film or videotape can also aid historians by simplifying the work of the interviewer. Instead of trying to carry on an interview while simultaneously making notes about setting and other unspoken data, this new kind of historian can concentrate on the interview itself, and study the film later. The many benefits of using moving images as historical evidence easily outweigh worries about cost, technical skills, or the effect of a camera on a person telling his or her story. Moving images enhance the quality of historical research, and suggest new directions for historians to explore.",
-        NumOfQuestions: 2,
-        PassageTitle: 'A new stage in the study and teaching of history',
-      },
-      P2: {
-        Questions: [
-          {
-            QuestionType: 'List Selection',
-            Question:
-              'Look at the following issues (Questions 1-6) and the list of people and organisations below.\nMatch each issue with the correct person or organization, A-F.\nWrite the correct letter, A-F, in boxes 1-6 on your answer sheet.\nNB You may use any letter more than once.\n\n List of People and organisations:\nA. Scott Klara\nB. Intergovernmental Panel on Climate Change\nC. International Energy Agency\nD. Klaus Lackner\nE. David Hawkins\nF. World Wide Fund for Nature Australia',
-            NumOfSubQuestions: 6,
-            List: '',
-            ListTitle: '', // TODO: investigate what's going on and modify this in the DB questions
-            SubQuestions: [
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'D',
+                Choices: ['Yes', 'No', 'Not Given'],
+                CorrectAnswer: 'No',
                 QuestionText:
-                  'The cost implications of fitting plants with the necessary equipment. -answer-',
+                  'If the world becomes uninhabitable, it is most likely to be as a result of a natural disaster. -answer-',
               },
               {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'E',
-                QuestionText:
-                  'The effects of sequestration could have on sea creatures. -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'D',
-                QuestionText:
-                  'The reasons why products such as oil and gas continue to be popular energy sources. -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'E',
-                QuestionText:
-                  'The need for industrialised countries to give aid to less wealthy countries. -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'A',
-                QuestionText:
-                  'The significant increase in carbon dioxide concentrations in the air over the last 100 years. -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F'],
-                CorrectAnswer: 'F',
-                QuestionText:
-                  'The potential for sequestration to harm human life. -answer-',
-              },
-            ],
-          },
-          {
-            QuestionType: 'Matching Paragraph Information',
-            Question:
-              'Reading Passage has ten paragraphs, A-J.\nWhich paragraph contains the following information?\nWrite the correct letter, A-J, in boxes 1-3 on your answer sheet.',
-            NumOfSubQuestions: 3,
-            SubQuestions: [
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-                CorrectAnswer: 'H',
-                QuestionText:
-                  'Examples of sequestration already in use in several parts of the world -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-                CorrectAnswer: 'F',
-                QuestionText:
-                  'An example of putting carbon dioxide emissions to use in the food and beverage industry -answer-',
-              },
-              {
-                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-                CorrectAnswer: 'C',
-                QuestionText:
-                  'Current examples of the environmental harm attributed to carbon dioxide in the air -answer-',
-              },
-            ],
-          },
-          {
-            QuestionType: 'True False Not Given',
-            Question:
-              'Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-4 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse,if the statement contradicts the information\nNot Given, If there is no information on this',
-            NumOfSubQuestions: 4,
-            SubQuestions: [
-              {
-                Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'True',
-                QuestionText:
-                  'Both developing and developed nations have decided to investigate carbon dioxide sequestration. -answer-',
-              },
-              {
-                Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'True',
-                QuestionText: 'A growing economy will use more power. -answer-',
-              },
-              {
-                Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'False',
-                QuestionText:
-                  'Capturing carbon dioxide has become financially attractive. -answer-',
-              },
-              {
-                Choices: ['True', 'False', 'Not Given'],
+                Choices: ['Yes', 'No', 'Not Given'],
                 CorrectAnswer: 'Not Given',
                 QuestionText:
-                  'More forests need to be planted to improve the atmosphere. -answer-',
+                  'Politicians currently in power seem unlikely to change their way of thinking. -answer-',
+              },
+            ],
+          },
+          {
+            QuestionType: 'Summary Completion',
+            Question:
+              'Complete the summary below.\n\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\nWrite your answers in boxes 21-26 on your answer sheet.',
+            NumOfSubQuestions: 1,
+            SubQuestions: [
+              {
+                CorrectAnswers: [
+                  ['temperature'],
+                  ['molten rock', 'rock', 'ash'],
+                  ['food'],
+                  ['tidal wave'],
+                  ['ice age'],
+                  ['rockets'],
+                ],
+                QuestionWeight: 6,
+                QuestionText:
+                  'The Earth could become uninhabitable, like other planets, through a major change in the -answer-. Volcanic eruptions of -answer- can lead to shortages of -answer- in a wide area. An asteroid hitting the Earth could create a -answer- that would result in a new -answer-. Plans are being made to use -answer- to deflect asteroids heading for the Earth.',
+              },
+            ],
+          },
+          {
+            QuestionType: 'Multiple Choice',
+            Question:
+              'Choose the correct letter A, B, C or D.\n\nWrite your answer in box 1 on your answer sheet.',
+            NumOfSubQuestions: 1,
+            SubQuestions: [
+              {
+                Choices: [
+                  'to propose a new theory about the causes of natural disasters',
+                  'to prove that generally held beliefs about the future are all mistaken',
+                  'to present a range of opinions currently held by scientists',
+                  'to argue the need for a general change in behavior',
+                ],
+                CorrectAnswer:
+                  'to argue the need for a general change in behavior',
+                QuestionText: 'What is the writer’s purpose in the passage?',
               },
             ],
           },
         ],
         Passage:
-          "Burying greenhouse gases to slow global warming\nA One way to slow global warming is to take the greenhouse gases that cause it and bury them. That is the idea behind projects now under way to capture emissions from power plants and factories and force them underground or deep into the ocean. There, proponents argue, they could be trapped for thousands of years.\nB This concept, known as carbon sequestration, is already being used by oil companies to improve the efficiency of oil wells, and now engineers have begun exploring ways to capture carbon dioxide emissions from power plants to reduce their impact on the environment. At a recent conference, delegates from fourteen industrialised and developing countries agreed to engage in cooperative research into capturing and storing carbon dioxide.\nC The goal is to stabilise emissions of greenhouse gases that trap heat in the atmosphere. Over the past century, airborne carbon dioxide concentrations have risen by nearly a third, according to Scott Klara, sequestration manager at the US National Energy Technology Laboratory. Unless emissions are slashed by two thirds worldwide, the Intergovernmental Panel on Climate Change predicts that concentrations will rise to double the levels of the early 1700s, before the Industrial Revolution. These increased levels of carbon-based compounds in the atmosphere are believed to be the cause of rising temperatures and sea levels around the world. Ignoring the problem is therefore not an option.\nD Limiting emissions, however, is not an easy undertaking since increased energy consumption is a key to economic growth. Two thirds of the world's power-generating capacity, expected to come into use by 2030, has not been constructed yet, according to the International Energy Agency. The developing world will be particularly important. China and India alone are expected to account for two thirds of the global increase in coal usage over the next fifteen years.\nE Solutions are being sought. Work is being undertaken with alternatives to fossil fuels such as wind and solar energy, but it will be a long time before these alternative sources play a major role in fulfilling the world's energy needs. Geophysicist Klaus Lackner points out that around 85% of the world's energy is derived from fossil fuels, the cheapest and most plentiful energy source available, and the developing world in particular is unlikely to give them up. That is why many scientists support sequestration\nF However, several problems must be resolved before sequestration plays a key role in a low-carbon future. One is the cost of capturing carbon dioxide. A second is storing the gas safely once it's been captured. Today, it costs about $US50 to extract and store a tonne of carbon dioxide from a power plant, which raises the cost of producing electricity by 30-80%. Lackner argues that it is too expensive to adapt existing plants to capture carbon dioxide. Instead, he recommends that carbon- capturing capacity be built into future plants. Economic incentives are needed to encourage companies to identify low-cost carbon-sequestration solutions. A government-supported program in the US has enabled some factories to partially capture carbon emissions, which they then sell for various uses, including carbonating soft drinks. However, there are no power plants ready for full carbon capture.\nG Once the carbon has been captured it must be stored. Natural carbon sinks, such as forests and wetlands, can remove some carbon dioxide from the atmosphere, but not nearly enough. Carbon dioxide could be pumped to the bottom of the ocean, where the pressure would keep it pinned to the seabed in liquid form for decades, but that has serious long-term environmental risks. David Hawkins, from the Natural Resources Defense Council in Washington, warns that the carbon dioxide could radically alter the chemical balance in the ocean, with potentially harmful consequences for marine life. Others worry that the carbon dioxide could escape back into the atmosphere.\nH A few promising attempts at underground carbon sequestration are currently under way. In western Canada, an oil company is pumping liquefied carbon dioxide into oil wells to force more oil to the surface and boost recovery by 10-15%. The company gets the carbon dioxide via a pipeline from North Dakota in the US, where the gas is captured from a synthetic-fuel plant. In another instance in the North Sea, a Norwegian energy firm is injecting carbon dioxide waste from its natural-gas operations into a saline aquifer 1,000 metres beneath the ocean floor.\nI Clearly, storing large amounts of gas underground raises environmental fears. Environmentalists argue that more research is needed on potential storage sites, such as oil and gas reservoirs and coal seams unsuitable for mining, to ensure that they offer long-term solutions. The World Wide Fund for Nature Australia has argued that the primary risk of underground storage is that dangerously large volumes of carbon dioxide might escape and people become asphyxiated.\nJ Little progress in slashing global greenhouse gases can be achieved without involving developing countries, but for now carbon sequestration is not their priority because of the increased costs this would add to energy production. Hawkins argues that, to encourage developing nations to use sequestration, developed nations will have to provide assistance. He suggests a multilateral initiative in which developed nations, perhaps by purchasing carbon credits from poorer countries, finance the difference between the cost of a regular coal-fired power plant and one that captures carbon emissions. That is, the rich - who will remain the world's biggest polluters for years to come - would buy the right to emit carbon from the poor, who would use the proceeds to build better plants.",
+          'The prospects for humanity and for the world as a whole are somewhere between glorious and dire. It is hard to be much more precise.\n\nA\nBy ‘glorious’, I mean that our descendants – all who are born on to this Earth – could live very comfortably and securely, and could continue to do so for as long as the Earth can support life, which should be for a very long time indeed. We should at least be thinking in terms of the next million years. Furthermore, our descendants could continue to enjoy the company of other species – establishing a much better relationship with them than we have now. Other animals need not live in constant fear of us. Many of those fellow species now seem bound to become extinct, but a significant proportion could and should continue to live alongside us. Such a future may seem ideal, and so it is. Yet I do not believe it is fanciful. There is nothing in the physical fabric of the Earth or in our own biology to suggest that this is not possible.\n\nB\n‘Dire’ means that we human beings could be in deep trouble within the next few centuries, living but also dying in large numbers in political terror and from starvation, while huge numbers of our fellow creatures would simply disappear, leaving only the ones that we find convenient – chickens, cattle – or that we can’t shake off, like flies and mice. I’m taking it to be self-evident that glory is preferable.\n\nC\nOur future is not entirely in our own hands because the Earth has its own rules, is part of the solar system and is neither stable nor innately safe. Other planets in the solar system are quite beyond habitation, because their temperature is far too high or too low to be endured, and ours, too, in principle could tip either way. Even relatively unspectacular changes in the atmosphere could do the trick. The core of the Earth is hot, which in many ways is good for living creatures, but every now and again, the molten rock bursts through volcanoes on the surface. Among the biggest volcanic eruptions in recent memory was Mount St Helens, in the USA, which threw out a cubic kilometre of ash – fortunately, in an area where very few people live. In 1815, Tambora (in present-day Indonesia) expelled so much ash into the upper atmosphere that climatic effects seriously harmed food production around the world for the season after season. Entire civilisations have been destroyed by volcanoes.\n\nD\nYet nothing we have so far experienced shows what volcanoes can really do. Yellowstone National Park in the USA occupies the caldera (the crater formed when a volcano collapses) of an exceedingly ancient volcano of extraordinary magnitude. Modem surveys show that its centre is now rising. Sometime in the next 200 million years, Yellowstone could erupt again, and when it does, the whole world will be transformed. Yellowstone could erupt tomorrow. But there’s a very good chance that it will give us another million years, and that surely is enough to be going on with. It seems sensible to assume that this will be the case.\n\nE\nThe universe at large is dangerous, too: in particular, we share the sky with vast numbers of asteroids, and now and again, the come into our planet’s atmosphere. An asteroid the size of a small island, hitting the Earth at 15,000 kilometres an hour (a relatively modest speed by the standards of heavenly bodies), would strike the ocean bed like a rock in a puddle, send a tidal wave around the world as high as a small mountain and as fast as a jumbo jet, and propel us into an ice age that could last for centuries. There are plans to head off such disasters (including rockets to push approaching asteroids into new trajectories), but in truth, it’s down to luck.\n\nF\nOn the other hand, the archaeological and the fossil evidence shows that no truly devastating asteroid has struck since the one that seems to have accounted for the extinction of the dinosaurs 65 million years ago. So again, there seems no immediate reason for despair. The Earth is indeed an uncertain place, in an uncertain universe, but with average luck, it should do us well enough. If the world does become inhospitable in the next few thousand or million years, then it will probably be our own fault. In short, despite the underlying uncertainty, our own future and that of our fellow creatures are very much in our own hands.\n\nG\nGiven average luck on the geological and the cosmic scale, the difference between glory and disaster will be made and is being made, by politics. Certain kinds of political systems and strategies would predispose us to long-term survival (and indeed to comfort and security and pleasure of being alive), while others would take us more and more frenetically towards collapse. The broad point is, though, that we need to look at ourselves – humanity – and at the world in general in a quite new light. Our material problems are fundamentally those of biology. We need to think, and we need our politicians to think, biologically. Do that, and take the ideas seriously, and we are in with a chance. Ignore biology and we and our fellow creatures haven’t a hope.',
         NumOfQuestions: 3,
-        PassageTitle: 'Answers Underground',
+        PassageTitle: 'The future never dies?',
       },
       P3: {
         Questions: [
           {
-            QuestionType: 'Matching Headings',
+            QuestionType: 'Matching Paragraph Information',
             Question:
-              'Reading Passage has nine paragraphs, A-l\n\nChoose the correct heading for paragraphs A and C-l from the list of headings below.\n\nWrite the correct number, i-xi, in boxes 1-9 on your answer sheet.',
-            NumOfSubQuestions: 9,
+              'Reading Passage has 7 paragraphs A-G\n\nWhich paragraph contains the following information?\n\nWrite your answers in boxes 1-7 on your answer sheet.',
+            NumOfSubQuestions: 7,
             SubQuestions: [
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'A controversial range of prices',
-                QuestionText: 'Paragraph A -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'D',
+                QuestionText:
+                  'recipes to conceal facial defects caused by aging -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'A re-evaluation of documentary evidence',
-                QuestionText: 'Paragraph B -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'G',
+                QuestionText:
+                  'perfumes were presented to conquerors in war -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'Manual woodworking techniques',
-                QuestionText: 'Paragraph C -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'F',
+                QuestionText:
+                  ' long hair of girls had special meanings in marriage -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'Applying technology to violin production',
-                QuestionText: 'Paragraph D -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'A',
+                QuestionText:
+                  'evidence exists in abundance showing cosmetics use in ancient times -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'The mathematical basis of earlier design',
-                QuestionText: 'Paragraph E -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'E',
+                QuestionText:
+                  'protecting eyes from fly-transmitted diseases -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'The advantages of older wood',
-                QuestionText: 'Paragraph F -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'B',
+                QuestionText: 'from witchcraft to beautification -answer-',
               },
               {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'An analysis of protective coatings',
-                QuestionText: 'Paragraph G -answer-',
-              },
-              {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'The use of saturated wood',
-                QuestionText: 'Paragraph H -answer-',
-              },
-              {
-                Choices: [
-                  'An analysis of protective coatings',
-                  'Applying technology to violin production',
-                  'Location - a key factor',
-                  'A controversial range of prices',
-                  'Techniques of mass production',
-                  'The advantages of older wood',
-                  'A re-evaluation of documentary evidence',
-                  'The mathematical basis of earlier design',
-                  'Manual woodworking techniques',
-                  'Preferences of top musicians',
-                  'The use of saturated wood',
-                  'The challenge for scientists',
-                ],
-                CorrectAnswer: 'Preferences of top musicians',
-                QuestionText: 'Paragraph I -answer-',
+                Choices: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                CorrectAnswer: 'C',
+                QuestionText: 'more expensive than gold -answer-',
               },
             ],
           },
           {
             QuestionType: 'True False Not Given',
             Question:
-              'Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-5 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse, if the statement contradicts the information\nNot Given, If there is no information on this',
-            NumOfSubQuestions: 5,
+              'Do the following statements agree with the information given in Reading Passage?\nIn boxes 1-6 on your answer sheet, write:\n\nTrue, if the statement agrees with the information\nFalse,if the statement contradicts the information\nNot Given, If there is no information on this',
+            NumOfSubQuestions: 6,
             SubQuestions: [
               {
                 Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'True',
+                CorrectAnswer: 'Not Given',
                 QuestionText:
-                  'The quality of any particular note played on the same violin varies. -answer-',
+                  'The written record for cosmetics and perfumes dates back to the third millennium BC. -answer-',
               },
               {
                 Choices: ['True', 'False', 'Not Given'],
                 CorrectAnswer: 'False',
                 QuestionText:
-                  'Scientific instruments analyse complex sound more accurately than humans. -answer-',
+                  'Since perfumes and spices were luxury products, their use was exclusive to the noble and the wealthy. -answer-',
+              },
+              {
+                Choices: ['True', 'False', 'Not Given'],
+                CorrectAnswer: 'True',
+                QuestionText:
+                  'In the ancient Far East, fish fats were used as a cream by a woman from poor households. -answer-',
+              },
+              {
+                Choices: ['True', 'False', 'Not Given'],
+                CorrectAnswer: 'True',
+                QuestionText:
+                  'The teachings in the Bible were repeatedly against the use of kohl for painting the eyes. -answer-',
+              },
+              {
+                Choices: ['True', 'False', 'Not Given'],
+                CorrectAnswer: 'False',
+                QuestionText:
+                  'Long hair as a symbol of beauty was worn solely by women of ancient cultures. -answer-',
               },
               {
                 Choices: ['True', 'False', 'Not Given'],
                 CorrectAnswer: 'Not Given',
                 QuestionText:
-                  'The quality of handmade violins varies according to the musical ability of the craftsman. -answer-',
-              },
-              {
-                Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'True',
-                QuestionText:
-                  'Modern violins seem to improve in their early years. -answer-',
-              },
-              {
-                Choices: ['True', 'False', 'Not Given'],
-                CorrectAnswer: 'False',
-                QuestionText:
-                  'Modern violins are gaining in popularity amongst the top violinists. -answer-',
+                  'The Egyptian Queen Hatsheput sent a royal expedition to Punt to establish a trade route for myrrh. -answer-',
               },
             ],
           },
         ],
         Passage:
-          "A Violins made by long-dead Italian craftsmen from the Cremona region are beautiful works of art, coveted by collectors as well as players. Particularly outstanding violins have reputedly changed hands for over a million pounds. In contrast, fine modern instruments can be bought for under £100. Do such figures really reflect such large differences in quality? After more than a hundred years of vigorous debate, this question remains highly contentious, provoking strongly held but divergent views among musicians, violin makers and scientists alike.\n\nB Every violin, whether a Stradivarius or the cheapest factory- made copy, has a distinctive 'voice’ of its 0. Just as any musician can immediately recognise the difference between Domingo and Pavarotti singing the same operatic aria, so a skilled violinist can distinguish between different qualities in the sound produced by individual Stradivari or Guarneri violins. Individual notes on a single instrument sound different each time they are played, which suggests that the perceived tone of a violin must be related to the overall design of the instrument, rather than the frequencies of particular resonances on it. But although various attempts have been made to analyse such global properties, it is extremely difficult to distinguish between a fine Stradivarius instrument and an indifferent modern copy on the basis of the measured response alone. The ear is a supreme detection device, and a system has yet to be developed which can match the brain's sophisticated ability to assess complex sounds.\n\nC So how do skilled violinmakers optimise the tone of an instrument during the construction process? They begin by selecting a wood of the highest possible quality for the front and back plates (or parts of the violin), which they test by tapping with a hammer and judging how well it 'rings’. The next important step is to skillfully carve the plates out of the solid wood, taking great care to get the right degree of arching and variations in thickness. Traditional makers optimise the thickness by testing the ‘feel’ of the plates when they are flexed, and by the sounds produced when they are tapped at different positions with the knuckles.\n\nD However, in the last 50 years or so a group of violin makers has emerged who have tried to take a more overtly scientific approach to violin making. One common practice they have adopted is to replace the traditional flexing and tapping of plates by controlled measurements. During the carving process, the thinned plates are sprinkled with flakes of glitter and suspended horizontally above a loudspeaker. The glitter forms a pattern each time the loudspeaker excites a resonance. The aim is to interactively 'tune' these first few free plate resonances to specified patterns.\n\nE Unfortunately, there are very few examples of such measurements for really fine Italian instruments because their owners are naturally reluctant to allow their violins to be taken apart for the sake of science. The few tests that have been performed suggest that the first Italian makers may have tuned the resonant modes of the individual plates - which they could identify as they tapped them - to exact musical intervals. This would be consistent with the prevailing Renaissance view of ’perfection1, which was measured in terms of numbers and exact ratios. However, there is no historical data to support this case.\n\nF Another factor that affects sound quality is the presence of moisture. To achieve the quality of “vibrancy” in a violin requires high-quality wood with low internal damping. By measuring the pattern of growth-rings in the wood of a Stradivarius, we know that the Italian violin makers sometimes used planks of wood that had only been seasoned for five years. However, such wood is now 300 years old, and the intrinsic internal damping will almost certainly have decreased with time. The age of the wood may therefore automatically contribute to the improved quality of older instruments. This may also explain why the quality of a modern instrument appears to improve in its first few years.\n\nG Another factor thought to account for sound quality is the nature of the varnish used to protect the instrument. One of the most popular theories for well over a century to account for the Stradivarius secret has been that the varnish had some sort of 'magic' composition. However, historical research has shown that it was very similar to the varnish used today. So apart from the possibility that the Italian varnish was contaminated with the wings of passing insects and debris from the workshop floor, there is no convincing evidence to support the idea of a secret formula.\n\nH Other researchers, meanwhile, have claimed that Stradivarius's secret was to soak the timber in water, to leach out supposedly harmful chemicals, before it was seasoned. Although this would be consistent with the idea that the masts and cars of recently sunken Venetian war galleys might have been used to make violins, other scientific and historical evidence to support this view is unconvincing.\n\nI In conclusion, science has not provided any convincing evidence to set Cremonese instruments apart from the finest violins made by skilled craftsmen today. Indeed, some leading soloists do occasionally play on modern instruments. However, the foremost soloists - and, not surprisingly, violin dealers, who have a vested interest in maintaining the Cremonese legend of intrinsic superiority - remain utterly unconvinced.",
+          'A\nSince cosmetics and perfumes are still in wide use today, it is interesting to compare the attitudes, customs and beliefs related to them in ancient times to those of our own day and age. Cosmetics and perfumes have been popular since the dawn of civilization; it is shown by the discovery of a great deal of pertinent archaeological material, dating from the third millennium BC. Mosaics, glass perfume flasks, stone vessels, ovens, cooking-pots, clay jars, etc., some inscribed by the hand of the artisan. Evidence also appears in the Bible and other classical writings, where it is written that spices and perfumes were prestigious products known throughout the ancient world and coveted by kings and princes. The written and pictorial descriptions, as well as archaeological findings, all show how important body care and aesthetic appearance were in the lives of the ancient people. The chain of evidence spans many centuries, detailing the usage of cosmetics in various cultures from the earliest period of recorded history.\n\nB\nIn antiquity, however, at least in the onset, cosmetics served in religious ceremonies and for healing purposes. Cosmetics were also connected with cultic worship and witchcraft: to appease the various gods, fragrant ointments were applied to the statuary images and even to their attendants. From this, in the course of time, developed the custom of personal use, to enhance the beauty of the face and the body, and to conceal defects.\n\nC\nPerfumes and fragrant spices were precious commodities in antiquity, very much in demand, and at times even exceeded silver and gold in value. Therefore they were luxury products, used mainly in the temples and in the homes of the noble and wealthy. The Judean kings kept them in treasure houses (2 Kings 20:13). And the Queen of Sheba brought to Solomon “camels laden with spices, gold in great quantity and precious stones.” (1 Kings 10:2, 10). However, within time, the use of cosmetics became the custom of that period. The use of cosmetics became widespread among the lower classes as well as among the wealthy; in the same way, they washed the body, so they used to care for the body with substances that softened the skin and anoint it with fragrant oils and ointments.\n\nD\nFacial treatment was highly developed and women devoted many hours to it. They used to spread various scented creams on the face and to apply makeup in vivid and contrasting colors. An Egyptian papyrus from the 16th century BC contains detailed recipes to remove blemishes, wrinkles, and other signs of age. Greek and Roman women would cover their faces in the evening with a “beauty mask” to remove blemishes, which consisted mainly of flour mixed with fragrant spices, leaving it on their face all night. The next morning they would wash it off with asses’ milk. The very common creams used by women in the ancient Far East, particularly important in the hot climate and prevalent in that area of the globe, were made up of oils and aromatic scents. Sometimes the oil in these creams was extracted from olives, almonds, gourds, sesame, or from trees and plants; but, for those of limited means, scented animal and fish fats were commonly used.\n\nE\nWomen in the ancient past commonly put colors around their eyes. Besides beautification, its purpose was also medicinal as covering the sensitive skin of the lids with colored ointments that prevented dryness and eye diseases: the eye-paint repelled the little flies that transmitted eye inflammations. Egyptian women colored the upper eyelid black and the lower one green and painted the space between the upper lid and the eyebrow gray and blue. The women of Mesopotamia favored yellows and reds. The use of kohl for painting the eyes is mentioned three times in the Bible, always with disapproval by the sages (2 Kings, 9:30; Jeremiah 4:30; Ezekiel 23:40). In contrast, Job named one of his daughters “Keren Happukh”- “horn of eye paint” (Job 42:14)\n\nF\nGreat importance was attached to the care for hair in ancient times. Long hair was always considered a symbol of beauty, and kings, nobles and dignitaries grew their hair long and kept it well-groomed and cared for. Women devoted much time to the style of the hair; while no cutting, they would apply much care to it by arranging it skillfully in plaits and “building it up” sometimes with the help of wigs. Egyptian women generally wore their hair flowing down to their shoulders or even longer. In Mesopotamia, women cherished long hair as a part of their beauty, and hair flowing down their backs in a thick plait and tied with a ribbon is seen in art. Assyrian women wore their hair shorter, braiding and binding it in a bun at the back. In Ancient Israel, brides would wear their hair long on the wedding day as a sign of their virginity. Ordinary people and slaves, however, usually wore their hair short, mainly for hygienic reasons, since they could not afford to invest in the kind of treatment that long hair required.\n\nG\nFrom the Bible and Egyptian and Assyrian sources, as well as the words of classical authors, it appears that the centers of the trade-in aromatic resins and incense were located in the kingdoms of southern Arabia, and even as far as India, where some of these precious aromatic plants were grown. “Dealers from Sheba and Rammah dealt with you, offering the choicest spices…” (Ezekiel 27:22). The Nabateans functioned as the important middlemen in this trade; Palestine also served as a very important component, as the trade routes crisscrossed the country. It is known that the Egyptian Queen Hatsheput (15th century BC) sent a royal expedition to the Land of Punt (Somalia) in order to bring back myrrh seedlings to plant in her temple. In Assyrian records of tribute and spoils of war, perfumes and resins are mentioned; the text from the time of Tukulti-Ninurta II (890-884 BC) refers to balls of myrrh as a part of the tribute brought to the Assyrian king by the Aramaean kings. The trade-in spices and perfumes are also mentioned in the Bible as written in Genesis (37:25-26), “Camels carrying gum tragacanth and balm and myrrh”.',
         NumOfQuestions: 2,
-        PassageTitle:
-          'Science and the Stradivarius:Uncovering the secret of quality',
+        PassageTitle: 'Cosmetics in Ancient Past',
       },
       PK: 'reading',
     },
     speaking: {
-      SK: '3d482f78-feeb-459a-8264-994cc651d406',
+      SK: '382995d2-7879-4231-82c2-a263115c3d84',
       P1: {
         Task: {
           S3key: '061ce8fa-ec1b-4e17-a7d7-13489cf79d8a.mp3',
@@ -883,15 +833,15 @@ export const sampleFullTest: FullTestItem = {
         },
         Questions: [
           {
-            S3key: sampleAudios[0],
+            S3key: '48c5456f-9c36-4df3-8e07-1c38ad4b6d7c.mp3',
             text: 'How do you spend your free time?',
           },
           {
-            S3key: sampleAudios[1],
+            S3key: '40fbff26-da82-4a4c-b004-3ad9d9d2d7f8.mp3',
             text: 'Do you enjoy hanging out with friends?',
           },
           {
-            S3key: sampleAudios[2],
+            S3key: '1d3c3be3-12d9-4dcd-8009-cd5b638f557c.mp3',
             text: 'Do you think friends are important in our life? Why?',
           },
         ],
@@ -916,19 +866,19 @@ export const sampleFullTest: FullTestItem = {
         },
         Questions: [
           {
-            S3key: sampleAudios[0],
+            S3key: 'c395bb1a-df38-4bd6-804b-b6b6d086a088.mp3',
             text: 'Do you think money is important in our life?',
           },
           {
-            S3key: sampleAudios[1],
+            S3key: '3275dedf-40b9-455c-8211-21b933ba3ab8.mp3',
             text: 'How can people manage their money wisely?',
           },
           {
-            S3key: sampleAudios[2],
+            S3key: 'e38530a3-811d-4c3d-b08f-ace817ff2b31.mp3',
             text: 'Do you think too much shopping is one of the main reasons some people are wasting their money nowadays?',
           },
           {
-            S3key: sampleAudios[3],
+            S3key: '0039dc03-00a5-462b-9915-2d1ca8be8b1f.mp3',
             text: 'How do you think shopping can help the economy grow and flourish?',
           },
         ],
@@ -936,17 +886,18 @@ export const sampleFullTest: FullTestItem = {
       PK: 'speaking',
     },
     writing: {
-      SK: 'd93619a8-58d6-414d-b889-8bc6a296670e',
+      SK: '2450751a-611c-4346-9979-8bf1644f83ed',
       P1: {
         Question:
-          'The chart below shows the proportion of staff employed by age in the public sector in the UK in 2015 and 2020. \nSummarise the information by selecting and reporting the main features and make comparisons where relevant.\nWrite at least 150 words.',
+          'The chart below shows the number of trips made by children in one country in 1990 and 2010 to travel to and from school using different modes of transport.\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.',
         GraphDescription:
-          'proportion of staff employed by age\n\nPeriod: 2015 \n- over 50: 23%\n- 41-50: 19%\n- 31-40: 21%\n- 21-30: 23%\n- under 21: 14%\n\nPeriod 2020: \n- over 50: 16%\n- 41-50: 28%\n- 31-40: 11%\n- 21-30: 33%\n- under 21: 12%',
-        GraphKey: 'writing/ielts-pie-charts5468486754.png',
+          'The graph shows that in 1991 car trips per year was 4.5 million while in 2010 it was 11 million. Walking trips per year in 1990 was above 12 million while in 2010 was 6 million. cycling trips per year in 1990 was just above 6 million while in 2010 it was 2 million. walking and bus trips per year in 1990 was just below 6 million while in 2010 it was 3 million. bus trips per year was 7 million in 1990 while in 2010 it was 5 million.',
+        GraphKey:
+          'writing/ielts_2024_01_10_IWAC1365_197676223_1704894778294.jpg',
       },
       P2: {
         Question:
-          'Write about the following topic: \n Children who are brought up in families that do not have large amounts of money are better prepared to deal with the problems of adult life than children brought up by wealthy parents. To what extent do you agree or disagree with this opinion?  \nGive reasons for your answer and include any relvant examples from your own knowledge or experience.  \nWrite at least 250 words. ',
+          'Space exploration is much too expensive and the money should be spent on more important things. \nWhat is your opinion? ',
       },
       PK: 'writing',
     },
@@ -954,46 +905,106 @@ export const sampleFullTest: FullTestItem = {
   SK: '1717941628284-f1c7da08-395a-43bd-a754-43b46dcec117',
   listeningAnswer: {
     answer: [
-      [[[''], [''], [''], ['', ''], ['', '', '', ''], ['']]],
       [
         [
-          ['', ''],
-          ['', ''],
-          ['', ''],
+          ['hostel'],
+          ['Buckleh'],
+          ['PE9 7QT'],
+          ['waiter', 'politics'],
+          ['cycling', 'cinema', 'disbbled', 'half past four'],
+          ['07732 43897'],
         ],
-        [[''], [''], [''], ['']],
       ],
       [
-        ['', '', '', '', '', ''],
         [
-          ['', ''],
-          ['', ''],
+          [
+            'A- Few rooms now have a different purpose of use.',
+            'B- A different kind of seating arrangement has been installed.',
+          ],
+          ['A- rooms for hire', 'B- backstage tours'],
+          ['A- sound', 'D- make-up'],
+        ],
+        [['D'], ['G'], ['B'], ['F']],
+      ],
+      [
+        [
+          'A- elements affecting where beings live',
+          'B- a compass',
+          'C- the amount of information given.',
+          'B- It was easy to carry out.',
+          'C- She did it at the wrong time.',
+          'B- check it using photographs',
+        ],
+        [
+          ['A- lack of water', 'D- high temperatures'],
+          [
+            'C- wrong identification of few organisms',
+            'D- making generalisations from a small sample',
+          ],
         ],
       ],
-      [[[''], ['', ''], ['', '', ''], ['', '', ''], ['']]],
+      [
+        [
+          ['social'],
+          ['factory', 'canal'],
+          ['bridge', 'box', 'screen'],
+          ['rubber', 'straight', 'curtains'],
+          ['local'],
+        ],
+      ],
     ],
-    end_time: 1717941642129,
+    end_time: 1719396654118,
     feedback: {
       studentAnswers: [
-        [[[''], [''], [''], ['', ''], ['', '', '', ''], ['']]],
         [
           [
-            ['', ''],
-            ['', ''],
-            ['', ''],
+            ['hostel'],
+            ['Buckleh'],
+            ['PE9 7QT'],
+            ['waiter', 'politics'],
+            ['cycling', 'cinema', 'disbbled', 'half past four'],
+            ['07732 43897'],
           ],
-          [[''], [''], [''], ['']],
         ],
         [
-          ['', '', '', '', '', ''],
           [
-            ['', ''],
-            ['', ''],
+            [
+              'A- Few rooms now have a different purpose of use.',
+              'B- A different kind of seating arrangement has been installed.',
+            ],
+            ['A- rooms for hire', 'B- backstage tours'],
+            ['A- sound', 'D- make-up'],
+          ],
+          [['D'], ['G'], ['B'], ['F']],
+        ],
+        [
+          [
+            'A- elements affecting where beings live',
+            'B- a compass',
+            'C- the amount of information given.',
+            'B- It was easy to carry out.',
+            'C- She did it at the wrong time.',
+            'B- check it using photographs',
+          ],
+          [
+            ['A- lack of water', 'D- high temperatures'],
+            [
+              'C- wrong identification of few organisms',
+              'D- making generalisations from a small sample',
+            ],
           ],
         ],
-        [[[''], ['', ''], ['', '', ''], ['', '', ''], ['']]],
+        [
+          [
+            ['social'],
+            ['factory', 'canal'],
+            ['bridge', 'box', 'screen'],
+            ['rubber', 'straight', 'curtains'],
+            ['local'],
+          ],
+        ],
       ],
-      BandScore: 0,
+      BandScore: 6,
       CorrectAnswers: [
         ['hostel'],
         ['Buckleigh'],
@@ -1049,29 +1060,100 @@ export const sampleFullTest: FullTestItem = {
         ['international'],
       ],
       scores: [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1,
+        0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0,
       ],
-      totalScore: 0,
-      europeanFrameworkGrade: 'A1',
+      totalScore: 27,
+      europeanFrameworkGrade: 'B1',
     },
-    start_time: 1717941628284,
+    start_time: 1719396396354,
     status: 'Submitted',
   },
   PK: 'f4d8c408-10c1-7041-f5c5-c1824bf42e0d',
   speakingAnswer: {
     answer: {
-      P1: { audioFileNames: [], questions: [] },
-      P2: { question: '', audioFileName: '' }, //TODO: make sure how the speaking answer will be on the fulltest when finished
-      P3: { audioFileNames: [], questions: [] },
+      P1: {
+        audioFileNames: [
+          'audio_20240626111851472_tu8lz.webm',
+          'audio_20240626111859531_zg06a.webm',
+          'audio_20240626111916537_eyqs4.webm',
+        ],
+        questions: ['jj1x1', 'jfi3o', 'qqpi3'],
+      },
+      P2: {
+        question: 'What is this?',
+        audioFileName: 'audio_20240626111933459_sum9l.webm',
+      },
+      P3: {
+        audioFileNames: [
+          'audio_20240626111943171_ph607.webm',
+          'audio_20240626111953029_gg9kc.webm',
+          'audio_20240626112004000_6udf4.webm',
+        ],
+        questions: ['s7y2r', 'nsp59', '9arw4'],
+      },
     },
-    end_time: 1717941746048,
+    end_time: 1719400834406,
     feedback: [
-      { error: 'No questions or audio files found' },
-      { error: 'Failed to start transcription' },
-      { error: 'No questions or audio files found' },
+      {
+        score: 6.5,
+        'Fluency & Coherence': {
+          score: 6,
+          text: '\n      Score: 6\n      The student demonstrates a good level of fluency and coherence in their answer. They maintain a steady flow of speech, with only occasional hesitation and repetition to find the right words. The overall coherence of their response is maintained, and they effectively convey their ideas.\n      The student demonstrates a clear and coherent development of the topic. They start by introducing themselves and their interests, then move on to discuss the importance of friends in their lives. They provide examples of how friends hang out together, have fun together, and help each other when in need.\n      The student uses a range of spoken discourse markers, connectives, and cohesive features to enhance the fluency and coherence of their answer. They use phrases such as "yes," "and," "I think," and "because" to smoothly transition between ideas. Additionally, they use cohesive devices such as "together," "have fun together," and "help each other when in need" to strengthen the connection between their sentences.\n      While there are some instances of hesitation and repetition, they do not significantly affect the overall coherence of the student\'s answer. The student\'s ability to keep going and produce long turns demonstrates their willingness to communicate their ideas effectively.\n      Overall, the student\'s answer demonstrates a good level of fluency and coherence. They have a clear topic development, use appropriate language, and employ cohesive features to enhance their communication. With some practice and further development, they can further improve their fluency and coherence, which would contribute to a higher score.\n      Feedback:\n      Score: 6\n      The student demonstrates a good level of fluency and coherence in their answer. They maintain a steady flow of speech, with only occasional hesitation and repetition to find the right words. The overall coherence of their response is maintained, and they effectively convey their ideas.\n      The student demonstrates a clear and coherent development of the topic. They start by introducing themselves and their interests, then move on to discuss the importance of friends in their lives. They provide examples of how friends hang out together, have fun together, and help each other when in need.\n      The student uses a range of spoken discourse markers, connectives, and cohesive features to enhance the fluency and coherence of their answer. They use phrases such as "yes," "and," "I think," and "because" to smoothly transition between ideas. Additionally, they use cohesive devices such as "together," "have fun together," and "help each other when in need" to strengthen the connection between their sentences.\n      While there are some instances of hesitation and repetition, they do not significantly affect the overall coherence of the student\'s answer. The student\'s ability to keep going and produce long turns demonstrates their willingness to communicate their ideas effectively.\n      Overall, the student\'s answer demonstrates a good level of fluency and coherence. They have a clear topic development, use appropriate language, and employ cohesive features to enhance their communication. With some practice and further development, they can further improve their fluency and coherence, which would contribute to a higher score.',
+        },
+        Pronunciation: {
+          score: 7,
+          text: 'There are no pronunciation mistakes.',
+        },
+        'Grammatical Range & Accuracy': {
+          score: 6,
+          text: "\n      Score: 6\n      The student produced a mix of short and complex sentence forms and a variety of structures with limited flexibility.\n      While there were frequent errors in complex structures, these did not significantly impede communication.\n      The student demonstrated basic control over sentence forms and produced some error-free sentences.\n      However, the use of subordinate clauses was limited, and turns were short, resulting in repetitive structures and errors.\n      The student's response could be improved by incorporating a wider range of sentence structures and working on reducing errors in complex sentences.\n      Feedback:\n      The student needs to work on expanding their sentence structure repertoire and improving their accuracy in complex sentence construction.\n      They should focus on incorporating a variety of sentence types, such as simple, compound, and complex sentences, to enhance their grammatical range.\n      Additionally, practicing complex sentence structures with proper subject-verb agreement, pronoun reference, and cohesive devices can help improve their fluency and coherence.\n      It would be beneficial for the student to practice regularly and seek feedback from teachers or language learning resources to enhance their grammatical proficiency.\n      Score: 6",
+        },
+        'Lexical Resource': {
+          score: 7,
+          text: '\n      Score: 7\n      The student demonstrates a good level of Lexical Resource in their answer. They have a wide range of vocabulary and use it effectively to convey their ideas. Their language is clear and idiomatic, with minimal errors in word choice and collocation. The student sustains their use of accurate and relevant language throughout the answer, demonstrating a good understanding of the topic. They effectively employ paraphrase to enhance their expression and show a willingness to adapt their language to suit the context. Overall, the student\'s answer demonstrates a strong command of the English language and a good ability to use Lexical Resource to convey their message effectively.\n      \n      Feedback:\n      The student\'s answer demonstrates a good level of Lexical Resource. They have a wide range of vocabulary and use it effectively to convey their ideas. Their language is clear and idiomatic, with minimal errors in word choice and collocation. The student sustains their use of accurate and relevant language throughout the answer, demonstrating a good understanding of the topic. They effectively employ paraphrase to enhance their expression and show a willingness to adapt their language to suit the context. Overall, the student\'s answer demonstrates a strong command of the English language and a good ability to use Lexical Resource to convey their message effectively.\n      \n      Areas for improvement:\n      While the student\'s answer is generally strong, there are a few areas where they can further enhance their Lexical Resource. One area is the use of less common and idiomatic items. While the student uses a few idiomatic expressions, there are opportunities to incorporate more idioms to add depth and sophistication to their language. Another area for improvement is the accuracy of word choice. While the student\'s vocabulary is generally appropriate, there are a few instances where they could choose more precise or specific words to convey their message more effectively. For example, instead of using the word "help," they could use a more specific word like "assist" or "support." Overall, the student\'s command of the English language and their ability to use Lexical Resource are impressive, and with a little attention to these areas, they can further improve their language skills.',
+        },
+      },
+      {
+        score: 6,
+        'Fluency & Coherence': {
+          score: 6,
+          text: "\n      Score: 6\n      The student demonstrates a willingness to produce long turns and demonstrates a good level of fluency. However, there are some areas where they could improve.\n      The student's response is coherent and appropriate, but there are some instances of hesitation, repetition, and self-correction. This indicates that they may be struggling with some of the language used.\n      The student uses a range of spoken discourse markers, connectives, and cohesive features, but they are not always used appropriately. For example, they overuse certain discourse markers, which can sometimes disrupt the flow of their speech.\n      The student's topic development is coherent and relevant, but they could extend their ideas more fully. They briefly mention going to the shopping center with their family on weekends, but they could provide more details about their experiences there or the reasons why they like it so much.\n      Overall, the student has demonstrated some fluency and coherence, but there is room for improvement in terms of language usage and topic development. They should continue to practice and work on their language skills to improve their overall performance in the IELTS speaking test.\n      Feedback:\n      Score: 6\n      The student demonstrates a willingness to produce long turns and demonstrates a good level of fluency. However, there are some areas where they could improve.\n      The student's response is coherent and appropriate, but there are some instances of hesitation, repetition, and self-correction. This indicates that they may be struggling with some of the language used.\n      The student uses a range of spoken discourse markers, connectives, and cohesive features, but they are not always used appropriately. For example, they overuse certain discourse markers, which can sometimes disrupt the flow of their speech.\n      The student's topic development is coherent and relevant, but they could extend their ideas more fully. They briefly mention going to the shopping center with their family on weekends, but they could provide more details about their experiences there or the reasons why they like it so much.\n      Overall, the student has demonstrated some fluency and coherence, but there is room for improvement in terms of language usage and topic development. They should continue to practice and work on their language skills to improve their overall performance in the IELTS speaking test.",
+        },
+        Pronunciation: {
+          score: 8,
+          text: 'There are pronunciation mistakes in the words Safe,Mall,it.',
+        },
+        'Grammatical Range & Accuracy': {
+          score: 5,
+          text: '\n      Score: 5\n      The student produced a mix of short and complex sentence forms and a variety of structures with limited flexibility.\n      While there were some errors in complex structures, they did not significantly impede communication. The student demonstrated basic sentence forms and some short utterances were error-free.\n      Subordinate clauses were rare, and overall, turns were short, structures were repetitive, and errors were frequent.\n      The student needs to work on expanding their range of structures and improving their accuracy in complex sentences.\n      Feedback:\n      The student has demonstrated some proficiency in sentence formation and vocabulary. However, there are areas where they need to improve.\n      In the first sentence, "My favorite shopping center is Safe Mall because it, it is a good place," there is a grammatical error. The correct sentence should be "My favorite shopping center is Safe Mall because it is a good place."\n      In the second sentence, "It\'s big and everything is there," there is a grammatical error. The correct sentence should be "It\'s big and everything is there."\n      In the third sentence, "I go there on weekends with my family," there is a grammatical error. The correct sentence should be "I go there on weekends with my family."\n      To improve their grammatical range and accuracy, the student should focus on expanding their sentence structures and practicing complex sentence formation. They should also pay attention to punctuation and spelling errors.\n      Additionally, they should practice reading and listening materials to improve their vocabulary and comprehension skills.\n      Overall, the student has made progress, but there is still room for improvement in their grammatical proficiency. They should continue to practice and seek guidance from resources such as grammar books, online courses, or language exchange programs.\n      Score: 5',
+        },
+        'Lexical Resource': {
+          score: 5,
+          text: "\n      Score: 5\n      The student's answer demonstrates a good level of resourcefulness and flexibility. They were able to discuss a variety of topics, including their favorite shopping center, Safe Mall, and their reasons for liking it. While there were some inappropriacies in word choice and collocation, the meaning was generally clear. The student showed some ability to paraphrase successfully, although there were occasional errors. Overall, the student's response demonstrates a sufficient level of vocabulary to discuss familiar and unfamiliar topics, although there is still room for improvement.\n      \n      Feedback:\n      The student's answer demonstrates a good level of resourcefulness and flexibility. They were able to discuss a variety of topics, including their favorite shopping center, Safe Mall, and their reasons for liking it. While there were some inappropriacies in word choice and collocation, the meaning was generally clear. The student showed some ability to paraphrase successfully, although there were occasional errors. Overall, the student's response demonstrates a sufficient level of vocabulary to discuss familiar and unfamiliar topics, although there is still room for improvement. To enhance their score, the student should focus on improving their word choice and collocation, as well as their ability to paraphrase effectively. They can also try to expand their vocabulary by learning new words and phrases that are relevant to their interests and everyday life. Additionally, practicing speaking with native speakers or joining language exchange groups can help them improve their fluency and pronunciation.",
+        },
+      },
+      {
+        score: 6,
+        'Fluency & Coherence': {
+          score: 6,
+          text: "\n      Score: 6\n      The student's response demonstrates a good level of fluency and coherence. They were able to keep going and produce long turns without noticeable effort. While there were some hesitation, repetition, and/or self-correction, these did not significantly affect coherence. The student used a range of spoken discourse markers, connectives, and cohesive features, though not always appropriately.\n      The student demonstrated a willingness to produce long turns and a good understanding of the topic. However, there were some areas where they could improve, such as more complex sentence construction and the use of a wider range of vocabulary. Overall, the student's response was satisfactory and demonstrated a good level of fluency and coherence.\n      Feedback:\n      The student's response shows a good level of fluency and coherence. They were able to keep going and produce long turns without noticeable effort. While there were some hesitation, repetition, and/or self-correction, these did not significantly affect coherence. The student used a range of spoken discourse markers, connectives, and cohesive features, though not always appropriately.\n      The student demonstrated a willingness to produce long turns and a good understanding of the topic. However, there were some areas where they could improve, such as more complex sentence construction and the use of a wider range of vocabulary. Overall, the student's response was satisfactory and demonstrated a good level of fluency and coherence.",
+        },
+        Pronunciation: {
+          score: 8,
+          text: 'There are no pronunciation mistakes.',
+        },
+        'Grammatical Range & Accuracy': {
+          score: 5,
+          text: '\n      Score: 5\n      The student produced a response with a mix of short and complex sentence forms and a variety of structures with limited flexibility. While there were errors in complex structures, they did not significantly impede communication. The student demonstrated basic control over sentence forms and produced some error-free sentences. The use of subordinate clauses was limited, and turns were short. However, the repetition of structures and frequent errors limited the overall effectiveness of the response.\n      \n      Feedback: The student needs to work on expanding their range of structures and improving their accuracy in complex sentence formation. They should focus on incorporating more complex sentence structures and reducing the frequency of errors. Additionally, practicing longer turns and incorporating a wider variety of sentence patterns can help enhance their grammatical proficiency.\n      \n      In terms of specific areas for improvement, the student should pay attention to the accuracy of complex sentence structures, including the use of subordinate clauses and coordination. They should also work on reducing the repetition of structures and improving the overall coherence and flow of their response.\n      \n      Overall, the student has made progress in their English language skills, but there is still room for improvement in terms of grammatical accuracy and fluency. With continued practice and guidance, they can further develop their English language abilities and achieve their desired score on the IELTS exam.',
+        },
+        'Lexical Resource': {
+          score: 5,
+          text: '\n      Score: 5\n      The student\'s response demonstrates a good level of resourcefulness and flexibility. They use a variety of words, including some less common ones, to convey their message effectively. While there are occasional errors in word choice and collocation, the overall meaning is clear. The student demonstrates some ability to paraphrase and uses appropriate language to respond to the question.\n      \n      Feedback:\n      The student has shown good command of vocabulary and can express their ideas effectively. However, there are a few areas where they can improve. Firstly, be more cautious with word choice, as some of the words used are not quite appropriate for the context. For example, "unnecessary things" could be replaced with "unimportant things" or "wasted resources" to make the sentence more concise and clear. Additionally, the use of the word "Don\'t" in the prompt is incorrect, so it\'s advisable to omit it. Finally, the student\'s response is a bit brief, and they could expand on their ideas to provide a more comprehensive answer. Overall, a solid effort with room for improvement.\n      \n      Score: 6\n      The student\'s response demonstrates a decent level of resourcefulness and flexibility. They use a variety of words, including some less common ones, to convey their message effectively. However, there are some areas where they can improve. Firstly, be more consistent with word choice and collocation. For example, "Yes, of course" and "Yes, I do think that" are repetitive and could be simplified to "Yes, I agree" or "I think so." Additionally, the use of the word "unnecessary" is not quite accurate, as it suggests that all spending is unnecessary. A more appropriate word would be "unimportant" or "wasted." Finally, the student\'s response is a bit brief, and they could expand on their ideas to provide a more comprehensive answer. Overall, a decent effort with room for improvement.\n      \n      Score: 7\n      The student\'s response demonstrates a good level of resourcefulness and flexibility. They use a variety of words, including some less common ones, to convey their message effectively. There are occasional errors in word choice and collocation, but the overall meaning is clear. The student demonstrates effective use of paraphrase and demonstrates a good understanding of the topic.\n      \n      Feedback:\n      The student has shown good command of vocabulary and can express their ideas effectively. However, there are a few areas where they can improve. Firstly, be more cautious with word choice, as some of the words used are not quite appropriate for the context. For example, "unnecessary things" could be replaced with "unimportant things" or "wasted resources" to make the sentence more concise and clear. Additionally, the use of the word "Don\'t" in the prompt is incorrect, so it\'s advisable to omit it. Finally, the student\'s response is a bit brief, and they could expand on their ideas to provide a more comprehensive answer. Overall, a solid effort with room for improvement.\n      \n      Score: 8\n      The student\'s response demonstrates a high level of resourcefulness and flexibility. They use a wide range of words, including some less common ones, to convey their message effectively. There are occasional errors in word choice and collocation, but the overall meaning is clear. The student demonstrates effective use of paraphrase and demonstrates a good understanding of the topic.\n      \n      Feedback:\n      The student has shown excellent command of vocabulary and can express their ideas effectively. There are very few errors in word choice and collocation, and the overall meaning is clear and concise. The student demonstrates effective use of paraphrase and demonstrates a good understanding of the topic. Additionally, the student\'s response is well-structured and organized, making it easy to follow. Overall, a superb effort that demonstrates a strong understanding of the language and the topic.\n      \n      Score: 9\n      The student\'s response demonstrates exceptional resourcefulness and flexibility. They use a wide range of words, including some less common ones, to convey their message effectively. There are no errors in word choice or collocation, and the overall meaning is clear and concise. The student demonstrates effective use of paraphrase and demonstrates a deep understanding of the topic.\n      \n      Feedback:\n      The student has shown exceptional command of vocabulary and can express their ideas effectively. There are no errors in word choice or collocation, and the overall meaning is clear and concise. The student demonstrates effective use of paraphrase and demonstrates a deep understanding of the topic. Additionally, the student\'s response is well-structured and organized, making it easy to follow. Overall, a truly outstanding effort that demonstrates a profound understanding of the language and the topic.',
+        },
+      },
     ],
-    start_time: 1717941741782,
+    start_time: 1719400696566,
     status: 'Submitted',
   },
 };
