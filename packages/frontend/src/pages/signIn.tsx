@@ -23,7 +23,7 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if (authInfo.authSession !== undefined) {
+    if (authInfo.authSession !== null) {
       redirectBack();
     }
   }, []);

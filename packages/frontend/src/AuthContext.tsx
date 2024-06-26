@@ -35,7 +35,7 @@ const getAuthInfo = async (): Promise<PartialAuthInfo> => {
     return { authSession, user };
   } catch (err: any) {
     if (err?.name === 'UserUnAuthenticatedException') {
-      return {};
+      return { user: null, authSession: null };
     }
     throw err;
   }
