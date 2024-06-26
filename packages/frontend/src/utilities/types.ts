@@ -80,7 +80,8 @@ export type SpeakingError = {
     | 'Missing audio file or question'
     | 'Upload Bucket Not Found'
     | 'Failed to start transcription'
-    | 'Failed to retrieve the transcript';
+    | 'Failed to retrieve the transcript'
+    | 'Unknown error';
 };
 
 export type RLError = {
