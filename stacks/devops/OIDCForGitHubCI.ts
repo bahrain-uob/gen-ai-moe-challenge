@@ -8,7 +8,7 @@ export function OIDCForGitHubCI({ stack }: StackContext) {
     clientIds: ['sts.amazonaws.com'],
   });
 
-  const organization = 'bahrain-uob'; // Use your GitHub organization
+  const organization = 'xquitqx'; // Use your GitHub organization
   const repository = 'gen-ai-moe-challenge'; // Use your GitHub repository
 
   new iam.Role(stack, 'GitHubActionsRole', {
