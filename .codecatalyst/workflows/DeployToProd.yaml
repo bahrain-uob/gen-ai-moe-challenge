@@ -35,7 +35,4 @@ Actions:
     Compute:
       Type: EC2
     Environment:
-      Connections:
-        - Role: CodeCatalystWorkflowDevelopmentRole-AWS-CIC-23-24-Test
-          Name: "888641773886"
       Name: Prod
