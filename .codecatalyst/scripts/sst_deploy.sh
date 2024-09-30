@@ -3,8 +3,7 @@ echo "Jamal You are here!"
 echo "Deploying project"
 
 # Install Node.js 18.x (skip if already installed)
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-apt-get install -y nodejs
+nvm install
 
 # Check Node.js version to ensure the correct version is installed
 node -v
