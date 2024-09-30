@@ -1,4 +1,6 @@
 Name: DeployToProd
+Compute:
+  Type: EC2
 SchemaVersion: "1.0"
 
 # Optional - Set automatic triggers.
