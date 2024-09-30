@@ -31,8 +31,5 @@ Actions:
       Steps:
         - Run: chmod +x ./.codecatalyst/scripts/sst_deploy.sh
         - Run: ./.codecatalyst/scripts/sst_deploy.sh
-      Container:
-        Registry: CODECATALYST
-        Image: CodeCatalystLinux_x86_64:2024_03
     Environment:
       Name: Prod
