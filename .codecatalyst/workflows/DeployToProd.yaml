@@ -29,10 +29,7 @@ Actions:
     Configuration:
       # Required - Steps are sequential instructions that run shell commands
       Steps:
-        - Run: sudo yum install -y gcc-c++ make
-        - Run: curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
-        - Run: sudo yum install -y nodejs
-        - Run: npm install
+        - Run: nvm use 18
         - Run: chmod +x ./.codecatalyst/scripts/sst_deploy.sh
         - Run: ./.codecatalyst/scripts/sst_deploy.sh
     Environment:
