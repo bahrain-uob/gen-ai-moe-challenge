@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
+echo "Jamal You are here!"
 echo "Deploying project"
 
-source ~/.bashrc
+# Install Node.js 18.x (skip if already installed)
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt-get install -y nodejs
+
+# Check Node.js version to ensure the correct version is installed
+node -v
+
+# Source the bashrc if it exists
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+else
+    echo "~/.bashrc not found, skipping"
+fi
+
 nohup dockerd &
 docker version
 npm install
