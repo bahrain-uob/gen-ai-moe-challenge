@@ -30,7 +30,6 @@ Actions:
       # Required - Steps are sequential instructions that run shell commands
       Steps:
         - Run: touch /root/.bashrc
-        - Run: npm audit fix
         - Run: chmod +x ./.codecatalyst/scripts/sst_deploy.sh
         - Run: ./.codecatalyst/scripts/sst_deploy.sh
     Environment:
