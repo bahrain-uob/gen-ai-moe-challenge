@@ -100,6 +100,14 @@ export function ApiStack({ stack }: StackContext) {
           environment: { Polly_Bucket: Polly_bucket.bucketName },
         },
       },
+      // adding a post method for updating the user profile
+      'POST /addPlan': {
+        function: {
+          handler: 'packages/functions/src/updateplan.main',
+          permissions: ['dynamodb:*'],
+          timeout: '60 seconds',
+        },
+      },
       'GET /startTest/{testType}': 'packages/functions/src/startTest.main',
       'GET /Listening/audio': {
         function: {

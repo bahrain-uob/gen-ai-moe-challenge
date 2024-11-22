@@ -1,17 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Option, Question } from './PlacementTest';
 import { sections as questions } from './Questions';
 import { Link } from 'react-router-dom';
 import FButton from '../components/FButton';
 import TButton from '../components/TButton';
+import { post } from 'aws-amplify/api';
+import { toJSON } from '../utilities';
 
-/**
- * What increments to use for each level
- *
- * First key specifies whether the student answered correctly or not. Second key specifies the question level.
- *
- *
- */
 const knowledgeBase = {
   correct: {
     A1: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
@@ -36,9 +31,9 @@ type CFRLevel = (typeof CFRLevels)[number];
 
 export const PLTestPage = () => {
   const [showDev, setShowDev] = useState(false);
-
   const [cf, setCf] = useState([0, 0, 0, 0, 0, 0]);
   const [questionCount, setQuestionCount] = useState(0);
+  const [resultHandled, setResultHandled] = useState(false);
   const selectedLevel = selectLevel(cf);
   const [level, question] = getRandomQuestion(selectedLevel);
 
@@ -47,16 +42,58 @@ export const PLTestPage = () => {
   const handleClick = (option: Option) => {
     console.log(`correct: ${option.isCorrect}`);
     const CFRL = CFRLevels[selectedLevel] as CFRLevel;
-    const t1 = option.isCorrect ? knowledgeBase.correct : knowledgeBase.incorrect;
+    const t1 = option.isCorrect
+      ? knowledgeBase.correct
+      : knowledgeBase.incorrect;
     const increments = t1[CFRL];
 
-    const cfCopy = increments.map((value, index) => combineCf(value, cf[index]));
+    const cfCopy = increments.map((value, index) =>
+      combineCf(value, cf[index]),
+    );
 
     setCf(cfCopy);
     setQuestionCount(prevCount => prevCount + 1);
   };
 
   const highestScoringLevel = getHighestScoringLevel(cf);
+
+  const handleResult = async () => {
+    console.log('handleResult function started');
+
+    const highestScoringLevel = getHighestScoringLevel(cf); // Get the highest scoring level
+    console.log('Highest scoring level:', highestScoringLevel);
+
+    try {
+      const response = await toJSON(
+        post({
+          apiName: 'myAPI',
+          path: '/addPlan',
+          options: {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: {
+              planType: 'vocab',
+              level: highestScoringLevel, // Include the level in the request body
+            },
+          },
+        }),
+      );
+
+      console.log('Response from Lambda:', response);
+    } catch (error) {
+      console.error('There was a problem with the API operation:', error);
+    }
+
+    setResultHandled(true); // Mark result as handled
+  };
+
+  useEffect(() => {
+    if (!resultHandled && questionCount >= 20) {
+      handleResult();
+    }
+  }, [resultHandled, questionCount]);
 
   return (
     <>
@@ -68,7 +105,9 @@ export const PLTestPage = () => {
               <DevPanel cf={cf} question={question} level={level} />
             </div>
             <div className="w-full flex justify-center pb-36">
-              <h1 className="text-5xl font-bold text-[#363534]">Placement Test</h1>
+              <h1 className="text-5xl font-bold text-[#363534]">
+                Placement Test
+              </h1>
             </div>
             <RenderQuestion question={question} handleClick={handleClick} />
           </main>
@@ -76,19 +115,29 @@ export const PLTestPage = () => {
       ) : (
         <main className="w-full h-full flex items-center flex-col">
           <div className="w-1/2 flex flex-col items-center">
-            <h3 className="font-bold text-4xl pb-12 max-sm:text-2xl">You are all set!</h3>
+            <h3 className="font-bold text-4xl pb-12 max-sm:text-2xl">
+              You are all set!
+            </h3>
           </div>
           <div className="w-1/2 flex flex-col items-center">
-            <div className='w-full'><h4 className='text-2xl font-semibold max-sm:text-lg'>Your current level is</h4></div>
+            <div className="w-full">
+              <h4 className="text-2xl font-semibold max-sm:text-lg">
+                Your current level is
+              </h4>
+            </div>
             <img
               src={`assets/Levels/${highestScoringLevel}.png`}
               alt={highestScoringLevel}
-              className='w-60 pt-8'
+              className="w-60 pt-8"
             />
           </div>
-          <div className='flex flex-row w-full justify-center items-center pt-36 gap-x-14'>
-            <Link to="/home"><FButton label="View Plan" tag="3B828E"/></Link>
-            <Link to="/home"><TButton label='Return Home'/></Link>
+          <div className="flex flex-row w-full justify-center items-center pt-36 gap-x-14">
+            <Link to="/home">
+              <FButton label="View Plan" tag="3B828E" />
+            </Link>
+            <Link to="/home">
+              <TButton label="Return Home" />
+            </Link>
           </div>
         </main>
       )}
@@ -107,8 +156,12 @@ const RenderQuestion = ({
 }) => (
   <div className="w-3/4 flex flex-col items-center max-sm:w-full">
     <div className="w-full">
-      <h3 className="font-bold text-4xl pb-12 mx-10 max-sm:text-2xl">{question.text}</h3>
-      <h5 className="font-bold text-2xl pb-12 mx-10 max-sm:text-lg">{question.sub}</h5>
+      <h3 className="font-bold text-4xl pb-12 mx-10 max-sm:text-2xl">
+        {question.text}
+      </h3>
+      <h5 className="font-bold text-2xl pb-12 mx-10 max-sm:text-lg">
+        {question.sub}
+      </h5>
     </div>
     <div className="flex flex-row w-full flex-wrap justify-between">
       {question.options.map(option => {
@@ -149,7 +202,9 @@ const DevPanel = ({
   question: Question;
   level: number;
 }) => {
-  const correctAnswer = question.options.findIndex(({ isCorrect }) => isCorrect);
+  const correctAnswer = question.options.findIndex(
+    ({ isCorrect }) => isCorrect,
+  );
 
   return (
     <>
