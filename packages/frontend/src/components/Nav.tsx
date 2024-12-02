@@ -99,7 +99,7 @@ const MobileMenu = ({
           </button>
           {links}
           <button className={`${itemStyle} mt-auto`}>
-            <span>Sign out</span>
+            <span>Sign In?</span>
             <BsBoxArrowRight className="ml-auto" />
           </button>
         </div>
@@ -126,16 +126,15 @@ const ProfileMenu: React.FC<{ user: AuthInfo['user'] }> = ({ user }) => {
         <Link className={linkStyling} to="../profilePage">
           <div>View Profile</div>
         </Link>
-      )}
-      {user === undefined ? (
+      )  }
+      {user && (<Link className={linkStyling} to="sign-out">
+          <div>Sign Out</div>
+        </Link>)}
+      {user == undefined && (
         <Link className={linkStyling} to="sign-in">
           <div>Sign In</div>
         </Link>
-      ) : (
-        <Link className={linkStyling} to="sign-out">
-          <div>Sign Out</div>
-        </Link>
-      )}
+      ) }
     </>
   );
 

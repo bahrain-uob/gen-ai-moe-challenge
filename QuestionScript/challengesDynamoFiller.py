@@ -6,7 +6,7 @@ client = boto3.client('dynamodb', region_name='us-east-1')
 
 TransactItemss = [] # List of items to be added to the table
 indexes = {} # Dictionary to store the indexes of the questions which contains the list of sort keys of the questions for each type
-TableName = 'ahmed-codecatalyst-sst-app-Records'   # Channge the table name
+TableName = 'prod-codecatalyst-sst-app-Records'   # Channge the table name
 QuestionTypes = ["challenge-B2-writing", "challenge-B2-reading", "challenge-B2-listening", "challenge-B2-speaking"]
 
 questions = json.loads(open("./questionsNew.json", "r", encoding="utf8").read())

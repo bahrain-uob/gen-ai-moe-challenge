@@ -19,7 +19,7 @@ export default function SignIn() {
   };
 
   const handleToastClose = () => {
-    redirectBack();
+    window.location.href = "/home";
   };
 
   useEffect(() => {
@@ -35,9 +35,13 @@ export default function SignIn() {
          * https://docs.amplify.aws/react/build-a-backend/auth/enable-sign-up/#sign-in
          */
         if (user.nextStep.signInStep === 'DONE') {
+          handleToastClose()
+          
+          /*
           toast.success('Signed in successfully', {
             onClose: handleToastClose,
           });
+          */
         } else {
           console.log(
             `Not logged in.  Next step is ${user.nextStep.signInStep}`,

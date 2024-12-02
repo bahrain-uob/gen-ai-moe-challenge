@@ -1,4 +1,6 @@
 Name: DeployToProd
+Compute:
+  Type: EC2
 SchemaVersion: "1.0"
 
 # Optional - Set automatic triggers.
@@ -30,12 +32,13 @@ Actions:
         - Run: chmod +x ./.codecatalyst/scripts/sst_deploy.sh
         - Run: ./.codecatalyst/scripts/sst_deploy.sh
       Container:
-        Registry: ECR
-        Image: 297940647071.dkr.ecr.us-west-2.amazonaws.com/codecatalyst-support:amazonlinux23withgit-1.2.0-7
+        Registry: CODECATALYST
+        Image: CodeCatalystLinux_x86_64:2024_03
     Compute:
       Type: EC2
+      Fleet: Linux.x86-64.Large
     Environment:
       Connections:
-        - Role: CodeCatalystWorkflowDevelopmentRole-AWS-CIC-23-24-Test
-          Name: "888641773886"
+        - Role: CodeCatalystWorkflowDevelopmentRole-moe-ielts-phase2
+          Name: "664418980468"
       Name: Prod

@@ -115,7 +115,7 @@ export const main: APIGatewayProxyHandler = async event => {
    * Reduced the amount by 15%, accounting for breaks in speech
    */
   const speechSum = speechDuration(answer.items);
-  const speechPercentage = speechSum < 75 ? speechSum / 75 : 1;
+  const speechPercentage = speechSum < 1 ? speechSum / 75 : 1; // changed to 1 second. Original: const speechPercentage = speechSum < 75 ? speechSum / 75 : 1;
 
   // Extract scores from feedback results and calculate the average
   const scores: Array<number> = feedbackResults.map(feedback => {

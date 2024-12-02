@@ -88,6 +88,7 @@ export const gradeWritingPart = async (
   const _feedbacks = criterias.map(async criteria => {
     let prompt;
     if (writingTask === 'Task 1') {
+      console.log("Task 1 is sent")
       prompt = createPromptTask1(
         criteria,
         rubricTask1[criteria],
@@ -96,6 +97,7 @@ export const gradeWritingPart = async (
         answer,
       );
     } else {
+      console.log("Task 2 is sent")
       prompt = createPromptTask2(
         criteria,
         rubricTask2[criteria],

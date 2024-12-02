@@ -33,7 +33,6 @@ export default function SignUp() {
   }, []);
 
   const signUpHandler = () => {
-    console.log({ email, password, institution });
     signUp({
       username: email,
       password,

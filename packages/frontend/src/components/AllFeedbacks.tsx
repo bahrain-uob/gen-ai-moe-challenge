@@ -138,7 +138,9 @@ export const AllFeedbacks: React.FC = () => {
         screen === 'writing'
           ? data.fullItem?.writingAnswer?.feedback
           : data.fullItem?.speakingAnswer?.feedback;
-      if (!feedback) break;
+      if (!feedback){
+        console.log('Writing Feedback:', data.fullItem?.writingAnswer?.feedback);
+        break;}
 
       out = (
         <Layout>

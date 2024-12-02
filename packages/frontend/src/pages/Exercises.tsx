@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { Link } from 'react-router-dom';
 
 const buttonLabels = [
   'Listening',
@@ -204,9 +205,11 @@ const Exercises: React.FC = () => {
             You need to take Initial Test!
           </h1>
           <ThemeProvider theme={buttonsTheme}>
-            <Button variant="contained" color="primary">
-              Take Test
-            </Button>
+            <Link to="/PlacementTest">
+              <Button variant="contained" color="primary">
+                Take Test
+              </Button>
+            </Link>
           </ThemeProvider>
         </div>
       ) : (
